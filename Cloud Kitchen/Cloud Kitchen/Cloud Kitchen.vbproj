@@ -94,6 +94,7 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="Admin\AddFoodItems.aspx" />
     <Content Include="Additional Files\WebForm5.aspx" />
     <Content Include="Additional Files\WebForm6.aspx" />
