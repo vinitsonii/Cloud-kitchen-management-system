@@ -1,0 +1,502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Cloud_Kitchen</RootNamespace>
+    <AssemblyName>Cloud Kitchen</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MyType>Custom</MyType>
+    <UseIISExpress>false</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Cloud Kitchen.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Cloud Kitchen.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Collections.Specialized" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Text" />
+    <Import Include="System.Text.RegularExpressions" />
+    <Import Include="System.Web" />
+    <Import Include="System.Web.Caching" />
+    <Import Include="System.Web.SessionState" />
+    <Import Include="System.Web.Security" />
+    <Import Include="System.Web.Profile" />
+    <Import Include="System.Web.UI" />
+    <Import Include="System.Web.UI.WebControls" />
+    <Import Include="System.Web.UI.WebControls.WebParts" />
+    <Import Include="System.Web.UI.HtmlControls" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\AddFoodItems.aspx" />
+    <Content Include="Additional Files\WebForm5.aspx" />
+    <Content Include="Additional Files\WebForm6.aspx" />
+    <Content Include="Additional Files\WebForm7.aspx" />
+    <Content Include="Admin\ManageCC.aspx" />
+    <Content Include="Admin\Reports.aspx" />
+    <Content Include="Admin\ManageOrders.aspx" />
+    <Content Include="Admin\ManageCC1.aspx" />
+    <Content Include="Admin\Contact_Msg.aspx" />
+    <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Additional Files\cartbackup.htm" />
+    <Content Include="Additional Files\WebForm10.aspx" />
+    <Content Include="Admin\ManageArea.aspx" />
+    <Content Include="App_Data\Database1.mdf" />
+    <Content Include="App_Data\Database1_log.ldf">
+      <DependentUpon>Database1.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\Database2.mdf" />
+    <Content Include="App_Data\Database2_log.ldf">
+      <DependentUpon>Database2.mdf</DependentUpon>
+    </Content>
+    <Content Include="Customers\Login.aspx" />
+    <Content Include="Customers\Logout.aspx" />
+    <Content Include="Customers\Register.aspx" />
+    <Content Include="Customers\Menu.aspx" />
+    <Content Include="Customers\Cart.aspx" />
+    <Content Include="Customers\OrderConfirmation.aspx" />
+    <Content Include="Customers\MyOrders.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="icons\a1.png" />
+    <Content Include="icons\a2.png" />
+    <Content Include="icons\a3.png" />
+    <Content Include="icons\a4.png" />
+    <Content Include="icons\add.png" />
+    <Content Include="icons\addi.png" />
+    <Content Include="icons\arrow-down.png" />
+    <Content Include="icons\burger.png" />
+    <Content Include="icons\c1.png" />
+    <Content Include="icons\c2.png" />
+    <Content Include="icons\c3.png" />
+    <Content Include="icons\cal1.png" />
+    <Content Include="icons\call1.png" />
+    <Content Include="icons\cart1.png" />
+    <Content Include="icons\cart2.png" />
+    <Content Include="icons\cartt.png" />
+    <Content Include="icons\carttt.png" />
+    <Content Include="icons\chef1.png" />
+    <Content Include="icons\close.png" />
+    <Content Include="icons\close1.png" />
+    <Content Include="icons\cod.png" />
+    <Content Include="icons\comm1.png" />
+    <Content Include="icons\comm2.png" />
+    <Content Include="icons\complete.png" />
+    <Content Include="icons\dashboard.png" />
+    <Content Include="icons\dashh.png" />
+    <Content Include="icons\edit.png" />
+    <Content Include="icons\em1.png" />
+    <Content Include="icons\em2.png" />
+    <Content Include="icons\em3.png" />
+    <Content Include="icons\em4.png" />
+    <Content Include="icons\em5.png" />
+    <Content Include="icons\empty1.png" />
+    <Content Include="icons\facebook.png" />
+    <Content Include="icons\fb1.png" />
+    <Content Include="icons\historyy.png" />
+    <Content Include="icons\HISTORYYYYYY.png" />
+    <Content Include="icons\icons8-one-94.png" />
+    <Content Include="icons\loc1.png" />
+    <Content Include="icons\loc2.png" />
+    <Content Include="icons\manageitem.png" />
+    <Content Include="icons\open.png" />
+    <Content Include="icons\ordersman.png" />
+    <Content Include="icons\ordersmana.png" />
+    <Content Include="icons\pen.png" />
+    <Content Include="icons\rep1.png" />
+    <Content Include="icons\rep2.png" />
+    <Content Include="icons\sb.png" />
+    <Content Include="icons\money.png" />
+    <Content Include="icons\moneyy.png" />
+    <Content Include="icons\order.png" />
+    <Content Include="icons\orderr.png" />
+    <Content Include="icons\payment.png" />
+    <Content Include="icons\rupee.png" />
+    <Content Include="icons\status.png" />
+    <Content Include="icons\total.png" />
+    <Content Include="icons\tr.png" />
+    <Content Include="icons\track.png" />
+    <Content Include="icons\twitter1.png" />
+    <Content Include="icons\login.png" />
+    <Content Include="icons\ig1.png" />
+    <Content Include="icons\ig2.png" />
+    <Content Include="icons\insta.png" />
+    <Content Include="icons\list.png" />
+    <Content Include="icons\location1.png" />
+    <Content Include="icons\location2.gif" />
+    <Content Include="icons\logo.gif" />
+    <Content Include="icons\logout.png" />
+    <Content Include="icons\logout1.png" />
+    <Content Include="icons\logout3.png" />
+    <Content Include="icons\mail.png" />
+    <Content Include="icons\menu.png" />
+    <Content Include="icons\menu1.png" />
+    <Content Include="icons\orders.png" />
+    <Content Include="icons\refreshments.png" />
+    <Content Include="icons\reports.png" />
+    <Content Include="icons\settings.png" />
+    <Content Include="icons\twitter.png" />
+    <Content Include="icons\url.png" />
+    <Content Include="icons\user3.png" />
+    <Content Include="icons\user4.png" />
+    <Content Include="icons\users.png" />
+    <Content Include="icons\users1.png" />
+    <Content Include="Additional Files\WebForm2.aspx" />
+    <Content Include="App_Data\MyKitchenn.mdf" />
+    <Content Include="App_Data\MyKitchenn_log.ldf">
+      <DependentUpon>MyKitchenn.mdf</DependentUpon>
+    </Content>
+    <Content Include="Customers\Home.aspx" />
+    <Content Include="icons\yt1.png" />
+    <Content Include="Images\bg-hero.jpg" />
+    <Content Include="Images\c10.jpeg" />
+    <Content Include="Images\cp1.jpeg" />
+    <Content Include="Images\cp3.jpeg" />
+    <Content Include="Images\cp4.jpeg" />
+    <Content Include="Images\cp5.jpeg" />
+    <Content Include="Images\cp6.jpeg" />
+    <Content Include="Images\cp7.jpeg" />
+    <Content Include="Images\cp8.jpeg" />
+    <Content Include="Images\cp9.jpeg" />
+    <Content Include="Images\gallery-2.jpg" />
+    <Content Include="Images\gallery-3.jpg" />
+    <Content Include="Images\gallery-4.jpg" />
+    <Content Include="Images\hero-bg1.jpg" />
+    <Content Include="Images\img1.jpg" />
+    <Content Include="Images\img2.jpg" />
+    <Content Include="Images\img3.jpg" />
+    <Content Include="Images\img4.jpg" />
+    <Content Include="Images\img5.jpg" />
+    <Content Include="Images\img9.jpg" />
+    <Content Include="Images\lb10.jpeg" />
+    <Content Include="Images\lb4.jpeg" />
+    <Content Include="Images\lb5.jpeg" />
+    <Content Include="Images\lb6.jpeg" />
+    <Content Include="Images\lb7.jpeg" />
+    <Content Include="Images\lb8.jpeg" />
+    <Content Include="Images\lb9.jpeg" />
+    <Content Include="Images\hero-bg.jpg" />
+    <Content Include="Images\menubg.jpg" />
+    <Content Include="Images\Menu\Mumbai Street Toastie _ Marion%27s Kitchen.jpeg" />
+    <Content Include="Images\Menu\Pizza.jpeg" />
+    <Content Include="Images\Menu\Plain Dosa Recipe - Authentic Taste - Khaddoroshik.jpeg" />
+    <Content Include="Images\s1.jpeg" />
+    <Content Include="Images\s2.jpeg" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\AddFoodItems.aspx.designer.vb">
+      <DependentUpon>AddFoodItems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddFoodItems.aspx.vb">
+      <DependentUpon>AddFoodItems.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Admin.Master.designer.vb">
+      <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Admin.Master.vb">
+      <DependentUpon>Admin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Additional Files\WebForm2.aspx.designer.vb">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Additional Files\WebForm2.aspx.vb">
+      <DependentUpon>WebForm2.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Additional Files\WebForm5.aspx.designer.vb">
+      <DependentUpon>WebForm5.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Additional Files\WebForm5.aspx.vb">
+      <DependentUpon>WebForm5.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Additional Files\WebForm6.aspx.designer.vb">
+      <DependentUpon>WebForm6.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Additional Files\WebForm6.aspx.vb">
+      <DependentUpon>WebForm6.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Additional Files\WebForm7.aspx.designer.vb">
+      <DependentUpon>WebForm7.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Additional Files\WebForm7.aspx.vb">
+      <DependentUpon>WebForm7.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageCC.aspx.designer.vb">
+      <DependentUpon>ManageCC.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageCC.aspx.vb">
+      <DependentUpon>ManageCC.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Reports.aspx.designer.vb">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Reports.aspx.vb">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageOrders.aspx.designer.vb">
+      <DependentUpon>ManageOrders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageOrders.aspx.vb">
+      <DependentUpon>ManageOrders.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageCC1.aspx.designer.vb">
+      <DependentUpon>ManageCC1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageCC1.aspx.vb">
+      <DependentUpon>ManageCC1.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Contact_Msg.aspx.designer.vb">
+      <DependentUpon>Contact_Msg.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Contact_Msg.aspx.vb">
+      <DependentUpon>Contact_Msg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Dashboard.aspx.designer.vb">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Dashboard.aspx.vb">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Additional Files\WebForm10.aspx.designer.vb">
+      <DependentUpon>WebForm10.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Additional Files\WebForm10.aspx.vb">
+      <DependentUpon>WebForm10.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageArea.aspx.designer.vb">
+      <DependentUpon>ManageArea.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageArea.aspx.vb">
+      <DependentUpon>ManageArea.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Customers\Customer.Master.designer.vb">
+      <DependentUpon>Customer.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Customers\Customer.Master.vb">
+      <DependentUpon>Customer.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customers\Home.aspx.designer.vb">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customers\Home.aspx.vb">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customers\Login.aspx.designer.vb">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customers\Login.aspx.vb">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Customers\Logout.aspx.designer.vb">
+      <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customers\Logout.aspx.vb">
+      <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Customers\CookieHelper.vb" />
+    <Compile Include="Customers\Register.aspx.designer.vb">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customers\Register.aspx.vb">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Customers\Menu.aspx.designer.vb">
+      <DependentUpon>Menu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customers\Menu.aspx.vb">
+      <DependentUpon>Menu.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Customers\Cart.aspx.designer.vb">
+      <DependentUpon>Cart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customers\Cart.aspx.vb">
+      <DependentUpon>Cart.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Customers\OrderConfirmation.aspx.designer.vb">
+      <DependentUpon>OrderConfirmation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customers\OrderConfirmation.aspx.vb">
+      <DependentUpon>OrderConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Customers\MyOrders.aspx.designer.vb">
+      <DependentUpon>MyOrders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customers\MyOrders.aspx.vb">
+      <DependentUpon>MyOrders.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.vb">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\MyExtensions\MyWebExtension.vb">
+      <VBMyExtensionTemplateID>Microsoft.VisualBasic.Web.MyExtension</VBMyExtensionTemplateID>
+      <VBMyExtensionTemplateVersion>1.0.0.0</VBMyExtensionTemplateVersion>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Customers\Customer.Master" />
+    <Content Include="Admin\Admin.Master" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="logs\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50130</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,76 @@
+23-03-2025 21:05:32 - Excel HTML Export Error: Thread was being aborted.
+23-03-2025 21:06:15 - Excel HTML Export Error: Thread was being aborted.
+23-03-2025 21:08:48 - Excel HTML Export Error: Thread was being aborted.
+23-03-2025 21:09:56 - Excel HTML Export Error: Thread was being aborted.
+23-03-2025 21:13:19 - Excel HTML Export Error: Thread was being aborted.
+Stack Trace:    at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at Cloud_Kitchen.Reports.SendExcelResponse(String html, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 981
+   at Cloud_Kitchen.Reports.ExportToExcel(DataTable dt, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 750
+   at Cloud_Kitchen.Reports.btnExportExcel_Click(Object sender, EventArgs e) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 704
+
+23-03-2025 21:14:01 - Excel HTML Export Error: Thread was being aborted.
+Stack Trace:    at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at Cloud_Kitchen.Reports.SendExcelResponse(String html, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 981
+   at Cloud_Kitchen.Reports.ExportToExcel(DataTable dt, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 750
+   at Cloud_Kitchen.Reports.btnExportExcel_Click(Object sender, EventArgs e) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 704
+
+23-03-2025 21:16:09 - Excel HTML Export Error: Thread was being aborted.
+Stack Trace:    at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at Cloud_Kitchen.Reports.SendExcelResponse(String html, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 981
+   at Cloud_Kitchen.Reports.ExportToExcel(DataTable dt, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 750
+   at Cloud_Kitchen.Reports.btnExportExcel_Click(Object sender, EventArgs e) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 704
+
+24-03-2025 11:41:04 - Excel HTML Export Error: Thread was being aborted.
+Stack Trace:    at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at Cloud_Kitchen.Reports.SendExcelResponse(String html, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 981
+   at Cloud_Kitchen.Reports.ExportToExcel(DataTable dt, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 750
+   at Cloud_Kitchen.Reports.btnExportExcel_Click(Object sender, EventArgs e) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 704
+
+26-03-2025 15:45:46 - Excel HTML Export Error: Thread was being aborted.
+Stack Trace:    at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at Cloud_Kitchen.Reports.SendExcelResponse(String html, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 981
+   at Cloud_Kitchen.Reports.ExportToExcel(DataTable dt, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 750
+   at Cloud_Kitchen.Reports.btnExportExcel_Click(Object sender, EventArgs e) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 704
+
+29-03-2025 09:44:14 - Excel HTML Export Error: Thread was being aborted.
+Stack Trace:    at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at Cloud_Kitchen.Reports.SendExcelResponse(String html, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 981
+   at Cloud_Kitchen.Reports.ExportToExcel(DataTable dt, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 750
+   at Cloud_Kitchen.Reports.btnExportExcel_Click(Object sender, EventArgs e) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 704
+
+30-03-2025 12:54:53 - Excel HTML Export Error: Thread was being aborted.
+Stack Trace:    at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at Cloud_Kitchen.Reports.SendExcelResponse(String html, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 977
+   at Cloud_Kitchen.Reports.ExportToExcel(DataTable dt, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 746
+   at Cloud_Kitchen.Reports.btnExportExcel_Click(Object sender, EventArgs e) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 700
+
+31-03-2025 13:29:38 - Excel HTML Export Error: Thread was being aborted.
+Stack Trace:    at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at Cloud_Kitchen.Reports.SendExcelResponse(String html, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 977
+   at Cloud_Kitchen.Reports.ExportToExcel(DataTable dt, String reportType) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 746
+   at Cloud_Kitchen.Reports.btnExportExcel_Click(Object sender, EventArgs e) in R:\Cloud Kitchen\Cloud Kitchen\Admin\Reports.aspx.vb:line 700
+

@@ -1,0 +1,548 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="admin.master.vb" Inherits="Cloud_Kitchen.Admin" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="head1" runat="server">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+
+a[href*="somee"]{
+    display:none !important;
+}
+
+.somee-footer,
+[id*="somee-footer"],
+[class*="somee-footer"]{
+    display:none !important;
+}
+
+div[style*="background-color: #202020"][style*="bottom: 0px"]{
+    display:none !important;
+}
+
+div[onmouseover="S_ssac();"]{
+    display:none !important;
+}
+
+div[style="height: 65px;"]{
+    display:none !important;
+}
+
+html, body{
+    overflow-x:hidden;
+    margin-bottom:0 !important;
+    padding-bottom:0 !important;
+}
+
+</style>
+    <style type="text/css">
+        :root {
+            --primary-gradient: linear-gradient(135deg, #4A90E2, #1E3C72);
+            --primary-color: #4A90E2;
+            --secondary-color: #1E3C72;
+            --sidebar-hover: #355C7D;
+            --bg-light: #F9FAFB;
+            --text-light: #FFF;
+            --text-dark: #2C3E50;
+            --border-color: rgba(255, 255, 255, 0.2);
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+            --transition-speed: 0.3s;
+            --sidebar-width: 250px;
+            --header-height: 64px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        form {
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-gradient);
+            color: var(--text-light);
+            height: 100vh;
+            position: fixed;
+            inset: 0 auto 0 0;
+            z-index: 1000;
+            overflow-y: auto;
+            box-shadow: var(--box-shadow);
+            transition: transform var(--transition-speed) ease, width var(--transition-speed) ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+        }
+
+        .sidebar-header {
+            flex: 0 0 var(--header-height);
+            text-align: center;
+            padding: 1rem;
+            font-size: 1.35rem;
+            font-weight: 700;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.4px;
+        }
+
+        .sidebar-header .logo-small {
+            display: none;
+        }
+
+        .sidebar-nav {
+            flex: 1 1 auto;
+            padding: 8px 0 16px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            min-height: 48px;
+            padding: 0.85rem 1.35rem;
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            border-left: 3px solid transparent;
+            margin: 4px 0;
+            cursor: pointer;
+            transition: background var(--transition-speed) ease, border-color var(--transition-speed) ease, padding var(--transition-speed) ease;
+            position: relative;
+            gap: 0.8rem;
+        }
+
+        .nav-item:hover,
+        .nav-item:focus {
+            background: var(--sidebar-hover);
+            border-left-color: var(--text-light);
+            color: var(--text-light);
+            padding-left: 1.55rem;
+            outline: none;
+        }
+
+        .nav-item.active {
+            background: var(--sidebar-hover);
+            border-left-color: var(--text-light);
+        }
+
+        .nav-item img {
+            flex: 0 0 auto;
+            width: 20px;
+            height: 20px;
+            opacity: 0.95;
+            object-fit: contain;
+        }
+
+        .nav-item span:not(.badge) {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .submenu {
+            display: none;
+            background: rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+        }
+
+        .submenu .nav-item {
+            padding-left: 3rem;
+            font-size: 0.9rem;
+            min-height: 44px;
+        }
+
+        .submenu .nav-item:hover,
+        .submenu .nav-item:focus {
+            padding-left: 3.15rem;
+        }
+
+        .submenu .nav-item img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .nav-toggle {
+            margin-left: auto;
+            transition: transform var(--transition-speed) ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .nav-toggle.active {
+            transform: rotate(180deg);
+        }
+
+        .nav-toggle img {
+            width: 12px;
+            height: 12px;
+            filter: brightness(0) invert(1);
+            margin: 0;
+        }
+
+        .content {
+            min-height: 100vh;
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            overflow-x: hidden;
+            background: var(--bg-light);
+            padding: clamp(1rem, 2.5vw, 1.5rem);
+            transition: margin-left var(--transition-speed) ease, width var(--transition-speed) ease;
+        }
+
+        .content h1 {
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 1101;
+            width: 44px;
+            height: 44px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 24px;
+            height: 3px;
+            background: white;
+            margin: 5px auto;
+            border-radius: 999px;
+            transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+        }
+
+        .mobile-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(0, 0, 0, 0.45);
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+        }
+
+        .sidebar-footer {
+            flex: 0 0 auto;
+            width: 100%;
+            padding: 15px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-light);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .sidebar-footer p {
+            margin: 0;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            min-height: 20px;
+            padding: 3px 7px;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            background-color: #FF5757;
+            border-radius: 999px;
+            margin-left: 0.25rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn var(--transition-speed) ease;
+        }
+
+        @media (max-width: 1024px) {
+            :root {
+                --sidebar-width: 220px;
+            }
+
+            .nav-item {
+                padding-inline: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                width: min(82vw, 300px);
+                transform: translateX(-105%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay {
+                display: block;
+                pointer-events: none;
+            }
+
+            .sidebar-overlay.active {
+                pointer-events: auto;
+            }
+
+            .content {
+                margin-left: 0;
+                width: 100%;
+                min-height: 100vh;
+                padding: 72px 1rem 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                width: min(88vw, 320px);
+            }
+
+            .sidebar-header {
+                font-size: 1.15rem;
+            }
+
+            .nav-item {
+                padding: 0.95rem 1.2rem;
+            }
+
+            .submenu .nav-item {
+                padding-left: 2.6rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+    <script>
+        function toggleMenu(id) {
+            var submenu = document.getElementById(id);
+            var arrow = document.querySelector('[data-target="' + id + '"] .nav-toggle');
+
+            if (!submenu) return;
+
+            if (submenu.style.display === 'block') {
+                submenu.style.display = 'none';
+                if (arrow) arrow.classList.remove('active');
+            } else {
+                submenu.style.display = 'block';
+                if (arrow) arrow.classList.add('active');
+            }
+        }
+
+        function toggleSidebar() {
+            var sidebar = document.querySelector('.sidebar');
+            var overlay = document.querySelector('.sidebar-overlay');
+            var toggle = document.querySelector('.mobile-toggle');
+
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        function closeSidebar() {
+            var sidebar = document.querySelector('.sidebar');
+            var overlay = document.querySelector('.sidebar-overlay');
+            var toggle = document.querySelector('.mobile-toggle');
+
+            if (sidebar) sidebar.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
+            if (toggle) toggle.classList.remove('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var currentPage = window.location.pathname.split('/').pop();
+            var navItems = document.querySelectorAll('.nav-item');
+
+            navItems.forEach(function (item) {
+                var href = item.getAttribute('href');
+                if (href && href.indexOf(currentPage) !== -1) {
+                    item.classList.add('active');
+
+                    var parentSubmenu = item.closest('.submenu');
+                    if (parentSubmenu) {
+                        parentSubmenu.style.display = 'block';
+                        var toggleBtn = document.querySelector('[data-target="' + parentSubmenu.id + '"] .nav-toggle');
+                        if (toggleBtn) toggleBtn.classList.add('active');
+                    }
+                }
+            });
+
+            document.querySelectorAll('.sidebar a.nav-item').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    if (window.matchMedia('(max-width: 768px)').matches) {
+                        closeSidebar();
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <button type="button" class="mobile-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo-full">ADMIN PANEL</span>
+                <span class="logo-small">CK</span>
+            </div>
+
+            <div class="sidebar-nav">
+                <a href="Dashboard.aspx" class="nav-item">
+                    <img src="../icons/dashh.png" alt="dashboard" />
+                    <span>Dashboard</span>
+                </a>
+
+                <div class="nav-item" onclick="toggleMenu('menu-menu')" data-target="menu-menu">
+                    <img src="../icons/menu.png" alt="menu" />
+                    <span>Food Menu</span>
+                    <div class="nav-toggle">
+                        <img src="../icons/arrow-down.png" alt="toggle" />
+                    </div>
+                </div>
+
+                <div id="menu-menu" class="submenu">
+                    <a href="AddFoodItems.aspx" class="nav-item">
+                        <img src="../icons/addi.png" alt="add" />
+                        <span>Add Item</span>
+                    </a>
+                    <a href="ManageCC1.aspx" class="nav-item">
+                        <img src="../icons/manageitem.png" alt="edit" />
+                        <span>Edit Item</span>
+                    </a>
+                </div>
+
+                <div class="nav-item" onclick="toggleMenu('menu-orders')" data-target="menu-orders">
+                    <img src="../icons/orders.png" alt="orders" />
+                    <span>Orders</span><span class="badge"><asp:Label ID="lblorder" runat="server" ></asp:Label></span>
+                    <div class="nav-toggle">
+                        <img src="../icons/arrow-down.png" alt="toggle" />
+                    </div>
+                </div>
+
+                <div id="menu-orders" class="submenu">
+                    <a href="ManageOrders.aspx" class="nav-item">
+                        <img src="../icons/menu1.png" alt="edit" />
+                        <span>Manage Orders</span>
+                    </a>
+                </div>
+
+                <a href="ManageArea.aspx" class="nav-item">
+                    <img src="../icons/loc1.png" alt="edit" />
+                    <span>Manage Area</span>
+                </a>
+
+                <a href="Contact_Msg.aspx" class="nav-item">
+                    <img src="../icons/mail.png" alt="users" />
+                    <span>Messages</span>
+                    <span class="badge"><asp:Label ID="lblcnt" runat="server" ></asp:Label></span>
+                </a>
+
+                <a href="Reports.aspx" class="nav-item">
+                    <img src="../icons/reports.png" alt="reports" />
+                    <span>Reports</span>
+                </a>
+
+                <a href="../Customers/Logout.aspx" class="nav-item">
+                    <img src="../icons/logout.png" alt="logout" />
+                    <span>Logout</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <p>&copy; 2025 Cloud Kitchen</p>
+            </div>
+        </div>
+
+        <div class="content">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>

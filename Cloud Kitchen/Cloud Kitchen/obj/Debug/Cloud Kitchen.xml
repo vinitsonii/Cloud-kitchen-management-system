@@ -1,0 +1,2958 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Cloud Kitchen
+</name>
+</assembly>
+<members>
+<member name="T:Cloud_Kitchen.My.MyWebExtension">
+ <summary>
+ Module used to define the properties that are available in the My Namespace for Web projects.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:Cloud_Kitchen.My.MyWebExtension.Application">
+ <summary>
+ Returns information about the current application.
+ </summary>
+</member>
+<member name="P:Cloud_Kitchen.My.MyWebExtension.Computer">
+ <summary>
+ Returns information about the host computer.
+ </summary>
+</member>
+<member name="P:Cloud_Kitchen.My.MyWebExtension.User">
+ <summary>
+ Returns information for the current Web user.
+ </summary>
+</member>
+<member name="P:Cloud_Kitchen.My.MyWebExtension.Request">
+ <summary>
+ Returns Request object.
+ </summary>
+</member>
+<member name="P:Cloud_Kitchen.My.MyWebExtension.Response">
+ <summary>
+ Returns Response object.
+ </summary>
+</member>
+<member name="P:Cloud_Kitchen.My.MyWebExtension.Log">
+ <summary>
+ Returns the Asp log object.
+ </summary>
+</member>
+<member name="P:Cloud_Kitchen.My.MyWebExtension.WebServices">
+ <summary>
+ Provides access to WebServices added to this project.
+ </summary>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._ScriptManager1">
+<summary>
+ScriptManager1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._up3">
+<summary>
+up3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._hfMenuItemId3">
+<summary>
+hfMenuItemId3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._txtItemName3">
+<summary>
+txtItemName3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._rfvItemName">
+<summary>
+rfvItemName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._revFullName">
+<summary>
+revFullName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._ddlCategory3">
+<summary>
+ddlCategory3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._rfvCategory">
+<summary>
+rfvCategory control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._ddlCuisine3">
+<summary>
+ddlCuisine3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._rfvCuisine">
+<summary>
+rfvCuisine control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._fuImage3">
+<summary>
+fuImage3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._fn">
+<summary>
+fn control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._txtPrice3">
+<summary>
+txtPrice3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._rfvPrice">
+<summary>
+rfvPrice control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._rvPrice">
+<summary>
+rvPrice control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._txtDiscount3">
+<summary>
+txtDiscount3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._rvDiscount">
+<summary>
+rvDiscount control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._txtFinalPrice3">
+<summary>
+txtFinalPrice3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._txtDescription3">
+<summary>
+txtDescription3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._ddlAvailability3">
+<summary>
+ddlAvailability3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._ddlFeatured3">
+<summary>
+ddlFeatured3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._ddlStatus3">
+<summary>
+ddlStatus3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._btnSave3">
+<summary>
+btnSave3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._btnUpdate3">
+<summary>
+btnUpdate3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._btnCancel3">
+<summary>
+btnCancel3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._lblmsg3">
+<summary>
+lblmsg3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._txtSearch">
+<summary>
+txtSearch control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._ddlFilterCategory">
+<summary>
+ddlFilterCategory control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.AddFoodItems._rptMenuItems3">
+<summary>
+rptMenuItems3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Admin._head1">
+<summary>
+head1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Admin._head">
+<summary>
+head control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Admin._form1">
+<summary>
+form1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Admin._lblorder">
+<summary>
+lblorder control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Admin._lblcnt">
+<summary>
+lblcnt control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Admin._ContentPlaceHolder1">
+<summary>
+ContentPlaceHolder1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm5._ImageButton1">
+<summary>
+ImageButton1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm5._ScriptManager1">
+<summary>
+ScriptManager1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm5._UpdatePanel1">
+<summary>
+UpdatePanel1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm5._up1">
+<summary>
+up1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm5._hfCategoryId">
+<summary>
+hfCategoryId control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm5._txtCategoryName">
+<summary>
+txtCategoryName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm5._ddlCategoryStatus">
+<summary>
+ddlCategoryStatus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm5._lblmsg">
+<summary>
+lblmsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm5._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm5._btnUpdate">
+<summary>
+btnUpdate control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm5._btnCancel">
+<summary>
+btnCancel control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm5._rptcat">
+<summary>
+rptcat control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm6._ImageButton2">
+<summary>
+ImageButton2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm6._ScriptManager1">
+<summary>
+ScriptManager1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm6._UpdatePanel2">
+<summary>
+UpdatePanel2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm6._up2">
+<summary>
+up2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm6._hfCuisineId">
+<summary>
+hfCuisineId control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm6._txtCuisineName">
+<summary>
+txtCuisineName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm6._ddlCuisineStatus">
+<summary>
+ddlCuisineStatus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm6._lblmsg2">
+<summary>
+lblmsg2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm6._btnSave2">
+<summary>
+btnSave2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm6._btnUpdate2">
+<summary>
+btnUpdate2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm6._btnCancel2">
+<summary>
+btnCancel2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm6._rptcuisine">
+<summary>
+rptcuisine control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._ImageButton3">
+<summary>
+ImageButton3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._up3">
+<summary>
+up3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._hfMenuItemId3">
+<summary>
+hfMenuItemId3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._txtItemName3">
+<summary>
+txtItemName3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._ddlCategory3">
+<summary>
+ddlCategory3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._ddlCuisine3">
+<summary>
+ddlCuisine3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._fuImage3">
+<summary>
+fuImage3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._fn">
+<summary>
+fn control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._txtPrice3">
+<summary>
+txtPrice3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._txtDiscount3">
+<summary>
+txtDiscount3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._txtFinalPrice3">
+<summary>
+txtFinalPrice3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._txtDescription3">
+<summary>
+txtDescription3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._ddlAvailability3">
+<summary>
+ddlAvailability3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._ddlFeatured3">
+<summary>
+ddlFeatured3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._ddlStatus3">
+<summary>
+ddlStatus3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._btnSave3">
+<summary>
+btnSave3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._btnUpdate3">
+<summary>
+btnUpdate3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._btnCancel3">
+<summary>
+btnCancel3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._lblmsg3">
+<summary>
+lblmsg3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._txtSearch">
+<summary>
+txtSearch control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._ddlFilterCategory">
+<summary>
+ddlFilterCategory control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm7._rptMenuItems3">
+<summary>
+rptMenuItems3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._ScriptManager1">
+<summary>
+ScriptManager1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._UpdatePanel4">
+<summary>
+UpdatePanel4 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._ImageButton1">
+<summary>
+ImageButton1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._ImageButton2">
+<summary>
+ImageButton2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._UpdatePanel1">
+<summary>
+UpdatePanel1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._up1">
+<summary>
+up1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._hfCategoryId">
+<summary>
+hfCategoryId control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._txtCategoryName">
+<summary>
+txtCategoryName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._ddlCategoryStatus">
+<summary>
+ddlCategoryStatus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._lblmsg">
+<summary>
+lblmsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._btnUpdate">
+<summary>
+btnUpdate control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._btnCancel">
+<summary>
+btnCancel control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._rptcat">
+<summary>
+rptcat control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._UpdatePanel2">
+<summary>
+UpdatePanel2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._up2">
+<summary>
+up2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._hfCuisineId">
+<summary>
+hfCuisineId control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._txtCuisineName">
+<summary>
+txtCuisineName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._ddlCuisineStatus">
+<summary>
+ddlCuisineStatus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._lblmsg2">
+<summary>
+lblmsg2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._btnSave2">
+<summary>
+btnSave2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._btnUpdate2">
+<summary>
+btnUpdate2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._btnCancel2">
+<summary>
+btnCancel2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm8._rptcuisine">
+<summary>
+rptcuisine control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Reports._ddlReportType">
+<summary>
+ddlReportType control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Reports._RequiredFieldValidator1">
+<summary>
+RequiredFieldValidator1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Reports._txtStartDate">
+<summary>
+txtStartDate control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Reports._txtEndDate">
+<summary>
+txtEndDate control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Reports._btnGenerate">
+<summary>
+btnGenerate control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Reports._litTotalRecords">
+<summary>
+litTotalRecords control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Reports._litDateRange">
+<summary>
+litDateRange control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Reports._Label1">
+<summary>
+Label1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Reports._pnlNoData">
+<summary>
+pnlNoData control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Reports._gvReport">
+<summary>
+gvReport control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Reports._btnExportCSV">
+<summary>
+btnExportCSV control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Reports._btnPrint">
+<summary>
+btnPrint control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._litPendingOrders">
+<summary>
+litPendingOrders control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._litCompletedOrders">
+<summary>
+litCompletedOrders control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._litCancelledOrders">
+<summary>
+litCancelledOrders control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._litTotalOrders">
+<summary>
+litTotalOrders control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._ddlFilterStatus">
+<summary>
+ddlFilterStatus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._txtStartDate">
+<summary>
+txtStartDate control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._txtEndDate">
+<summary>
+txtEndDate control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._txtSearch">
+<summary>
+txtSearch control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._btnFilter">
+<summary>
+btnFilter control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._pnlNoOrders">
+<summary>
+pnlNoOrders control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._rptOrders">
+<summary>
+rptOrders control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._lnkFirst">
+<summary>
+lnkFirst control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._lnkPrevious">
+<summary>
+lnkPrevious control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._rptPagination">
+<summary>
+rptPagination control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._lnkNext">
+<summary>
+lnkNext control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm11._lnkLast">
+<summary>
+lnkLast control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._ScriptManager1">
+<summary>
+ScriptManager1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._UpdatePanel4">
+<summary>
+UpdatePanel4 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._up1">
+<summary>
+up1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._hfCategoryId">
+<summary>
+hfCategoryId control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._txtCategoryName">
+<summary>
+txtCategoryName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._revcatName">
+<summary>
+revcatName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._ddlCategoryStatus">
+<summary>
+ddlCategoryStatus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._lblmsg">
+<summary>
+lblmsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._btnUpdate">
+<summary>
+btnUpdate control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._btnCancel">
+<summary>
+btnCancel control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._rptcat">
+<summary>
+rptcat control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._up2">
+<summary>
+up2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._hfCuisineId">
+<summary>
+hfCuisineId control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._txtCuisineName">
+<summary>
+txtCuisineName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._RegularExpressionValidator1">
+<summary>
+RegularExpressionValidator1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._ddlCuisineStatus">
+<summary>
+ddlCuisineStatus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._lblmsg2">
+<summary>
+lblmsg2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._btnSave2">
+<summary>
+btnSave2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._btnUpdate2">
+<summary>
+btnUpdate2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._btnCancel2">
+<summary>
+btnCancel2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm9._rptcuisine">
+<summary>
+rptcuisine control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm12._litTotalCount">
+<summary>
+litTotalCount control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm12._litUnreadCount">
+<summary>
+litUnreadCount control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm12._ddlFilterStatus">
+<summary>
+ddlFilterStatus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm12._ddlSortOrder">
+<summary>
+ddlSortOrder control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm12._txtSearch">
+<summary>
+txtSearch control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm12._pnlNoMessages">
+<summary>
+pnlNoMessages control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm12._rptMessages">
+<summary>
+rptMessages control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm12._pnlPagination">
+<summary>
+pnlPagination control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm12._lnkPrevious">
+<summary>
+lnkPrevious control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm12._rptPagination">
+<summary>
+rptPagination control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm12._lnkNext">
+<summary>
+lnkNext control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Dashboard._lblTotalOrders">
+<summary>
+lblTotalOrders control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Dashboard._lblTotalRevenue">
+<summary>
+lblTotalRevenue control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Dashboard._lblActiveCustomers">
+<summary>
+lblActiveCustomers control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Dashboard._lblTopDish">
+<summary>
+lblTopDish control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Dashboard._rptPopular">
+<summary>
+rptPopular control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Dashboard._gvRecentOrders">
+<summary>
+gvRecentOrders control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Dashboard._hfChartData">
+<summary>
+hfChartData control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Dashboard._hfOrderStatusData">
+<summary>
+hfOrderStatusData control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._ScriptManager1">
+<summary>
+ScriptManager1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._litTotalAreas">
+<summary>
+litTotalAreas control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._litRecentAdditions">
+<summary>
+litRecentAdditions control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._litMessage">
+<summary>
+litMessage control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._btnAddNew">
+<summary>
+btnAddNew control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._txtSearch">
+<summary>
+txtSearch control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._btnSearch">
+<summary>
+btnSearch control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._btnClearSearch">
+<summary>
+btnClearSearch control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._hdnDeleteAreaId">
+<summary>
+hdnDeleteAreaId control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._rptArea">
+<summary>
+rptArea control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._pnlNoData">
+<summary>
+pnlNoData control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._Panel1">
+<summary>
+Panel1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._overlay">
+<summary>
+overlay control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._UpdatePanel1">
+<summary>
+UpdatePanel1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._pnlEditArea">
+<summary>
+pnlEditArea control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._litPanelTitle">
+<summary>
+litPanelTitle control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._hfAreaId">
+<summary>
+hfAreaId control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._txtArea">
+<summary>
+txtArea control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._rfvFullName">
+<summary>
+rfvFullName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._revFullName">
+<summary>
+revFullName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._txtPincode">
+<summary>
+txtPincode control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._rfvPincode">
+<summary>
+rfvPincode control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._revPincode">
+<summary>
+revPincode control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._lblmsg">
+<summary>
+lblmsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._btnSave">
+<summary>
+btnSave control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._btnUpdate">
+<summary>
+btnUpdate control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.ManageArea._btnCancel">
+<summary>
+btnCancel control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Customer._Head1">
+<summary>
+Head1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Customer._head">
+<summary>
+head control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Customer._form1">
+<summary>
+form1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Customer._ContentPlaceHolder1">
+<summary>
+ContentPlaceHolder1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm1._btnSearch">
+<summary>
+btnSearch control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm1._hiddenSearch">
+<summary>
+hiddenSearch control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm1._rptFeatured">
+<summary>
+rptFeatured control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm1._rptReadMessages">
+<summary>
+rptReadMessages control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm1._ScriptManager1">
+<summary>
+ScriptManager1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm1._UpdatePanel2">
+<summary>
+UpdatePanel2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm1._txtName">
+<summary>
+txtName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm1._txtEmail">
+<summary>
+txtEmail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm1._txtMessage">
+<summary>
+txtMessage control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm1._rfvMessage">
+<summary>
+rfvMessage control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm1._Label1">
+<summary>
+Label1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm1._btnSubmit">
+<summary>
+btnSubmit control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm3._ScriptManager1">
+<summary>
+ScriptManager1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm3._upnlLogin">
+<summary>
+upnlLogin control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm3._lblmsg">
+<summary>
+lblmsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm3._txtLoginEmail">
+<summary>
+txtLoginEmail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm3._rfvLoginEmail">
+<summary>
+rfvLoginEmail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm3._revLoginEmail">
+<summary>
+revLoginEmail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm3._txtLoginPass">
+<summary>
+txtLoginPass control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm3._rfvLoginPass">
+<summary>
+rfvLoginPass control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm3._chkRememberMe">
+<summary>
+chkRememberMe control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm3._btnLogin">
+<summary>
+btnLogin control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Logout._form1">
+<summary>
+form1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._ScriptManager2">
+<summary>
+ScriptManager2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._overlay">
+<summary>
+overlay control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._pnlmsg">
+<summary>
+pnlmsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._lblmsg1">
+<summary>
+lblmsg1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._lblmsg">
+<summary>
+lblmsg control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._txtFullName">
+<summary>
+txtFullName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._rfvFullName">
+<summary>
+rfvFullName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._txtEmail">
+<summary>
+txtEmail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._rfvEmail">
+<summary>
+rfvEmail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._revEmail">
+<summary>
+revEmail control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._lblEmailError">
+<summary>
+lblEmailError control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._txtCountryCode">
+<summary>
+txtCountryCode control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._txtPhone">
+<summary>
+txtPhone control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._rfvPhone">
+<summary>
+rfvPhone control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._lblPhoneError">
+<summary>
+lblPhoneError control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._txtPassword">
+<summary>
+txtPassword control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._rfvPassword">
+<summary>
+rfvPassword control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._revPassword">
+<summary>
+revPassword control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.WebForm4._btnRegister">
+<summary>
+btnRegister control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Menu._txtSearch">
+<summary>
+txtSearch control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Menu._ddlCategory">
+<summary>
+ddlCategory control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Menu._ddlCuisine">
+<summary>
+ddlCuisine control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Menu._rptMenuItems">
+<summary>
+rptMenuItems control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Menu._pnlempty">
+<summary>
+pnlempty control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._pnlfill">
+<summary>
+pnlfill control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._rptCartItems">
+<summary>
+rptCartItems control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._UpdatePanel2">
+<summary>
+UpdatePanel2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._lblTotalPrice">
+<summary>
+lblTotalPrice control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._txtAddress">
+<summary>
+txtAddress control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._rfvAddress">
+<summary>
+rfvAddress control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._ddlpincode">
+<summary>
+ddlpincode control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._rfvPincode">
+<summary>
+rfvPincode control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._ddlPaymentType">
+<summary>
+ddlPaymentType control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._rfvPaymentType">
+<summary>
+rfvPaymentType control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._ScriptManager1">
+<summary>
+ScriptManager1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._UpdatePanel1">
+<summary>
+UpdatePanel1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._Panel2">
+<summary>
+Panel2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._dvLoader">
+<summary>
+dvLoader control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._dvSuccess">
+<summary>
+dvSuccess control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._Label2">
+<summary>
+Label2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._lblTransaction">
+<summary>
+lblTransaction control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._Button1">
+<summary>
+Button1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._Timer1">
+<summary>
+Timer1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._up">
+<summary>
+up control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._label1">
+<summary>
+label1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._Panel1">
+<summary>
+Panel1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._txtCard1">
+<summary>
+txtCard1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._txtCard2">
+<summary>
+txtCard2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._txtCard3">
+<summary>
+txtCard3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._txtCard4">
+<summary>
+txtCard4 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._vsCardValidation">
+<summary>
+vsCardValidation control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._rfvCard">
+<summary>
+rfvCard control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._rfvCard2">
+<summary>
+rfvCard2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._rfvCard3">
+<summary>
+rfvCard3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._rfvCard4">
+<summary>
+rfvCard4 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._revCardNumber">
+<summary>
+revCardNumber control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._revCardNumber2">
+<summary>
+revCardNumber2 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._revCardNumber3">
+<summary>
+revCardNumber3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._revCardNumber4">
+<summary>
+revCardNumber4 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._txtExpiryMonth">
+<summary>
+txtExpiryMonth control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._rfvExpiryMonth">
+<summary>
+rfvExpiryMonth control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._revExpiryMonth">
+<summary>
+revExpiryMonth control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._txtExpiryYear">
+<summary>
+txtExpiryYear control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._rfvExpiryYear">
+<summary>
+rfvExpiryYear control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._revExpiryYear">
+<summary>
+revExpiryYear control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._txtCCV">
+<summary>
+txtCCV control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._rfvCCV">
+<summary>
+rfvCCV control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._revCCV">
+<summary>
+revCCV control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._txtCardName">
+<summary>
+txtCardName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._rfvCardName">
+<summary>
+rfvCardName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._revCardName">
+<summary>
+revCardName control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._btnPayNow">
+<summary>
+btnPayNow control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._Panel3">
+<summary>
+Panel3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._lbltotamt">
+<summary>
+lbltotamt control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._txtpin">
+<summary>
+txtpin control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._RequiredFieldValidator1">
+<summary>
+RequiredFieldValidator1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._revPin">
+<summary>
+revPin control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._btnCancel">
+<summary>
+btnCancel control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._Button3">
+<summary>
+Button3 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._btnCheckout">
+<summary>
+btnCheckout control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._hdnPaymentId">
+<summary>
+hdnPaymentId control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._hdnOrderId">
+<summary>
+hdnOrderId control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.Cart._pnlempty">
+<summary>
+pnlempty control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.OrderConfirmation._lblOrderId">
+<summary>
+lblOrderId control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.OrderConfirmation._lblTransactionNumber">
+<summary>
+lblTransactionNumber control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.OrderConfirmation._lblTotalAmount">
+<summary>
+lblTotalAmount control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.OrderConfirmation._lblOrderStatus">
+<summary>
+lblOrderStatus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.OrderConfirmation._pnlPendingMessage">
+<summary>
+pnlPendingMessage control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.OrderConfirmation._btnTrackOrder">
+<summary>
+btnTrackOrder control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.MyOrders._ddlStatus">
+<summary>
+ddlStatus control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.MyOrders._txtStartDate">
+<summary>
+txtStartDate control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.MyOrders._txtEndDate">
+<summary>
+txtEndDate control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.MyOrders._btnFilter">
+<summary>
+btnFilter control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen.MyOrders._rptOrders">
+<summary>
+rptOrders control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+<member name="F:Cloud_Kitchen._Default._form1">
+<summary>
+form1 control.
+</summary>
+<remarks>
+Auto-generated field.
+To modify move field declaration from designer file to code-behind file.
+</remarks>
+</member>
+</members>
+</doc>

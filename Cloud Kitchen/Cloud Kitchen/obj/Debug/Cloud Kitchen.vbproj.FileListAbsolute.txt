@@ -1,0 +1,18 @@
+R:\Cloud Kitchen\Cloud Kitchen\bin\Cloud Kitchen.dll
+R:\Cloud Kitchen\Cloud Kitchen\bin\Cloud Kitchen.pdb
+R:\Cloud Kitchen\Cloud Kitchen\bin\Cloud Kitchen.xml
+R:\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud_Kitchen.Resources.resources
+R:\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.vbproj.GenerateResource.Cache
+R:\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.dll
+R:\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.xml
+R:\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.pdb
+D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\bin\Cloud Kitchen.dll
+D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\bin\Cloud Kitchen.pdb
+D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\bin\Cloud Kitchen.xml
+D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud_Kitchen.Resources.resources
+D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.vbproj.GenerateResource.Cache
+D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.dll
+D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.xml
+D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.pdb
+D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.vbproj.AssemblyReference.cache
+D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.vbproj.CoreCompileInputs.cache

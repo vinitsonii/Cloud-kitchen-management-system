@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="D:\Documents\Visual Studio 2010\Projects\5th Sem Projectttt" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Cloud Kitchen" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="Images/gallery-2.jpg" publishTime="12/29/2024 01:46:37" />
+    <file relUrl="Images/Menu/Plain Dosa Recipe - Authentic Taste - Khaddoroshik.jpeg" publishTime="03/14/2025 15:50:59" />
+    <file relUrl="Images/lb4.jpeg" publishTime="03/14/2025 17:19:18" />
+    <file relUrl="icons/close1.png" publishTime="03/14/2025 18:15:52" />
+    <file relUrl="icons/em5.png" publishTime="03/23/2025 20:14:25" />
+    <file relUrl="Images/bg-hero.jpg" publishTime="12/21/2024 00:19:36" />
+    <file relUrl="icons/a4.png" publishTime="03/23/2025 16:28:26" />
+    <file relUrl="Additional Files/WebForm7.aspx" publishTime="02/09/2025 16:41:39" />
+    <file relUrl="Customers/Customer.Master" publishTime="04/03/2025 20:36:48" />
+    <file relUrl="icons/em4.png" publishTime="03/23/2025 20:14:25" />
+    <file relUrl="Images/menubg.jpg" publishTime="03/16/2025 16:24:18" />
+    <file relUrl="icons/open.png" publishTime="03/14/2025 18:15:52" />
+    <file relUrl="icons/c3.png" publishTime="03/23/2025 16:20:47" />
+    <file relUrl="bin/Cloud Kitchen.pdb" publishTime="04/04/2025 23:18:55" />
+    <file relUrl="icons/facebook.png" publishTime="12/29/2024 00:18:32" />
+    <file relUrl="icons/refreshments.png" publishTime="12/29/2024 19:35:22" />
+    <file relUrl="icons/loc2.png" publishTime="03/15/2025 21:23:11" />
+    <file relUrl="Images/cp5.jpeg" publishTime="03/16/2025 15:36:34" />
+    <file relUrl="icons/status.png" publishTime="03/11/2025 18:42:30" />
+    <file relUrl="icons/logout3.png" publishTime="12/23/2024 21:41:23" />
+    <file relUrl="Images/s1.jpeg" publishTime="03/14/2025 15:53:42" />
+    <file relUrl="icons/addi.png" publishTime="03/15/2025 21:23:11" />
+    <file relUrl="Images/hero-bg.jpg" publishTime="12/28/2024 20:56:21" />
+    <file relUrl="Images/img4.jpg" publishTime="12/30/2024 18:35:09" />
+    <file relUrl="icons/manageitem.png" publishTime="03/15/2025 21:23:11" />
+    <file relUrl="Images/img3.jpg" publishTime="12/30/2024 18:35:09" />
+    <file relUrl="icons/menu1.png" publishTime="12/23/2024 21:28:57" />
+    <file relUrl="Images/lb8.jpeg" publishTime="03/14/2025 17:29:36" />
+    <file relUrl="icons/insta.png" publishTime="12/29/2024 00:18:32" />
+    <file relUrl="Admin/Admin.Master" publishTime="03/30/2025 13:25:26" />
+    <file relUrl="Images/img9.jpg" publishTime="12/31/2024 11:49:40" />
+    <file relUrl="Images/lb9.jpeg" publishTime="03/14/2025 17:29:36" />
+    <file relUrl="icons/ordersman.png" publishTime="03/15/2025 21:23:11" />
+    <file relUrl="Images/gallery-3.jpg" publishTime="12/29/2024 01:46:37" />
+    <file relUrl="icons/user4.png" publishTime="12/29/2024 19:35:22" />
+    <file relUrl="Web.config" publishTime="04/04/2025 23:16:41" />
+    <file relUrl="icons/chef1.png" publishTime="12/29/2024 00:18:32" />
+    <file relUrl="icons/a3.png" publishTime="03/23/2025 16:28:26" />
+    <file relUrl="Customers/Cart.aspx" publishTime="03/30/2025 15:33:06" />
+    <file relUrl="Customers/Menu.aspx" publishTime="03/22/2025 22:00:08" />
+    <file relUrl="icons/logout.png" publishTime="12/23/2024 21:41:23" />
+    <file relUrl="icons/em3.png" publishTime="03/23/2025 20:14:25" />
+    <file relUrl="icons/total.png" publishTime="03/23/2025 16:20:47" />
+    <file relUrl="icons/rep2.png" publishTime="03/23/2025 20:14:25" />
+    <file relUrl="icons/carttt.png" publishTime="02/28/2025 20:28:14" />
+    <file relUrl="Admin/Reports.aspx" publishTime="03/23/2025 21:17:29" />
+    <file relUrl="Images/lb10.jpeg" publishTime="03/14/2025 17:29:36" />
+    <file relUrl="icons/users1.png" publishTime="12/23/2024 21:28:56" />
+    <file relUrl="Additional Files/cartbackup.htm" publishTime="03/13/2025 21:10:08" />
+    <file relUrl="Images/hero-bg1.jpg" publishTime="12/28/2024 20:59:03" />
+    <file relUrl="Images/lb7.jpeg" publishTime="03/14/2025 17:29:36" />
+    <file relUrl="icons/arrow-down.png" publishTime="12/23/2024 21:28:57" />
+    <file relUrl="Images/cp4.jpeg" publishTime="03/16/2025 15:36:34" />
+    <file relUrl="icons/twitter.png" publishTime="12/29/2024 00:18:32" />
+    <file relUrl="icons/cal1.png" publishTime="03/23/2025 20:14:25" />
+    <file relUrl="icons/HISTORYYYYYY.png" publishTime="03/15/2025 21:23:11" />
+    <file relUrl="Images/cp7.jpeg" publishTime="03/16/2025 15:36:34" />
+    <file relUrl="icons/complete.png" publishTime="03/11/2025 18:42:30" />
+    <file relUrl="Admin/ManageOrders.aspx" publishTime="03/24/2025 00:43:26" />
+    <file relUrl="Admin/ManageArea.aspx" publishTime="03/24/2025 11:38:10" />
+    <file relUrl="icons/cart1.png" publishTime="12/29/2024 19:35:22" />
+    <file relUrl="icons/twitter1.png" publishTime="12/29/2024 19:45:42" />
+    <file relUrl="bin/Cloud Kitchen.dll" publishTime="04/04/2025 23:18:55" />
+    <file relUrl="icons/icons8-one-94.png" publishTime="03/23/2025 16:28:26" />
+    <file relUrl="icons/url.png" publishTime="03/14/2025 18:15:52" />
+    <file relUrl="icons/close.png" publishTime="03/14/2025 18:15:52" />
+    <file relUrl="icons/menu.png" publishTime="12/23/2024 21:28:56" />
+    <file relUrl="Admin/ManageCC1.aspx" publishTime="03/24/2025 00:42:59" />
+    <file relUrl="Customers/Home.aspx" publishTime="04/04/2025 15:25:28" />
+    <file relUrl="Additional Files/WebForm6.aspx" publishTime="01/06/2025 00:15:58" />
+    <file relUrl="icons/a2.png" publishTime="03/23/2025 16:28:26" />
+    <file relUrl="Admin/Dashboard.aspx" publishTime="03/30/2025 12:46:46" />
+    <file relUrl="icons/rep1.png" publishTime="03/23/2025 20:14:25" />
+    <file relUrl="icons/em1.png" publishTime="03/23/2025 16:20:47" />
+    <file relUrl="App_Data/MyKitchen_log.ldf" publishTime="04/04/2025 23:16:41" />
+    <file relUrl="Additional Files/WebForm2.aspx" publishTime="12/28/2024 12:43:13" />
+    <file relUrl="icons/sb.png" publishTime="03/14/2025 18:07:12" />
+    <file relUrl="App_Data/Database1_log.ldf" publishTime="03/26/2025 21:41:43" />
+    <file relUrl="Images/cp6.jpeg" publishTime="03/16/2025 15:36:34" />
+    <file relUrl="icons/orders.png" publishTime="12/23/2024 21:28:57" />
+    <file relUrl="Images/img2.jpg" publishTime="12/30/2024 18:35:09" />
+    <file relUrl="icons/track.png" publishTime="02/28/2025 20:28:14" />
+    <file relUrl="icons/ordersmana.png" publishTime="03/15/2025 21:23:11" />
+    <file relUrl="Images/s2.jpeg" publishTime="03/14/2025 15:53:42" />
+    <file relUrl="icons/comm1.png" publishTime="03/23/2025 16:20:47" />
+    <file relUrl="Images/c10.jpeg" publishTime="03/16/2025 15:36:34" />
+    <file relUrl="Images/img1.jpg" publishTime="12/30/2024 18:35:09" />
+    <file relUrl="icons/location2.gif" publishTime="12/29/2024 19:35:22" />
+    <file relUrl="icons/c1.png" publishTime="03/23/2025 16:20:47" />
+    <file relUrl="icons/yt1.png" publishTime="12/29/2024 19:35:22" />
+    <file relUrl="Images/cp1.jpeg" publishTime="03/16/2025 15:36:34" />
+    <file relUrl="Images/cp9.jpeg" publishTime="03/16/2025 15:36:34" />
+    <file relUrl="icons/location1.png" publishTime="12/29/2024 19:35:22" />
+    <file relUrl="icons/reports.png" publishTime="12/23/2024 21:41:23" />
+    <file relUrl="App_Data/Database1.mdf" publishTime="03/26/2025 21:41:43" />
+    <file relUrl="Admin/ManageCC.aspx" publishTime="03/14/2025 14:39:54" />
+    <file relUrl="icons/dashh.png" publishTime="03/15/2025 21:23:11" />
+    <file relUrl="Images/Menu/Mumbai Street Toastie _ Marion's Kitchen.jpeg" publishTime="03/14/2025 15:50:59" />
+    <file relUrl="Customers/OrderConfirmation.aspx" publishTime="03/16/2025 23:58:47" />
+    <file relUrl="Admin/AddFoodItems.aspx" publishTime="03/24/2025 19:38:48" />
+    <file relUrl="icons/fb1.png" publishTime="12/29/2024 19:35:22" />
+    <file relUrl="icons/order.png" publishTime="03/11/2025 18:42:30" />
+    <file relUrl="icons/pen.png" publishTime="03/23/2025 16:20:47" />
+    <file relUrl="Images/lb5.jpeg" publishTime="03/14/2025 17:19:18" />
+    <file relUrl="icons/money.png" publishTime="02/28/2025 20:28:14" />
+    <file relUrl="icons/add.png" publishTime="12/23/2024 21:28:57" />
+    <file relUrl="Images/cp3.jpeg" publishTime="03/16/2025 15:36:34" />
+    <file relUrl="Additional Files/WebForm10.aspx" publishTime="03/14/2025 14:27:29" />
+    <file relUrl="icons/users.png" publishTime="12/23/2024 21:28:56" />
+    <file relUrl="icons/moneyy.png" publishTime="02/28/2025 20:28:14" />
+    <file relUrl="icons/list.png" publishTime="12/29/2024 00:18:32" />
+    <file relUrl="icons/tr.png" publishTime="03/11/2025 18:42:30" />
+    <file relUrl="icons/settings.png" publishTime="12/23/2024 21:28:56" />
+    <file relUrl="icons/user3.png" publishTime="12/29/2024 19:35:22" />
+    <file relUrl="Customers/MyOrders.aspx" publishTime="03/26/2025 20:36:21" />
+    <file relUrl="icons/a1.png" publishTime="03/23/2025 16:28:26" />
+    <file relUrl="Images/lb6.jpeg" publishTime="03/14/2025 17:19:18" />
+    <file relUrl="icons/orderr.png" publishTime="02/28/2025 20:28:14" />
+    <file relUrl="icons/cod.png" publishTime="03/23/2025 16:20:47" />
+    <file relUrl="icons/mail.png" publishTime="12/29/2024 19:35:22" />
+    <file relUrl="icons/cart2.png" publishTime="12/29/2024 19:35:22" />
+    <file relUrl="icons/logo.gif" publishTime="12/29/2024 00:18:32" />
+    <file relUrl="Additional Files/WebForm5.aspx" publishTime="01/06/2025 00:00:35" />
+    <file relUrl="icons/logout1.png" publishTime="12/23/2024 21:41:23" />
+    <file relUrl="bin/Cloud Kitchen.xml" publishTime="04/04/2025 23:18:55" />
+    <file relUrl="Customers/Logout.aspx" publishTime="01/05/2025 18:13:19" />
+    <file relUrl="Images/img5.jpg" publishTime="12/30/2024 18:35:09" />
+    <file relUrl="Admin/Contact_Msg.aspx" publishTime="03/30/2025 13:26:13" />
+    <file relUrl="Images/cp8.jpeg" publishTime="03/16/2025 15:36:34" />
+    <file relUrl="Customers/Register.aspx" publishTime="03/24/2025 23:14:30" />
+    <file relUrl="icons/edit.png" publishTime="12/23/2024 21:28:57" />
+    <file relUrl="icons/rupee.png" publishTime="03/11/2025 18:42:30" />
+    <file relUrl="icons/dashboard.png" publishTime="12/23/2024 21:28:57" />
+    <file relUrl="App_Data/MyKitchen.mdf" publishTime="04/04/2025 23:16:41" />
+    <file relUrl="icons/empty1.png" publishTime="03/29/2025 19:54:32" />
+    <file relUrl="Images/gallery-4.jpg" publishTime="12/29/2024 01:46:37" />
+    <file relUrl="icons/comm2.png" publishTime="03/23/2025 16:20:47" />
+    <file relUrl="icons/login.png" publishTime="12/29/2024 19:38:02" />
+    <file relUrl="icons/payment.png" publishTime="03/11/2025 18:42:30" />
+    <file relUrl="icons/em2.png" publishTime="03/23/2025 16:20:47" />
+    <file relUrl="Customers/Login.aspx" publishTime="03/25/2025 09:52:06" />
+    <file relUrl="icons/ig1.png" publishTime="12/29/2024 19:35:22" />
+    <file relUrl="icons/burger.png" publishTime="12/29/2024 19:35:22" />
+    <file relUrl="icons/ig2.png" publishTime="12/29/2024 19:35:22" />
+    <file relUrl="icons/loc1.png" publishTime="03/15/2025 21:23:11" />
+    <file relUrl="icons/cartt.png" publishTime="02/28/2025 20:28:14" />
+    <file relUrl="icons/c2.png" publishTime="03/23/2025 16:20:47" />
+    <file relUrl="Images/Menu/Pizza.jpeg" publishTime="03/14/2025 15:50:59" />
+    <file relUrl="icons/call1.png" publishTime="12/29/2024 19:35:22" />
+    <file relUrl="icons/historyy.png" publishTime="03/15/2025 21:23:11" />
+  </publishProfile>
+</publishData>

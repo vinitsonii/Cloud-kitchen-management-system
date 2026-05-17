@@ -1,0 +1,447 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+Imports System.Data.SqlClient
+Imports System.Configuration
+Imports System.Net
+Imports System.Net.Mail
+
+Public Class Cart
+    Inherits System.Web.UI.Page
+
+    Dim connString As String = ConfigurationManager.ConnectionStrings("constr").ConnectionString
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+        If Not IsPostBack Then
+            LoadCartItems()
+            If Session("c_id") Is Nothing Then
+                Response.Redirect("Login.aspx")
+            End If
+        End If
+    End Sub
+
+    Public Function GetValue(ByVal item As Object, ByVal key As String) As String
+        Dim dict As Dictionary(Of String, Object) = CType(item, Dictionary(Of String, Object))
+        If dict.ContainsKey(key) Then
+            Return dict(key).ToString()
+        End If
+        Return ""
+    End Function
+
+    Private Sub LoadCartItems()
+        If Session("Cart") IsNot Nothing Then
+            Dim cart As List(Of Dictionary(Of String, Object)) = CType(Session("Cart"), List(Of Dictionary(Of String, Object)))
+
+            rptCartItems.DataSource = cart
+            rptCartItems.DataBind()
+
+            Dim total As Decimal = cart.Sum(Function(x) Convert.ToDecimal(x("total_price")))
+            lblTotalPrice.Text = total.ToString("F2")
+        Else
+            Response.Redirect("Menu.aspx")
+        End If
+    End Sub
+
+
+    Public Function GetImageUrl(ByVal item As Object) As String
+        Dim dict As Dictionary(Of String, Object) = CType(item, Dictionary(Of String, Object))
+        If dict.ContainsKey("m_image_url") AndAlso Not String.IsNullOrEmpty(dict("m_image_url").ToString()) Then
+            Return dict("m_image_url").ToString()
+        Else
+            Return "../Images/default.jpg"
+        End If
+    End Function
+
+
+    Protected Sub UpdateCartItem(ByVal sender As Object, ByVal e As CommandEventArgs)
+        If Session("Cart") IsNot Nothing Then
+            Dim cart As List(Of Dictionary(Of String, Object)) = CType(Session("Cart"), List(Of Dictionary(Of String, Object)))
+
+            ' Find item
+            Dim item = cart.FirstOrDefault(Function(x) x("m_id").ToString() = e.CommandArgument.ToString())
+
+            If item IsNot Nothing Then
+                Dim itemContainer As RepeaterItem = CType(CType(sender, Control).NamingContainer, RepeaterItem)
+                Dim txtQuantity As TextBox = CType(itemContainer.FindControl("txtQuantity"), TextBox)
+
+                Dim newQuantity As Integer
+                If Integer.TryParse(txtQuantity.Text, newQuantity) AndAlso newQuantity > 0 Then
+                    item("quantity") = newQuantity
+                    item("total_price") = newQuantity * Convert.ToDecimal(item("m_final_price"))
+                End If
+            End If
+
+            Session("Cart") = cart
+            LoadCartItems()
+
+        End If
+    End Sub
+
+    Protected Sub RemoveCartItem(ByVal sender As Object, ByVal e As CommandEventArgs)
+
+        If Session("Cart") IsNot Nothing Then
+            Dim cart As List(Of Dictionary(Of String, Object)) = CType(Session("Cart"), List(Of Dictionary(Of String, Object)))
+
+            cart.RemoveAll(Function(x) x("m_id").ToString() = e.CommandArgument.ToString())
+
+            Session("Cart") = cart
+            LoadCartItems()
+
+        End If
+
+    End Sub
+
+    'Protected Sub Checkout_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCheckout.Click
+
+
+    '    If Session("Cart") IsNot Nothing AndAlso Session("c_id") IsNot Nothing Then
+    '        Dim cart As List(Of Dictionary(Of String, Object)) = CType(Session("Cart"), List(Of Dictionary(Of String, Object)))
+
+
+
+    '        If cart.Count > 0 Then
+    '            Using con As New SqlConnection(connString)
+    '                con.Open()
+    '                Dim transaction As SqlTransaction = con.BeginTransaction()
+
+    '                Try
+    '                    Dim transactionNumber As String = If(Session("TransactionNumber") IsNot Nothing, Session("TransactionNumber").ToString(), GenerateTransactionNumber())
+
+
+    '                    Dim cmdOrder As New SqlCommand("INSERT INTO orders (c_id, total_amount, order_status, order_date, address, pincode, payment_type, transaction_number) VALUES (@c_id, @total_amount, 'Pending', GETDATE(), @address, @pincode, @payment_type, @transaction_number); SELECT SCOPE_IDENTITY();", con, transaction)
+
+    '                    cmdOrder.Parameters.AddWithValue("@transaction_number", transactionNumber)
+    '                    cmdOrder.Parameters.AddWithValue("@c_id", Session("c_id"))
+    '                    cmdOrder.Parameters.AddWithValue("@total_amount", cart.Sum(Function(x) Convert.ToDecimal(x("total_price"))))
+    '                    cmdOrder.Parameters.AddWithValue("@address", txtAddress.Text)
+    '                    cmdOrder.Parameters.AddWithValue("@pincode", txtPincode.Text)
+    '                    cmdOrder.Parameters.AddWithValue("@payment_type", ddlPaymentType.SelectedValue)
+
+    '                    Dim orderId As Integer = Convert.ToInt32(cmdOrder.ExecuteScalar())
+
+    '                    For Each item In cart
+    '                        Dim cmdDetails As New SqlCommand("INSERT INTO order_details (order_id, m_id, quantity, price, total_price) VALUES (@order_id, @m_id, @quantity, @price, @total_price)", con, transaction)
+
+    '                        cmdDetails.Parameters.AddWithValue("@order_id", orderId)
+    '                        cmdDetails.Parameters.AddWithValue("@m_id", item("m_id"))
+    '                        cmdDetails.Parameters.AddWithValue("@quantity", item("quantity"))
+    '                        cmdDetails.Parameters.AddWithValue("@price", item("m_final_price"))
+    '                        cmdDetails.Parameters.AddWithValue("@total_price", item("total_price"))
+    '                        cmdDetails.ExecuteNonQuery()
+    '                    Next
+
+    '                    transaction.Commit()
+    '                    Session.Remove("Cart")
+    '                    Response.Write("<script>                                             alert('calling stage');</script>")
+
+    '                    Dim userEmail As String = Session("UserEmail").ToString()
+    '                    SendOrderEmail("vinitsoni5911@gmail.com", orderId, transactionNumber, cart)
+    '                    Response.Write("<script>                                             alert('1st stage');</script>")
+
+    '                    Response.Redirect("OrderConfirmation.aspx?OrderId=" & orderId)
+
+
+    '                Catch ex As Exception
+    '                    Response.Write("<script>alert('Error placing order: " & ex.Message.Replace("'", "\'") & "');</script>")
+    '                End Try
+    '            End Using
+    '        End If
+    '    Else
+    '        Response.Write("<script>                                 alert('Your cart is empty!');</script>")
+    '    End If
+    'End Sub
+
+
+
+    Protected Sub Checkout_Click(ByVal sender As Object, ByVal e As EventArgs)
+        If Session("Cart") IsNot Nothing AndAlso Session("c_id") IsNot Nothing Then
+            Dim cart As List(Of Dictionary(Of String, Object)) = CType(Session("Cart"), List(Of Dictionary(Of String, Object)))
+
+            If cart.Count > 0 Then
+                Using con As New SqlConnection(connString)
+                    con.Open()
+                    Dim transaction As SqlTransaction = con.BeginTransaction()
+
+                    Try
+                        Dim transactionNumber As String = If(Session("TransactionNumber") IsNot Nothing, Session("TransactionNumber").ToString(), GenerateTransactionNumber())
+
+                        Dim cmdOrder As New SqlCommand("INSERT INTO orders (c_id, total_amount, order_status, order_date, address, pincode, payment_type, transaction_number) VALUES (@c_id, @total_amount, 'Pending', GETDATE(), @address, @pincode, @payment_type, @transaction_number); SELECT SCOPE_IDENTITY();", con, transaction)
+
+                        cmdOrder.Parameters.AddWithValue("@transaction_number", transactionNumber)
+                        cmdOrder.Parameters.AddWithValue("@c_id", Session("c_id"))
+                        cmdOrder.Parameters.AddWithValue("@total_amount", cart.Sum(Function(x) Convert.ToDecimal(x("total_price"))))
+                        cmdOrder.Parameters.AddWithValue("@address", txtAddress.Text)
+                        cmdOrder.Parameters.AddWithValue("@pincode", txtPincode.Text)
+                        cmdOrder.Parameters.AddWithValue("@payment_type", ddlPaymentType.SelectedValue)
+
+                        Dim orderId As Integer = Convert.ToInt32(cmdOrder.ExecuteScalar())
+
+                        For Each item In cart
+                            Dim cmdDetails As New SqlCommand("INSERT INTO order_details (order_id, m_id, quantity, price, total_price) VALUES (@order_id, @m_id, @quantity, @price, @total_price)", con, transaction)
+                            cmdDetails.Parameters.AddWithValue("@order_id", orderId)
+                            cmdDetails.Parameters.AddWithValue("@m_id", item("m_id"))
+                            cmdDetails.Parameters.AddWithValue("@quantity", item("quantity"))
+                            cmdDetails.Parameters.AddWithValue("@price", item("m_final_price"))
+                            cmdDetails.Parameters.AddWithValue("@total_price", item("total_price"))
+                            cmdDetails.ExecuteNonQuery()
+                        Next
+
+                        transaction.Commit()
+                        Session.Remove("Cart")
+
+                        ' 🔹 Try Sending Email
+                        Dim userEmail As String = Session("UserEmail").ToString()
+                        Dim emailSent As Boolean = SendOrderEmail("vinitsoni5911@gmail.com", orderId, transactionNumber)
+
+                        If emailSent Then
+                            ' ✅ Show alert and redirect after 2 seconds
+                            Response.Write("<script>                                                alert('Order placed successfully! Email sent.'); setTimeout(function () { window.location.href = 'OrderConfirmation.aspx?OrderId=" & orderId & "'; }, 2000);</script>")
+                        Else
+                            ' 🚨 Show alert but still redirect
+                            Response.Write("<script>                                                alert('Order placed successfully, but email failed to send.'); setTimeout(function () { window.location.href = 'OrderConfirmation.aspx?OrderId=" & orderId & "'; }, 2000);</script>")
+                        End If
+
+                    Catch ex As Exception
+                        Response.Write("<script>alert('Error placing order: " & ex.Message.Replace("'", "\'") & "');</script>")
+                        transaction.Rollback()
+                    End Try
+                End Using
+            End If
+        Else
+            Response.Write("<script>                                alert('Your cart is empty!');</script>")
+        End If
+    End Sub
+
+
+
+
+
+
+    Function SendOrderEmail(ByVal userEmail As String, ByVal orderId As Integer, ByVal transactionNumber As String) As Boolean
+        Try
+            Dim senderEmail As String = ConfigurationManager.AppSettings("EmailUsername")
+
+            Dim mail As New MailMessage()
+            mail.From = New MailAddress(senderEmail, "Cloud Kitchen") ' Sender email with name
+            mail.To.Add(userEmail)
+            mail.Subject = "🍽 Your Cloud Kitchen Order is Confirmed! # " & orderId
+            mail.IsBodyHtml = True
+
+            ' Format Email Body with String Concatenation
+            Dim emailBody As String = "<!DOCTYPE html>" & _
+            "<html>" & _
+            "<head>" & _
+                "<style>" & _
+                    "body { font-family: Arial, sans-serif; background-color: #f8f9fa; margin: 0; padding: 0; }" & _
+                    ".container { max-width: 600px; margin: 20px auto; background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); }" & _
+                    ".header { background: #007bff; color: #ffffff; text-align: center; padding: 15px; font-size: 22px; font-weight: bold; border-top-left-radius: 8px; border-top-right-radius: 8px; }" & _
+                    ".content { padding: 20px; text-align: center; }" & _
+                    ".content h2 { color: #333; }" & _
+                    ".content p { font-size: 16px; color: #555; }" & _
+                    ".order-details { background: #f1f1f1; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: left; }" & _
+                    ".order-details p { margin: 5px 0; font-size: 16px; }" & _
+                    ".footer { text-align: center; padding: 10px; font-size: 14px; color: #777; }" & _
+                    ".button { display: inline-block; background: #28a745; color: #ffffff; padding: 10px 20px; text-decoration: none; font-size: 16px; border-radius: 5px; margin-top: 15px; }" & _
+                    ".button:hover { background: #218838; }" & _
+                "</style>" & _
+            "</head>" & _
+            "<body>" & _
+                "<div class='container'>" & _
+                    "<div class='header'>Cloud Kitchen 🍽</div>" & _
+                    "<div class='content'>" & _
+                        "<h2>Thank you for your order!</h2>" & _
+                        "<p>Your order has been successfully placed. Below are the details:</p>" & _
+                        "<div class='order-details'>" & _
+                            "<p><strong>Order ID:</strong> #" & orderId & "</p>" & _
+                            "<p><strong>Transaction No:</strong> " & transactionNumber & "</p>" & _
+                            "<p><strong>Estimated Delivery:</strong> 30-40 mins</p>" & _
+                        "</div>" & _
+                        "<a href='https://yourwebsite.com/MyOrders.aspx' class='button'>View My Orders</a>" & _
+                    "</div>" & _
+                    "<div class='footer'>" & _
+                        "If you have any questions, contact us at <a href='mailto:support@cloudkitchen.com'>support@cloudkitchen.com</a>" & _
+                    "</div>" & _
+                "</div>" & _
+            "</body>" & _
+            "</html>"
+
+            mail.Body = emailBody
+
+            ' Configure SMTP
+            Dim smtp As New SmtpClient(ConfigurationManager.AppSettings("SMTPServer"), Convert.ToInt32(ConfigurationManager.AppSettings("SMTPPort")))
+            smtp.Credentials = New System.Net.NetworkCredential(senderEmail, ConfigurationManager.AppSettings("EmailPassword"))
+            smtp.EnableSsl = True
+
+            smtp.Send(mail) ' Send Email
+            Return True
+
+        Catch ex As Exception
+            ' Show Error Message
+            HttpContext.Current.Response.Write("<script>alert('Email Error: " & ex.Message.Replace("'", "\'") & "');</script>")
+            Return False
+        End Try
+    End Function
+
+
+
+
+
+    '    Private Sub SendOrderEmail(ByVal userEmail As String, ByVal orderId As Integer, ByVal transactionNumber As String, ByVal cart As List(Of Dictionary(Of String, Object)))
+    '        Try
+
+    '            Dim smtpServer As String = ConfigurationManager.AppSettings("SMTPServer")
+    '            Dim smtpPort As Integer = Convert.ToInt32(ConfigurationManager.AppSettings("SMTPPort"))
+    '            Dim smtpEmail As String = ConfigurationManager.AppSettings("SMTPEmail")
+    '            Dim smtpPassword As String = ConfigurationManager.AppSettings("SMTPPassword")
+
+    '            Dim smtp As New SmtpClient(smtpServer)
+    '            smtp.Port = smtpPort
+    '            smtp.Credentials = New NetworkCredential(smtpEmail, smtpPassword)
+    '            smtp.EnableSsl = True
+    '            Response.Write("<script>                                     alert('2nd stage');</script>")
+    '            Dim mail As New MailMessage()
+    '            mail.From = New MailAddress(smtpEmail, "Cloud Kitchen")
+    '            mail.To.Add(userEmail)
+    '            mail.Subject = "Order Confirmation - Cloud Kitchen"
+    '            mail.IsBodyHtml = True
+
+    '            Dim emailBody As String = "<html>" &
+    '                "<body style='font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4;'>" &
+    '                    "<div style='max-width: 600px; background: #fff; padding: 20px; border-radius: 8px; padding: 20px;'>" &
+    '                        "<h2 style='color: #007bff;'>Thank You for Your Order!</h2>" &
+    '                        "<p>Dear Customer,</p>" &
+    '                        "<p>We have received your order and are currently preparing it. It will be out for delivery very soon!</p>" &
+    '                        "<h3 style='color: #28a745;'>Order Details:</h3>" &
+    '                        "<p><strong>Order ID:</strong> " & orderId & "</p>" &
+    '                        "<p><strong>Transaction Number:</strong> " & transactionNumber & "</p>" &
+    '                        "<p><strong>Order Status:</strong> <span style='color: orange;'>Pending</span></p>" &
+    '                        "<hr>" &
+    '                        "<h3 style='color: #333;'>Items Ordered:</h3>" &
+    '                        "<table style='width: 100%; border-collapse: collapse;'>" &
+    '                            "<tr>" &
+    '                                "<th style='border-bottom: 2px solid #ddd; padding: 8px; text-align: left;'>Item</th>" &
+    '                                "<th style='border-bottom: 2px solid #ddd; padding: 8px; text-align: right;'>Qty</th>" &
+    '                                "<th style='border-bottom: 2px solid #ddd; padding: 8px; text-align: right;'>Total</th>" &
+    '                            "</tr>"
+
+    '            For Each item In cart
+    '                emailBody &= "<tr>" &
+    '                                "<td style='border-bottom: 1px solid #ddd; padding: 8px;'>" & item("m_name") & "</td>" &
+    '                                "<td style='border-bottom: 1px solid #ddd; padding: 8px; text-align: right;'>" & item("quantity") & "</td>" &
+    '                                "<td style='border-bottom: 1px solid #ddd; padding: 8px; text-align: right;'>₹" & item("total_price") & "</td>" &
+    '                            "</tr>"
+    '            Next
+
+    '            emailBody &= "</table>" &
+    '                        "<hr>" &
+    '                        "<p><strong>Total Amount:</strong> ₹" & cart.Sum(Function(x) Convert.ToDecimal(x("total_price"))) & "</p>" &
+    '                        "<p>We appreciate your business and hope you enjoy your meal!</p>" &
+    '                        "<p><strong>Cloud Kitchen Team</strong></p>" &
+    '                    "</div>" &
+    '                "</body>" &
+    '            "</html>"
+    '            Response.Write("<script>                                     alert('3rd stage');</script>")
+
+    '            mail.Body = emailBody
+    '            smtp.Send(mail)
+
+    '        Catch ex As Exception
+    '            Response.Write("<script>alert('Error sending email: " & ex.Message.Replace("'", "\'") & "');</script>")
+    '        End Try
+    'End Sub
+
+
+
+    Private Function GenerateTransactionNumber() As String
+        Dim random As New Random()
+        Dim timestamp As String = DateTime.Now.ToString("yyyyMMddHHmmss")
+        Dim randomDigits As String = random.Next(1000, 9999).ToString()
+        Return "TXN" & timestamp & randomDigits
+    End Function
+
+
+    Protected Sub btnCancel_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnCancel.Click
+        up.Visible = False
+    End Sub
+
+    Protected Sub rptCartItems_ItemCommand(ByVal source As Object, ByVal e As System.Web.UI.WebControls.RepeaterCommandEventArgs) Handles rptCartItems.ItemCommand
+
+    End Sub
+
+    Protected Sub btnPayNow_Click(ByVal sender As Object, ByVal e As EventArgs)
+        If txtCard1.Text.Length = 4 And txtCard2.Text.Length = 4 And txtCard3.Text.Length = 4 And txtCard4.Text.Length = 4 And
+           txtExpiryMonth.Text.Length = 2 And txtExpiryYear.Text.Length = 2 And txtCCV.Text.Length = 3 And
+           Not String.IsNullOrEmpty(txtCardName.Text) Then
+
+            Dim transactionNumber As String = GenerateTransactionNumber()
+            Session("TransactionNumber") = transactionNumber
+
+            lblTransaction.Text = "Transaction Number: " & transactionNumber
+            lblTransaction.ForeColor = System.Drawing.Color.Green
+            lblTransaction.Visible = True
+
+
+            Label2.Text = "<h3> Card Details Verified Successfully !!!  </h3>"
+
+            Label2.ForeColor = System.Drawing.Color.Green
+            Label2.Visible = True
+
+
+            up.Visible = False
+            Panel2.Visible = True
+            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "showPanel", "showPanel();", True)
+
+
+        Else
+            label1.Text = "Invalid card details. Please check again."
+            label1.ForeColor = System.Drawing.Color.Red
+            label1.Visible = True
+
+        End If
+    End Sub
+
+
+    Protected Sub ddlPaymentType_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles ddlPaymentType.SelectedIndexChanged
+
+        If ddlPaymentType.SelectedIndex = 1 Then
+            up.Visible = True
+            Panel1.Visible = True
+        Else
+            Panel1.Visible = False
+        End If
+
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Panel2.Visible = False
+        txtPincode.Text = ""
+        Label2.Text = String.Empty
+        lblTransaction.Text = String.Empty
+    End Sub
+
+    Protected Sub txtPincode_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtPincode.TextChanged
+        If txtPincode.Text = "388325" Or txtPincode.Text = "388315" Or txtPincode.Text = "388121" Or txtPincode.Text = "388120" Then
+
+            btnCheckout.Enabled = True
+
+        Else
+
+            btnCheckout.Enabled = False
+            Panel2.Visible = True
+            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "showPanel", "showPanel();", True)
+            rfvPincode.IsValid = False
+            lblTransaction.ForeColor = System.Drawing.Color.Red
+            lblTransaction.Visible = True
+            lblTransaction.Text = "We are Unable to provide service at your door step!!!"
+
+
+        End If
+
+    End Sub
+End Class
+
+</body>
+</html>
