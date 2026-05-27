@@ -48,9 +48,11 @@ git clone https://github.com/vinitsonii/Cloud_Kitchen.git
 
 3. Configure MSSQL database connection
 
-4. CHnage Connection String and credentials in config
+4. Change Connection String and Mail credentials in config
+  
+6. Admin : admincloudkitchen2026@gmail.com/password
    
-5. Run the project using IIS Express
+7. Run the project using IIS Express
 
 ---
 
