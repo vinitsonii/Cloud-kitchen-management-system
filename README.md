@@ -38,37 +38,37 @@ The project helps manage customers, menu items, orders, and administrative opera
 # 📸 Project Screenshots
 
 ## Home
-![Home](screenshots/Home.png)
+![Home](screenshots/Home.webp)
 
 ## Login
-![Login](screenshots/Login.png)
+![Login](screenshots/Login.webp)
 
 ## Dashboard
-![Dashboard](screenshots/Dashboard.png)
+![Dashboard](screenshots/Dashboard.webp)
 
 ## Cart
-![Cart](screenshots/Cart.png)
+![Cart](screenshots/Cart.webp)
 
 ## Menu
-![Menu](screenshots/Menu.png)
+![Menu](screenshots/Menu.webp)
 
 ## Order Confirmation
-![OrderConfirmation](screenshots/OrderConfirmation.png)
+![OrderConfirmation](screenshots/OrderConfirmation.webp)
 
 ## Reports
-![Reports](screenshots/Reports.png)
+![Reports](screenshots/Reports.webp)
 
 ## Contact Message
-![Contact](screenshots/Contact-Msg.png)
+![Contact](screenshots/Contact-Msg.webp)
 
 ## Manage Area
-![ManageArea](screenshots/ManageArea.png)
+![ManageArea](screenshots/ManageArea.webp)
 
 ## Register
-![Register](screenshots/Register.png)
+![Register](screenshots/Register.webp)
 
 ## My Orders
-![MyOrders](screenshots/MyOrders.png)
+![MyOrders](screenshots/MyOrders.webp)
 
 
 ## ▶️ How To Run
