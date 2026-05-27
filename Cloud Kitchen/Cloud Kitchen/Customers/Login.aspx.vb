@@ -31,7 +31,7 @@ Public Class WebForm3
         Dim password As String = txtLoginPass.Text.Trim()
 
         Try
-            If email = "Admin@gmail.com" And password = "1234" Then
+            If email = "yourmail" And password = "pass" Then
                 Session("UserEmail") = email
                 If chkRememberMe.Checked Then
                     SetPersistentCookie("UserEmail", email, 30)
