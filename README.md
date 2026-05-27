@@ -55,6 +55,9 @@ The project helps manage customers, menu items, orders, and administrative opera
 ## Order Confirmation
 ![OrderConfirmation](screenshots/OrderConfirmation.webp)
 
+## Order Confirmation E-Mail
+![OrderConfirmation](screenshots/Mail.png)
+
 ## My Orders
 ![MyOrders](screenshots/MyOrders.webp)
 
