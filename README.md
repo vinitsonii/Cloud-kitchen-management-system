@@ -43,32 +43,40 @@ The project helps manage customers, menu items, orders, and administrative opera
 ## Login
 ![Login](screenshots/Login.webp)
 
-## Dashboard
-![Dashboard](screenshots/Dashboard.webp)
-
-## Cart
-![Cart](screenshots/Cart.webp)
+## Register
+![Register](screenshots/Register.webp)
 
 ## Menu
 ![Menu](screenshots/Menu.webp)
 
+## Cart
+![Cart](screenshots/Cart.webp)
+
 ## Order Confirmation
 ![OrderConfirmation](screenshots/OrderConfirmation.webp)
 
+## My Orders
+![MyOrders](screenshots/MyOrders.webp)
+
+## Bill
+![MyOrders](screenshots/MyOrders-in.webp)
+
+
+## Dashboard
+![Dashboard](screenshots/Dashboard.webp)
+## Manage Menu
+![ManageArea](screenshots/AddFoodItems.webp)
+## Manage Cuisine
+![ManageArea](screenshots/ManageCC.webp)
+## Manage Order
+![ManageArea](screenshots/ManageOrders.webp)
+## Manage Area
+![ManageArea](screenshots/ManageArea.webp)
+## Contact Message
+![Contact](screenshots/Contact-Msg.webp)
 ## Reports
 ![Reports](screenshots/Reports.webp)
 
-## Contact Message
-![Contact](screenshots/Contact-Msg.webp)
-
-## Manage Area
-![ManageArea](screenshots/ManageArea.webp)
-
-## Register
-![Register](screenshots/Register.webp)
-
-## My Orders
-![MyOrders](screenshots/MyOrders.webp)
 
 
 ## ▶️ How To Run
