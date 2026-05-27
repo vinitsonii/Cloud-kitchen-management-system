@@ -35,6 +35,41 @@ The project helps manage customers, menu items, orders, and administrative opera
 - Bootstrap
 
 ---
+# 📸 Project Screenshots
+
+## Home
+![Home](screenshots/Home.png)
+
+## Login
+![Login](screenshots/Login.png)
+
+## Dashboard
+![Dashboard](screenshots/Dashboard.png)
+
+## Cart
+![Cart](screenshots/Cart.png)
+
+## Menu
+![Menu](screenshots/Menu.png)
+
+## Order Confirmation
+![OrderConfirmation](screenshots/OrderConfirmation.png)
+
+## Reports
+![Reports](screenshots/Reports.png)
+
+## Contact Message
+![Contact](screenshots/Contact-Msg.png)
+
+## Manage Area
+![ManageArea](screenshots/ManageArea.png)
+
+## Register
+![Register](screenshots/Register.png)
+
+## My Orders
+![MyOrders](screenshots/MyOrders.png)
+
 
 ## ▶️ How To Run
 
