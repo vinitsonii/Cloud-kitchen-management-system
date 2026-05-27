@@ -56,7 +56,7 @@ The project helps manage customers, menu items, orders, and administrative opera
 ![OrderConfirmation](screenshots/OrderConfirmation.webp)
 
 ## Order Confirmation E-Mail
-![OrderConfirmation](screenshots/Mail.png)
+![OrderConfirmation_Email](screenshots/Mail.png)
 
 ## My Orders
 ![MyOrders](screenshots/MyOrders.webp)
@@ -68,11 +68,11 @@ The project helps manage customers, menu items, orders, and administrative opera
 ## Dashboard
 ![Dashboard](screenshots/Dashboard.webp)
 ## Manage Menu
-![ManageArea](screenshots/AddFoodItems.webp)
+![ManageNenu](screenshots/AddFoodItems.webp)
 ## Manage Cuisine
-![ManageArea](screenshots/ManageCC.webp)
+![ManageCuisine](screenshots/ManageCC.webp)
 ## Manage Order
-![ManageArea](screenshots/ManageOrders.webp)
+![ManageOrders](screenshots/ManageOrders.webp)
 ## Manage Area
 ![ManageArea](screenshots/ManageArea.webp)
 ## Contact Message
