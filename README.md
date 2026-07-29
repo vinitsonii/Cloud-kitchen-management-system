@@ -27,7 +27,7 @@ The project helps manage customers, menu items, orders, and administrative opera
 ## 🛠 Technologies Used
 
 - ASP.NET
-- C#
+- VB.NET
 - MSSQL Server
 - HTML5
 - CSS3
