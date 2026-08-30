@@ -1,0 +1,161 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Cloud Kitchen\\Cloud Kitchen\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}|Cloud Kitchen\\Cloud Kitchen.vbproj|d:\\cloud kitchen\\cloud kitchen\\cloud kitchen\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}|Cloud Kitchen\\Cloud Kitchen.vbproj|solutionrelative:cloud kitchen\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/D__CLOUD_KITCHEN_CLOUD_KITCHEN_CLOUD_KITCHEN_APP_DATA_MYKITCHENN.MDF/True/SqlTable/dbo.Customers.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}|Cloud Kitchen\\Cloud Kitchen.vbproj|D:\\Cloud Kitchen\\Cloud Kitchen\\cloud kitchen\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}|Cloud Kitchen\\Cloud Kitchen.vbproj|solutionrelative:cloud kitchen\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}|Cloud Kitchen\\Cloud Kitchen.vbproj|D:\\Cloud Kitchen\\Cloud Kitchen\\cloud kitchen\\customers\\customer.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
+      "RelativeMoniker": "D:0:0:{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}|Cloud Kitchen\\Cloud Kitchen.vbproj|solutionrelative:cloud kitchen\\customers\\customer.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}|Cloud Kitchen\\Cloud Kitchen.vbproj|D:\\Cloud Kitchen\\Cloud Kitchen\\cloud kitchen\\admin\\admin.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
+      "RelativeMoniker": "D:0:0:{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}|Cloud Kitchen\\Cloud Kitchen.vbproj|solutionrelative:cloud kitchen\\admin\\admin.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}|Cloud Kitchen\\Cloud Kitchen.vbproj|D:\\Cloud Kitchen\\Cloud Kitchen\\cloud kitchen\\customers\\home.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}|Cloud Kitchen\\Cloud Kitchen.vbproj|solutionrelative:cloud kitchen\\customers\\home.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}|Cloud Kitchen\\Cloud Kitchen.vbproj|D:\\Cloud Kitchen\\Cloud Kitchen\\cloud kitchen\\admin\\addfooditems.aspx.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}",
+      "RelativeMoniker": "D:0:0:{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}|Cloud Kitchen\\Cloud Kitchen.vbproj|solutionrelative:cloud kitchen\\admin\\addfooditems.aspx.vb||{2C015C70-C72C-11D0-88C3-00A0C9110049}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}|Cloud Kitchen\\Cloud Kitchen.vbproj|D:\\Cloud Kitchen\\Cloud Kitchen\\cloud kitchen\\admin\\addfooditems.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{86700BCB-275D-4E94-BB5D-BFC36BC33DAB}|Cloud Kitchen\\Cloud Kitchen.vbproj|solutionrelative:cloud kitchen\\admin\\addfooditems.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "dbo.Customers.sql",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/D__CLOUD_KITCHEN_CLOUD_KITCHEN_CLOUD_KITCHEN_APP_DATA_MYKITCHENN.MDF/True/SqlTable/dbo.Customers.sql",
+              "ToolTip": "ViewDataWindow_MSSQL__/_LocalDB__MSSQLLocalDB/D__CLOUD_KITCHEN_CLOUD_KITCHEN_CLOUD_KITCHEN_APP_DATA_MYKITCHENN.MDF/True/SqlTable/dbo.Customers.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2026-05-30T02:57:50.415Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Web.config",
+              "DocumentMoniker": "D:\\Cloud Kitchen\\Cloud Kitchen\\Cloud Kitchen\\Web.config",
+              "RelativeDocumentMoniker": "Cloud Kitchen\\Web.config",
+              "ToolTip": "D:\\Cloud Kitchen\\Cloud Kitchen\\Cloud Kitchen\\Web.config",
+              "RelativeToolTip": "Cloud Kitchen\\Web.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAACSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-05-30T02:57:06.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Default.aspx",
+              "DocumentMoniker": "D:\\Cloud Kitchen\\Cloud Kitchen\\Cloud Kitchen\\Default.aspx",
+              "RelativeDocumentMoniker": "Cloud Kitchen\\Default.aspx",
+              "ToolTip": "D:\\Cloud Kitchen\\Cloud Kitchen\\Cloud Kitchen\\Default.aspx",
+              "RelativeToolTip": "Cloud Kitchen\\Default.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-05-30T02:57:03.408Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Admin.Master",
+              "DocumentMoniker": "D:\\Cloud Kitchen\\Cloud Kitchen\\Cloud Kitchen\\Admin\\Admin.Master",
+              "RelativeDocumentMoniker": "Cloud Kitchen\\Admin\\Admin.Master",
+              "ToolTip": "D:\\Cloud Kitchen\\Cloud Kitchen\\Cloud Kitchen\\Admin\\Admin.Master",
+              "RelativeToolTip": "Cloud Kitchen\\Admin\\Admin.Master",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-05-30T02:56:24.902Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Customer.Master",
+              "DocumentMoniker": "D:\\Cloud Kitchen\\Cloud Kitchen\\Cloud Kitchen\\Customers\\Customer.Master",
+              "RelativeDocumentMoniker": "Cloud Kitchen\\Customers\\Customer.Master",
+              "ToolTip": "D:\\Cloud Kitchen\\Cloud Kitchen\\Cloud Kitchen\\Customers\\Customer.Master",
+              "RelativeToolTip": "Cloud Kitchen\\Customers\\Customer.Master",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-05-29T04:45:13.43Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Home.aspx",
+              "DocumentMoniker": "D:\\Cloud Kitchen\\Cloud Kitchen\\Cloud Kitchen\\Customers\\Home.aspx",
+              "RelativeDocumentMoniker": "Cloud Kitchen\\Customers\\Home.aspx",
+              "ToolTip": "D:\\Cloud Kitchen\\Cloud Kitchen\\Cloud Kitchen\\Customers\\Home.aspx*",
+              "RelativeToolTip": "Cloud Kitchen\\Customers\\Home.aspx*",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-05-29T04:39:24.108Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AddFoodItems.aspx.vb",
+              "DocumentMoniker": "D:\\Cloud Kitchen\\Cloud Kitchen\\Cloud Kitchen\\Admin\\AddFoodItems.aspx.vb",
+              "RelativeDocumentMoniker": "Cloud Kitchen\\Admin\\AddFoodItems.aspx.vb",
+              "ToolTip": "D:\\Cloud Kitchen\\Cloud Kitchen\\Cloud Kitchen\\Admin\\AddFoodItems.aspx.vb",
+              "RelativeToolTip": "Cloud Kitchen\\Admin\\AddFoodItems.aspx.vb",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAYwJgAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003361|",
+              "WhenOpened": "2026-05-28T07:31:43.845Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AddFoodItems.aspx",
+              "DocumentMoniker": "D:\\Cloud Kitchen\\Cloud Kitchen\\Cloud Kitchen\\Admin\\AddFoodItems.aspx",
+              "RelativeDocumentMoniker": "Cloud Kitchen\\Admin\\AddFoodItems.aspx",
+              "ToolTip": "D:\\Cloud Kitchen\\Cloud Kitchen\\Cloud Kitchen\\Admin\\AddFoodItems.aspx",
+              "RelativeToolTip": "Cloud Kitchen\\Admin\\AddFoodItems.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2026-05-28T07:31:37.17Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

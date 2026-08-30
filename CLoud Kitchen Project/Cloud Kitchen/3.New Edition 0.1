@@ -1,0 +1,206 @@
+# 📦 Deep-Research Inventory Management Integration Plan
+
+Provide a deep, non-disruptive, end-to-end **Raw Ingredient & Recipe Inventory System** that seamlessly connects with **Menu Items, Categories, Cuisines, Orders, Dashboard KPIs, Reports, and Customer Checkout**.
+
+---
+
+## 🎯 Goal Overview
+
+This plan details how Inventory Management integrates with **every existing page and form** in the project. It defines the exact database fields required, form-by-form UI additions, recipe-to-menu mapping logic, fulfillment stock auto-deduction, and real-time out-of-stock guards—all engineered to plug in **without breaking any existing project code**.
+
+---
+
+## ⚠️ User Review Required & Design Choices
+
+> [!IMPORTANT]
+> **Key Integration & Field Strategy**:
+> 1. **`menu_item` Table Field Addition**:
+>    - Add **`m_track_inventory`** (`BIT`, default `1`) — allows admin to toggle whether an item uses raw ingredient recipe tracking.
+>    - Add **`m_unit_stock`** (`INT`, default `NULL`) — optional direct unit stock for pre-packaged/ready items (e.g. Cold Drinks, Packaged Desserts).
+> 2. **`AddFoodItems.aspx` Integration**:
+>    - Add a **"🥦 Recipe / Ingredients"** button next to each dish row in `AddFoodItems.aspx` that opens an inline modal or navigates to recipe setup for that item.
+>    - Display **Calculated Portions Left** badge dynamically in the food list grid.
+> 3. **`ManageOrders.aspx` Integration**:
+>    - Show an **Inventory Feasibility Badge** (🟢 *Stock Available* vs 🔴 *Shortage Warning*) for pending orders.
+>    - Auto-deduct stock upon clicking **Complete**; auto-set `m_availability = 'No'` if raw materials hit 0.
+> 4. **`Dashboard.aspx` & `Reports.aspx` Additions**:
+>    - Low Stock Alert KPI card on Dashboard.
+>    - 3 new inventory reports (Stock Status, Usage History, Recipe Profit Margin Costing) in `Reports.aspx`.
+
+---
+
+## 📑 Complete Form-by-Form Integration Matrix
+
+| Form / Page | Required Field Additions | New UI Controls / Features Added | Impact on Existing Functionality |
+|---|---|---|---|
+| **`AddFoodItems.aspx`** *(Food Catalog)* | `m_track_inventory` (BIT), `m_unit_stock` (INT) | "Recipe / Ingredients" button on item row; "Available Portions" badge in grid | 🟢 **Zero Breaking Changes**. Extends current grid and form cleanly. |
+| **`ManageCC1.aspx`** *(Categories & Cuisines)* | None required | Filter inventory reports & stock usage by Category/Cuisine | 🟢 **Zero Changes**. Purely analytical relationship. |
+| **`ManageOrders.aspx`** *(Order Fulfillment)* | None required in `Orders` table | Pre-fulfillment stock check badge (🟢/🔴); auto-deduction on "Complete" click | 🟢 **Zero Changes to UI layout**. Enhances fulfillment code behind. |
+| **`Dashboard.aspx`** *(Admin KPI Dashboard)* | None required | "Low Stock Alerts" KPI card + Low stock warning widget | 🟢 **Purely Additive**. New card added to existing layout. |
+| **`Reports.aspx`** *(Analytics)* | None required | 3 new report types added to `ddlReportType` dropdown | 🟢 **Purely Additive**. Extends existing dropdown list. |
+| **`Menu.aspx`** *(Customer Catalog)* | None required | Auto-disabled "Order Now" button + "Not Available" badge when raw ingredients hit 0 | 🟢 **Zero Code Changes**. Works through existing `m_availability = 'No'`. |
+| **`Cart.aspx`** *(Customer Checkout)* | None required | Stock capacity check during checkout (prevents ordering > available portions) | 🟢 **Non-Disruptive Check**. Validates quantity before saving order. |
+| **`ManageInventory.aspx`** *(NEW Page)* | `Ingredients` & `Dish_Ingredients` tables | Full stock CRUD, reorder alerts, recipe matrix builder | 🟢 **Brand New Page**. Linked in `Admin.Master` sidebar. |
+
+---
+
+## 🗄️ Database Schemas & Field Additions
+
+### 1. Modifications to Existing Table (`menu_item`)
+
+```sql
+-- Add optional inventory control fields to existing menu_item table
+ALTER TABLE menu_item 
+ADD m_track_inventory BIT DEFAULT 1,     -- 1 = Tracks raw recipe ingredients, 0 = No tracking
+    m_unit_stock INT NULL;                -- Direct stock count for packaged items (e.g. Beverages)
+```
+
+### 2. New Table 1: `Ingredients` (Raw Grocery Stock)
+
+```sql
+CREATE TABLE Ingredients (
+    ingredient_id INT PRIMARY KEY IDENTITY(1,1),
+    ingredient_name VARCHAR(100) NOT NULL,
+    stock_quantity DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    unit VARCHAR(20) NOT NULL,                    -- 'kg', 'liters', 'grams', 'packets', 'units'
+    cost_per_unit DECIMAL(10,2) DEFAULT 0.00,      -- Used for Recipe Food Costing reports
+    low_stock_threshold DECIMAL(10,2) DEFAULT 2.00, -- Reorder warning threshold
+    last_updated DATETIME DEFAULT GETDATE()
+);
+```
+
+### 3. New Table 2: `Dish_Ingredients` (Recipe Matrix Mapping)
+
+```sql
+CREATE TABLE Dish_Ingredients (
+    recipe_id INT PRIMARY KEY IDENTITY(1,1),
+    m_id INT NOT NULL FOREIGN KEY REFERENCES menu_item(m_id) ON DELETE CASCADE,
+    ingredient_id INT NOT NULL FOREIGN KEY REFERENCES Ingredients(ingredient_id) ON DELETE CASCADE,
+    qty_required DECIMAL(10,2) NOT NULL           -- e.g., 0.20 kg Paneer per 1 Paneer Tikka
+);
+```
+
+---
+
+## 🛠️ Step-by-Step Proposed Changes
+
+### Component 1: Admin Core Inventory Page
+
+#### [NEW] [ManageInventory.aspx](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/ManageInventory.aspx)
+#### [NEW] [ManageInventory.aspx.vb](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/ManageInventory.aspx.vb)
+#### [NEW] `ManageInventory.aspx.designer.vb`
+
+A modern 2-tab admin management dashboard:
+* **Tab 1: Raw Stock Management**:
+  * Ingredient list with live stock search & filter.
+  * Color-coded status badges: 🔴 *Out of Stock*, 🟡 *Low Stock Warning*, 🟢 *In Stock*.
+  * Quick stock update/refill modal & cost-per-unit setup.
+* **Tab 2: Recipe Builder**:
+  * Select dish dropdown (`m_id`).
+  * Add/remove ingredients and set `qty_required` ratios per serving.
+  * View total estimated raw material cost per portion.
+
+---
+
+### Component 2: Food Menu Form Enhancement
+
+#### [MODIFY] [AddFoodItems.aspx](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/AddFoodItems.aspx)
+#### [MODIFY] [AddFoodItems.aspx.vb](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/AddFoodItems.aspx.vb)
+
+1. Add `m_track_inventory` checkbox in Add/Edit item form (defaults to checked).
+2. Add direct link/button in the menu items grid: **"🥦 Recipe"** -> opens `ManageInventory.aspx?m_id=X`.
+3. Display calculated portion capacity in grid column based on raw stock.
+
+---
+
+### Component 3: Order Processing & Auto-Deduction Engine
+
+#### [MODIFY] [ManageOrders.aspx.vb](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/ManageOrders.aspx.vb)
+
+In `btnUpdate_Click` (when admin updates status to `'Completed'`):
+
+```vb
+' Execute helper to deduct ingredients
+DeductInventoryForOrder(orderId)
+```
+
+**`DeductInventoryForOrder(orderId)` Helper Workflow**:
+1. Select items (`m_id`, `quantity`) from `Order_Details` for `orderId`.
+2. For each item:
+   - Deduct `m_unit_stock` if direct unit item.
+   - For recipe items: Loop through `Dish_Ingredients` and execute:
+     ```sql
+     UPDATE Ingredients 
+     SET stock_quantity = CASE WHEN stock_quantity - @DeductQty < 0 THEN 0 ELSE stock_quantity - @DeductQty END,
+         last_updated = GETDATE()
+     WHERE ingredient_id = @IngredientId
+     ```
+3. Run **Auto-Availability Safeguard**:
+   For any affected dish `m_id`, check if any mapped ingredient has `stock_quantity <= 0`. If true:
+   ```sql
+   UPDATE menu_item SET m_availability = 'No' WHERE m_id = @AffectedDishId
+   ```
+
+---
+
+### Component 4: Dashboard & Analytics Reports Extension
+
+#### [MODIFY] [Dashboard.aspx](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/Dashboard.aspx)
+#### [MODIFY] [Dashboard.aspx.vb](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/Dashboard.aspx.vb)
+
+* Add 5th KPI card: **Low Stock Alerts** (`SELECT COUNT(*) FROM Ingredients WHERE stock_quantity <= low_stock_threshold`).
+* Add low stock notice banner on top of Dashboard.
+
+#### [MODIFY] [Reports.aspx.vb](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/Reports.aspx.vb)
+
+Add 3 new report types to `GenerateReport()`:
+1. `"inventory_stock"`: Ingredient list, current stock, unit, threshold, status.
+2. `"inventory_usage"`: Total ingredient consumption grouped by date range.
+3. `"recipe_costing"`: Dish name, selling price, raw ingredient cost, gross margin %.
+
+---
+
+### Component 5: Navigation Master Layout Update
+
+#### [MODIFY] [Admin.Master](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/Admin.Master#L493-L502)
+
+Add sidebar link to `ManageInventory.aspx`:
+
+```html
+<div id="menu-menu" class="submenu">
+    <a href="AddFoodItems.aspx" class="nav-item">
+        <img src="../icons/addi.png" alt="add" />
+        <span>Add Item</span>
+    </a>
+    <a href="ManageCC1.aspx" class="nav-item">
+        <img src="../icons/manageitem.png" alt="edit" />
+        <span>Edit Item</span>
+    </a>
+    <a href="ManageInventory.aspx" class="nav-item">
+        <img src="../icons/manageitem.png" alt="inventory" />
+        <span>Manage Inventory</span>
+    </a>
+</div>
+```
+
+---
+
+## 🧪 Verification Plan
+
+### Automated & Database Verification
+1. Run SQL scripts to create `Ingredients`, `Dish_Ingredients` tables and add columns to `menu_item`.
+2. Build solution using MSBuild to verify 0 compilation errors.
+
+### End-to-End Workflow Verification
+1. **Raw Stock Setup**: Add ingredients (*Paneer: 10.0 kg*, *Butter: 5.0 kg*) in `ManageInventory.aspx`.
+2. **Recipe Mapping**: Link *Paneer Butter Masala* dish to *Paneer (0.20 kg)* & *Butter (0.05 kg)*.
+3. **Order Placement & Fulfillment**:
+   - Customer orders 5 portions of *Paneer Butter Masala*.
+   - Admin marks order **Completed** in `ManageOrders.aspx`.
+   - Verify *Paneer* stock drops to `9.0 kg` and *Butter* to `4.75 kg`.
+4. **Out of Stock Guard Test**:
+   - Manually drop *Paneer* stock to `0.0 kg`.
+   - Verify *Paneer Butter Masala* availability turns to `m_availability = 'No'` and is disabled on customer `Menu.aspx`.
+5. **Reports Verification**: Generate `Raw Stock Report` and `Recipe Costing Report` in `Reports.aspx`.
+
+---

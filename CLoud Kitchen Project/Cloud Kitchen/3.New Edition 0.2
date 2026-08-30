@@ -1,0 +1,93 @@
+# Inventory Management System Implementation Walkthrough
+
+The Inventory Management System has been successfully integrated into the Cloud Kitchen project across 6 seamless, non-disruptive phases without altering or disrupting any existing customer ordering or admin features.
+
+---
+
+## 📸 Key Features & Architecture Highlights
+
+### 1. Database Relational Architecture (Phase 1)
+- **`Ingredients` Table**: Stores central raw stock (e.g. Paneer, Cheese, Milk, Flour, Oil, Spices, Vegetables) with unit metrics, cost per unit, and low stock thresholds.
+- **`Dish_Ingredients` Table**: Recipe relation mapping 1 dish (`m_id`) to multiple central raw ingredients (`ingredient_id`) with specific quantity ratios (`qty_required`).
+- **`menu_item` Extensions**: Added `m_track_inventory` (BIT, default 1) and `m_unit_stock` (INT, default NULL).
+
+```mermaid
+erDiagram
+    menu_item ||--o{ Dish_Ingredients : "has recipe mapping"
+    Ingredients ||--o{ Dish_Ingredients : "used in dishes"
+    menu_item {
+        int m_id PK
+        string m_name
+        decimal m_final_price
+        string m_availability
+        bit m_track_inventory
+        int m_unit_stock
+    }
+    Ingredients {
+        int ingredient_id PK
+        string ingredient_name
+        decimal stock_quantity
+        string unit
+        decimal cost_per_unit
+        decimal low_stock_threshold
+        datetime last_updated
+    }
+    Dish_Ingredients {
+        int recipe_id PK
+        int m_id FK
+        int ingredient_id FK
+        decimal qty_required
+    }
+```
+
+---
+
+## 🛠 Shared Ingredient Handling Example
+
+Centralized inventory allows multiple dishes to share the exact same raw material stock:
+
+```
+                     ┌──────────────────────────────────────────────┐
+                     │          Central Raw Stock (Ingredients)     │
+                     │          Paneer: 10.00 kg                     │
+                     └──────────────────────┬───────────────────────┘
+                                            │
+           ┌────────────────────────────────┼────────────────────────────────┐
+           │                                │                                │
+           ▼                                ▼                                ▼
+┌──────────────────────┐        ┌──────────────────────┐        ┌──────────────────────┐
+│ Paneer Butter Masala │        │ Paneer Tikka         │        │ Paneer Paratha       │
+│ Recipe: 0.25 kg      │        │ Recipe: 0.20 kg      │        │ Recipe: 0.10 kg      │
+└──────────────────────┘        └──────────────────────┘        └──────────────────────┘
+```
+
+When **1 Paneer Butter Masala** is ordered and completed, 0.25 kg is automatically deducted from central stock (leaving 9.75 kg Paneer available for all dishes).
+
+---
+
+## 📋 Summary of Changes Across Files
+
+### Admin Interfaces & Controllers
+- **[ManageInventory.aspx](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/ManageInventory.aspx)**: Light-themed 2-Tab Admin Inventory Center featuring clean card headers (`border-left: 6px solid #2563eb`), structured 3-column input form grids with individual labels, and scrollable data tables (`max-height: 460px`) with light sticky table headers (`#f1f5f9`).
+- **[ManageInventory.aspx.vb](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/ManageInventory.aspx.vb)**: Code-behind managing tab switches, low stock badges (`🟢 In Stock`, `🟡 Low Stock`, `🔴 Out of Stock`), ingredient management, and recipe proportion updates.
+- **[Admin.Master](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/Admin.Master)**: Added "Manage Inventory" link to the Food Menu sidebar navigation.
+- **[AddFoodItems.aspx](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/AddFoodItems.aspx)**: Added a **"🥦 Recipe"** direct action button on every food item card linking to the Recipe Builder for that dish (`ManageInventory.aspx?m_id=X`).
+- **[ManageOrders.aspx.vb](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/ManageOrders.aspx.vb)**: Hooked `DeductInventoryForOrder(orderId)` into `btnUpdate_Click`. When order status changes to `'Completed'`, raw materials are auto-deducted, and dishes hit by stock depletion are auto-disabled (`m_availability = 'No'`).
+- **[Dashboard.aspx](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/Dashboard.aspx)** & **[Dashboard.aspx.vb](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/Dashboard.aspx.vb)**: Added a **Low Stock Alerts** KPI card linking directly to `ManageInventory.aspx`.
+- **[Reports.aspx](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/Reports.aspx)** & **[Reports.aspx.vb](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Admin/Reports.aspx.vb)**: Added 3 new report types:
+  1. 🥦 Raw Ingredient Stock Status
+  2. 📈 Ingredient Consumption History
+  3. 💰 Recipe Food Costing & Gross Margin
+- **[Cloud Kitchen.vbproj](file:///d:/Cloud%20Kitchen/CLoud%20Kitchen%20Project/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen/Cloud%20Kitchen.vbproj)**: Registered `ManageInventory.aspx`, `.vb`, and `.designer.vb`.
+
+---
+
+## 🔍 Verification & Safety Checklist
+
+- [x] Database migration applied cleanly (`Ingredients`, `Dish_Ingredients`, `menu_item` columns).
+- [x] Admin Navigation updated with direct shortcut to Inventory management.
+- [x] Dish-to-Ingredient recipe mapping verified with dynamic unit calculation.
+- [x] Order completion workflow automatically deducts raw stocks and marks depleted items as out of stock.
+- [x] Admin Dashboard KPI displays real-time Low Stock count.
+- [x] Analytics Reports generate CSV exportable Inventory & Recipe Costing reports.
+- [x] All existing customer cart, login, registration, and food ordering functions verified untouched.
