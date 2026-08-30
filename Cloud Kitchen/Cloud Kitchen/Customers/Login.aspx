@@ -28,10 +28,7 @@
             min-height: calc(100vh - var(--ck-nav-h, 78px));
             display: grid;
             grid-template-columns: minmax(0, 1.08fr) minmax(420px, 0.92fr);
-            background:
-                radial-gradient(circle at 12% 10%, rgba(255, 159, 67, 0.22), transparent 24rem),
-                radial-gradient(circle at 80% 12%, rgba(79, 126, 118, 0.18), transparent 28rem),
-                linear-gradient(135deg, #fffaf3 0%, #f7fbf8 54%, #ffffff 100%);
+            background:radial-gradient(circle at 12% 10%, rgba(255, 159, 67, 0.22), transparent 24rem),radial-gradient(circle at 80% 12%, rgba(79, 126, 118, 0.18), transparent 28rem),linear-gradient(135deg, #fffaf3 0%, #f7fbf8 54%, #ffffff 100%);
         }
 
         .ck-image-panel {

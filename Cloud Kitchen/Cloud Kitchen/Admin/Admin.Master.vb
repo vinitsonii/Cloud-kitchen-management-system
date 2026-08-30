@@ -1,18 +1,23 @@
-﻿Imports System.Data.SqlClient
+Imports System.Data.SqlClient
 
 Public Class Admin
     Inherits System.Web.UI.MasterPage
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        cntm()
+        ' Prevent browser from caching admin pages
+        Response.Cache.SetCacheability(HttpCacheability.NoCache)
+        Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1))
+        Response.Cache.SetNoStore()
+
         If Not IsPostBack Then
 
-            'If Session("UserEmail") Is Nothing Then
-            '    Response.Redirect("../Customers/Login.aspx")
-            'End If
-            cntm()
-            cnto()
+            If Session("UserEmail") Is Nothing Then
+                Response.Redirect("../Customers/Login.aspx")
+            End If
         End If
+        cntm()
+        cnto()
+
     End Sub
 
 
@@ -25,6 +30,7 @@ Public Class Admin
                 If Convert.ToInt32(msgg) = 0 Then
                     lblcnt.Visible = False
                 Else
+                    lblcnt.Visible = True
                     lblcnt.Text = If(IsDBNull(msgg), "0", msgg.ToString())
                 End If
 
@@ -44,6 +50,7 @@ Public Class Admin
                 If Convert.ToInt32(msgg) = 0 Then
                     lblorder.Visible = False
                 Else
+                    lblorder.Visible = True
                     lblorder.Text = If(IsDBNull(msgg), "0", msgg.ToString())
                 End If
 

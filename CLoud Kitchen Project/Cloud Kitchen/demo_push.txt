@@ -1,0 +1,7 @@
+# 🚀 Cloud Kitchen — Push Verification Demo File
+
+This is a demonstration file created to verify Git push integration to GitHub repository `https://github.com/vinitsonii/Cloud_Kitchen.git`.
+
+- Timestamp: 2026-08-30
+- Status: Ready for commit & push
+- Repository: vinitsonii/Cloud_Kitchen

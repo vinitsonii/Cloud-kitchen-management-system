@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Customers/Customer.Master"
+<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Customers/Customer.Master"
     CodeBehind="Menu.aspx.vb" Inherits="Cloud_Kitchen.Menu" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -413,19 +413,19 @@
                 </div>
             </ItemTemplate>
         </asp:Repeater>
-
-        <asp:Panel ID="pnlempty" runat="server" Visible="false">
-            <div class="menu-empty-container">
-                <h2>We're sorry, nothing's available right now 🙁</h2>
-                <img src="../icons/em5.png" width="110" alt="No Items Found" />
-                <p>We couldn't find any menu items matching your search or selected filters.</p>
-                <p style="color:#777;font-size:.9rem;">
-                    Try adjusting your selection or check back shortly — we're always cooking up something new! 🍳
-                </p>
-                <a href="menu.aspx" class="empty-reset-btn">🔁 View All Menu Items</a>
-            </div>
-        </asp:Panel>
     </div>
+
+    <asp:Panel ID="pnlempty" runat="server" Visible="false">
+        <div class="menu-empty-container">
+            <h2>We're sorry, nothing's available right now 🙁</h2>
+            <img src="../icons/em5.png" width="110" alt="No Items Found" />
+            <p>We couldn't find any menu items matching your search or selected filters.</p>
+            <p style="color:#777;font-size:.9rem;">
+                Try adjusting your selection or check back shortly — we're always cooking up something new! 🍳
+            </p>
+            <a href="menu.aspx" class="empty-reset-btn">🔁 View All Menu Items</a>
+        </div>
+    </asp:Panel>
 
     <br /><br />
 </asp:Content>

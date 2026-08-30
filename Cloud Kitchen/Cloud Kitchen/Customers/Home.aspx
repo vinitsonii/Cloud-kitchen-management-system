@@ -381,6 +381,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
     width:100%;
     height:100%;
     object-fit:cover;
+
+    object-position: left center;
+
     opacity:0;
     transition:opacity 1.2s ease;
 }
@@ -985,9 +988,9 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
         <h1 class="mb-3">
             Welcome to Cloud Kitchen
             <% 
-                If Session("c_name") IsNot Nothing Then
-                    Response.Write(" " & Session("c_name"))
-                End If
+    If Session("c_name") IsNot Nothing Then
+        Response.Write(" " & Session("c_name"))
+    End If
             %>
         </h1>
         <p class="lead mb-4">Delicious food delivered right to your door, with love and freshness!</p>
@@ -1080,19 +1083,23 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
 
                 <div class="about-image-wrapper">
 
-                    <div class="img-slide" id="slider">
+                    <div class="about-image-wrapper">
 
-                        <img src="../Images/hero-bg.jpg" class="slide-img active" alt="food" />
-                        <img src="../Images/hero-bg1.jpg" class="slide-img" alt="food" />
-                        <img src="../Images/img3.jpg" class="slide-img" alt="food" />
-                        <img src="../Images/img5.jpg" class="slide-img" alt="food" />
-                        <img src="../Images/s1.jpeg" class="slide-img" alt="food" />
-                        <img src="../Images/s2.jpeg" class="slide-img" alt="food" />
-                        <img src="../Images/gallery-2.jpg" class="slide-img" alt="food" />
-                        <img src="../Images/gallery-3.jpg" class="slide-img" alt="food" />
-                        <img src="../Images/gallery-4.jpg" class="slide-img" alt="food" />
+    <div class="img-slide" id="slider">
 
-                    </div>
+        <img src="../Images/image1.jpg" class="slide-img active" alt="food" />
+        <img src="../Images/image2.jpg" class="slide-img" alt="food" />
+        <img src="../Images/image3.jpg" class="slide-img" alt="food" />
+        <img src="../Images/image4.jpg" class="slide-img" alt="food" />
+        <img src="../Images/image5.jpg" class="slide-img" alt="food" />
+        <img src="../Images/image6.jpg" class="slide-img" alt="food" />
+        <img src="../Images/image7.jpg" class="slide-img" alt="food" />
+        <img src="../Images/image8.jpg" class="slide-img" alt="food" />
+        <img src="../Images/image9.jpg" class="slide-img" alt="food" />
+
+    </div>
+
+</div>
 
                     <div class="about-floating-card card-one">
                         <i class="bi bi-clock-history"></i>
@@ -1205,7 +1212,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
                         <ItemTemplate>
                             <div class="message-item">
                                 <div class="avatar-circle">
-                                    <%# Eval("name").ToString().Substring(0,1).ToUpper() %>
+                                    <%# Eval("name").ToString().Substring(0, 1).ToUpper() %>
                                 </div>
                                 <div class="message-name"><%# Eval("name") %></div>
                                 <div class="message-text"><%# Eval("message") %></div>

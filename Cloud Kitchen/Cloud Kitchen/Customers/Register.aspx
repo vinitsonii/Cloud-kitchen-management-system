@@ -12,7 +12,7 @@
             --success:      #4caf50;
             --success-dk:   #3d8b40;
             --bg:           #f4f7f6;
-            --form-bg:      #ffffff;
+            --form-bg: rgba(255,255,255,0.86);
             --input-border: #dbe0e6;
             --input-focus:  rgba(79,126,118,.22);
             --text:         #333;
@@ -26,9 +26,14 @@
         }
 
         .ck-reg-wrap {
-            min-height: calc(100vh - 72px);
-            display: flex;
-        }
+    min-height: calc(100vh - 72px);
+    display: flex;
+
+    background:
+        radial-gradient(circle at 12% 10%, rgba(255, 159, 67, 0.22), transparent 24rem),
+        radial-gradient(circle at 80% 12%, rgba(79, 126, 118, 0.18), transparent 28rem),
+        linear-gradient(135deg, #fffaf3 0%, #f7fbf8 54%, #ffffff 100%);
+}
 
         .ck-img-panel {
             flex: 1.2;
@@ -98,17 +103,52 @@
             align-items: flex-start;
             justify-content: center;
             padding: 3rem 1.5rem;
-            background: var(--form-bg);
+            background: linear-gradient(135deg, #fffaf3 0%, #f7fbf8 100%);
             overflow-y: auto;
         }
+.ck-form-panel {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+.ck-form-panel::before {
+    content: '';
+    position: absolute;
 
-        .ck-card {
-            width: 100%;
-            max-width: 460px;
-            padding: 1rem 0;
-            animation: ck-fade-up .75s .1s ease both;
-        }
+    width: 320px;
+    height: 320px;
 
+    border-radius: 50%;
+    background: rgba(79, 126, 118, 0.16);
+
+    top: 12%;
+    right: 6%;
+
+    filter: blur(12px);
+
+    z-index: 0;
+}
+.ck-card {
+    position: relative;
+    z-index: 2;
+}
+.ck-card {
+    width: 100%;
+    max-width: 460px;
+    padding: 2rem;
+
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+
+    border-radius: 24px;
+    border: 1px solid rgba(0,0,0,0.06);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.08),
+        0 2px 10px rgba(0,0,0,0.04);
+
+    animation: ck-fade-up .75s .1s ease both;
+}
         .ck-card-header {
             text-align: center;
             margin-bottom: 1.8rem;

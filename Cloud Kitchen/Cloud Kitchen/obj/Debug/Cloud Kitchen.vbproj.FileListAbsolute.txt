@@ -14,5 +14,6 @@ D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.vbproj.Gene
 D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.dll
 D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.xml
 D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.pdb
-D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.vbproj.AssemblyReference.cache
 D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.vbproj.CoreCompileInputs.cache
+D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\bin\Cloud Kitchen.dll.config
+D:\Cloud Kitchen\Cloud Kitchen\Cloud Kitchen\obj\Debug\Cloud Kitchen.vbprojAssemblyReference.cache

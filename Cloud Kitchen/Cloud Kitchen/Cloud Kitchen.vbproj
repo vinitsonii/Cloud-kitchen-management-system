@@ -1,5 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -21,6 +22,11 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,7 +35,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\</OutputPath>
     <DocumentationFile>Cloud Kitchen.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,7 +44,7 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
     <DocumentationFile>Cloud Kitchen.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -96,26 +102,13 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="Admin\AddFoodItems.aspx" />
-    <Content Include="Additional Files\WebForm5.aspx" />
-    <Content Include="Additional Files\WebForm6.aspx" />
-    <Content Include="Additional Files\WebForm7.aspx" />
-    <Content Include="Admin\ManageCC.aspx" />
+    <Content Include="Admin\ImportFromAPI.aspx" />
     <Content Include="Admin\Reports.aspx" />
     <Content Include="Admin\ManageOrders.aspx" />
     <Content Include="Admin\ManageCC1.aspx" />
     <Content Include="Admin\Contact_Msg.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
-    <Content Include="Additional Files\cartbackup.htm" />
-    <Content Include="Additional Files\WebForm10.aspx" />
     <Content Include="Admin\ManageArea.aspx" />
-    <Content Include="App_Data\Database1.mdf" />
-    <Content Include="App_Data\Database1_log.ldf">
-      <DependentUpon>Database1.mdf</DependentUpon>
-    </Content>
-    <Content Include="App_Data\Database2.mdf" />
-    <Content Include="App_Data\Database2_log.ldf">
-      <DependentUpon>Database2.mdf</DependentUpon>
-    </Content>
     <Content Include="Customers\Login.aspx" />
     <Content Include="Customers\Logout.aspx" />
     <Content Include="Customers\Register.aspx" />
@@ -207,7 +200,6 @@
     <Content Include="icons\user4.png" />
     <Content Include="icons\users.png" />
     <Content Include="icons\users1.png" />
-    <Content Include="Additional Files\WebForm2.aspx" />
     <Content Include="App_Data\MyKitchenn.mdf" />
     <Content Include="App_Data\MyKitchenn_log.ldf">
       <DependentUpon>MyKitchenn.mdf</DependentUpon>
@@ -228,6 +220,15 @@
     <Content Include="Images\gallery-3.jpg" />
     <Content Include="Images\gallery-4.jpg" />
     <Content Include="Images\hero-bg1.jpg" />
+    <Content Include="Images\image1.jpg" />
+    <Content Include="Images\image2.jpg" />
+    <Content Include="Images\image3.jpg" />
+    <Content Include="Images\image4.jpg" />
+    <Content Include="Images\image5.jpg" />
+    <Content Include="Images\image6.jpg" />
+    <Content Include="Images\image7.jpg" />
+    <Content Include="Images\image8.jpg" />
+    <Content Include="Images\image9.jpg" />
     <Content Include="Images\img1.jpg" />
     <Content Include="Images\img2.jpg" />
     <Content Include="Images\img3.jpg" />
@@ -243,6 +244,8 @@
     <Content Include="Images\lb9.jpeg" />
     <Content Include="Images\hero-bg.jpg" />
     <Content Include="Images\menubg.jpg" />
+    <Content Include="Images\menubg1.jpg" />
+    <Content Include="Images\menubgg.jpg" />
     <Content Include="Images\Menu\Mumbai Street Toastie _ Marion%27s Kitchen.jpeg" />
     <Content Include="Images\Menu\Pizza.jpeg" />
     <Content Include="Images\Menu\Plain Dosa Recipe - Authentic Taste - Khaddoroshik.jpeg" />
@@ -273,41 +276,7 @@
       <DependentUpon>Admin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Additional Files\WebForm2.aspx.designer.vb">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Additional Files\WebForm2.aspx.vb">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Additional Files\WebForm5.aspx.designer.vb">
-      <DependentUpon>WebForm5.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Additional Files\WebForm5.aspx.vb">
-      <DependentUpon>WebForm5.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Additional Files\WebForm6.aspx.designer.vb">
-      <DependentUpon>WebForm6.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Additional Files\WebForm6.aspx.vb">
-      <DependentUpon>WebForm6.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Additional Files\WebForm7.aspx.designer.vb">
-      <DependentUpon>WebForm7.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Additional Files\WebForm7.aspx.vb">
-      <DependentUpon>WebForm7.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Admin\ManageCC.aspx.designer.vb">
-      <DependentUpon>ManageCC.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\ManageCC.aspx.vb">
-      <DependentUpon>ManageCC.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
+
     <Compile Include="Admin\Reports.aspx.designer.vb">
       <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
@@ -341,13 +310,6 @@
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.vb">
       <DependentUpon>Dashboard.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Additional Files\WebForm10.aspx.designer.vb">
-      <DependentUpon>WebForm10.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Additional Files\WebForm10.aspx.vb">
-      <DependentUpon>WebForm10.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Admin\ManageArea.aspx.designer.vb">
@@ -472,8 +434,13 @@
   <ItemGroup>
     <Folder Include="logs\" />
   </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Dashboard" Language="vb" AutoEventWireup="false" MasterPageFile="~/Admin/Admin.Master"
+<%@ Page Title="Dashboard" Language="vb" AutoEventWireup="false" MasterPageFile="~/Admin/Admin.Master"
     CodeBehind="Dashboard.aspx.vb" Inherits="Cloud_Kitchen.Dashboard" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -29,39 +29,58 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .animated-heading {
+        .dashboard-header-block {
+            background: var(--primary-gradient, linear-gradient(135deg, #4A90E2, #1E3C72));
+            color: #ffffff;
+            border-radius: 16px;
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            margin: 0 auto 24px;
+            box-shadow: 0 10px 25px rgba(30, 60, 114, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            font-size: clamp(34px, 7vw, 55px);
-            font-weight: 700;
-            line-height: 1.1;
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            color: #fff;
-            background: linear-gradient(135deg, #4A90E2, #1E3C72);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fadeIn 1.5s ease-in-out, glowEffect 2s infinite alternate;
-            overflow-wrap: anywhere;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
         }
 
-        @keyframes glowEffect {
-            from { text-shadow: 3px 3px 10px rgba(0, 123, 255, 0.35); }
-            to { text-shadow: 5px 5px 15px rgba(0, 212, 255, 0.55); }
+        .dashboard-header-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 40%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.18), transparent 62%);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .animated-heading {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin: 0 0 8px;
+            color: #ffffff;
+            animation: fadeIn 1s ease-in-out;
+            z-index: 2;
+        }
+
+        .dashboard-subtitle {
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+            margin: 0;
+            letter-spacing: 0.3px;
+            z-index: 2;
         }
 
         .section-divider {
             border: 0;
-            border-top: 3px solid royalblue;
-            opacity: 1;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
             margin: clamp(18px, 3vw, 28px) 0;
-        }
-
-        .card1 {
-            padding: clamp(14px, 3vw, 20px);
-            width: min(100%, 900px);
-            margin: auto;
-            border-radius: 20px;
         }
 
         .stat-card,
@@ -112,9 +131,24 @@
         }
 
         .section-title {
-            font-size: clamp(20px, 4vw, 28px);
+            font-size: clamp(18px, 3vw, 24px);
             font-weight: 700;
-            margin: 0 0 18px;
+            color: #1e293b;
+            margin: 24px 0 16px;
+            position: relative;
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #4A90E2, #1E3C72);
+            border-radius: 2px;
         }
 
         .popular-items {
@@ -292,8 +326,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="dashboard-container">
-        <div class="card1">
+        <div class="dashboard-header-block">
             <h1 class="animated-heading">Cloud Kitchen</h1>
+            <p class="dashboard-subtitle">Real-time Admin Analytics & Management</p>
         </div>
 
         <hr class="section-divider" />

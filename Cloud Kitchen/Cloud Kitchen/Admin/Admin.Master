@@ -1,9 +1,13 @@
-﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="admin.master.vb" Inherits="Cloud_Kitchen.Admin" %>
+<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="admin.master.vb" Inherits="Cloud_Kitchen.Admin" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="head1" runat="server">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <style>
@@ -66,7 +70,7 @@ html, body{
 
         body {
             margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: var(--bg-light);
             color: var(--text-dark);
             overflow-x: hidden;
@@ -495,11 +499,15 @@ html, body{
                         <img src="../icons/manageitem.png" alt="edit" />
                         <span>Edit Item</span>
                     </a>
+                    <a href="ImportFromAPI.aspx" class="nav-item">
+                        <img src="../icons/menu.png" alt="api" />
+                        <span>Import from API</span>
+                    </a>
                 </div>
 
                 <div class="nav-item" onclick="toggleMenu('menu-orders')" data-target="menu-orders">
                     <img src="../icons/orders.png" alt="orders" />
-                    <span>Orders</span><span class="badge"><asp:Label ID="lblorder" runat="server" ></asp:Label></span>
+                    <span>Orders</span><asp:Label ID="lblorder" runat="server" CssClass="badge" ></asp:Label>
                     <div class="nav-toggle">
                         <img src="../icons/arrow-down.png" alt="toggle" />
                     </div>
@@ -520,7 +528,7 @@ html, body{
                 <a href="Contact_Msg.aspx" class="nav-item">
                     <img src="../icons/mail.png" alt="users" />
                     <span>Messages</span>
-                    <span class="badge"><asp:Label ID="lblcnt" runat="server" ></asp:Label></span>
+                    <asp:Label ID="lblcnt" runat="server" CssClass="badge" ></asp:Label>
                 </a>
 
                 <a href="Reports.aspx" class="nav-item">
@@ -535,7 +543,7 @@ html, body{
             </div>
 
             <div class="sidebar-footer">
-                <p>&copy; 2025 Cloud Kitchen</p>
+                <p>&copy; 2026 Cloud Kitchen</p>
             </div>
         </div>
 

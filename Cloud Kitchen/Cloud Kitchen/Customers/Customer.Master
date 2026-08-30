@@ -1,4 +1,4 @@
-﻿<%@ Master Language="VB" AutoEventWireup="false" Inherits="Cloud_Kitchen.Customer" Codebehind="Customer.master.vb" %>
+<%@ Master Language="VB" AutoEventWireup="false" Inherits="Cloud_Kitchen.Customer" Codebehind="Customer.master.vb" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -934,7 +934,7 @@ html, body{
                             <i class="bi bi-telephone-fill"></i>
                             <span>
                                 <span class="contact-label">Phone</span>
-                                <a href="tel:8160698196">8160698196</a>
+                                <a href="tel:9876543210">9876543210</a>
                             </span>
                         </div>
                         <div class="contact-item">
@@ -952,7 +952,7 @@ html, body{
                         <div class="social-row">
                             <a href="#" class="social-link" title="Facebook" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
                             <a href="#" class="social-link" title="Twitter" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-                            <a href="https://www.instagram.com/vinitsonii" class="social-link" title="Instagram" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="social-link" title="Instagram" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
                             <a href="#" class="social-link" title="YouTube" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
                         </div>
                         <div class="footer-hours">
@@ -966,7 +966,7 @@ html, body{
 
         <div class="ck-footer-bottom">
             <div class="footer-bottom-inner">
-                <span>&copy; 2025 Cloud Kitchen. All rights reserved.</span>
+                <span>&copy; <%=DateTime.Now.Year%> Cloud Kitchen. All rights reserved.</span>
                 <div class="footer-bottom-links">
                     <a href="Home.aspx#contact">Support</a>
                     <a href="Menu.aspx">Menu</a>
