@@ -1,4 +1,4 @@
-﻿Imports System.Data.SqlClient
+Imports System.Data.SqlClient
 
 Partial Class ManageArea
     Inherits System.Web.UI.Page
@@ -70,11 +70,10 @@ Partial Class ManageArea
             Dim totalAreas As Integer = Convert.ToInt32(cmdTotal.ExecuteScalar())
             litTotalAreas.Text = totalAreas.ToString()
 
-            ' Get recent additions (last 30 days, assuming there's a CreatedDate column)
-            ' If there's no CreatedDate column, can use last 3 entries or similar logic
-            Dim cmdRecent As New SqlCommand("SELECT COUNT(*) FROM (SELECT TOP 3 * FROM Area_Pincode ORDER BY Area_Id DESC) AS RecentAreas", con)
-            Dim recentAdditions As Integer = Convert.ToInt32(cmdRecent.ExecuteScalar())
-            litRecentAdditions.Text = recentAdditions.ToString()
+            ' Get total unique pincodes count
+            Dim cmdPincodes As New SqlCommand("SELECT COUNT(DISTINCT Pincode) FROM Area_Pincode", con)
+            Dim totalPincodes As Integer = Convert.ToInt32(cmdPincodes.ExecuteScalar())
+            litRecentAdditions.Text = totalPincodes.ToString()
 
         Catch ex As Exception
             ' Handle any errors
@@ -304,5 +303,13 @@ Partial Class ManageArea
     Protected Sub btnClearSearch_Click(ByVal sender As Object, ByVal e As EventArgs)
         txtSearch.Text = String.Empty
         BindAreas()
+    End Sub
+
+    Protected Sub btnConfirmDelete_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnConfirmDelete.Click
+        If Not String.IsNullOrEmpty(hdnDeleteAreaId.Value) Then
+            Dim areaId As Integer = Convert.ToInt32(hdnDeleteAreaId.Value)
+            DeleteArea(areaId)
+            hdnDeleteAreaId.Value = String.Empty
+        End If
     End Sub
 End Class

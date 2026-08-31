@@ -1,4 +1,4 @@
-﻿Imports System.Data.SqlClient
+Imports System.Data.SqlClient
 Imports System.Configuration
 Imports System.Net
 Imports System.Net.Mail
@@ -235,45 +235,14 @@ Public Class Cart
 
             cartTable &= "</table>"
 
-            '    Dim emailBody As String = "<!DOCTYPE html>" &
-            '"<html>" &
-            '"<head>" &
-            '    "<style>" &
-            '        "body { font-family: Arial, sans-serif; background-color: #f8f9fa; margin: 0; padding: 0; }" &
-            '        ".container { max-width: 600px; margin: 20px auto; background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); }" &
-            '        ".header { background: #007bff; color: #ffffff; text-align: center; padding: 15px; font-size: 22px; font-weight: bold; border-top-left-radius: 8px; border-top-right-radius: 8px; }" &
-            '        ".content { padding: 20px; text-align: center; }" &
-            '        ".content h2 { color: #333; }" &
-            '        ".content p { font-size: 16px; color: #555; }" &
-            '        ".order-details { background: #f1f1f1; padding: 15px; border-radius: 8px; margin-top: 15px; text-align: left; }" &
-            '        ".order-details p { margin: 5px 0; font-size: 16px; }" &
-            '        ".footer { text-align: center; padding: 10px; font-size: 14px; color: #777; }" &
-            '        ".button { display: inline-block; background: #28a745; color: #fff; padding: 10px 20px; text-decoration: none; font-size: 16px; border-radius: 5px; margin-top: 15px; }" &
-            '        ".button:hover { background: #218838; }" &
-            '    "</style>" &
-            '"</head>" &
-            '"<body>" &
-            '    "<div class='container'>" &
-            '        "<div class='header'>Cloud Kitchen 🍽</div>" &
-            '        "<div class='content'>" &
-            '            "<h2>Thank you for your order!</h2>" &
-            '            "<p>Your order has been successfully placed. Below are the details:</p>" &
-            '            "<div class='order-details'>" &
-            '                "<p><strong>Order ID:</strong> #" & orderId & "</p>" &
-            '                "<p><strong>Transaction No:</strong> " & transactionNumber & "</p>" &
-            '                "<p><strong>Estimated Delivery:</strong> 30-40 mins</p>" &
-            '            "</div>" &
-            '            "<h3>Your Order Summary:</h3>" &
-            '            cartTable &
-            '            "<a href='http://www.cloudkitchen.somee.com/MyOrders.aspx' sclass='button'>View My Orders</a>" &
-            '        "</div>" &
-            '        "<div class='footer'>" &
-            '            "If you have any questions, contact us at <a href='mailto:info.cloudkitchenn@gmail.com'>info.cloudkitchenn@gmail.com</a>" &
-            '        "</div>" &
-            '    "</div>" &
-            '"</body>" &
-            '"</html>"
-
+            Dim baseUrl As String = ""
+            If HttpContext.Current IsNot Nothing AndAlso HttpContext.Current.Request IsNot Nothing Then
+                baseUrl = HttpContext.Current.Request.Url.Scheme & "://" & HttpContext.Current.Request.Url.Authority
+            Else
+                baseUrl = ConfigurationManager.AppSettings("WebsiteUrl")
+                If String.IsNullOrEmpty(baseUrl) Then baseUrl = "http://localhost"
+            End If
+            Dim myOrdersUrl As String = baseUrl & "/Customers/MyOrders.aspx"
 
             Dim emailBody As String = "
 <!DOCTYPE html>
@@ -460,10 +429,11 @@ Thank you for choosing Cloud Kitchen.
 
 <div class='total-box'>
 Total Amount: ₹" & lblTotalPrice.Text & "
+<br/><span style='font-size:12px; color:#64748b; font-weight:normal;'>(Incl. of all taxes & GST)</span>
 </div>
 
 <center>
-<a href='https://www.cloudkitchen.somee.com/Customers/MyOrders.aspx' class='button'>
+<a href='" & myOrdersUrl & "' class='button'>
 View My Orders
 </a>
 </center>

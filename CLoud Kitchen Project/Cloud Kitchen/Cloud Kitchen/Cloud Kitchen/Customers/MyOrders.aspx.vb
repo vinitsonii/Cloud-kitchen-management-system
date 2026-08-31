@@ -505,7 +505,7 @@ Partial Class MyOrders
         html.Append("<div class='invoice-badge'>INVOICE</div>")
         html.Append("<div class='mt-3 small'>")
         html.Append("<div><i class='bi bi-geo-alt-fill'></i> Anand, Gujarat</div>")
-        html.Append("<div><i class='bi bi-envelope-fill'></i> info@cloudkitchen.com</div>")
+        html.Append("<div><i class='bi bi-envelope-fill'></i> info@cloudkitchenn.com</div>")
         html.Append("<div><i class='bi bi-telephone-fill'></i> +91 8160698196</div>")
         html.Append("</div>")
         html.Append("</div>")

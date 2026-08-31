@@ -1,49 +1,25 @@
 <%@ Page Title="Manage Service Areas" Language="vb" AutoEventWireup="false" MasterPageFile="~/Admin/Admin.Master" CodeBehind="ManageArea.aspx.vb" Inherits="Cloud_Kitchen.ManageArea" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <!-- FontAwesome 6.4 Free Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
     <style type="text/css">
-        :root {
-            --area-primary-color: #2563eb;
-            --area-primary-dark: #1d4ed8;
-            --area-primary-light: #eff6ff;
-            --area-primary-gradient: linear-gradient(135deg, #2563eb, #1d4ed8);
-            --area-secondary-color: #f72585;
-            --area-secondary-dark: #d31876;
-            --area-secondary-light: #feeaf3;
-            --area-text-primary: #2d3748;
-            --area-text-secondary: #64748b;
-            --area-text-light: #ffffff;
-            --area-border-color: #e2e8f0;
-            --area-bg-light: #f8fafc;
-            --area-bg-body: #f5f7fa;
-            --area-success: #10b981;
-            --area-success-dark: royalblue;
-            --area-success-light: #ecfdf5;
-            --area-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-            --area-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 12px 16px rgba(0, 0, 0, 0.03);
-            --area-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-            --area-shadow-focus: 0 0 0 3px rgba(67, 97, 238, 0.3);
-            --area-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --area-radius-sm: 6px;
-            --area-radius-md: 10px;
-            --area-radius-lg: 16px;
-        }
-
         .manage-area-page {
             width: min(100%, 1240px);
             margin: 0 auto;
-            font-family: 'Poppins', sans-serif;
-            color: var(--area-text-primary);
-            line-height: 1.6;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #1e293b;
         }
 
-        .dashboard-header {
-            background: #ffffff;
-            border-radius: 14px;
-            padding: 20px 26px;
+        /* HEADER SECTION */
+        .dashboard-header-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 18px;
+            padding: 26px 30px;
             margin-bottom: 24px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            border: 1px solid #e2e8f0;
+            border: 1.5px solid #e2e8f0;
             border-left: 6px solid #2563eb;
             display: flex;
             justify-content: space-between;
@@ -52,132 +28,372 @@
             gap: 16px;
         }
 
-        .dashboard-title {
-            font-size: clamp(1.4rem, 3vw, 1.85rem);
+        .header-title-group h1 {
+            font-size: 1.7rem;
             font-weight: 800;
             color: #0f172a;
-            margin: 0 0 4px 0;
+            margin: 0 0 6px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             letter-spacing: -0.3px;
         }
 
-        .dashboard-description {
-            font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+        .header-title-group p {
+            font-size: 0.94rem;
             color: #64748b;
             margin: 0;
+            font-weight: 500;
         }
 
-        .stats-container {
+        .btn-header-add {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #ffffff !important;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.28);
+            transition: all 0.25s ease-in-out;
+            text-decoration: none;
+        }
+
+        .btn-header-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(37, 99, 235, 0.38);
+        }
+
+        /* STATS GRID */
+        .stats-grid-container {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: clamp(1rem, 3vw, 1.75rem);
-            margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
         }
 
-        .stat-card {
-            min-width: 0;
-            background: white;
-            border-radius: var(--area-radius-lg);
-            padding: clamp(1.25rem, 3vw, 1.75rem);
-            box-shadow: var(--area-shadow-md);
+        .stat-card-modern {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 22px 26px;
+            border: 1.5px solid #e2e8f0;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
             display: flex;
             align-items: center;
-            gap: clamp(1rem, 3vw, 1.75rem);
-            transition: var(--area-transition);
-            border: 1px solid rgba(230, 235, 245, 0.8);
+            gap: 20px;
+            transition: all 0.25s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .stat-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--area-primary-gradient);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
+        .stat-card-modern:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.06);
+            border-color: #cbd5e1;
         }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--area-shadow-lg);
-        }
-
-        .stat-card:hover::after {
-            transform: scaleX(1);
-        }
-
-        .stat-icon {
-            flex: 0 0 auto;
-            background: var(--area-primary-light);
-            width: clamp(60px, 9vw, 70px);
-            height: clamp(60px, 9vw, 70px);
-            border-radius: 14px;
+        .stat-icon-wrapper {
+            width: 58px;
+            height: 58px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
+            font-size: 24px;
+            flex-shrink: 0;
         }
 
-        .stat-icon::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 40px;
-            height: 40px;
-            background: rgba(67, 97, 238, 0.2);
-            border-radius: 50%;
+        .icon-blue {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            color: #2563eb;
+            border: 1px solid #bfdbfe;
         }
 
-        .stat-icon img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            position: relative;
-            z-index: 1;
+        .icon-emerald {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            color: #10b981;
+            border: 1px solid #a7f3d0;
         }
 
-        .stat-info {
-            flex-grow: 1;
-            min-width: 0;
+        .icon-amber {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            color: #f59e0b;
+            border: 1px solid #fde68a;
         }
 
-        .stat-value {
-            font-size: clamp(1.75rem, 5vw, 2.25rem);
+        .stat-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-num-val {
+            font-size: 1.9rem;
             font-weight: 800;
-            color: var(--area-text-primary);
-            margin-bottom: 0.25rem;
-            line-height: 1.2;
-            background: var(--area-primary-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            overflow-wrap: anywhere;
+            color: #0f172a;
+            line-height: 1.1;
         }
 
-        .stat-label {
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--area-text-secondary);
-            letter-spacing: 0.3px;
+        .stat-title-lbl {
+            font-size: 0.88rem;
+            color: #64748b;
+            font-weight: 600;
+            margin-top: 4px;
         }
 
-        .update-panel {
-            position: relative;
-            padding: clamp(1.25rem, 4vw, 2.5rem);
+        /* MAIN CONTENT CARD */
+        .content-card-main {
             background: #ffffff;
-            border-radius: var(--area-radius-lg);
-            box-shadow: var(--area-shadow-md);
+            border-radius: 18px;
+            border: 1.5px solid #e2e8f0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            padding: 26px;
+        }
+
+        /* TABLE TOP BAR */
+        .table-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .table-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* SEARCH BAR */
+        .search-filter-box {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 22px;
+            background: #f8fafc;
+            padding: 14px 18px;
+            border-radius: 14px;
+            border: 1.5px solid #e2e8f0;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .search-input-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 15px;
+        }
+
+        .search-input-field {
             width: 100%;
-            margin: 0 auto 2.5rem;
-            transition: var(--area-transition);
-            border: 1px solid rgba(230, 235, 245, 0.8);
-            overflow: hidden;
+            padding: 11px 16px 11px 40px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s;
+            background: #ffffff;
+            box-sizing: border-box;
+        }
+
+        .search-input-field:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .btn-search-action {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #ffffff;
+            font-weight: 700;
+            padding: 11px 22px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .btn-search-action:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.28);
+        }
+
+        .btn-clear-action {
+            background: #ffffff;
+            color: #475569;
+            font-weight: 700;
+            padding: 11px 18px;
+            border-radius: 10px;
+            border: 1.5px solid #cbd5e1;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .btn-clear-action:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        /* DATA TABLE STYLING */
+        .table-responsive-wrapper {
+            overflow-x: auto;
+            border-radius: 14px;
+            border: 1.5px solid #e2e8f0;
+        }
+
+        .area-custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .area-custom-table th {
+            background: #f8fafc;
+            padding: 14px 20px;
+            font-weight: 800;
+            color: #475569;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            border-bottom: 1.5px solid #e2e8f0;
+        }
+
+        .area-custom-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #334155;
+            vertical-align: middle;
+        }
+
+        .area-custom-table tbody tr {
+            transition: background 0.15s ease-in-out;
+        }
+
+        .area-custom-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .area-name-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .area-name-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: #eff6ff;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            border: 1px solid #bfdbfe;
+            flex-shrink: 0;
+        }
+
+        .pincode-badge {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .zone-status-pill {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .action-btn-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-table-edit {
+            background: #eff6ff;
+            color: #2563eb;
+            border: 1.5px solid #bfdbfe;
+            font-weight: 700;
+            padding: 7px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-table-edit:hover {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .btn-table-delete {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1.5px solid #fca5a5;
+            font-weight: 700;
+            padding: 7px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-table-delete:hover {
+            background: #dc2626;
+            color: #ffffff;
+        }
+
+        /* MODAL POPUP DIALOG */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
         }
 
         .floating-panel {
@@ -186,593 +402,480 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 2050;
-            max-height: min(85vh, 720px);
-            overflow-y: auto;
             background: #ffffff;
-            border-radius: var(--area-radius-lg);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
-            width: min(500px, calc(100vw - 24px));
-            padding: clamp(1.5rem, 4vw, 2.5rem);
-            animation: fadeInScale 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            border: 1px solid rgba(230, 235, 245, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+            width: min(500px, calc(100vw - 32px));
+            padding: 30px;
+            border: 1.5px solid #e2e8f0;
         }
 
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background-color: rgba(17, 24, 39, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 2000;
-            animation: fadeIn 0.25s ease-out;
-        }
-
-        .manage-area-page h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(1.4rem, 4vw, 1.75rem);
-            color: var(--area-primary-color);
-            text-align: center;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            position: relative;
-            padding-bottom: 0.75rem;
-        }
-
-        .manage-area-page h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: var(--area-primary-gradient);
-            border-radius: 4px;
-        }
-
-        .grid-manage h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            font-weight: 700;
-            text-align: left;
-            color: var(--area-text-primary);
-            margin: 2.25rem 0 1.5rem;
+        .modal-header-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1.5px solid #e2e8f0;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            overflow-wrap: anywhere;
+            justify-content: space-between;
         }
 
-        .grid-manage h2 img {
-            width: 36px;
-            height: 36px;
-            object-fit: contain;
-            flex: 0 0 auto;
-        }
-
-        .form-group {
+        .form-group-custom {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
-            margin-bottom: 1.75rem;
+            gap: 6px;
+            margin-bottom: 18px;
         }
 
-        .form-group label {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--area-text-primary);
+        .form-group-custom label {
+            font-size: 12px;
+            font-weight: 800;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .manage-area-page input[type="text"],
-        .manage-area-page select,
-        .manage-area-page .form-control {
-            width: 100% !important;
-            max-width: 100%;
-            padding: 0.9rem 1.1rem;
-            font-size: 1rem;
-            border: 1px solid var(--area-border-color);
-            border-radius: var(--area-radius-md);
-            background: #ffffff;
-            transition: var(--area-transition);
-            box-shadow: var(--area-shadow-sm);
-        }
-
-        .manage-area-page input[type="text"]:focus,
-        .manage-area-page select:focus,
-        .manage-area-page .form-control:focus {
-            border-color: var(--area-primary-color);
+        .modal-input-field {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 14px;
             outline: none;
-            box-shadow: var(--area-shadow-focus);
+            transition: all 0.2s;
+            box-sizing: border-box;
         }
 
-        .form-actions {
+        .modal-input-field:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .modal-actions-bar {
             display: flex;
             justify-content: flex-end;
-            margin-top: 2rem;
-            gap: 1rem;
-            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
         }
 
-        .btn {
-            min-height: 44px;
-            padding: 0.85rem 1.5rem;
-            font-size: 1rem;
+        .message-alert {
+            padding: 14px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
             font-weight: 700;
-            border: none;
-            border-radius: var(--area-radius-md);
-            cursor: pointer;
-            transition: var(--area-transition);
-            display: inline-flex;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .message-alert.success {
+            background: #f0fdf4;
+            color: #15803d;
+            border: 1.5px solid #bbf7d0;
+        }
+
+        .message-alert.error {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1.5px solid #fecaca;
+        }
+
+        .no-data-card {
+            text-align: center;
+            padding: 44px 20px;
+            color: #64748b;
+        }
+
+        /* CUSTOM DELETE CONFIRMATION MODAL */
+        .delete-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 3000;
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.6rem;
-            letter-spacing: 0.3px;
-            box-shadow: var(--area-shadow-sm);
-            text-decoration: none;
-            white-space: nowrap;
         }
 
-        .btn-save {
-            background: #2563eb;
-            color: #ffffff;
-            font-weight: 700;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        .delete-modal-box {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 32px 28px;
+            width: min(420px, calc(100vw - 32px));
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+            border: 1.5px solid #e2e8f0;
         }
 
-        .btn-save:hover {
-            background: #1d4ed8;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+        .delete-icon-circle {
+            width: 68px;
+            height: 68px;
+            background: #fef2f2;
+            color: #dc2626;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 18px auto;
+            border: 1.5px solid #fca5a5;
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.15);
         }
 
-        .btn-cancel {
+        .delete-modal-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .delete-modal-desc {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .delete-modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-cancel-delete {
+            flex: 1;
             background: #f1f5f9;
-            color: var(--area-text-secondary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-cancel:hover {
-            background: #e2e8f0;
-            transform: translateY(-3px);
-            box-shadow: var(--area-shadow-md);
-        }
-
-        .btn-add {
-            background: var(--area-success);
-            color: white;
-            margin-bottom: 1.5rem;
-            align-self: flex-start;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-add:hover {
-            background: var(--area-success-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 7px 14px rgba(16, 185, 129, 0.25);
-        }
-
-        .btn-table {
-            padding: 0.6rem 1.15rem;
-            font-size: 0.9rem;
-            border-radius: var(--area-radius-sm);
-            min-height: 38px;
-        }
-
-        .btn-edit {
-            background: var(--area-primary-color);
-            color: white;
-        }
-
-        .btn-edit:hover {
-            background: var(--area-primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.25);
-        }
-
-        .btn-delete {
-            background: var(--area-secondary-color);
-            color: white;
-        }
-
-        .btn-delete:hover {
-            background: var(--area-secondary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(247, 37, 133, 0.25);
-        }
-
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            border-radius: var(--area-radius-lg);
-            box-shadow: var(--area-shadow-md);
-            border: 1px solid rgba(230, 235, 245, 0.8);
-            background: white;
-        }
-
-        table.table-bordered {
-            width: 100%;
-            min-width: 560px;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin: 0;
-            overflow: hidden;
-            background: white;
-        }
-
-        table.table-bordered thead {
-            background: var(--area-primary-gradient);
-            color: white;
-            font-weight: 600;
-        }
-
-        table.table-bordered th,
-        table.table-bordered td {
-            padding: 1rem 1.25rem;
-            border: 1px solid var(--area-border-color);
-            text-align: left;
-            font-size: 1rem;
-            vertical-align: middle;
-        }
-
-        table.table-bordered th {
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+            color: #475569;
             font-weight: 700;
-            white-space: nowrap;
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: 1.5px solid #cbd5e1;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
         }
 
-        table.table-bordered tbody tr:nth-child(even) {
-            background: rgba(243, 246, 252, 0.7);
+        .btn-cancel-delete:hover {
+            background: #e2e8f0;
+            color: #0f172a;
         }
 
-        table.table-bordered tbody tr {
-            transition: background 0.3s ease;
+        .btn-confirm-delete {
+            flex: 1;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: #ffffff !important;
+            font-weight: 700;
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s;
         }
 
-        table.table-bordered tbody tr:hover {
-            background: var(--area-primary-light);
+        .btn-confirm-delete:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(220, 38, 38, 0.4);
         }
 
-        .action-buttons {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .lblmsg {
-            color: var(--area-secondary-color);
-            text-align: center;
-            font-size: 1rem;
-            font-weight: 500;
-            overflow-wrap: anywhere;
-        }
-
-        .message {
-            text-align: center;
-            font-size: 1rem;
-            padding: 1.25rem;
-            border-radius: var(--area-radius-md);
-            margin: 1.5rem 0;
-            animation: slideDown 0.3s ease-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-        }
-
-        .message.success {
-            background-color: var(--area-success-light);
-            color: var(--area-success-dark);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-
-        .message.error {
-            background-color: var(--area-secondary-light);
-            color: var(--area-secondary-dark);
-            border: 1px solid rgba(247, 37, 133, 0.2);
-        }
-
-        .no-data {
-            text-align: center;
-            padding: 3rem 2rem;
-            color: var(--area-text-secondary);
-            font-style: italic;
-            background-color: var(--area-bg-light);
-            border-radius: var(--area-radius-lg);
-            margin-top: 1.5rem;
-            border: 2px dashed var(--area-border-color);
-        }
-
-        .no-data p {
-            margin: 0;
-        }
-
-        .search-bar {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto auto;
-            gap: 0.9rem;
-            margin-bottom: 1.5rem;
-            align-items: center;
-            width: 100%;
-            background: var(--area-bg-light);
-            padding: 0.75rem;
-            border-radius: var(--area-radius-md);
-            border: 1px solid var(--area-border-color);
-        }
-
-        .search-bar input {
-            width: 100% !important;
-            max-width: none;
-        }
-
-        .error-message {
-            color: var(--area-secondary-color);
-            font-size: 0.85rem;
-            margin-top: 0.35rem;
-            display: block;
-            animation: fadeIn 0.3s ease;
-            overflow-wrap: anywhere;
-        }
-
-        .manage-area-page *:focus-visible {
-            outline: 2px solid var(--area-primary-color);
-            outline-offset: 2px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes fadeInScale {
-            from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
-            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        }
-
+        /* RESPONSIVE MEDIA QUERIES FOR ALL DEVICES */
         @media (max-width: 768px) {
-            .stats-container {
-                grid-template-columns: 1fr;
-            }
-
-            .search-bar {
-                grid-template-columns: 1fr;
-            }
-
-            .form-actions {
+            .dashboard-header-card {
                 flex-direction: column;
+                align-items: stretch;
+                padding: 20px;
             }
 
-            .btn {
+            .btn-header-add {
                 width: 100%;
-                white-space: normal;
+                justify-content: center;
             }
 
-            table.table-bordered th,
-            table.table-bordered td {
-                padding: 0.85rem;
-                font-size: 0.9rem;
+            .stats-grid-container {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .search-filter-box {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-input-wrapper {
+                width: 100%;
+            }
+
+            .btn-search-action,
+            .btn-clear-action {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .content-card-main {
+                padding: 16px;
+            }
+
+            .action-btn-group {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-table-edit,
+            .btn-table-delete {
+                width: 100%;
+                justify-content: center;
             }
         }
 
         @media (max-width: 480px) {
-            .dashboard-header {
-                border-radius: 12px;
+            .header-title-group h1 {
+                font-size: 1.35rem;
             }
 
-            .dashboard-description {
-                max-width: 100%;
+            .stat-card-modern {
+                padding: 16px 18px;
             }
 
-            .stat-card {
-                padding: 1.25rem;
-                align-items: flex-start;
+            .stat-num-val {
+                font-size: 1.6rem;
             }
 
-            .floating-panel {
-                width: 100%;
-                height: 100%;
-                max-height: 100%;
-                border-radius: 0;
-                top: 0;
-                left: 0;
-                transform: none;
+            .floating-panel,
+            .delete-modal-box {
+                width: calc(100vw - 20px);
+                padding: 22px 18px;
             }
 
-            .floating-panel {
-                animation: fadeIn 0.25s ease-out;
-            }
-
-            .action-buttons {
+            .delete-modal-actions {
                 flex-direction: column;
             }
 
-            .btn-save:hover,
-            .btn-cancel:hover,
-            .btn-add:hover,
-            .btn-edit:hover,
-            .btn-delete:hover,
-            .stat-card:hover {
-                transform: none;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                scroll-behavior: auto !important;
-                transition-duration: 0.01ms !important;
+            .btn-cancel-delete,
+            .btn-confirm-delete {
+                width: 100%;
             }
         }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-    </asp:ScriptManager>
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
     <div class="manage-area-page">
-        <div class="dashboard-header">
-            <div>
-                <h1 class="dashboard-title">📍 Service Area Management</h1>
-                <p class="dashboard-description">Manage active delivery areas, coverage zones, and delivery pincodes for your cloud kitchen.</p>
+        <asp:HiddenField ID="hdnDeleteAreaId" runat="server" />
+
+        <!-- HEADER SECTION -->
+        <div class="dashboard-header-card">
+            <div class="header-title-group">
+                <h1><i class="fas fa-map-location-dot" style="color:#2563eb;"></i> Service Area Management</h1>
+                <p>Configure active delivery zones, pincode coverage, and service locations for your cloud kitchen.</p>
             </div>
-            <div style="background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; font-size: 0.85rem; font-weight: 700; padding: 8px 18px; border-radius: 30px; display: inline-flex; align-items: center; gap: 8px;">
-                <span>🗺️ Delivery Coverage</span>
+            <asp:Button ID="btnAddNew" runat="server" Text="➕ Add New Area" CssClass="btn-header-add" OnClick="btnAddNew_Click" CausesValidation="false" />
+        </div>
+
+        <!-- STATS GRID -->
+        <div class="stats-grid-container">
+            <div class="stat-card-modern">
+                <div class="stat-icon-wrapper icon-blue">
+                    <i class="fas fa-city"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-num-val">
+                        <asp:Literal ID="litTotalAreas" runat="server">0</asp:Literal>
+                    </div>
+                    <div class="stat-title-lbl">Total Service Areas</div>
+                </div>
+            </div>
+
+            <div class="stat-card-modern">
+                <div class="stat-icon-wrapper icon-emerald">
+                    <i class="fas fa-map-pin"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-num-val">
+                        <asp:Literal ID="litRecentAdditions" runat="server">0</asp:Literal>
+                    </div>
+                    <div class="stat-title-lbl">Active Delivery Pincodes</div>
+                </div>
+            </div>
+
+            <div class="stat-card-modern">
+                <div class="stat-icon-wrapper icon-amber">
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-num-val">100%</div>
+                    <div class="stat-title-lbl">Operational Coverage</div>
+                </div>
             </div>
         </div>
 
-        <div class="stats-container">
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <img src="../icons/loc2.png" alt="" />
-                </div>
-                <div class="stat-info">
-                    <div class="stat-value">
-                        <asp:Literal ID="litTotalAreas" runat="server">12</asp:Literal>
-                    </div>
-                    <div class="stat-label">Total Areas</div>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <img src="../icons/track.png" alt="" />
-                </div>
-                <div class="stat-info">
-                    <div class="stat-value">
-                        <asp:Literal ID="litRecentAdditions" runat="server">3</asp:Literal>
-                    </div>
-                    <div class="stat-label">Recent Additions</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="messagePanel" class="message success" style="display: none;">
+        <!-- NOTIFICATION MESSAGE BANNER -->
+        <div id="messagePanel" class="message-alert success" style="display: none;">
             <asp:Literal ID="litMessage" runat="server"></asp:Literal>
         </div>
 
-        <div class="update-panel">
-            <asp:Button ID="btnAddNew" runat="server" Text="➕ Add New Area" CssClass="btn btn-add" OnClick="btnAddNew_Click" CausesValidation="false" />
-
-            <div class="search-bar">
-                <asp:TextBox ID="txtSearch" runat="server" placeholder="Search by area name or pincode..." />
-                <asp:Button ID="btnSearch" runat="server" Text="🔍 Search" CssClass="btn btn-save" OnClick="btnSearch_Click" CausesValidation="false" />
-                <asp:Button ID="btnClearSearch" runat="server" Text="Clear" CssClass="btn btn-cancel" OnClick="btnClearSearch_Click" CausesValidation="false" />
-            </div>
-
-            <div class="grid-manage">
-                <h2><img src="../icons/loc1.png" alt="" /> Service Areas List</h2>
-                <asp:HiddenField ID="hdnDeleteAreaId" runat="server" />
-
-                <div class="table-responsive">
-                    <asp:Repeater ID="rptArea" runat="server" OnItemCommand="rptArea_ItemCommand">
-                        <HeaderTemplate>
-                            <table class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Area Name</th>
-                                        <th>Pincode</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <tr>
-                                <td><%# Eval("Area_Name") %></td>
-                                <td><%# Eval("Pincode") %></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <asp:Button ID="btnEdit" runat="server" CssClass="btn btn-table btn-edit" CommandName="EditArea" CommandArgument='<%# Eval("Area_Id") %>' Text="✏️ Edit" CausesValidation="false" />
-                                    </div>
-                                </td>
-                            </tr>
-                        </ItemTemplate>
-                        <FooterTemplate>
-                                </tbody>
-                            </table>
-                        </FooterTemplate>
-                    </asp:Repeater>
+        <!-- MAIN CONTENT CARD -->
+        <div class="content-card-main">
+            
+            <!-- TABLE TOP BAR -->
+            <div class="table-top-bar">
+                <div class="table-title">
+                    <i class="fas fa-list-check" style="color:#2563eb;"></i> Active Service Coverage Zones
                 </div>
-
-                <asp:Panel ID="pnlNoData" runat="server" CssClass="no-data" Visible="false">
-                    <p>No service areas found. Click "Add New Area" to create one.</p>
-                </asp:Panel>
             </div>
+
+            <!-- SEARCH BAR -->
+            <div class="search-filter-box">
+                <div class="search-input-wrapper">
+                    <i class="fas fa-magnifying-glass"></i>
+                    <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input-field" placeholder="Search by area name or 6-digit pincode..." />
+                </div>
+                <asp:Button ID="btnSearch" runat="server" Text="Search Area" CssClass="btn-search-action" OnClick="btnSearch_Click" CausesValidation="false" />
+                <asp:Button ID="btnClearSearch" runat="server" Text="Reset" CssClass="btn-clear-action" OnClick="btnClearSearch_Click" CausesValidation="false" />
+            </div>
+
+            <!-- TABLE CONTAINER -->
+            <div class="table-responsive-wrapper">
+                <asp:Repeater ID="rptArea" runat="server" OnItemCommand="rptArea_ItemCommand">
+                    <HeaderTemplate>
+                        <table class="area-custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Area Name</th>
+                                    <th>Pincode</th>
+                                    <th>Zone Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <tr>
+                            <td>
+                                <div class="area-name-cell">
+                                    <div class="area-name-icon"><i class="fas fa-location-dot"></i></div>
+                                    <span><%# Eval("Area_Name") %></span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="pincode-badge">
+                                    <i class="fas fa-hashtag"></i> <%# Eval("Pincode") %>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="zone-status-pill">
+                                    <i class="fas fa-bolt" style="color:#2563eb;"></i> Active Delivery Zone
+                                </span>
+                            </td>
+                            <td>
+                                <div class="action-btn-group">
+                                    <asp:Button ID="btnEdit" runat="server" CssClass="btn-table-edit" CommandName="EditArea" CommandArgument='<%# Eval("Area_Id") %>' Text="✏️ Edit" CausesValidation="false" />
+                                    <button type="button" class="btn-table-delete" onclick="openDeleteModal('<%# Eval("Area_Id") %>', '<%# Eval("Area_Name").ToString().Replace("'", "\'") %>');">
+                                        <i class="fas fa-trash-can"></i> Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                            </tbody>
+                        </table>
+                    </FooterTemplate>
+                </asp:Repeater>
+            </div>
+
+            <asp:Panel ID="pnlNoData" runat="server" CssClass="no-data-card" Visible="false">
+                <i class="fas fa-map-location-dot" style="font-size: 3rem; margin-bottom: 12px; color: #cbd5e1;"></i>
+                <h3>No service areas found</h3>
+                <p>Click "Add New Area" above to create your first coverage zone.</p>
+            </asp:Panel>
         </div>
 
-        <asp:Panel ID="Panel1" runat="server" CssClass="panel-class" Visible="false">
+        <!-- MODAL OVERLAY & POPUP FORM -->
+        <asp:Panel ID="Panel1" runat="server" Visible="false">
             <div id="overlay" class="overlay" runat="server"></div>
         </asp:Panel>
 
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
                 <asp:Panel ID="pnlEditArea" Visible="false" runat="server" CssClass="floating-panel">
-                    <h3>
-                        <asp:Literal ID="litPanelTitle" runat="server">Add New Service Area</asp:Literal>
-                    </h3>
+                    <div class="modal-header-title">
+                        <span>
+                            <i class="fas fa-map-location-dot" style="color:#2563eb; margin-right:8px;"></i>
+                            <asp:Literal ID="litPanelTitle" runat="server">Add New Service Area</asp:Literal>
+                        </span>
+                        <asp:LinkButton ID="btnCloseX" runat="server" OnClick="btnCancel_Click" CausesValidation="false" style="background:none; border:none; font-size:18px; color:#94a3b8; cursor:pointer;" aria-label="Close"><i class="fas fa-xmark"></i></asp:LinkButton>
+                    </div>
 
                     <asp:HiddenField ID="hfAreaId" runat="server" />
 
-                    <div class="form-group">
+                    <div class="form-group-custom">
                         <label for="txtArea">Area Name</label>
-                        <asp:TextBox ID="txtArea" runat="server" CssClass="form-control" placeholder="Enter area name (e.g. Downtown, Westside)"></asp:TextBox>
+                        <asp:TextBox ID="txtArea" runat="server" CssClass="modal-input-field" placeholder="Enter area name (e.g. Anand, Vallabh Vidhyanagar)"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvFullName" runat="server" ControlToValidate="txtArea"
-                            ErrorMessage="Area Name is required." Display="Dynamic" ForeColor="Red" />
-                        <asp:RegularExpressionValidator
-                            ID="revFullName"
-                            runat="server"
-                            ControlToValidate="txtArea"
-                            ErrorMessage="Only alphabets and spaces are allowed."
-                            ValidationExpression="^[A-Za-z ]+$"
-                            Display="Dynamic"
-                            ForeColor="Red" />
+                            ErrorMessage="Area Name is required." Display="Dynamic" ForeColor="#dc2626" Font-Size="12px" />
+                        <asp:RegularExpressionValidator ID="revFullName" runat="server" ControlToValidate="txtArea"
+                            ErrorMessage="Only alphabets and spaces are allowed." ValidationExpression="^[A-Za-z ]+$"
+                            Display="Dynamic" ForeColor="#dc2626" Font-Size="12px" />
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group-custom">
                         <label for="txtPincode">Pincode</label>
-                        <asp:TextBox ID="txtPincode" runat="server" CssClass="form-control" placeholder="Enter 6-digit pincode"></asp:TextBox>
+                        <asp:TextBox ID="txtPincode" runat="server" CssClass="modal-input-field" placeholder="Enter 6-digit postal pincode (e.g. 388120)"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvPincode" runat="server" ControlToValidate="txtPincode"
-                            ErrorMessage="Pincode is required" CssClass="error-message" Display="Dynamic"
-                            ForeColor="red"></asp:RequiredFieldValidator>
+                            ErrorMessage="Pincode is required" Display="Dynamic" ForeColor="#dc2626" Font-Size="12px"></asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="revPincode" runat="server" ControlToValidate="txtPincode"
-                            ErrorMessage="Must be a valid 6-digit pincode" ValidationExpression="^\d{6}$" CssClass="error-message"
-                            Display="Dynamic" ForeColor="red"></asp:RegularExpressionValidator>
+                            ErrorMessage="Must be a valid 6-digit pincode" ValidationExpression="^\d{6}$"
+                            Display="Dynamic" ForeColor="#dc2626" Font-Size="12px"></asp:RegularExpressionValidator>
                     </div>
 
-                    <div class="form-group lblmsg">
-                        <asp:Label ID="lblmsg" runat="server" ForeColor="Red"></asp:Label>
+                    <div style="margin-top: 8px;">
+                        <asp:Label ID="lblmsg" runat="server" ForeColor="#dc2626" Font-Size="13px" Font-Bold="true"></asp:Label>
                     </div>
 
-                    <div class="form-actions">
-                        <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn btn-save" OnClick="btnSave_Click" />
-                        <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="btn btn-save" OnClick="btnUpdate_Click" Visible="False" />
-                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-cancel" OnClick="btnCancel_Click" CausesValidation="false" />
+                    <div class="modal-actions-bar">
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn-clear-action" OnClick="btnCancel_Click" CausesValidation="false" />
+                        <asp:Button ID="btnSave" runat="server" Text="Save Area" CssClass="btn-search-action" OnClick="btnSave_Click" />
+                        <asp:Button ID="btnUpdate" runat="server" Text="Update Area" CssClass="btn-search-action" OnClick="btnUpdate_Click" Visible="False" />
                     </div>
                 </asp:Panel>
             </ContentTemplate>
         </asp:UpdatePanel>
+
+        <!-- CUSTOM DELETE CONFIRMATION MODAL POPUP -->
+        <div id="deleteModalOverlay" class="delete-modal-overlay" style="display:none;">
+            <div class="delete-modal-box">
+                <div class="delete-icon-circle">
+                    <i class="fas fa-trash-can"></i>
+                </div>
+                <div class="delete-modal-title">Delete Service Area?</div>
+                <div class="delete-modal-desc">
+                    Are you sure you want to delete <strong id="deleteAreaNameText" style="color:#0f172a;">this area</strong>?<br />
+                    This action will remove it from active delivery zones.
+                </div>
+                <div class="delete-modal-actions">
+                    <button type="button" class="btn-cancel-delete" onclick="closeDeleteModal();">Cancel</button>
+                    <asp:Button ID="btnConfirmDelete" runat="server" Text="Yes, Delete Area" CssClass="btn-confirm-delete" OnClick="btnConfirmDelete_Click" CausesValidation="false" />
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script type="text/javascript">
         function hideAddEditPanel() {
             var panel = document.getElementById('<%= Panel1.ClientID %>');
             var overlay = document.getElementById('<%= overlay.ClientID %>');
+            var editArea = document.getElementById('<%= pnlEditArea.ClientID %>');
             if (panel) panel.style.display = "none";
             if (overlay) overlay.style.display = "none";
+            if (editArea) editArea.style.display = "none";
         }
 
         function showAddEditPanel() {
@@ -780,6 +883,18 @@
             var overlay = document.getElementById('<%= overlay.ClientID %>');
             if (panel) panel.style.display = "block";
             if (overlay) overlay.style.display = "block";
+        }
+
+        function openDeleteModal(areaId, areaName) {
+            document.getElementById('<%= hdnDeleteAreaId.ClientID %>').value = areaId;
+            document.getElementById('deleteAreaNameText').innerText = '"' + areaName + '"';
+            document.getElementById('deleteModalOverlay').style.display = 'flex';
+            return false;
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModalOverlay').style.display = 'none';
+            return false;
         }
     </script>
 </asp:Content>

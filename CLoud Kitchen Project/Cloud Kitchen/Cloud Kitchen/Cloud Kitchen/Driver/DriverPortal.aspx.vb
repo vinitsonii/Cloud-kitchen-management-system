@@ -42,6 +42,7 @@ Public Class DriverPortal
     Private Sub RefreshPortalData()
         LoadDriverSummaryStats()
         LoadActiveDeliveries()
+        LoadAvailablePool()
         LoadCompletedDeliveries()
     End Sub
 
@@ -343,7 +344,9 @@ Public Class DriverPortal
                     End Using
 
                     conn.Close()
-                    ShowMessage("🎉 Delivery Completed Successfully for Order #" & orderId & "!", True)
+                    Dim dName As String = If(Session("DriverName") IsNot Nothing, Session("DriverName").ToString(), "Partner")
+                    ShowMessage("🎉 Outstanding Job, " & dName & "! Order #" & orderId & " delivered successfully! Thank you for your fast & reliable service! 🛵⭐", True)
+                    SendOrderNotificationEmail(orderId, "Completed")
                     RefreshPortalData()
                 Else
                     conn.Close()
@@ -351,6 +354,303 @@ Public Class DriverPortal
                 End If
             End Using
         End If
+    End Sub
+
+    Private Sub LoadAvailablePool()
+        If Session("DriverId") Is Nothing Then Exit Sub
+        Dim driverId As Integer = Convert.ToInt32(Session("DriverId"))
+
+        Dim driverStatus As String = "Offline"
+        Using conn As New SqlConnection(connString)
+            Dim statusQuery As String = "SELECT status FROM Drivers WHERE driver_id = @DriverId"
+            Using cmdStatus As New SqlCommand(statusQuery, conn)
+                cmdStatus.Parameters.AddWithValue("@DriverId", driverId)
+                conn.Open()
+                Dim res = cmdStatus.ExecuteScalar()
+                If res IsNot Nothing Then
+                    driverStatus = res.ToString()
+                End If
+                conn.Close()
+            End Using
+        End Using
+
+        If driverStatus = "On Delivery" Then
+            rptAvailablePool.DataSource = Nothing
+            rptAvailablePool.DataBind()
+            pnlNoPool.Visible = True
+            litNoPoolMsg.Text = "🛵 You are currently carrying an active delivery. Complete your current delivery to view & claim new dispatches."
+            pnlExpressPopUp.Visible = False
+            If lblPoolBadge IsNot Nothing Then
+                lblPoolBadge.Text = "On Delivery"
+                lblPoolBadge.Style("background") = "#eff6ff"
+                lblPoolBadge.Style("color") = "#1d4ed8"
+                lblPoolBadge.Style("border-color") = "#bfdbfe"
+            End If
+            Exit Sub
+        ElseIf driverStatus <> "Available" Then
+            rptAvailablePool.DataSource = Nothing
+            rptAvailablePool.DataBind()
+            pnlNoPool.Visible = True
+            litNoPoolMsg.Text = "🔒 You are currently offline. Tap 'Go Online' at the top to view & claim available dispatches."
+            pnlExpressPopUp.Visible = False
+            If lblPoolBadge IsNot Nothing Then
+                lblPoolBadge.Text = "Offline"
+                lblPoolBadge.Style("background") = "#f1f5f9"
+                lblPoolBadge.Style("color") = "#64748b"
+                lblPoolBadge.Style("border-color") = "#e2e8f0"
+            End If
+            Exit Sub
+        End If
+
+        Using conn As New SqlConnection(connString)
+            Dim query As String = "SELECT O.order_id, O.order_date, O.total_amount, O.payment_type, O.address, O.pincode, " &
+                                  "C.C_Name AS customer_name, C.Phone AS phone " &
+                                  "FROM Orders O " &
+                                  "INNER JOIN Customers C ON O.c_id = C.C_Id " &
+                                  "WHERE (O.driver_id IS NULL OR O.driver_id = 0) AND O.order_status = 'Preparing' " &
+                                  "ORDER BY O.order_id DESC"
+
+            Using cmd As New SqlCommand(query, conn)
+                Dim dt As New DataTable()
+                Dim adapter As New SqlDataAdapter(cmd)
+                adapter.Fill(dt)
+
+                dt.Columns.Add("OrderItems", GetType(DataTable))
+                For Each row As DataRow In dt.Rows
+                    Dim orderId As Integer = Convert.ToInt32(row("order_id"))
+                    row("OrderItems") = GetOrderItems(orderId)
+                Next
+
+                If lblPoolBadge IsNot Nothing Then lblPoolBadge.Text = dt.Rows.Count.ToString() & " Ready"
+
+                If dt.Rows.Count > 0 Then
+                    rptAvailablePool.DataSource = dt
+                    rptAvailablePool.DataBind()
+                    pnlNoPool.Visible = False
+
+                    Dim topRow As DataRow = dt.Rows(0)
+                    litExpressOrderId.Text = topRow("order_id").ToString()
+                    litExpressCustName.Text = topRow("customer_name").ToString()
+                    litExpressAddress.Text = topRow("address").ToString() & ", " & topRow("pincode").ToString()
+                    litExpressPayment.Text = topRow("payment_type").ToString()
+                    litExpressTotal.Text = Convert.ToDecimal(topRow("total_amount")).ToString("N2")
+                    btnExpressClaim.CommandArgument = topRow("order_id").ToString()
+                    pnlExpressPopUp.Visible = True
+
+                    ScriptManager.RegisterStartupScript(Me, Me.GetType(), "StartTimer", "startExpressTimer(30);", True)
+                Else
+                    rptAvailablePool.DataSource = Nothing
+                    rptAvailablePool.DataBind()
+                    pnlNoPool.Visible = True
+                    pnlExpressPopUp.Visible = False
+                End If
+            End Using
+        End Using
+    End Sub
+
+    Protected Sub rptAvailablePool_ItemCommand(ByVal source As Object, ByVal e As RepeaterCommandEventArgs)
+        If e.CommandName = "ClaimOrder" Then
+            Dim orderId As Integer = Convert.ToInt32(e.CommandArgument)
+            ClaimOrderInternal(orderId)
+        End If
+    End Sub
+
+    Protected Sub btnExpressClaim_Click(ByVal sender As Object, ByVal e As EventArgs)
+        Dim btn As Button = CType(sender, Button)
+        If btn IsNot Nothing AndAlso Not String.IsNullOrEmpty(btn.CommandArgument) Then
+            Dim orderId As Integer = Convert.ToInt32(btn.CommandArgument)
+            ClaimOrderInternal(orderId)
+        End If
+    End Sub
+
+    Private Sub ClaimOrderInternal(ByVal orderId As Integer)
+        If Session("DriverId") Is Nothing Then Exit Sub
+        Dim driverId As Integer = Convert.ToInt32(Session("DriverId"))
+        Dim randomOtp As String = New Random().Next(1000, 9999).ToString()
+
+        Dim isClaimedSuccess As Boolean = False
+
+        Using conn As New SqlConnection(connString)
+            conn.Open()
+            Dim atomicQuery As String = "BEGIN TRANSACTION; " &
+                                        "IF EXISTS (SELECT 1 FROM Orders WHERE order_id = @OrderId AND (driver_id IS NULL OR driver_id = 0) AND order_status = 'Preparing') " &
+                                        "BEGIN " &
+                                        "    UPDATE Orders SET driver_id = @DriverId, order_status = 'Out for Delivery', delivery_otp = @Otp WHERE order_id = @OrderId; " &
+                                        "    UPDATE Drivers SET status = 'On Delivery' WHERE driver_id = @DriverId; " &
+                                        "    SELECT 1 AS Success; " &
+                                        "END " &
+                                        "ELSE IF EXISTS (SELECT 1 FROM Orders WHERE order_id = @OrderId AND driver_id = @DriverId) " &
+                                        "BEGIN " &
+                                        "    UPDATE Drivers SET status = 'On Delivery' WHERE driver_id = @DriverId; " &
+                                        "    SELECT 1 AS Success; " &
+                                        "END " &
+                                        "ELSE " &
+                                        "BEGIN " &
+                                        "    SELECT 0 AS Success; " &
+                                        "END " &
+                                        "COMMIT TRANSACTION;"
+
+            Using cmd As New SqlCommand(atomicQuery, conn)
+                cmd.Parameters.AddWithValue("@OrderId", orderId)
+                cmd.Parameters.AddWithValue("@DriverId", driverId)
+                cmd.Parameters.AddWithValue("@Otp", randomOtp)
+                Dim res = cmd.ExecuteScalar()
+                If res IsNot Nothing AndAlso Convert.ToInt32(res) = 1 Then
+                    isClaimedSuccess = True
+                End If
+            End Using
+            conn.Close()
+        End Using
+
+        If isClaimedSuccess Then
+            SendOrderNotificationEmail(orderId, "Out for Delivery")
+            ShowMessage("⚡ Order #" & orderId & " claimed successfully! Delivery dispatch started.", True)
+        Else
+            ShowMessage("⚠️ Order #" & orderId & " was just claimed by another driver!", False)
+        End If
+
+        RefreshPortalData()
+    End Sub
+
+    Private Sub SendOrderNotificationEmail(ByVal orderId As Integer, ByVal status As String)
+        Try
+            Dim userEmail As String = ""
+            Dim userName As String = ""
+            Dim address As String = ""
+            Dim pincode As String = ""
+            Dim paymentType As String = ""
+            Dim totalAmount As Decimal = 0
+            Dim driverName As String = ""
+            Dim driverPhone As String = ""
+            Dim vehicleNo As String = ""
+            Dim deliveryOtp As String = ""
+
+            Using conn As New SqlConnection(connString)
+                Dim query As String = "SELECT O.total_amount, O.payment_type, O.address, O.pincode, O.delivery_otp, C.C_Name, C.Email, " &
+                                      "D.driver_name, D.phone AS driver_phone, D.vehicle_no " &
+                                      "FROM Orders O " &
+                                      "INNER JOIN Customers C ON O.c_id = C.C_Id " &
+                                      "LEFT JOIN Drivers D ON O.driver_id = D.driver_id " &
+                                      "WHERE O.order_id = @OrderId"
+
+                Using cmd As New SqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@OrderId", orderId)
+                    conn.Open()
+                    Using reader As SqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            userEmail = reader("Email").ToString()
+                            userName = reader("C_Name").ToString()
+                            address = reader("address").ToString()
+                            pincode = reader("pincode").ToString()
+                            paymentType = reader("payment_type").ToString()
+                            If Not IsDBNull(reader("total_amount")) Then totalAmount = Convert.ToDecimal(reader("total_amount"))
+                            If Not IsDBNull(reader("delivery_otp")) Then deliveryOtp = reader("delivery_otp").ToString()
+                            If Not IsDBNull(reader("driver_name")) Then driverName = reader("driver_name").ToString()
+                            If Not IsDBNull(reader("driver_phone")) Then driverPhone = reader("driver_phone").ToString()
+                            If Not IsDBNull(reader("vehicle_no")) Then vehicleNo = reader("vehicle_no").ToString()
+                        End If
+                    End Using
+                    conn.Close()
+                End Using
+            End Using
+
+            If String.IsNullOrEmpty(userEmail) Then Exit Sub
+
+            Dim smtpServer As String = ConfigurationManager.AppSettings("SMTPServer")
+            Dim smtpPort As Integer = Convert.ToInt32(ConfigurationManager.AppSettings("SMTPPort"))
+            Dim emailUsername As String = ConfigurationManager.AppSettings("EmailUsername")
+            Dim emailPassword As String = ConfigurationManager.AppSettings("EmailPassword")
+
+            Dim orderItems As DataTable = GetOrderItems(orderId)
+            Dim cartTable As String = "<table class='order-table'><tr><th>Item</th><th>Qty</th></tr>"
+
+            For Each row As DataRow In orderItems.Rows
+                Dim itemName As String = row("item_name").ToString()
+                Dim quantity As Integer = Convert.ToInt32(row("quantity"))
+                cartTable &= "<tr><td>" & itemName & "</td><td>" & quantity & "</td></tr>"
+            Next
+            cartTable &= "</table>"
+
+            Dim emailSubject As String = "🛵 Delivery Partner Assigned to Order #" & orderId & "! - Cloud Kitchen"
+            Dim bannerHtml As String = "<div class='success-box' style='background:#eff6ff; border-left:5px solid #2563eb;'><h2 style='color:#1d4ed8; margin:0;'>🛵 Delivery Partner Assigned!</h2><p style='margin:4px 0 0 0; color:#1e40af;'>Your driver is heading to our kitchen to pick up your fresh meal.</p></div>"
+            Dim messageText As String = "Great news! <b>" & driverName & "</b> has accepted your order and is heading to the kitchen to pick up your food. Once ready, it will be delivered directly to your doorstep."
+
+            Dim driverBlock As String = "<div style='background-color: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 16px; margin-top: 15px; text-align: left;'>" &
+                                        "<h4 style='margin: 0 0 10px 0; color: #1e40af; font-size: 16px;'>🛵 Delivery Partner Details</h4>" &
+                                        "<p style='margin: 4px 0; color: #334155;'><b>Driver Name:</b> " & driverName & "</p>" &
+                                        "<p style='margin: 4px 0; color: #334155;'><b>Vehicle Number:</b> " & vehicleNo & "</p>" &
+                                        "<p style='margin: 4px 0; color: #334155;'><b>Phone:</b> <a href='tel:" & driverPhone & "' style='color: #2563eb; font-weight: bold; text-decoration: none;'>📞 " & driverPhone & "</a></p>" &
+                                        "<div style='background-color: #fef3c7; border: 1.5px solid #fde68a; color: #b45309; border-radius: 8px; padding: 12px; margin-top: 12px; text-align: center; font-weight: bold; font-size: 15px;'>" &
+                                        "🔑 Doorstep Delivery OTP: <span style='font-size: 22px; font-weight: 900; color: #d97706; background: #ffffff; padding: 2px 14px; border-radius: 6px; border: 1px solid #fcd34d; margin-left: 6px;'>" & deliveryOtp & "</span>" &
+                                        "<br/><span style='font-size: 12px; font-weight: normal; color: #92400e; display: block; margin-top: 4px;'>Please share this 4-digit OTP with your driver upon arrival.</span>" &
+                                        "</div></div>"
+
+            Dim baseUrl As String = ""
+            If HttpContext.Current IsNot Nothing AndAlso HttpContext.Current.Request IsNot Nothing Then
+                baseUrl = HttpContext.Current.Request.Url.Scheme & "://" & HttpContext.Current.Request.Url.Authority
+            Else
+                baseUrl = ConfigurationManager.AppSettings("WebsiteUrl")
+                If String.IsNullOrEmpty(baseUrl) Then baseUrl = "http://localhost"
+            End If
+            Dim myOrdersUrl As String = baseUrl & "/Customers/MyOrders.aspx"
+
+            Dim emailBody As String = "<!DOCTYPE html><html><head><meta charset='UTF-8'><style>" &
+                                      "body{margin:0;padding:0;background:#f4f6f9;font-family:Arial,sans-serif;}" &
+                                      ".wrapper{width:100%;padding:30px 0;}" &
+                                      ".container{max-width:650px;background:#ffffff;margin:auto;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.08);}" &
+                                      ".header{background:linear-gradient(135deg,#4F7E76,#3a5f59);padding:35px;text-align:center;color:#fff;}" &
+                                      ".header h1{margin:0;font-size:32px;}" &
+                                      ".header p{margin-top:8px;opacity:0.9;font-size:15px;}" &
+                                      ".content{padding:35px;}" &
+                                      ".success-box{padding:18px;border-radius:10px;margin-bottom:25px;}" &
+                                      ".details{background:#fafafa;padding:20px;border-radius:12px;margin-top:20px;text-align:left;}" &
+                                      ".details p{margin:10px 0;color:#444;font-size:15px;}" &
+                                      ".table-title{margin-top:30px;color:#333;font-size:22px;}" &
+                                      ".order-table{width:100%;border-collapse:collapse;margin-top:15px;}" &
+                                      ".order-table th{background:#4F7E76;color:white;padding:14px;text-align:left;font-size:14px;}" &
+                                      ".order-table td{padding:14px;border-bottom:1px solid #eee;font-size:14px;}" &
+                                      ".total-box{text-align:right;margin-top:20px;font-size:22px;color:#4F7E76;font-weight:bold;}" &
+                                      ".button{display:inline-block;background:#ff9f43;color:#fff !important;text-decoration:none;padding:14px 28px;border-radius:50px;margin-top:30px;font-weight:bold;font-size:15px;}" &
+                                      ".footer{background:#f8f8f8;padding:25px;text-align:center;color:#777;font-size:13px;}" &
+                                      ".footer a{color:#4F7E76;text-decoration:none;}" &
+                                      "</style></head><body>" &
+                                      "<div class='wrapper'><div class='container'>" &
+                                      "<div class='header'><h1>🍽 Cloud Kitchen</h1><p>Fresh Meals Delivered To Your Doorstep</p></div>" &
+                                      "<div class='content'>" &
+                                      bannerHtml &
+                                      "<p>Hello <b>" & userName & "</b>,</p><p>" & messageText & "</p>" &
+                                      "<div class='details'>" &
+                                      "<p><strong>🧾 Order ID:</strong> #" & orderId & "</p>" &
+                                      "<p><strong>🚚 Delivery Address:</strong> " & address & "</p>" &
+                                      "<p><strong>📍 Pincode:</strong> " & pincode & "</p>" &
+                                      "<p><strong>💰 Payment Method:</strong> " & paymentType & "</p>" &
+                                      "<p><strong>⏰ Estimated Delivery:</strong> 30 - 40 Minutes</p>" &
+                                      driverBlock &
+                                      "</div>" &
+                                      "<h3 class='table-title'>🛒 Order Summary</h3>" &
+                                      cartTable &
+                                      "<div class='total-box'>Total Amount: ₹" & totalAmount.ToString("N2") & "<br/><span style='font-size:12px; color:#64748b; font-weight:normal;'>(Incl. of all taxes & GST)</span></div>" &
+                                      "<center><a href='" & myOrdersUrl & "' class='button'>View My Orders</a></center>" &
+                                      "</div>" &
+                                      "<div class='footer'><p>Need help? Contact us anytime</p><p>📧 info.cloudkitchenn@gmail.com</p><p>© Cloud Kitchen - All Rights Reserved</p></div>" &
+                                      "</div></div></body></html>"
+
+            Using mailMsg As New System.Net.Mail.MailMessage()
+                mailMsg.From = New System.Net.Mail.MailAddress(emailUsername, "Cloud Kitchen")
+                mailMsg.To.Add(userEmail)
+                mailMsg.Subject = emailSubject
+                mailMsg.Body = emailBody
+                mailMsg.IsBodyHtml = True
+
+                Using client As New System.Net.Mail.SmtpClient(smtpServer, smtpPort)
+                    client.Credentials = New System.Net.NetworkCredential(emailUsername, emailPassword)
+                    client.EnableSsl = True
+                    client.Send(mailMsg)
+                End Using
+            End Using
+        Catch ex As Exception
+            ' Silent fail for email background errors
+        End Try
     End Sub
 
     Private Sub ShowMessage(ByVal message As String, ByVal isSuccess As Boolean)

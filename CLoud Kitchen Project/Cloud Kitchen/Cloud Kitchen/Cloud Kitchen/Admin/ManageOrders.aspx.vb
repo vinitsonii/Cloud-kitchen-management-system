@@ -213,19 +213,15 @@ Public Class WebForm11
                         rptDetailItems.DataSource = dtItems
                         rptDetailItems.DataBind()
 
-                        Dim subtotal As Decimal = 0
-                        If dtItems IsNot Nothing Then
+                        Dim grandTotal As Decimal = If(Not IsDBNull(reader("total_amount")), Convert.ToDecimal(reader("total_amount")), 0)
+                        If grandTotal = 0 AndAlso dtItems IsNot Nothing Then
                             For Each itemRow As DataRow In dtItems.Rows
                                 Dim price As Decimal = Convert.ToDecimal(itemRow("price"))
                                 Dim qty As Integer = Convert.ToInt32(itemRow("quantity"))
-                                subtotal += (price * qty)
+                                grandTotal += (price * qty)
                             Next
                         End If
-                        Dim tax As Decimal = subtotal * 0.05
-                        Dim grandTotal As Decimal = subtotal + tax
 
-                        litDetailSubtotal.Text = "₹" & subtotal.ToString("N2")
-                        litDetailTax.Text = "₹" & tax.ToString("N2")
                         litDetailGrandTotal.Text = "₹" & grandTotal.ToString("N2")
 
                         If pnlAcceptAction IsNot Nothing Then pnlAcceptAction.Visible = False
@@ -359,6 +355,7 @@ Public Class WebForm11
         If e.CommandName = "SelectOrder" Then
             SelectedOrderId = Convert.ToInt32(e.CommandArgument)
             LoadOrders()
+            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "MobileDetailScript", "showMobileDetail();", True)
         End If
     End Sub
 
@@ -711,15 +708,17 @@ Public Class WebForm11
         Try
             Dim userEmail As String = ""
             Dim userName As String = ""
+            Dim address As String = ""
+            Dim pincode As String = ""
+            Dim paymentType As String = ""
+            Dim totalAmount As Decimal = 0
             Dim driverName As String = ""
             Dim driverPhone As String = ""
             Dim vehicleNo As String = ""
             Dim deliveryOtp As String = ""
-            Dim paymentType As String = ""
-            Dim totalAmount As Decimal = 0
 
             Using conn As New SqlConnection(connString)
-                Dim query As String = "SELECT O.total_amount, O.payment_type, O.delivery_otp, C.C_Name, C.Email, " &
+                Dim query As String = "SELECT O.total_amount, O.payment_type, O.address, O.pincode, O.delivery_otp, C.C_Name, C.Email, " &
                                       "D.driver_name, D.phone AS driver_phone, D.vehicle_no " &
                                       "FROM Orders O " &
                                       "INNER JOIN Customers C ON O.c_id = C.C_Id " &
@@ -733,6 +732,8 @@ Public Class WebForm11
                         If reader.Read() Then
                             userEmail = reader("Email").ToString()
                             userName = reader("C_Name").ToString()
+                            address = reader("address").ToString()
+                            pincode = reader("pincode").ToString()
                             paymentType = reader("payment_type").ToString()
                             If Not IsDBNull(reader("total_amount")) Then totalAmount = Convert.ToDecimal(reader("total_amount"))
                             If Not IsDBNull(reader("delivery_otp")) Then deliveryOtp = reader("delivery_otp").ToString()
@@ -753,71 +754,113 @@ Public Class WebForm11
             Dim emailPassword As String = ConfigurationManager.AppSettings("EmailPassword")
 
             Dim orderItems As DataTable = GetOrderItems(orderId)
-            Dim itemsHtml As String = "<table border='1' width='100%' cellpadding='8' cellspacing='0' style='border-collapse: collapse; margin-top: 15px; border-color: #e2e8f0;'>"
-            itemsHtml &= "<tr style='background-color: #2563eb; color: white; text-align: left;'><th>Item</th><th>Qty</th><th>Price</th><th>Total</th></tr>"
+            Dim cartTable As String = "<table class='order-table'><tr><th>Item</th><th>Qty</th><th>Price</th><th>Total</th></tr>"
 
             For Each row As DataRow In orderItems.Rows
                 Dim itemName As String = row("item_name").ToString()
                 Dim quantity As Integer = Convert.ToInt32(row("quantity"))
-                Dim price As Decimal = Convert.ToDecimal(row("price"))
-                itemsHtml &= "<tr><td>" & itemName & "</td><td>" & quantity & "</td><td>₹" & price.ToString("N2") & "</td><td>₹" & (price * quantity).ToString("N2") & "</td></tr>"
+                Dim price As Decimal = If(row.Table.Columns.Contains("price") AndAlso Not IsDBNull(row("price")), Convert.ToDecimal(row("price")), 0)
+                Dim itemTotal As Decimal = price * quantity
+                cartTable &= "<tr><td>" & itemName & "</td><td>" & quantity & "</td><td>₹" & price.ToString("F2") & "</td><td>₹" & itemTotal.ToString("F2") & "</td></tr>"
             Next
-            itemsHtml &= "<tr style='font-weight: bold; background-color: #f8fafc;'><td colspan='3' align='right'>Total Amount:</td><td>₹" & totalAmount.ToString("N2") & "</td></tr>"
-            itemsHtml &= "</table>"
+            cartTable &= "</table>"
 
             Dim emailSubject As String = ""
-            Dim emailBanner As String = ""
+            Dim bannerHtml As String = ""
+            Dim messageText As String = ""
             Dim driverBlock As String = ""
 
             If status = "Preparing" Then
                 emailSubject = "🧑‍🍳 Order #" & orderId & " is Being Cooked! - Cloud Kitchen"
-                emailBanner = "<h2 style='color:#2563eb; margin:0 0 10px 0;'>🧑‍🍳 Your Order is Being Prepared!</h2><p>Dear <b>" & userName & "</b>, our chefs have accepted your order (#" & orderId & ") and are preparing your fresh meal now!</p>"
+                bannerHtml = "<div class='success-box' style='background:#f0fdf4; border-left:5px solid #28a745;'><h2 style='color:#28a745; margin:0;'>🧑‍🍳 Your Meal is Being Prepared!</h2><p style='margin:4px 0 0 0; color:#15803d;'>Our chefs have started cooking your fresh order!</p></div>"
+                messageText = "We are preparing your delicious food and your order will arrive shortly. Thank you for choosing Cloud Kitchen."
             ElseIf status = "Out for Delivery" Then
-                emailSubject = "🛵 Order #" & orderId & " Dispatched! Driver & Delivery OTP Details"
-                emailBanner = "<h2 style='color:#d97706; margin:0 0 10px 0;'>🛵 Your Order is Out for Delivery!</h2><p>Dear <b>" & userName & "</b>, great news! Your order (#" & orderId & ") is on its way to your doorstep.</p>"
+                emailSubject = "🛵 Order #" & orderId & " Dispatched! Driver & OTP Details - Cloud Kitchen"
+                bannerHtml = "<div class='success-box' style='background:#fffbeb; border-left:5px solid #d97706;'><h2 style='color:#d97706; margin:0;'>🛵 Your Order is Out for Delivery!</h2><p style='margin:4px 0 0 0; color:#b45309;'>Your order has been picked up and is on its way to your doorstep.</p></div>"
+                messageText = "Great news! Your order has been dispatched with our delivery partner."
 
-                driverBlock = "<div style='background-color: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 16px; margin: 16px 0;'>" &
-                              "<h4 style='margin: 0 0 10px 0; color: #1e40af; font-size: 16px;'>🛵 Delivery Partner Information</h4>" &
-                              "<p style='margin: 4px 0;'><b>Driver Name:</b> " & driverName & "</p>" &
-                              "<p style='margin: 4px 0;'><b>Vehicle Number:</b> " & vehicleNo & "</p>" &
-                              "<p style='margin: 4px 0;'><b>Phone:</b> <a href='tel:" & driverPhone & "' style='color: #2563eb; font-weight: bold; text-decoration: none;'>📞 " & driverPhone & "</a></p>" &
+                driverBlock = "<div style='background-color: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 10px; padding: 16px; margin-top: 15px; text-align: left;'>" &
+                              "<h4 style='margin: 0 0 10px 0; color: #1e40af; font-size: 16px;'>🛵 Delivery Partner Details</h4>" &
+                              "<p style='margin: 4px 0; color: #334155;'><b>Driver Name:</b> " & driverName & "</p>" &
+                              "<p style='margin: 4px 0; color: #334155;'><b>Vehicle Number:</b> " & vehicleNo & "</p>" &
+                              "<p style='margin: 4px 0; color: #334155;'><b>Phone:</b> <a href='tel:" & driverPhone & "' style='color: #2563eb; font-weight: bold; text-decoration: none;'>📞 " & driverPhone & "</a></p>" &
                               "<div style='background-color: #fef3c7; border: 1.5px solid #fde68a; color: #b45309; border-radius: 8px; padding: 12px; margin-top: 12px; text-align: center; font-weight: bold; font-size: 15px;'>" &
-                              "🔑 Doorstep Delivery OTP: <span style='font-size: 22px; font-weight: 900; color: #d97706; background: #ffffff; padding: 2px 12px; border-radius: 6px; border: 1px solid #fcd34d; margin-left: 6px;'>" & deliveryOtp & "</span>" &
+                              "🔑 Doorstep Delivery OTP: <span style='font-size: 22px; font-weight: 900; color: #d97706; background: #ffffff; padding: 2px 14px; border-radius: 6px; border: 1px solid #fcd34d; margin-left: 6px;'>" & deliveryOtp & "</span>" &
                               "<br/><span style='font-size: 12px; font-weight: normal; color: #92400e; display: block; margin-top: 4px;'>Please share this 4-digit OTP with your driver upon arrival.</span>" &
                               "</div></div>"
             ElseIf status = "Completed" Then
                 emailSubject = "🎉 Order #" & orderId & " Delivered! Thank You - Cloud Kitchen"
-                emailBanner = "<h2 style='color:#16a34a; margin:0 0 10px 0;'>🎉 Order Delivered Successfully!</h2><p>Dear <b>" & userName & "</b>, your order (#" & orderId & ") has been delivered. We hope you enjoy your meal!</p>"
+                bannerHtml = "<div class='success-box' style='background:#f0fdf4; border-left:5px solid #28a745;'><h2 style='color:#28a745; margin:0;'>🎉 Order Delivered Successfully!</h2><p style='margin:4px 0 0 0; color:#15803d;'>Thank you for dining with Cloud Kitchen.</p></div>"
+                messageText = "Your order has been delivered! We hope you enjoy your delicious meal."
             ElseIf status = "Cancelled" Then
                 emailSubject = "❌ Order #" & orderId & " Cancelled - Cloud Kitchen"
-                emailBanner = "<h2 style='color:#dc2626; margin:0 0 10px 0;'>❌ Order Cancelled</h2><p>Dear <b>" & userName & "</b>, your order (#" & orderId & ") has been cancelled. If you have any queries, please reach out to support.</p>"
+                bannerHtml = "<div class='success-box' style='background:#fef2f2; border-left:5px solid #dc2626;'><h2 style='color:#dc2626; margin:0;'>❌ Order Cancelled</h2><p style='margin:4px 0 0 0; color:#991b1b;'>Your order has been cancelled.</p></div>"
+                messageText = "Your order has been cancelled. Please contact support if you have any questions."
             End If
 
-            Dim emailBody As String = "<html><body style='font-family: Arial, sans-serif; background-color: #f8fafc; padding: 20px; color: #334155;'>" &
-                                     "<div style='max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); border: 1px solid #e2e8f0;'>" &
-                                     "<div style='text-align: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px;'>" &
-                                     "<h1 style='color: #0f172a; margin: 0; font-size: 24px;'>🍳 Cloud Kitchen</h1>" &
-                                     "<p style='color: #64748b; font-size: 13px; margin: 4px 0 0 0;'>Delicious Food Delivered Hot & Fresh</p>" &
-                                     "</div>" &
-                                     emailBanner &
-                                     driverBlock &
-                                     "<h4 style='margin: 20px 0 8px 0; color: #0f172a;'>🍴 Order Items (Order #" & orderId & ")</h4>" &
-                                     itemsHtml &
-                                     "<div style='margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; text-align: center; font-size: 12px; color: #94a3b8;'>" &
-                                     "<p>Thank you for choosing Cloud Kitchen!</p>" &
-                                     "</div></div></body></html>"
+            Dim baseUrl As String = ""
+            If HttpContext.Current IsNot Nothing AndAlso HttpContext.Current.Request IsNot Nothing Then
+                baseUrl = HttpContext.Current.Request.Url.Scheme & "://" & HttpContext.Current.Request.Url.Authority
+            Else
+                baseUrl = ConfigurationManager.AppSettings("WebsiteUrl")
+                If String.IsNullOrEmpty(baseUrl) Then baseUrl = "http://localhost"
+            End If
+            Dim myOrdersUrl As String = baseUrl & "/Customers/MyOrders.aspx"
 
-            Dim mail As New MailMessage()
-            mail.From = New MailAddress(emailUsername, "Cloud Kitchen")
-            mail.To.Add(userEmail)
-            mail.Subject = emailSubject
-            mail.Body = emailBody
-            mail.IsBodyHtml = True
+            Dim emailBody As String = "<!DOCTYPE html><html><head><meta charset='UTF-8'><style>" &
+                                      "body{margin:0;padding:0;background:#f4f6f9;font-family:Arial,sans-serif;}" &
+                                      ".wrapper{width:100%;padding:30px 0;}" &
+                                      ".container{max-width:650px;background:#ffffff;margin:auto;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.08);}" &
+                                      ".header{background:linear-gradient(135deg,#4F7E76,#3a5f59);padding:35px;text-align:center;color:#fff;}" &
+                                      ".header h1{margin:0;font-size:32px;}" &
+                                      ".header p{margin-top:8px;opacity:0.9;font-size:15px;}" &
+                                      ".content{padding:35px;}" &
+                                      ".success-box{padding:18px;border-radius:10px;margin-bottom:25px;}" &
+                                      ".details{background:#fafafa;padding:20px;border-radius:12px;margin-top:20px;text-align:left;}" &
+                                      ".details p{margin:10px 0;color:#444;font-size:15px;}" &
+                                      ".table-title{margin-top:30px;color:#333;font-size:22px;}" &
+                                      ".order-table{width:100%;border-collapse:collapse;margin-top:15px;}" &
+                                      ".order-table th{background:#4F7E76;color:white;padding:14px;text-align:left;font-size:14px;}" &
+                                      ".order-table td{padding:14px;border-bottom:1px solid #eee;font-size:14px;}" &
+                                      ".total-box{text-align:right;margin-top:20px;font-size:22px;color:#4F7E76;font-weight:bold;}" &
+                                      ".button{display:inline-block;background:#ff9f43;color:#fff !important;text-decoration:none;padding:14px 28px;border-radius:50px;margin-top:30px;font-weight:bold;font-size:15px;}" &
+                                      ".footer{background:#f8f8f8;padding:25px;text-align:center;color:#777;font-size:13px;}" &
+                                      ".footer a{color:#4F7E76;text-decoration:none;}" &
+                                      "</style></head><body>" &
+                                      "<div class='wrapper'><div class='container'>" &
+                                      "<div class='header'><h1>🍽 Cloud Kitchen</h1><p>Fresh Meals Delivered To Your Doorstep</p></div>" &
+                                      "<div class='content'>" &
+                                      bannerHtml &
+                                      "<p>Hello <b>" & userName & "</b>,</p><p>" & messageText & "</p>" &
+                                      "<div class='details'>" &
+                                      "<p><strong>🧾 Order ID:</strong> #" & orderId & "</p>" &
+                                      "<p><strong>🚚 Delivery Address:</strong> " & address & "</p>" &
+                                      "<p><strong>📍 Pincode:</strong> " & pincode & "</p>" &
+                                      "<p><strong>💰 Payment Method:</strong> " & paymentType & "</p>" &
+                                      "<p><strong>⏰ Estimated Delivery:</strong> 30 - 40 Minutes</p>" &
+                                      driverBlock &
+                                      "</div>" &
+                                      "<h3 class='table-title'>🛒 Order Summary</h3>" &
+                                      cartTable &
+                                      "<div class='total-box'>Total Amount: ₹" & totalAmount.ToString("N2") & "<br/><span style='font-size:12px; color:#64748b; font-weight:normal;'>(Incl. of all taxes & GST)</span></div>" &
+                                      "<center><a href='" & myOrdersUrl & "' class='button'>View My Orders</a></center>" &
+                                      "</div>" &
+                                      "<div class='footer'><p>Need help? Contact us anytime</p><p>📧 info.cloudkitchenn@gmail.com</p><p>© Cloud Kitchen - All Rights Reserved</p></div>" &
+                                      "</div></div></body></html>"
 
-            Dim smtp As New SmtpClient(smtpServer, smtpPort)
-            smtp.Credentials = New Net.NetworkCredential(emailUsername, emailPassword)
-            smtp.EnableSsl = True
-            smtp.Send(mail)
+            Using mail As New MailMessage()
+                mail.From = New MailAddress(emailUsername, "Cloud Kitchen")
+                mail.To.Add(userEmail)
+                mail.Subject = emailSubject
+                mail.Body = emailBody
+                mail.IsBodyHtml = True
+
+                Using smtp As New SmtpClient(smtpServer, smtpPort)
+                    smtp.Credentials = New Net.NetworkCredential(emailUsername, emailPassword)
+                    smtp.EnableSsl = True
+                    smtp.Send(mail)
+                End Using
+            End Using
         Catch ex As Exception
             System.Diagnostics.Debug.WriteLine("Error sending status email: " & ex.Message)
         End Try

@@ -499,11 +499,9 @@ html, body{
                         <img src="../icons/manageitem.png" alt="edit" />
                         <span>Edit Item</span>
                     </a>
-                    <a href="ManageInventory.aspx" class="nav-item">
-                        <img src="../icons/manageitem.png" alt="inventory" />
-                        <span>Manage Inventory</span>
-                    </a>
                 </div>
+
+               
 
                 <div class="nav-item" onclick="toggleMenu('menu-orders')" data-target="menu-orders">
                     <img src="../icons/orders.png" alt="orders" />
@@ -519,16 +517,22 @@ html, body{
                         <span>Manage Orders</span>
                     </a>
                 </div>
+ <a href="ManageInventory.aspx" class="nav-item">
+                    <img src="../icons/manageitem.png" alt="inventory" />
+                    <span>Manage Inventory</span>
+                </a>
+                
+                <a href="ManageDrivers.aspx" class="nav-item">
+                    <img src="../icons/track.png" alt="drivers" />
+                    <span>Delivery Partners</span>
+                </a>
 
                 <a href="ManageArea.aspx" class="nav-item">
                     <img src="../icons/loc1.png" alt="edit" />
                     <span>Manage Area</span>
                 </a>
 
-                <a href="ManageDrivers.aspx" class="nav-item">
-                    <img src="../icons/track.png" alt="drivers" />
-                    <span>Delivery Partners</span>
-                </a>
+                
 
                 <a href="Contact_Msg.aspx" class="nav-item">
                     <img src="../icons/mail.png" alt="users" />

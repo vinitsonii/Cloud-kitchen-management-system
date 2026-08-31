@@ -33,4 +33,16 @@ Partial Public Class DriverPortal
     Protected WithEvents rptCompletedDeliveries As Global.System.Web.UI.WebControls.Repeater
     Protected WithEvents pnlNoCompleted As Global.System.Web.UI.WebControls.Panel
 
+    Protected WithEvents pnlExpressPopUp As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents litExpressOrderId As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents litExpressCustName As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents litExpressAddress As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents litExpressPayment As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents litExpressTotal As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents btnExpressClaim As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lblPoolBadge As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents rptAvailablePool As Global.System.Web.UI.WebControls.Repeater
+    Protected WithEvents pnlNoPool As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents litNoPoolMsg As Global.System.Web.UI.WebControls.Literal
+
 End Class

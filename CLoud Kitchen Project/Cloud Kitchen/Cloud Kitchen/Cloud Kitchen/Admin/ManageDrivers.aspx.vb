@@ -188,6 +188,14 @@ Public Class ManageDrivers
         End Select
     End Function
 
+    Protected Function GetWhatsAppUrl(ByVal phone As Object, ByVal driverName As Object) As String
+        Dim phoneStr As String = If(phone IsNot Nothing, phone.ToString(), "")
+        Dim nameStr As String = If(driverName IsNot Nothing, driverName.ToString(), "")
+        Dim baseUrl As String = Request.Url.GetLeftPart(UriPartial.Authority) & ResolveUrl("~/Driver/DriverLogin.aspx")
+        Dim message As String = "Hello " & nameStr & "! Here is your Cloud Kitchen Driver App link: " & baseUrl & ". Login with your phone: " & phoneStr
+        Return "https://api.whatsapp.com/send?phone=91" & phoneStr & "&text=" & Server.UrlEncode(message)
+    End Function
+
     Private Sub ShowMessage(ByVal message As String, ByVal isSuccess As Boolean)
         lblMsg.Text = message
         lblMsg.Visible = True
