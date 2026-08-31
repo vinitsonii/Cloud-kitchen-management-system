@@ -273,14 +273,13 @@
             }
 
             .recent-orders-table th {
-                background: linear-gradient(135deg, #2563eb, #1d4ed8);
+                background: #2563eb;
                 color: #ffffff;
                 font-weight: 700;
                 text-transform: uppercase;
                 font-size: 12px;
                 letter-spacing: 0.5px;
                 padding: 14px 18px;
-                z-index: 10;
                 border: none;
             }
 
