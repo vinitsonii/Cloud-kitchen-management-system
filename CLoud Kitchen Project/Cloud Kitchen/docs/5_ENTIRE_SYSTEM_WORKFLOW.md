@@ -4,10 +4,10 @@
 The **Cloud Kitchen Management System** is a full-stack, enterprise-grade ASP.NET WebForms application built with Visual Basic .NET (`VB.NET`) and Microsoft SQL Server (`MSSQLLocalDB`).
 
 The system seamlessly integrates **3 distinct actor entities** with automated background engines:
-1. **🛒 Customer Entity**: Browses dishes, checks delivery pincode coverage, places orders (COD/Online), tracks live preparation progress, and receives automated HTML invoice emails with a secure 4-digit Delivery OTP.
-2. **👑 Admin Kitchen Entity**: Manages live revenue dashboards, dish recipes (`Dish_Ingredients`), raw stock levels (`Ingredients`), menu categories/cuisines, service pincodes (`Area_Pincode`), kitchen cooking queues, and dispatches delivery drivers.
-3. **🛵 Delivery Driver Entity**: Views available kitchen order pools, claims unassigned orders, navigates to customer addresses, verifies delivery using the customer's confidential 4-digit OTP, and completes order handoffs.
-4. **⚙️ Automated Engines**: Automated Inventory Deduction Engine, OTP Security Generator, Pincode Coverage Validator, and Report Export Engine.
+1. **Customer Entity**: Browses dishes, checks delivery pincode coverage, places orders (COD/Online), tracks live preparation progress, and receives automated HTML invoice emails with a secure 4-digit Delivery OTP.
+2. **Admin Kitchen Entity**: Manages live revenue dashboards, dish recipes (`Dish_Ingredients`), raw stock levels (`Ingredients`), menu categories/cuisines, service pincodes (`Area_Pincode`), kitchen cooking queues, and dispatches delivery drivers.
+3. **Delivery Driver Entity**: Views available kitchen order pools, claims unassigned orders, navigates to customer addresses, verifies delivery using the customer's confidential 4-digit OTP, and completes order handoffs.
+4. **Automated Engines**: Automated Inventory Deduction Engine, OTP Security Generator, Pincode Coverage Validator, and Report Export Engine.
 
 ---
 
@@ -16,12 +16,12 @@ The system seamlessly integrates **3 distinct actor entities** with automated ba
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Customer as 🛒 Customer
-    participant Front as Storefront (Menu/Cart.aspx)
-    participant DB as 🗄️ SQL Database
-    participant Email as 📩 SMTP Email Service
-    actor Admin as 👑 Kitchen Admin
-    actor Driver as 🛵 Delivery Driver
+    actor Customer as Customer
+    participant Front as Storefront (Menu & Cart)
+    participant DB as SQL Database
+    participant Email as SMTP Email Service
+    actor Admin as Kitchen Admin
+    actor Driver as Delivery Driver
 
     Note over Customer,Front: Phase 1: Authentication & Cart Checkout
     Customer->>Front: 1. Register/Login & Add dishes to cart
@@ -29,21 +29,21 @@ sequenceDiagram
     Front->>DB: 3. Verify Pincode in Area_Pincode
     
     alt Pincode Invalid
-        DB-->>Front: ❌ Pincode Not Covered
+        DB-->>Front: Pincode Not Covered
         Front-->>Customer: Show Alert "Delivery not available in your area"
     else Pincode Valid
         Front->>DB: 4. INSERT INTO Orders & Order_Details (Status: Pending)
         DB-->>Front: 5. Generate Order ID & 4-Digit Delivery OTP
         Front->>Email: 6. Send Order Receipt Email with 4-Digit OTP
-        Email-->>Customer: 📩 Receive HTML Receipt & Delivery OTP via Email
-        Front-->>Customer: 🛍️ Order Placed! Redirect to MyOrders.aspx
+        Email-->>Customer: Receive HTML Receipt & Delivery OTP via Email
+        Front-->>Customer: Order Placed! Redirect to MyOrders.aspx
     end
 
     Note over Admin,DB: Phase 2: Kitchen Order Processing & Cooking
     Admin->>DB: 7. View New Order Card on ManageOrders.aspx
     Admin->>DB: 8. Click "Accept & Start Cooking"
     DB-->>Admin: Status updated to "Preparing"
-    DB-->>Customer: Live Status changes to "🔥 Preparing your delicious food"
+    DB-->>Customer: Live Status changes to "Preparing your delicious food"
 
     Note over Admin,Driver: Phase 3: Driver Allocation & Dispatch
     alt Method A: Driver Claims Order
@@ -53,9 +53,9 @@ sequenceDiagram
     end
 
     DB-->>Driver: Order Assigned & Status changed to "Out for Delivery"
-    DB->>Email: 📩 Send Dispatch Email with Driver Name, Phone & Vehicle No
+    DB->>Email: Send Dispatch Email with Driver Name, Phone & Vehicle No
     Email-->>Customer: Customer receives "Your Order is Out for Delivery!" Email
-    DB-->>Customer: Live Status changes to "⚡ Out for Delivery (Share OTP with Driver)"
+    DB-->>Customer: Live Status changes to "Out for Delivery (Share OTP with Driver)"
 
     Note over Driver,Customer: Phase 4: Delivery & OTP Handshake Verification
     Driver->>Customer: 9. Arrive at Delivery Address & Request 4-Digit OTP
@@ -65,10 +65,10 @@ sequenceDiagram
     alt OTP Valid
         DB->>DB: 12. UPDATE Orders SET order_status = 'Completed'
         DB->>DB: 13. Auto-Deduct raw ingredient stock from Ingredients table
-        DB-->>Driver: ✅ Delivery Completed!
-        DB-->>Customer: Live Status changes to "🟢 Completed"
+        DB-->>Driver: Delivery Completed!
+        DB-->>Customer: Live Status changes to "Completed"
     else OTP Invalid
-        DB-->>Driver: ❌ Error "Invalid Delivery OTP! Please ask customer."
+        DB-->>Driver: Error "Invalid Delivery OTP! Please ask customer."
     end
 ```
 

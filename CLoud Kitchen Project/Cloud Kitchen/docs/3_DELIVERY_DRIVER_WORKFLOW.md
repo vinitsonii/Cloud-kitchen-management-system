@@ -46,9 +46,9 @@ sequenceDiagram
     
     alt Correct OTP
         DriverPortal->>KitchenDB: 8. Update Order Status to "Completed"
-        DriverPortal-->>Driver: ✅ Show "Delivery Completed Successfully!"
+        DriverPortal-->>Driver: Show "Delivery Completed Successfully!"
     else Incorrect OTP
-        DriverPortal-->>Driver: ❌ Error "Invalid OTP! Please re-check with customer."
+        DriverPortal-->>Driver: Error "Invalid OTP! Please re-check with customer."
     end
 ```
 
