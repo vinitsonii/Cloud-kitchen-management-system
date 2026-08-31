@@ -190,10 +190,11 @@
         }
 
         .ck-divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(79, 126, 118, 0.34), transparent);
+            height: 3px;
+            background: linear-gradient(to right, var(--login-primary), var(--login-accent));
             border: none;
-            margin: 14px 0;
+            border-radius: 2px;
+            margin: 14px 0 16px;
         }
 
         .ck-label {
@@ -575,11 +576,11 @@
 
                         <p class="ck-switch">
                             Don't have an account?
-                            <a href="Register.aspx">Create one now</a>
+                            <a href="Register.aspx" onclick="if(typeof(Page_ValidationActive) !== 'undefined') Page_ValidationActive = false;">Create one now</a>
                         </p>
 
                         <div style="text-align: center; margin-top: 10px; font-size: 0.76rem; color: #94a3b8;">
-                            Delivery Partner? <a href="../Driver/DriverLogin.aspx" style="color: #64748b; font-weight: 600; text-decoration: underline;">Driver Login</a>
+                            Delivery Partner? <a href="../Driver/DriverLogin.aspx" onclick="if(typeof(Page_ValidationActive) !== 'undefined') Page_ValidationActive = false;" style="color: #64748b; font-weight: 600; text-decoration: underline;">Driver Login</a>
                         </div>
 
                         <div class="trust-row">

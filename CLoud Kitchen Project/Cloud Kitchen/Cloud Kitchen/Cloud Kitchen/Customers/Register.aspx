@@ -489,7 +489,7 @@
                 Welcome to the Cloud Kitchen community! Your account is ready &#8212;
                 log in now to explore the menu and place your first order.
             </p>
-            <a href="Login.aspx" class="ck-modal-btn">
+            <a href="Login.aspx" class="ck-modal-btn" onclick="if(typeof(Page_ValidationActive) !== 'undefined') Page_ValidationActive = false;">
     Sign In Now
 </a>
         </div>
@@ -605,12 +605,12 @@
                 <asp:Button ID="btnRegister" runat="server"
                     Text="Create My Account"
                     CssClass="ck-reg-btn"
-                    CausesValidation="False"
+                    CausesValidation="True"
                     AutoPostBack="true" />
 
                 <p class="ck-switch">
                     Already have an account?
-                    <a href="Login.aspx">Sign in here</a>
+                    <a href="Login.aspx" onclick="if(typeof(Page_ValidationActive) !== 'undefined') Page_ValidationActive = false;">Sign in here</a>
                 </p>
 
             </div>
