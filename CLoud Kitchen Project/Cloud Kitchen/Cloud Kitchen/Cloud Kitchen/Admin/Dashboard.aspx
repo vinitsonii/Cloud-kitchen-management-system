@@ -247,7 +247,7 @@
                 border-radius: 10px;
             }
 
-            /* RECENT ORDERS GLASS CARD & STICKY SCROLLABLE TABLE */
+            /* RECENT ORDERS GLASS CARD & CLEAN TABLE */
             .recent-orders-card {
                 background: #ffffff;
                 border-radius: 18px;
@@ -258,8 +258,7 @@
             }
 
             .recent-orders-scroll-box {
-                max-height: 400px;
-                overflow-y: auto;
+                width: 100%;
                 overflow-x: auto;
                 border-radius: 12px;
                 border: 1.5px solid #e2e8f0;
@@ -268,15 +267,12 @@
 
             .recent-orders-table {
                 width: 100%;
-                min-width: 680px;
                 border-collapse: collapse;
                 font-size: 14px;
                 background: #ffffff;
             }
 
             .recent-orders-table th {
-                position: sticky;
-                top: 0;
                 background: linear-gradient(135deg, #2563eb, #1d4ed8);
                 color: #ffffff;
                 font-weight: 700;
