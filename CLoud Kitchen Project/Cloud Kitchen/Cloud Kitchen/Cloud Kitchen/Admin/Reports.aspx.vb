@@ -439,14 +439,14 @@ Partial Class Reports
                             "GROUP BY M.m_name, M.m_final_price ORDER BY gross_profit DESC"
 
                 Case "driver_delivery"
-                    query = "SELECT d.driver_name, d.phone_no, d.vehicle_no, COUNT(o.order_id) AS total_deliveries, " & _
+                    query = "SELECT d.driver_name, d.phone, d.vehicle_no, COUNT(o.order_id) AS total_deliveries, " & _
                             "ISNULL(SUM(o.total_amount), 0) AS total_revenue, ISNULL(AVG(o.total_amount), 0) AS avg_revenue " & _
                             "FROM Drivers d " & _
                             "LEFT JOIN Orders o ON d.driver_id = o.driver_id AND o.order_status = 'Completed' "
                     If Not String.IsNullOrEmpty(startDate) AndAlso Not String.IsNullOrEmpty(endDate) Then
                         query &= " AND (o.order_date BETWEEN @StartDate AND @EndDate OR o.order_id IS NULL) "
                     End If
-                    query &= "GROUP BY d.driver_name, d.phone_no, d.vehicle_no ORDER BY total_deliveries DESC"
+                    query &= "GROUP BY d.driver_name, d.phone, d.vehicle_no ORDER BY total_deliveries DESC"
 
                 Case "category_sales"
                     query = "SELECT m.m_category, COUNT(DISTINCT o.order_id) AS total_orders, " & _
