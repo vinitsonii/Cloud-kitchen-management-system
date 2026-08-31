@@ -19,42 +19,44 @@ The **Customer Entity** represents end-users ordering food from the Cloud Kitche
 
 ---
 
-## 3. End-to-End Customer Lifecycle Workflow
+## 3. End-to-End Customer Journey & Lifecycle Workflow
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Customer
-    participant Menu as Menu.aspx
-    participant Cart as Cart.aspx
-    participant DB as SQL Database
-    participant Email as SMTP Email Service
-    actor Kitchen as Admin / Kitchen
-    actor Driver as Delivery Driver
+    participant Storefront as Menu & Cart (Cart.aspx)
+    participant OrdersPage as Customer Orders (MyOrders.aspx)
+    participant System as Kitchen & Delivery System
+    participant Email as Email Service
 
-    Customer->>Menu: Browse dishes & add items to cart
-    Customer->>Cart: View cart, adjust quantities
-    Customer->>Cart: Enter Delivery Address & Pincode
-    Cart->>DB: Check if Pincode exists in Area_Pincode
-    alt Pincode Invalid
-        DB-->>Cart: Pincode not covered
-        Cart-->>Customer: Error "Delivery not available in your area"
-    else Pincode Valid
-        Cart->>DB: INSERT INTO Orders & Order_Details
-        DB-->>Cart: Order ID & 4-Digit Delivery OTP Generated
-        Cart->>Email: Send Order Confirmation Email (Incl. Taxes & OTP)
-        Email-->>Customer: Customer receives HTML Receipt Email
+    Note over Customer,Storefront: Phase 1: Item Selection & Checkout
+    Customer->>Storefront: 1. Add dishes to cart & open Cart page
+    Customer->>Storefront: 2. Enter Delivery Address & 6-Digit Pincode
+    
+    alt Invalid Pincode (Not in Coverage Area)
+        Storefront-->>Customer: ❌ Alert "Delivery not available in your area"
+    else Valid Active Pincode
+        Storefront->>System: 3. Confirm & Place Order
+        System->>Email: 4. Generate 4-digit Delivery OTP & Send Confirmation Email
+        Email-->>Customer: 📩 Receive Order Receipt & 4-Digit Delivery OTP via Email
+        Storefront-->>Customer: 🛍️ Order Placed! Redirect to MyOrders.aspx
     end
 
-    Customer->>Customer: Track Order on MyOrders.aspx
-    Kitchen->>DB: Update Status to "Preparing"
-    DB-->>Customer: Status changes to "🔥 Preparing your delicious meal"
-    Driver->>DB: Claim Order & Dispatch
-    DB-->>Customer: Status changes to "⚡ Out for Delivery (Share OTP with Driver)"
-    Driver->>Customer: Arrive at Address & Request Delivery OTP
-    Customer->>Driver: Share 4-Digit OTP
-    Driver->>DB: Verify OTP & Mark Delivered
-    DB-->>Customer: Order Status "🟢 Completed"
+    Note over Customer,OrdersPage: Phase 2: Real-Time Order Tracking
+    Customer->>OrdersPage: 5. Open MyOrders.aspx to track live order progress
+
+    rect rgb(240, 249, 255)
+        Note over OrdersPage,System: Automated & Admin Status Updates
+        System-->>OrdersPage: Status: "Pending" (Order received by kitchen)
+        System-->>OrdersPage: Status: "🔥 Preparing your delicious food"
+        System-->>OrdersPage: Status: "⚡ Out for Delivery (Assigned to Driver)"
+    end
+
+    Note over Customer,System: Phase 3: Food Handover & Delivery Verification
+    System->>Customer: 6. Driver arrives at customer delivery address
+    Customer->>System: 7. Share confidential 4-digit Delivery OTP with Driver
+    System-->>OrdersPage: 8. OTP Verified! Status changes to "🟢 Completed"
 ```
 
 ---

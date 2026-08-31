@@ -19,41 +19,36 @@ The **Delivery Driver Entity** represents delivery partners responsible for clai
 
 ---
 
-## 3. Step-by-Step Delivery Driver Execution Workflow
+## 3. Delivery Driver Order Dispatch & Verification Workflow
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Admin as Kitchen Admin
     actor Driver as Delivery Driver
-    participant Portal as DriverPortal.aspx
-    participant DB as SQL Database
-    participant Email as SMTP Service
+    participant DriverPortal as Driver Portal (DriverPortal.aspx)
+    participant KitchenDB as Order Database
+    participant Email as Email Service
     actor Customer as Customer
 
-    Admin->>DB: Accept Customer Order (Status: Preparing)
-    Customer->>Customer: Sees status "Finding a nearby delivery driver for your order..."
+    Note over Driver,DriverPortal: Phase 1: Order Claim & Dispatch
+    KitchenDB-->>DriverPortal: Display active orders ready for pickup (Status: Preparing)
+    Driver->>DriverPortal: 1. Click "Accept Order & Start Delivery"
+    DriverPortal->>KitchenDB: 2. Assign Driver ID & Change Status to "Out for Delivery"
+    DriverPortal->>Email: 3. Trigger Dispatch Email to Customer with Driver Details
+    Email-->>Customer: 📩 Receive "Your Order is Out for Delivery!" Email
+
+    Note over Driver,Customer: Phase 2: Delivery & Secure Handshake
+    Driver->>Customer: 4. Arrive at Customer Delivery Address
+    Driver->>Customer: 5. Request 4-Digit Delivery OTP
+    Customer->>Driver: 6. Provide 4-Digit OTP (e.g. 8492)
     
-    Driver->>Portal: Log in & View Available Order Pool
-    Driver->>Portal: Click "Accept Order & Start Delivery"
+    Driver->>DriverPortal: 7. Enter OTP & Click "Verify & Complete Delivery"
     
-    Portal->>DB: UPDATE orders SET driver_id = @DriverId, order_status = 'Out for Delivery' WHERE order_id = @OrderId
-    DB-->>Portal: Assignment Confirmed
-    
-    Portal->>Email: Send Dispatch Email with Driver Name & Vehicle No
-    Email-->>Customer: Customer receives "Your Order is Out for Delivery" Email
-    
-    Driver->>Customer: Navigate to Customer Address & Request OTP
-    Customer->>Driver: Share 4-Digit OTP (e.g. 8492)
-    
-    Driver->>Portal: Enter OTP into txtOTP & Click "Verify & Complete Delivery"
-    
-    alt OTP Correct
-        Portal->>DB: UPDATE orders SET order_status = 'Completed' WHERE order_id = @OrderId
-        DB-->>Portal: Order Delivered Successfully
-        Portal-->>Driver: Show Success Badge & Refresh Pool
-    else OTP Incorrect
-        Portal-->>Driver: Error "Invalid Delivery OTP! Please ask customer."
+    alt Correct OTP
+        DriverPortal->>KitchenDB: 8. Update Order Status to "Completed"
+        DriverPortal-->>Driver: ✅ Show "Delivery Completed Successfully!"
+    else Incorrect OTP
+        DriverPortal-->>Driver: ❌ Error "Invalid OTP! Please re-check with customer."
     end
 ```
 

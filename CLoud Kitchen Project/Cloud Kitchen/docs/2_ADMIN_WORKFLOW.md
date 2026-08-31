@@ -20,21 +20,29 @@ The **Admin Entity** represents the Cloud Kitchen owner, kitchen manager, and op
 
 ---
 
-## 3. Kitchen Order Preparation & Dispatch Lifecycle Workflow
+## 3. Kitchen Order Lifecycle & Operations Flowchart
 
 ```mermaid
 flowchart TD
-    A[New Order Received\nStatus: Pending] --> B{Admin Views Order in ManageOrders.aspx}
-    B --> C[Click 'Accept & Start Cooking']
-    C --> D[Status Updates: Preparing\nNotification Email Sent to Customer]
+    A[🛒 New Customer Order Placed] -->|Initial Status: Pending| B[Admin Views Order Card on ManageOrders.aspx]
     
-    D --> E{Driver Status Check}
-    E -- Driver Claims Order via Driver Portal --> F[Status: Out for Delivery\nDriver Assigned]
-    E -- Admin Manually Dispatches / Assigns Driver --> F
+    B -->|Review Items & Print Receipt| C[Click 'Accept & Start Cooking']
+    C -->|Update Status: Preparing| D[Kitchen Chef Prepares Order]
     
-    F --> G[Driver Delivers Food to Customer Address]
-    G --> H[Driver Enters 4-Digit Delivery OTP]
-    H --> I[Status Updates: Completed\nFinal Delivery Email Sent]
+    D --> E{Driver Allocation Method}
+    
+    E -->|Method 1: Driver Claims Order| F[Driver accepts order via Driver Portal]
+    E -->|Method 2: Admin Manual Dispatch| G[Admin selects Driver from dropdown & clicks Dispatch]
+    
+    F --> H[Status: Out for Delivery]
+    G --> H
+    
+    H -->|Email Trigger| I[Customer receives 'Out for Delivery' Email Notification]
+    
+    H --> J[Driver Arrives & Requests 4-Digit Delivery OTP]
+    J --> K[Driver Enters OTP in Portal]
+    
+    K -->|OTP Verified| L[Order Status: Completed]
 ```
 
 ---
