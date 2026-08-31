@@ -403,6 +403,9 @@
                             <asp:ListItem Value="inventory_stock">🥦 Raw Ingredient Stock Status</asp:ListItem>
                             <asp:ListItem Value="inventory_usage">📈 Ingredient Consumption History</asp:ListItem>
                             <asp:ListItem Value="recipe_costing">💰 Recipe Food Costing & Margin</asp:ListItem>
+                            <asp:ListItem Value="driver_delivery">🛵 Driver-Wise Delivery Quantity & Performance</asp:ListItem>
+                            <asp:ListItem Value="category_sales">📦 Category-Wise Sales & Volume</asp:ListItem>
+                            <asp:ListItem Value="pincode_delivery">📍 Area & Pincode Delivery Distribution</asp:ListItem>
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
                             ErrorMessage="Please select Report Type" ControlToValidate="ddlReportType"

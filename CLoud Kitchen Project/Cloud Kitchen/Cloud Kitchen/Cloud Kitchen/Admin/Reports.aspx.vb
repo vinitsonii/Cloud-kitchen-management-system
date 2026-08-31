@@ -187,6 +187,30 @@ Partial Class Reports
                     FormatCurrencyColumn(1)
                     FormatCurrencyColumn(2)
                     FormatCurrencyColumn(3)
+
+                Case "driver_delivery"
+                    gvReport.HeaderRow.Cells(0).Text = "Driver Name"
+                    gvReport.HeaderRow.Cells(1).Text = "Phone Number"
+                    gvReport.HeaderRow.Cells(2).Text = "Vehicle Number"
+                    gvReport.HeaderRow.Cells(3).Text = "Total Deliveries"
+                    gvReport.HeaderRow.Cells(4).Text = "Total Delivered Revenue"
+                    gvReport.HeaderRow.Cells(5).Text = "Avg Delivery Value"
+                    FormatCurrencyColumn(4)
+                    FormatCurrencyColumn(5)
+
+                Case "category_sales"
+                    gvReport.HeaderRow.Cells(0).Text = "Category Name"
+                    gvReport.HeaderRow.Cells(1).Text = "Total Orders"
+                    gvReport.HeaderRow.Cells(2).Text = "Total Items Sold"
+                    gvReport.HeaderRow.Cells(3).Text = "Total Category Revenue"
+                    FormatCurrencyColumn(3)
+
+                Case "pincode_delivery"
+                    gvReport.HeaderRow.Cells(0).Text = "Pincode"
+                    gvReport.HeaderRow.Cells(1).Text = "Area Name"
+                    gvReport.HeaderRow.Cells(2).Text = "Total Orders Delivered"
+                    gvReport.HeaderRow.Cells(3).Text = "Total Area Revenue"
+                    FormatCurrencyColumn(3)
             End Select
         End If
 
@@ -413,6 +437,39 @@ Partial Class Reports
                             "LEFT JOIN Dish_Ingredients DI ON M.m_id = DI.m_id " &
                             "LEFT JOIN Ingredients I ON DI.ingredient_id = I.ingredient_id " &
                             "GROUP BY M.m_name, M.m_final_price ORDER BY gross_profit DESC"
+
+                Case "driver_delivery"
+                    query = "SELECT d.driver_name, d.phone_no, d.vehicle_no, COUNT(o.order_id) AS total_deliveries, " & _
+                            "ISNULL(SUM(o.total_amount), 0) AS total_revenue, ISNULL(AVG(o.total_amount), 0) AS avg_revenue " & _
+                            "FROM Drivers d " & _
+                            "LEFT JOIN Orders o ON d.driver_id = o.driver_id AND o.order_status = 'Completed' "
+                    If Not String.IsNullOrEmpty(startDate) AndAlso Not String.IsNullOrEmpty(endDate) Then
+                        query &= " AND (o.order_date BETWEEN @StartDate AND @EndDate OR o.order_id IS NULL) "
+                    End If
+                    query &= "GROUP BY d.driver_name, d.phone_no, d.vehicle_no ORDER BY total_deliveries DESC"
+
+                Case "category_sales"
+                    query = "SELECT m.m_category, COUNT(DISTINCT o.order_id) AS total_orders, " & _
+                            "ISNULL(SUM(od.quantity), 0) AS total_items_sold, ISNULL(SUM(od.quantity * od.price), 0) AS category_revenue " & _
+                            "FROM Menu_Item m " & _
+                            "INNER JOIN Order_Details od ON m.m_id = od.m_id " & _
+                            "INNER JOIN Orders o ON od.order_id = o.order_id " & _
+                            "WHERE o.order_status = 'Completed' "
+                    If Not String.IsNullOrEmpty(startDate) AndAlso Not String.IsNullOrEmpty(endDate) Then
+                        query &= " AND o.order_date BETWEEN @StartDate AND @EndDate "
+                    End If
+                    query &= "GROUP BY m.m_category ORDER BY category_revenue DESC"
+
+                Case "pincode_delivery"
+                    query = "SELECT o.pincode, COALESCE(ap.Area_Name, 'Standard Coverage') AS area_name, " & _
+                            "COUNT(o.order_id) AS total_orders, ISNULL(SUM(o.total_amount), 0) AS area_revenue " & _
+                            "FROM Orders o " & _
+                            "LEFT JOIN Area_Pincode ap ON o.pincode = ap.Pincode " & _
+                            "WHERE o.pincode IS NOT NULL AND o.pincode <> '' "
+                    If Not String.IsNullOrEmpty(startDate) AndAlso Not String.IsNullOrEmpty(endDate) Then
+                        query &= " AND o.order_date BETWEEN @StartDate AND @EndDate "
+                    End If
+                    query &= "GROUP BY o.pincode, ap.Area_Name ORDER BY total_orders DESC"
             End Select
 
             Dim cmd As New SqlCommand(query, conn)
