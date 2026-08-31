@@ -173,16 +173,14 @@
 
         .ck-card-header {
             text-align: center;
-            margin-bottom: 22px;
+            margin-bottom: 14px;
         }
 
         .ck-card-header h2 {
             font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-/*            font-family: 'Cormorant Garamond', Georgia, serif;*/
             font-size: clamp(1.9rem, 5vw, 2.45rem);
             color: var(--login-ink);
-/*            margin: 0 0 3px;*/
-/*            line-height: 1.08;*/
+            margin: 0 0 6px;
         }
 
         .ck-card-header p {
@@ -195,7 +193,7 @@
             height: 1px;
             background: linear-gradient(to right, transparent, rgba(79, 126, 118, 0.34), transparent);
             border: none;
-            margin: 22px 0;
+            margin: 14px 0;
         }
 
         .ck-label {
@@ -278,14 +276,23 @@
         }
 
         .login-message {
-            min-height: 22px;
             display: block;
-            margin-bottom: 14px;
             color: var(--login-danger);
             font-size: 0.9rem;
             font-weight: 800;
             text-align: center;
             overflow-wrap: anywhere;
+        }
+
+        .login-message:empty {
+            display: none;
+            margin: 0;
+            min-height: 0;
+        }
+
+        .login-message:not(:empty) {
+            margin-bottom: 14px;
+            min-height: 22px;
         }
 
         .ck-remember-row {

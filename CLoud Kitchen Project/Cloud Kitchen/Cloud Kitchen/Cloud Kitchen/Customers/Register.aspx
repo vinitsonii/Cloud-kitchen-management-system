@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Register" Language="vb" AutoEventWireup="false" MasterPageFile="~/Customers/Customer.Master" CodeBehind="Register.aspx.vb" Inherits="Cloud_Kitchen.WebForm4" %>
+<%@ Page Title="Register" Language="vb" AutoEventWireup="false" MasterPageFile="~/Customers/Customer.Master" CodeBehind="Register.aspx.vb" Inherits="Cloud_Kitchen.WebForm4" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
@@ -172,7 +172,12 @@
             background: linear-gradient(to right, var(--primary), var(--accent));
             border: none;
             border-radius: 2px;
-            margin: 1.5rem 0 1.8rem;
+            margin: 1rem 0 1.2rem;
+        }
+
+        #ContentPlaceHolder1_lblmsg:empty {
+            display: none !important;
+            margin: 0 !important;
         }
 
         /* ─── Inputs ─── */
