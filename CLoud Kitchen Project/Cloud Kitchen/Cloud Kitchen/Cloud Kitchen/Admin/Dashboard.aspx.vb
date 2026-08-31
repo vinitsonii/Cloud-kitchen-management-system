@@ -160,12 +160,29 @@ Private Sub LoadOrderStatusChartData()
     End Function
 
 
+    Public Function GetStatusBadge(ByVal status As Object) As String
+        If status Is Nothing OrElse IsDBNull(status) Then Return "<span class='status-pill status-pending'>⏳ Pending</span>"
+        Dim st As String = status.ToString().Trim()
+        Select Case st.ToLower()
+            Case "completed", "delivered"
+                Return "<span class='status-pill status-completed'>🟢 Completed</span>"
+            Case "preparing", "cooking"
+                Return "<span class='status-pill status-preparing'>🔥 Preparing</span>"
+            Case "out for delivery", "dispatched"
+                Return "<span class='status-pill status-delivery'>⚡ Out for Delivery</span>"
+            Case "cancelled"
+                Return "<span class='status-pill status-cancelled'>🔴 Cancelled</span>"
+            Case Else
+                Return "<span class='status-pill status-pending'>⏳ " & st & "</span>"
+        End Select
+    End Function
+
     Private Sub LoadRecentOrders()
         Try
             Using conn As New SqlConnection(ConfigurationManager.ConnectionStrings("constr").ConnectionString)
                 conn.Open()
                 Dim dt As New DataTable()
-                Dim recentOrdersQuery As String = "SELECT TOP 5 orders.order_id, customers.c_name, menu_item.m_name, " & _
+                Dim recentOrdersQuery As String = "SELECT TOP 10 orders.order_id, customers.c_name, menu_item.m_name, " & _
                                                   "ISNULL(orders.total_amount, 0) AS total_amount, orders.order_status, orders.order_date " & _
                                                   "FROM orders " & _
                                                   "INNER JOIN customers ON orders.c_id = customers.c_id " & _
@@ -177,6 +194,9 @@ Private Sub LoadOrderStatusChartData()
 
                 gvRecentOrders.DataSource = dt
                 gvRecentOrders.DataBind()
+
+                rptRecentOrders.DataSource = dt
+                rptRecentOrders.DataBind()
             End Using
         Catch ex As Exception
             Response.Write("<script>alert('Recent Orders Error: " & ex.Message & "');</script>")

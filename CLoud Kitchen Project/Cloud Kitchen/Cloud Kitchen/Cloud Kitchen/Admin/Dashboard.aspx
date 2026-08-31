@@ -247,62 +247,96 @@
                 border-radius: 10px;
             }
 
-            .table-panel {
-                border-radius: 10px;
-                overflow: hidden;
+            /* RECENT ORDERS GLASS CARD & STICKY SCROLLABLE TABLE */
+            .recent-orders-card {
+                background: #ffffff;
+                border-radius: 18px;
+                border: 1.5px solid #e2e8f0;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+                padding: 24px;
+                margin-top: 28px;
             }
 
-            .table-container {
-                margin-top: 30px;
+            .recent-orders-scroll-box {
+                max-height: 400px;
+                overflow-y: auto;
                 overflow-x: auto;
+                border-radius: 12px;
+                border: 1.5px solid #e2e8f0;
                 -webkit-overflow-scrolling: touch;
             }
 
-            .table-container table,
-            .table {
+            .recent-orders-table {
                 width: 100%;
-                min-width: 640px;
+                min-width: 680px;
                 border-collapse: collapse;
-                margin: 0;
-                background: white;
-                animation: fadeInUp 0.8s ease-in-out;
-            }
-
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(10px);
-                }
-
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            .table-container th,
-            .table-container td {
-                padding: 14px;
-                border: 1px solid #ddd;
-                text-align: left;
-                vertical-align: middle;
-                white-space: nowrap;
-            }
-
-            .table-container th {
-                background: #007bff;
-                color: white;
-                text-transform: uppercase;
                 font-size: 14px;
+                background: #ffffff;
             }
 
-            .table-container tr:nth-child(even) {
-                background: #f8f9fa;
+            .recent-orders-table th {
+                position: sticky;
+                top: 0;
+                background: linear-gradient(135deg, #2563eb, #1d4ed8);
+                color: #ffffff;
+                font-weight: 700;
+                text-transform: uppercase;
+                font-size: 12px;
+                letter-spacing: 0.5px;
+                padding: 14px 18px;
+                z-index: 10;
+                border: none;
             }
 
-            .table-container tr:hover {
-                background: #e9ecef;
-                transition: background 0.3s;
+            .recent-orders-table td {
+                padding: 14px 18px;
+                border-bottom: 1px solid #f1f5f9;
+                color: #334155;
+                vertical-align: middle;
+            }
+
+            .recent-orders-table tr:hover {
+                background: #f8fafc;
+            }
+
+            .status-pill {
+                padding: 5px 12px;
+                border-radius: 20px;
+                font-size: 12px;
+                font-weight: 700;
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .status-completed {
+                background: #f0fdf4;
+                color: #15803d;
+                border: 1px solid #bbf7d0;
+            }
+
+            .status-preparing {
+                background: #fffbeb;
+                color: #b45309;
+                border: 1px solid #fde68a;
+            }
+
+            .status-delivery {
+                background: #eff6ff;
+                color: #1d4ed8;
+                border: 1px solid #bfdbfe;
+            }
+
+            .status-cancelled {
+                background: #fef2f2;
+                color: #b91c1c;
+                border: 1px solid #fecaca;
+            }
+
+            .status-pending {
+                background: #f8fafc;
+                color: #475569;
+                border: 1px solid #e2e8f0;
             }
 
             .popular-items,
@@ -490,11 +524,46 @@
                 </div>
             </div>
 
-            <div class="table-container">
-                <hr class="section-divider" />
-                <h3 class="section-title">Recent Orders</h3>
-                <div class="table-panel">
-                    <asp:GridView ID="gvRecentOrders" runat="server" CssClass="table" AutoGenerateColumns="true">
+            <!-- RECENT ORDERS SECTION WITH STICKY HEADER & SMOOTH SCROLL -->
+            <div class="recent-orders-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+                    <h3 class="section-title" style="margin: 0; font-size: 1.25rem;">Recent Orders</h3>
+                    <a href="ManageOrders.aspx" style="color: #2563eb; font-weight: 700; font-size: 14px; text-decoration: none;">View All Orders ➔</a>
+                </div>
+
+                <div class="recent-orders-scroll-box">
+                    <asp:Repeater ID="rptRecentOrders" runat="server">
+                        <HeaderTemplate>
+                            <table class="recent-orders-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Dish Item</th>
+                                        <th>Total Amount</th>
+                                        <th>Status</th>
+                                        <th>Order Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td><strong style="color: #2563eb;">#<%# Eval("order_id") %></strong></td>
+                                <td><i class="fas fa-user" style="color: #94a3b8; margin-right: 6px;"></i><%# Eval("c_name") %></td>
+                                <td><strong style="color: #0f172a;"><%# Eval("m_name") %></strong></td>
+                                <td><strong style="color: #15803d;">₹<%# Convert.ToDecimal(Eval("total_amount")).ToString("0.00") %></strong></td>
+                                <td><%# GetStatusBadge(Eval("order_status")) %></td>
+                                <td style="color: #64748b; font-size: 13px;"><%# Convert.ToDateTime(Eval("order_date")).ToString("dd MMM yyyy, hh:mm tt") %></td>
+                            </tr>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                                </tbody>
+                            </table>
+                        </FooterTemplate>
+                    </asp:Repeater>
+
+                    <asp:GridView ID="gvRecentOrders" runat="server" Visible="false" AutoGenerateColumns="true">
                     </asp:GridView>
                 </div>
             </div>

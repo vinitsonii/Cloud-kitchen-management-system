@@ -78,6 +78,7 @@ Partial Public Class Dashboard
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents gvRecentOrders As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents rptRecentOrders As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
     '''hfChartData control.
