@@ -439,9 +439,9 @@ Partial Class Reports
                             "GROUP BY M.m_name, M.m_final_price ORDER BY gross_profit DESC"
 
                 Case "driver_delivery"
-                    query = "SELECT d.driver_name, d.phone, d.vehicle_no, COUNT(o.order_id) AS total_deliveries, " & _
-                            "ISNULL(SUM(o.total_amount), 0) AS total_revenue, ISNULL(AVG(o.total_amount), 0) AS avg_revenue " & _
-                            "FROM Drivers d " & _
+                    query = "SELECT d.driver_name, d.phone, d.vehicle_no, COUNT(o.order_id) AS total_deliveries, " &
+                            "ISNULL(SUM(o.total_amount), 0) AS total_revenue, ISNULL(AVG(o.total_amount), 0) AS avg_revenue " &
+                            "FROM Drivers d " &
                             "LEFT JOIN Orders o ON d.driver_id = o.driver_id AND o.order_status = 'Completed' "
                     If Not String.IsNullOrEmpty(startDate) AndAlso Not String.IsNullOrEmpty(endDate) Then
                         query &= " AND (o.order_date BETWEEN @StartDate AND @EndDate OR o.order_id IS NULL) "
@@ -449,16 +449,17 @@ Partial Class Reports
                     query &= "GROUP BY d.driver_name, d.phone, d.vehicle_no ORDER BY total_deliveries DESC"
 
                 Case "category_sales"
-                    query = "SELECT m.m_category, COUNT(DISTINCT o.order_id) AS total_orders, " & _
+                    query = "SELECT mc.category_name, COUNT(DISTINCT o.order_id) AS total_orders, " & _
                             "ISNULL(SUM(od.quantity), 0) AS total_items_sold, ISNULL(SUM(od.quantity * od.price), 0) AS category_revenue " & _
-                            "FROM Menu_Item m " & _
+                            "FROM Menu_Category mc " & _
+                            "INNER JOIN Menu_Item m ON mc.category_id = m.m_category_id " & _
                             "INNER JOIN Order_Details od ON m.m_id = od.m_id " & _
                             "INNER JOIN Orders o ON od.order_id = o.order_id " & _
                             "WHERE o.order_status = 'Completed' "
                     If Not String.IsNullOrEmpty(startDate) AndAlso Not String.IsNullOrEmpty(endDate) Then
                         query &= " AND o.order_date BETWEEN @StartDate AND @EndDate "
                     End If
-                    query &= "GROUP BY m.m_category ORDER BY category_revenue DESC"
+                    query &= "GROUP BY mc.category_name ORDER BY category_revenue DESC"
 
                 Case "pincode_delivery"
                     query = "SELECT o.pincode, COALESCE(ap.Area_Name, 'Standard Coverage') AS area_name, " & _
