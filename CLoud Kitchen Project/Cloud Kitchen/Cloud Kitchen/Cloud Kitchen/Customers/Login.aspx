@@ -434,23 +434,26 @@
 
             .ck-form-panel {
                 min-height: calc(100vh - var(--ck-nav-h, 70px));
-                padding: 28px 16px;
+                padding: 24px 16px 40px;
                 align-items: flex-start;
             }
 
             .mobile-brand {
                 display: inline-flex;
+                margin: 4px auto 16px;
             }
 
             .ck-card {
-                margin: 0 auto;
+                margin: 12px auto 0;
+                padding: 28px 20px;
+                overflow: visible !important;
             }
         }
 
         @media (max-width: 480px) {
             .ck-card {
-                padding: 22px 16px;
-                border-radius: 20px;
+                padding: 24px 16px;
+                border-radius: 22px;
             }
 
             .ck-remember-row {
@@ -459,7 +462,8 @@
             }
 
             .trust-row {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 6px;
             }
         }
 
@@ -576,11 +580,11 @@
 
                         <p class="ck-switch">
                             Don't have an account?
-                            <a href="Register.aspx" onclick="if(typeof(Page_ValidationActive) !== 'undefined') Page_ValidationActive = false;">Create one now</a>
+                            <a href="Register.aspx" onclick="window.location.href='Register.aspx'; return false;">Create one now</a>
                         </p>
 
                         <div style="text-align: center; margin-top: 10px; font-size: 0.76rem; color: #94a3b8;">
-                            Delivery Partner? <a href="../Driver/DriverLogin.aspx" onclick="if(typeof(Page_ValidationActive) !== 'undefined') Page_ValidationActive = false;" style="color: #64748b; font-weight: 600; text-decoration: underline;">Driver Login</a>
+                            Delivery Partner? <a href="../Driver/DriverLogin.aspx" onclick="window.location.href='../Driver/DriverLogin.aspx'; return false;" style="color: #64748b; font-weight: 600; text-decoration: underline;">Driver Login</a>
                         </div>
 
                         <div class="trust-row">

@@ -434,6 +434,7 @@
             .ck-perks { display: none; }
             .ck-card-header h2 { font-size: 1.55rem; }
             .ck-success-card { padding: 1.8rem 1.4rem; }
+            .ck-card { padding: 1.4rem 1.1rem; margin-top: 12px; overflow: visible !important; }
         }
     </style>
 
@@ -489,7 +490,7 @@
                 Welcome to the Cloud Kitchen community! Your account is ready &#8212;
                 log in now to explore the menu and place your first order.
             </p>
-            <a href="Login.aspx" class="ck-modal-btn" onclick="if(typeof(Page_ValidationActive) !== 'undefined') Page_ValidationActive = false;">
+            <a href="Login.aspx" class="ck-modal-btn" onclick="window.location.href='Login.aspx'; return false;">
     Sign In Now
 </a>
         </div>
@@ -610,7 +611,7 @@
 
                 <p class="ck-switch">
                     Already have an account?
-                    <a href="Login.aspx" onclick="if(typeof(Page_ValidationActive) !== 'undefined') Page_ValidationActive = false;">Sign in here</a>
+                    <a href="Login.aspx" onclick="window.location.href='Login.aspx'; return false;">Sign in here</a>
                 </p>
 
             </div>
