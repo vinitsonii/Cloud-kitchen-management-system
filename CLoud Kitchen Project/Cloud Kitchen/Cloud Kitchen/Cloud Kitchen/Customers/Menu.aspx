@@ -553,7 +553,7 @@
                                 <i class="fas fa-ban"></i> Unavailable
                             </asp:Panel>
 
-                            <asp:LinkButton ID="btnOrderNow" runat="server" CssClass="order-btn" CommandArgument='<%# Eval("m_id") %>' Visible='<%# Convert.ToBoolean(Eval("m_availability")) %>' OnCommand="OrderNow_Click">
+                            <asp:LinkButton ID="btnOrderNow" runat="server" CssClass="order-btn" CommandName="OrderNow" CommandArgument='<%# Eval("m_id") %>' Visible='<%# Convert.ToBoolean(Eval("m_availability")) %>' OnCommand="OrderNow_Click">
                                 <i class="fas fa-utensils"></i> Order Now
                             </asp:LinkButton>
                         </div>
