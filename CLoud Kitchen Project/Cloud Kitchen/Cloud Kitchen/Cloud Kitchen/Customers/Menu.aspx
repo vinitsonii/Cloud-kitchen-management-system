@@ -157,102 +157,176 @@
         }
 
         /* MENU GRID & CARDS */
+        /* ENHANCED MENU GRID & CARDS */
         .ck-menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-            gap: 24px;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 28px;
+            max-width: 1240px;
             margin: 0 auto;
             padding: 0 16px 4rem;
         }
 
         .menu-card {
-            background: var(--card-bg);
-            border-radius: 16px;
+            background: #ffffff;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-            border: 1.5px solid var(--border);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 26px rgba(15, 23, 42, 0.06);
+            border: 1.5px solid #e2e8f0;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
         }
 
         .menu-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+            border-color: rgba(79, 126, 118, 0.4);
         }
 
         .card-img-wrap {
             width: 100%;
-            height: 200px;
+            height: 220px;
             overflow: hidden;
             position: relative;
             flex-shrink: 0;
+            background: #f1f5f9;
         }
 
         .menu-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s ease;
+            transition: transform 0.5s ease;
             display: block;
         }
 
         .menu-card:hover img {
-            transform: scale(1.06);
+            transform: scale(1.08);
+        }
+
+        .card-img-wrap::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.35), transparent);
+            pointer-events: none;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #ff9f43;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .card-body {
-            padding: 18px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             flex: 1;
-            gap: 8px;
+            gap: 10px;
         }
 
         .menu-card h3 {
-            font-size: 1.3rem;
-            line-height: 1.2;
-            color: var(--text);
+            font-size: 1.35rem;
+            line-height: 1.25;
+            color: #0f172a;
             margin: 0;
             font-weight: 800;
+            letter-spacing: -0.3px;
         }
 
-        .menu-card p {
-            font-size: 13px;
-            color: var(--muted);
+        .card-desc {
+            font-size: 13.5px;
+            color: #64748b;
             margin: 0;
-            line-height: 1.5;
-            font-weight: 500;
+            line-height: 1.55;
+            font-weight: 400;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 42px;
         }
 
         .menu-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         .tag {
             font-size: 11px;
-            padding: 4px 10px;
+            padding: 4px 11px;
             border-radius: 20px;
             font-weight: 700;
             color: #ffffff;
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            letter-spacing: 0.2px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
         }
 
-        .category-tag { background: #2563eb; }
-        .cuisine-tag { background: #16a34a; }
+        .category-tag {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        }
+
+        .cuisine-tag {
+            background: linear-gradient(135deg, #16a34a, #15803d);
+        }
+
+        /* PROMINENT PRICE & ACTION FOOTER */
+        .card-footer-action {
+            margin-top: 10px;
+            padding-top: 14px;
+            border-top: 1px dashed #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .price-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #94a3b8;
+        }
 
         .menu-price {
-            font-size: 1.35rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin: 6px 0 0;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #16a34a;
+            margin: 0;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
         }
 
         .not-available-label {
@@ -264,34 +338,36 @@
             border: 1px solid #fecaca;
             font-size: 12px;
             font-weight: 800;
-            padding: 6px 14px;
-            border-radius: 8px;
-            margin-top: 8px;
+            padding: 8px 16px;
+            border-radius: 12px;
             width: fit-content;
         }
 
         .order-btn {
-            margin-top: 10px;
-            padding: 11px 20px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dk));
+            padding: 10px 18px;
+            height: 44px;
+            background: linear-gradient(135deg, #4F7E76, #355b54);
             color: #ffffff;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 14px rgba(79, 126, 118, 0.28);
-            transition: transform 0.2s, box-shadow 0.2s;
-            width: 100%;
+            box-shadow: 0 4px 14px rgba(79, 126, 118, 0.32);
+            transition: all 0.25s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            white-space: nowrap;
+            flex: 1;
+            max-width: 170px;
         }
 
         .order-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 7px 20px rgba(79, 126, 118, 0.4);
+            background: linear-gradient(135deg, #3a5f59, #294742);
+            box-shadow: 0 8px 22px rgba(79, 126, 118, 0.45);
         }
 
         /* EMPTY STATE CONTAINER */
@@ -414,23 +490,29 @@
                 <div class="menu-card">
                     <div class="card-img-wrap">
                         <img src='<%# Eval("m_image_url") %>' alt='<%# Eval("m_name") %>' />
+                        <span class="card-badge"><i class="fas fa-fire"></i> Fresh &amp; Hot</span>
                     </div>
                     <div class="card-body">
                         <h3><%# Eval("m_name") %></h3>
-                        <p><%# Eval("m_description") %></p>
+                        <p class="card-desc"><%# Eval("m_description") %></p>
 
                         <div class="menu-tags">
                             <span class="tag category-tag"><i class="fas fa-tag"></i> <%# Eval("category_name") %></span>
                             <span class="tag cuisine-tag"><i class="fas fa-globe"></i> <%# Eval("cuisine_name") %></span>
                         </div>
 
-                        <p class="menu-price">₹<%# Eval("m_final_price", "{0:N2}") %></p>
+                        <div class="card-footer-action">
+                            <div class="price-container">
+                                <span class="price-label">Price</span>
+                                <span class="menu-price">₹<%# Eval("m_final_price", "{0:N2}") %></span>
+                            </div>
 
-                        <asp:Panel ID="Panel1" runat="server" CssClass="not-available-label" Visible='<%# Not Convert.ToBoolean(Eval("m_availability")) %>'>
-                            <i class="fas fa-ban"></i> Currently Unavailable
-                        </asp:Panel>
+                            <asp:Panel ID="Panel1" runat="server" CssClass="not-available-label" Visible='<%# Not Convert.ToBoolean(Eval("m_availability")) %>'>
+                                <i class="fas fa-ban"></i> Unavailable
+                            </asp:Panel>
 
-                        <asp:Button ID="btnOrderNow" runat="server" CssClass="order-btn" Text="Order Now" CommandArgument='<%# Eval("m_id") %>' Visible='<%# Convert.ToBoolean(Eval("m_availability")) %>' OnCommand="OrderNow_Click" />
+                            <asp:Button ID="btnOrderNow" runat="server" CssClass="order-btn" Text="🛒 Order Now" CommandArgument='<%# Eval("m_id") %>' Visible='<%# Convert.ToBoolean(Eval("m_availability")) %>' OnCommand="OrderNow_Click" />
+                        </div>
                     </div>
                 </div>
             </ItemTemplate>
