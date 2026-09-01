@@ -437,6 +437,36 @@
                 height: 190px;
             }
         }
+
+        @media (max-width: 480px) {
+            .card-footer-action {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                background: #f8fafc;
+                padding: 12px;
+                border-radius: 14px;
+                border: 1px dashed #cbd5e1;
+            }
+
+            .price-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+            }
+
+            .menu-price {
+                font-size: 1.75rem;
+            }
+
+            .order-btn {
+                max-width: 100%;
+                width: 100%;
+                height: 46px;
+                font-size: 15px;
+            }
+        }
     </style>
 </asp:Content>
 
@@ -445,7 +475,7 @@
     <!-- HERO BANNER -->
     <div class="ck-menu-hero">
         <div class="hero-inner">
-            <h1><i class="fas fa-utensils" style="color:var(--accent);"></i> Delicious Food, Delivered Fast!</h1>
+            <h1><i class="fas fa-bowl-food" style="color:var(--accent);"></i> Delicious Food, Delivered Fast!</h1>
             <p>Order your favorite meals fresh &amp; hot. Enjoy restaurant-quality food at your doorstep!</p>
         </div>
     </div>
@@ -456,19 +486,19 @@
             <div class="filter-row-grid">
                 
                 <div class="filter-group-item">
-                    <label><i class="fas fa-search" style="color:var(--primary);"></i> Search Food Item</label>
+                    <label><i class="fas fa-magnifying-glass" style="color:var(--primary);"></i> Search Food Item</label>
                     <asp:TextBox ID="txtSearch" runat="server" CssClass="filter-box" placeholder="Search dish by name..." AutoPostBack="true" OnTextChanged="FilterMenu"></asp:TextBox>
                 </div>
 
                 <div class="filter-group-item">
-                    <label><i class="fas fa-layer-group" style="color:var(--primary);"></i> Category</label>
+                    <label><i class="fas fa-utensils" style="color:var(--primary);"></i> Category</label>
                     <asp:DropDownList ID="ddlCategory" runat="server" CssClass="filter-box" AutoPostBack="true" OnSelectedIndexChanged="FilterMenu">
                         <asp:ListItem Text="All Categories" Value="0"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
 
                 <div class="filter-group-item">
-                    <label><i class="fas fa-globe" style="color:var(--primary);"></i> Cuisine</label>
+                    <label><i class="fas fa-pepper-hot" style="color:var(--primary);"></i> Cuisine</label>
                     <asp:DropDownList ID="ddlCuisine" runat="server" CssClass="filter-box" AutoPostBack="true" OnSelectedIndexChanged="FilterMenu">
                         <asp:ListItem Text="All Cuisines" Value="0"></asp:ListItem>
                     </asp:DropDownList>
@@ -490,15 +520,15 @@
                 <div class="menu-card">
                     <div class="card-img-wrap">
                         <img src='<%# Eval("m_image_url") %>' alt='<%# Eval("m_name") %>' />
-                        <span class="card-badge"><i class="fas fa-fire"></i> Fresh &amp; Hot</span>
+                        <span class="card-badge"><i class="fas fa-fire-flame-curved"></i> Fresh &amp; Hot</span>
                     </div>
                     <div class="card-body">
                         <h3><%# Eval("m_name") %></h3>
                         <p class="card-desc"><%# Eval("m_description") %></p>
 
                         <div class="menu-tags">
-                            <span class="tag category-tag"><i class="fas fa-tag"></i> <%# Eval("category_name") %></span>
-                            <span class="tag cuisine-tag"><i class="fas fa-globe"></i> <%# Eval("cuisine_name") %></span>
+                            <span class="tag category-tag"><i class="fas fa-utensils"></i> <%# Eval("category_name") %></span>
+                            <span class="tag cuisine-tag"><i class="fas fa-pepper-hot"></i> <%# Eval("cuisine_name") %></span>
                         </div>
 
                         <div class="card-footer-action">
