@@ -293,7 +293,7 @@
         }
 
         .cuisine-tag {
-            background: linear-gradient(135deg, #16a34a, #15803d);
+            background: linear-gradient(135deg, #059669, #047857);
         }
 
         /* PROMINENT PRICE & ACTION FOOTER */
@@ -344,16 +344,17 @@
         }
 
         .order-btn {
-            padding: 10px 18px;
+            padding: 10px 20px;
             height: 44px;
-            background: linear-gradient(135deg, #4F7E76, #355b54);
-            color: #ffffff;
+            background: linear-gradient(135deg, #ff9f43, #ff7b00);
+            color: #ffffff !important;
+            text-decoration: none;
             border: none;
             border-radius: 12px;
             font-size: 14px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 14px rgba(79, 126, 118, 0.32);
+            box-shadow: 0 6px 18px rgba(255, 159, 67, 0.35);
             transition: all 0.25s ease;
             display: inline-flex;
             align-items: center;
@@ -366,8 +367,9 @@
 
         .order-btn:hover {
             transform: translateY(-2px);
-            background: linear-gradient(135deg, #3a5f59, #294742);
-            box-shadow: 0 8px 22px rgba(79, 126, 118, 0.45);
+            background: linear-gradient(135deg, #ffa857, #ff881a);
+            box-shadow: 0 10px 24px rgba(255, 159, 67, 0.5);
+            color: #ffffff !important;
         }
 
         /* EMPTY STATE CONTAINER */
@@ -528,7 +530,7 @@
 
                         <div class="menu-tags">
                             <span class="tag category-tag"><i class="fas fa-utensils"></i> <%# Eval("category_name") %></span>
-                            <span class="tag cuisine-tag"><i class="fas fa-pepper-hot"></i> <%# Eval("cuisine_name") %></span>
+                            <span class="tag cuisine-tag"><i class="fas fa-earth-asia"></i> <%# Eval("cuisine_name") %></span>
                         </div>
 
                         <div class="card-footer-action">
@@ -541,7 +543,9 @@
                                 <i class="fas fa-ban"></i> Unavailable
                             </asp:Panel>
 
-                            <asp:Button ID="btnOrderNow" runat="server" CssClass="order-btn" Text="🛒 Order Now" CommandArgument='<%# Eval("m_id") %>' Visible='<%# Convert.ToBoolean(Eval("m_availability")) %>' OnCommand="OrderNow_Click" />
+                            <asp:LinkButton ID="btnOrderNow" runat="server" CssClass="order-btn" CommandArgument='<%# Eval("m_id") %>' Visible='<%# Convert.ToBoolean(Eval("m_availability")) %>' OnCommand="OrderNow_Click">
+                                <i class="fas fa-bag-shopping"></i> Order Now
+                            </asp:LinkButton>
                         </div>
                     </div>
                 </div>
