@@ -321,12 +321,12 @@
         }
 
         .menu-price {
-            font-size: 1.6rem;
-            font-weight: 900;
+            font-size: 1.35rem;
+            font-weight: 800;
             color: #16a34a;
             margin: 0;
-            letter-spacing: -0.5px;
-            line-height: 1.1;
+            letter-spacing: -0.3px;
+            line-height: 1.15;
         }
 
         .not-available-label {
@@ -469,7 +469,7 @@
             }
 
             .menu-price {
-                font-size: 1.75rem;
+                font-size: 1.35rem;
             }
 
             .order-btn {
