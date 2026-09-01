@@ -532,7 +532,7 @@
                 <div class="menu-card">
                     <div class="card-img-wrap">
                         <img src='<%# Eval("m_image_url") %>' alt='<%# Eval("m_name") %>' />
-                        <span class="card-badge"><i class="fas fa-fire-flame-curved"></i> Fresh &amp; Hot</span>
+                        <span class="card-badge"><i class="fas fa-star" style="color:#ffc107;"></i> Freshly Prepared</span>
                     </div>
                     <div class="card-body">
                         <h3><%# Eval("m_name") %></h3>
