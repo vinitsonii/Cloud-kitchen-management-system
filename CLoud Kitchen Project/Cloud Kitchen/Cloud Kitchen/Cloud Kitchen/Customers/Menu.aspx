@@ -344,32 +344,42 @@
         }
 
         .order-btn {
-            padding: 10px 20px;
-            height: 44px;
-            background: linear-gradient(135deg, #ff9f43, #ff7b00);
+            padding: 11px 22px;
+            height: 46px;
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
             color: #ffffff !important;
             text-decoration: none;
             border: none;
-            border-radius: 12px;
+            border-radius: 50px;
             font-size: 14px;
             font-weight: 700;
+            letter-spacing: 0.3px;
             cursor: pointer;
-            box-shadow: 0 6px 18px rgba(255, 159, 67, 0.35);
-            transition: all 0.25s ease;
+            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.35);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 9px;
             white-space: nowrap;
             flex: 1;
-            max-width: 170px;
+            max-width: 175px;
         }
 
         .order-btn:hover {
-            transform: translateY(-2px);
-            background: linear-gradient(135deg, #ffa857, #ff881a);
-            box-shadow: 0 10px 24px rgba(255, 159, 67, 0.5);
+            transform: translateY(-3px) scale(1.02);
+            background: linear-gradient(135deg, #ff6b81, #ff4757);
+            box-shadow: 0 10px 26px rgba(255, 71, 87, 0.5);
             color: #ffffff !important;
+        }
+
+        .order-btn i {
+            font-size: 15px;
+            transition: transform 0.25s ease;
+        }
+
+        .order-btn:hover i {
+            transform: rotate(-10deg) scale(1.15);
         }
 
         /* EMPTY STATE CONTAINER */
@@ -544,7 +554,7 @@
                             </asp:Panel>
 
                             <asp:LinkButton ID="btnOrderNow" runat="server" CssClass="order-btn" CommandArgument='<%# Eval("m_id") %>' Visible='<%# Convert.ToBoolean(Eval("m_availability")) %>' OnCommand="OrderNow_Click">
-                                <i class="fas fa-bag-shopping"></i> Order Now
+                                <i class="fas fa-utensils"></i> Order Now
                             </asp:LinkButton>
                         </div>
                     </div>
