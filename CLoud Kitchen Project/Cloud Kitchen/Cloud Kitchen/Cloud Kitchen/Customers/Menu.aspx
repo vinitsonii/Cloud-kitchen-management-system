@@ -346,7 +346,7 @@
         .order-btn {
             padding: 11px 22px;
             height: 46px;
-            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            background: linear-gradient(135deg, #4F7E76, #355b54);
             color: #ffffff !important;
             text-decoration: none;
             border: none;
@@ -355,7 +355,7 @@
             font-weight: 700;
             letter-spacing: 0.3px;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.35);
+            box-shadow: 0 6px 20px rgba(79, 126, 118, 0.38);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             display: inline-flex;
             align-items: center;
@@ -368,8 +368,8 @@
 
         .order-btn:hover {
             transform: translateY(-3px) scale(1.02);
-            background: linear-gradient(135deg, #ff6b81, #ff4757);
-            box-shadow: 0 10px 26px rgba(255, 71, 87, 0.5);
+            background: linear-gradient(135deg, #3a5f59, #25423d);
+            box-shadow: 0 10px 26px rgba(79, 126, 118, 0.52);
             color: #ffffff !important;
         }
 
