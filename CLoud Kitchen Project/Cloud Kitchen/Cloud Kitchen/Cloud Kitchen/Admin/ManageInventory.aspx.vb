@@ -286,7 +286,7 @@ Public Class ManageInventory
                 ddlRecipeDish.DataTextField = "m_name"
                 ddlRecipeDish.DataValueField = "m_id"
                 ddlRecipeDish.DataBind()
-                ddlRecipeDish.Items.Insert(0, New ListItem("-- Select Dish to Build Recipe --", "0"))
+                ddlRecipeDish.Items.Insert(0, New ListItem("-- Select Dish Item --", "0"))
             End Using
         End Using
     End Sub

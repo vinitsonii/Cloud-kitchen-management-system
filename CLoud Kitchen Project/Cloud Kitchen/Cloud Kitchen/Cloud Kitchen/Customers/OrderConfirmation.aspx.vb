@@ -1,4 +1,4 @@
-﻿Imports System.Data.SqlClient
+Imports System.Data.SqlClient
 Imports System.Configuration
 
 Public Class OrderConfirmation
@@ -8,19 +8,31 @@ Public Class OrderConfirmation
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         If Not IsPostBack Then
+            If Session("c_id") Is Nothing Then
+                Response.Redirect("Login.aspx")
+                Exit Sub
+            End If
             If Request.QueryString("OrderId") IsNot Nothing Then
                 Dim orderId As Integer = Convert.ToInt32(Request.QueryString("OrderId"))
                 LoadOrderDetails(orderId)
             Else
-                Response.Redirect("Home.aspx") ' Redirect if Order ID is missing
+                Response.Redirect("Home.aspx")
             End If
         End If
     End Sub
 
     Private Sub LoadOrderDetails(ByVal orderId As Integer)
+        If Session("c_id") Is Nothing Then
+            Response.Redirect("Login.aspx")
+            Exit Sub
+        End If
+
+        Dim customerId As Integer = Convert.ToInt32(Session("c_id"))
+
         Using con As New SqlConnection(connString)
-            Dim cmd As New SqlCommand("SELECT order_status, transaction_number, total_amount FROM orders WHERE order_id = @order_id", con)
+            Dim cmd As New SqlCommand("SELECT order_status, transaction_number, total_amount FROM orders WHERE order_id = @order_id AND c_id = @c_id", con)
             cmd.Parameters.AddWithValue("@order_id", orderId)
+            cmd.Parameters.AddWithValue("@c_id", customerId)
 
             con.Open()
             Dim reader As SqlDataReader = cmd.ExecuteReader()
@@ -39,6 +51,8 @@ Public Class OrderConfirmation
                 Else
                     lblOrderStatus.CssClass = "status-success"
                 End If
+            Else
+                Response.Redirect("MyOrders.aspx")
             End If
             reader.Close()
         End Using

@@ -182,7 +182,7 @@ Private Sub LoadOrderStatusChartData()
             Using conn As New SqlConnection(ConfigurationManager.ConnectionStrings("constr").ConnectionString)
                 conn.Open()
                 Dim dt As New DataTable()
-                Dim recentOrdersQuery As String = "SELECT TOP 10 orders.order_id, customers.c_name, menu_item.m_name, " & _
+                Dim recentOrdersQuery As String = "SELECT TOP 5 orders.order_id, customers.c_name, menu_item.m_name, " & _
                                                   "ISNULL(orders.total_amount, 0) AS total_amount, orders.order_status, orders.order_date " & _
                                                   "FROM orders " & _
                                                   "INNER JOIN customers ON orders.c_id = customers.c_id " & _

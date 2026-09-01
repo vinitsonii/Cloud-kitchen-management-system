@@ -1,6 +1,7 @@
 Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Configuration
+Imports System.Net.Mail
 
 Public Class DriverPortal
     Inherits System.Web.UI.Page
@@ -296,9 +297,26 @@ Public Class DriverPortal
         Return dtItems
     End Function
 
+    Protected Sub rptActiveDeliveries_ItemDataBound(ByVal sender As Object, ByVal e As RepeaterItemEventArgs)
+        If e.Item.ItemType = ListItemType.Item OrElse e.Item.ItemType = ListItemType.AlternatingItem Then
+            Dim cvOtp As CustomValidator = CType(e.Item.FindControl("cvOtp"), CustomValidator)
+            If cvOtp IsNot Nothing Then
+                cvOtp.IsValid = True
+            End If
+        End If
+    End Sub
+
+    Protected Sub cvOtp_ServerValidate(ByVal source As Object, ByVal args As ServerValidateEventArgs)
+        Dim val As String = If(args.Value IsNot Nothing, args.Value.Trim(), "")
+        args.IsValid = System.Text.RegularExpressions.Regex.IsMatch(val, "^\d{4}$")
+    End Sub
+
     Protected Sub rptActiveDeliveries_ItemCommand(ByVal source As Object, ByVal e As RepeaterCommandEventArgs)
         If e.CommandName = "VerifyOtp" Then
             Dim orderId As Integer = Convert.ToInt32(e.CommandArgument)
+            Page.Validate("OtpGroup_" & orderId)
+            If Not Page.IsValid Then Exit Sub
+
             Dim txtOtpInput As TextBox = CType(e.Item.FindControl("txtOtpInput"), TextBox)
 
             If txtOtpInput Is Nothing OrElse String.IsNullOrEmpty(txtOtpInput.Text.Trim()) Then
@@ -307,6 +325,11 @@ Public Class DriverPortal
             End If
 
             Dim enteredOtp As String = txtOtpInput.Text.Trim()
+            If Not System.Text.RegularExpressions.Regex.IsMatch(enteredOtp, "^\d{4}$") Then
+                ShowMessage("⚠️ Invalid OTP format! OTP must be exactly 4 numeric digits.", False)
+                Exit Sub
+            End If
+
             Dim driverId As Integer = Convert.ToInt32(Session("DriverId"))
 
             Using conn As New SqlConnection(connString)
@@ -473,13 +496,13 @@ Public Class DriverPortal
         Using conn As New SqlConnection(connString)
             conn.Open()
             Dim atomicQuery As String = "BEGIN TRANSACTION; " &
-                                        "IF EXISTS (SELECT 1 FROM Orders WHERE order_id = @OrderId AND (driver_id IS NULL OR driver_id = 0) AND order_status = 'Preparing') " &
+                                        "IF EXISTS (SELECT 1 FROM Orders WITH (UPDLOCK, HOLDLOCK) WHERE order_id = @OrderId AND (driver_id IS NULL OR driver_id = 0) AND order_status = 'Preparing') " &
                                         "BEGIN " &
                                         "    UPDATE Orders SET driver_id = @DriverId, order_status = 'Out for Delivery', delivery_otp = @Otp WHERE order_id = @OrderId; " &
                                         "    UPDATE Drivers SET status = 'On Delivery' WHERE driver_id = @DriverId; " &
                                         "    SELECT 1 AS Success; " &
                                         "END " &
-                                        "ELSE IF EXISTS (SELECT 1 FROM Orders WHERE order_id = @OrderId AND driver_id = @DriverId) " &
+                                        "ELSE IF EXISTS (SELECT 1 FROM Orders WITH (UPDLOCK, HOLDLOCK) WHERE order_id = @OrderId AND driver_id = @DriverId) " &
                                         "BEGIN " &
                                         "    UPDATE Drivers SET status = 'On Delivery' WHERE driver_id = @DriverId; " &
                                         "    SELECT 1 AS Success; " &
@@ -666,4 +689,101 @@ Public Class DriverPortal
             lblMsg.Style("border") = "1px solid #fca5a5"
         End If
     End Sub
+
+    Protected Sub btnOpenChangePwd_Click(ByVal sender As Object, ByVal e As EventArgs)
+        txtCurrentPwd.Text = ""
+        txtNewPwd.Text = ""
+        txtConfirmPwd.Text = ""
+        lblPwdMsg.Visible = False
+        pnlChangePasswordModal.Visible = True
+    End Sub
+
+    Protected Sub btnClosePwdModal_Click(ByVal sender As Object, ByVal e As EventArgs)
+        pnlChangePasswordModal.Visible = False
+    End Sub
+
+    Protected Sub btnUpdatePassword_Click(ByVal sender As Object, ByVal e As EventArgs)
+        If Session("DriverId") Is Nothing Then Exit Sub
+
+        Dim currentPwd As String = txtCurrentPwd.Text.Trim()
+        Dim newPwd As String = txtNewPwd.Text.Trim()
+        Dim confirmPwd As String = txtConfirmPwd.Text.Trim()
+
+        If String.IsNullOrEmpty(currentPwd) OrElse String.IsNullOrEmpty(newPwd) OrElse String.IsNullOrEmpty(confirmPwd) Then
+            ShowPwdMsg("⚠️ All fields are required!", False)
+            Exit Sub
+        End If
+
+        If newPwd.Length < 4 Then
+            ShowPwdMsg("⚠️ New password must be at least 4 characters long!", False)
+            Exit Sub
+        End If
+
+        If newPwd <> confirmPwd Then
+            ShowPwdMsg("⚠️ New password and confirmation do not match!", False)
+            Exit Sub
+        End If
+
+        Dim driverId As Integer = Convert.ToInt32(Session("DriverId"))
+
+        Using conn As New SqlConnection(connString)
+            conn.Open()
+            Dim dbPwd As String = ""
+            Dim checkQuery As String = "SELECT password FROM Drivers WHERE driver_id = @DriverId"
+            Using cmdCheck As New SqlCommand(checkQuery, conn)
+                cmdCheck.Parameters.AddWithValue("@DriverId", driverId)
+                Dim res = cmdCheck.ExecuteScalar()
+                If res IsNot Nothing Then dbPwd = res.ToString()
+            End Using
+
+            If dbPwd <> currentPwd Then
+                conn.Close()
+                ShowPwdMsg("❌ Current password is incorrect!", False)
+                Exit Sub
+            End If
+
+            Dim updateQuery As String = "UPDATE Drivers SET password = @NewPwd WHERE driver_id = @DriverId"
+            Using cmdUpdate As New SqlCommand(updateQuery, conn)
+                cmdUpdate.Parameters.AddWithValue("@NewPwd", newPwd)
+                cmdUpdate.Parameters.AddWithValue("@DriverId", driverId)
+                cmdUpdate.ExecuteNonQuery()
+            End Using
+
+            conn.Close()
+        End Using
+
+        pnlChangePasswordModal.Visible = False
+        ShowMessage("🔑 Password updated successfully! Please use your new password next time you log in.", True)
+    End Sub
+
+    Private Sub ShowPwdMsg(ByVal msg As String, ByVal isSuccess As Boolean)
+        lblPwdMsg.Text = msg
+        lblPwdMsg.Visible = True
+        If isSuccess Then
+            lblPwdMsg.Style("background-color") = "#dcfce7"
+            lblPwdMsg.Style("color") = "#15803d"
+            lblPwdMsg.Style("border") = "1px solid #bbf7d0"
+        Else
+            lblPwdMsg.Style("background-color") = "#fee2e2"
+            lblPwdMsg.Style("color") = "#b91c1c"
+            lblPwdMsg.Style("border") = "1px solid #fca5a5"
+        End If
+    End Sub
+
+    Protected Function GetCustomerWhatsAppUrl(ByVal phone As Object, ByVal customerName As Object, ByVal orderId As Object) As String
+        If phone Is Nothing OrElse IsDBNull(phone) Then Return "#"
+        Dim rawPhone As String = phone.ToString().Trim()
+        Dim digitsOnly As String = System.Text.RegularExpressions.Regex.Replace(rawPhone, "[^\d]", "")
+        If digitsOnly.Length = 10 Then
+            digitsOnly = "91" & digitsOnly
+        ElseIf digitsOnly.StartsWith("0") AndAlso digitsOnly.Length = 11 Then
+            digitsOnly = "91" & digitsOnly.Substring(1)
+        End If
+
+        Dim custName As String = If(customerName IsNot Nothing AndAlso Not IsDBNull(customerName), customerName.ToString(), "Customer")
+        Dim orderIdStr As String = If(orderId IsNot Nothing AndAlso Not IsDBNull(orderId), orderId.ToString(), "")
+
+        Dim message As String = "Hello " & custName & ", I am your Cloud Kitchen delivery partner with Order #" & orderIdStr & "."
+        Return "https://api.whatsapp.com/send?phone=" & digitsOnly & "&text=" & Server.UrlEncode(message)
+    End Function
 End Class

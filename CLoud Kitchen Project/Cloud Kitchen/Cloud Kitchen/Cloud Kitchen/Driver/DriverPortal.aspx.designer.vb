@@ -44,5 +44,14 @@ Partial Public Class DriverPortal
     Protected WithEvents rptAvailablePool As Global.System.Web.UI.WebControls.Repeater
     Protected WithEvents pnlNoPool As Global.System.Web.UI.WebControls.Panel
     Protected WithEvents litNoPoolMsg As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents btnOpenChangePwd As Global.System.Web.UI.WebControls.LinkButton
+    Protected WithEvents pnlChangePasswordModal As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents btnClosePwdModal As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lblPwdMsg As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents txtCurrentPwd As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtNewPwd As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtConfirmPwd As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents btnUpdatePassword As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnCancelPwd As Global.System.Web.UI.WebControls.Button
 
 End Class

@@ -485,7 +485,7 @@
                             <span class="inv-title-icon">📦</span>
                             <span class="inv-title-text">Inventory Management & Recipe Builder</span>
                         </h1>
-                        <p class="inv-header-subtitle">Track raw ingredient stocks, manage unit costs, and map dish recipe ratios.</p>
+                        <p class="inv-header-subtitle">Track raw ingredient stock levels, update costs, and set recipe ingredients for your dishes.</p>
                     </div>
                 </div>
 
@@ -494,7 +494,7 @@
                 <!-- Navigation Tabs -->
                 <div class="inv-nav-tabs">
                     <asp:Button ID="btnTabIngredients" runat="server" Text="🥦 Raw Ingredient Stock" CssClass="tab-btn active" OnClick="btnTabIngredients_Click" CausesValidation="false" />
-                    <asp:Button ID="btnTabRecipe" runat="server" Text="📖 Recipe Builder Matrix" CssClass="tab-btn" OnClick="btnTabRecipe_Click" CausesValidation="false" />
+                    <asp:Button ID="btnTabRecipe" runat="server" Text="📖 Dish Recipes & Ingredients" CssClass="tab-btn" OnClick="btnTabRecipe_Click" CausesValidation="false" />
                 </div>
 
                 <!-- TAB 1: RAW INGREDIENT STOCK -->
@@ -666,7 +666,7 @@
                     <!-- TOP SECTION: RECIPE MAPPING FORM -->
                     <div class="inv-card">
                         <div class="form-section-header">
-                            <h3 class="form-section-title">📖 Map Dish to Raw Ingredients (Recipe Matrix)</h3>
+                            <h3 class="form-section-title">📖 Add Ingredients to Dish Recipe</h3>
                         </div>
 
                         <div class="form-grid-3">
@@ -691,7 +691,7 @@
                         </div>
 
                         <div class="form-grid-actions">
-                            <asp:Button ID="btnAddRecipeItem" runat="server" Text="➕ Link Ingredient to Recipe" CssClass="btn-action btn-primary-custom" OnClick="btnAddRecipeItem_Click" ValidationGroup="vgRecipe" />
+                            <asp:Button ID="btnAddRecipeItem" runat="server" Text="➕ Add Ingredient to Recipe" CssClass="btn-action btn-primary-custom" OnClick="btnAddRecipeItem_Click" ValidationGroup="vgRecipe" />
                         </div>
                     </div>
 
@@ -699,7 +699,7 @@
                     <div class="inv-card">
                         <div class="table-header-bar">
                             <h3 class="table-title">
-                                🥘 Recipe Matrix for: <asp:Label ID="lblSelectedDishName" runat="server" style="color: #2563eb; font-weight: 800;" Text="Select a dish above"></asp:Label>
+                                🍳 Ingredients Required for: <asp:Label ID="lblSelectedDishName" runat="server" style="color: #2563eb; font-weight: 800;" Text="Select a dish above"></asp:Label>
                             </h3>
                         </div>
 
@@ -737,7 +737,7 @@
                             </asp:Repeater>
 
                             <asp:Panel ID="pnlNoRecipeItems" runat="server" Visible="false" CssClass="empty-state-box">
-                                <p>No ingredients mapped to this dish recipe yet. Select a dish and raw ingredient above to build the recipe matrix.</p>
+                                <p>No ingredients added to this dish recipe yet. Select a dish and raw ingredient above to customize the recipe.</p>
                             </asp:Panel>
                         </div>
                     </div>

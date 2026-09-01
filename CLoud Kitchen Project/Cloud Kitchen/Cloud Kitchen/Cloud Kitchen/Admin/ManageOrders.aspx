@@ -594,9 +594,24 @@
                 border: 1.5px solid #cbd5e1;
             }
 
-            .btn-print-main:hover {
-                background: #e2e8f0;
-                color: #0f172a;
+            .workflow-actions-bar {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 10px;
+                width: 100%;
+                margin-top: 8px;
+            }
+
+            .workflow-actions-bar .btn-action-main {
+                flex: 1 1 auto;
+                min-width: 135px;
+                height: 42px;
+                padding: 0 16px;
+                margin: 0;
+                white-space: nowrap;
+                text-align: center;
+                justify-content: center;
             }
 
             /* BACK BUTTON FOR MOBILE */
@@ -1128,14 +1143,6 @@
                     <div class="detail-actions-panel">
                         <div class="info-box-title"><i class="fas fa-sliders"></i> Kitchen Workflow Actions</div>
 
-                        <!-- ACTION PANEL FOR PENDING -->
-                        <asp:Panel ID="pnlAcceptAction" runat="server" Visible="false">
-                            <div class="action-button-row">
-                                <asp:Button ID="btnDetailAccept" runat="server" Text="Accept & Start Cooking"
-                                    CssClass="btn-action-main btn-accept-main" OnClick="btnDetailAccept_Click" />
-                            </div>
-                        </asp:Panel>
-
                         <!-- ACTION PANEL FOR PREPARING -->
                         <asp:Panel ID="pnlDispatchAction" runat="server" Visible="false">
                             <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
@@ -1144,14 +1151,11 @@
                                 </div>
                                 <span style="background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px; border: 1px solid #7dd3fc;">⚡ Auto-Dispatch</span>
                             </div>
-                            <div style="display:flex; flex-direction:column; gap:8px;">
+                            <div style="display:flex; flex-direction:column; gap:8px; margin-bottom: 8px;">
                                 <label style="font-size:13px; font-weight:700; color:#334155;">Or Manually Assign Available Driver:</label>
                                 <div style="display:flex; gap:10px; flex-wrap:wrap;">
                                     <asp:DropDownList ID="ddlDetailDriver" runat="server" CssClass="styled-dropdown"
                                         style="max-width:320px;"></asp:DropDownList>
-                                    <asp:Button ID="btnDetailDispatch" runat="server" Text="Dispatch Order"
-                                        CssClass="btn-action-main btn-dispatch-main"
-                                        OnClick="btnDetailDispatch_Click" />
                                 </div>
                             </div>
                         </asp:Panel>
@@ -1180,25 +1184,27 @@
                                         </span></span>
                                 </div>
                             </div>
-                            <div class="action-button-row">
-                                <asp:Button ID="btnDetailComplete" runat="server" Text="Mark Delivered"
-                                    CssClass="btn-action-main btn-complete-main" OnClick="btnDetailComplete_Click" />
-                            </div>
                         </asp:Panel>
 
                         <!-- ACTION PANEL FOR COMPLETED -->
                         <asp:Panel ID="pnlCompletedAction" runat="server" Visible="false">
                             <div
-                                style="background:#f0fdf4; border:1px solid #bbf7d0; color:#15803d; border-radius:10px; padding:12px 16px; font-size:13px; font-weight:700; display:flex; align-items:center; gap:8px;">
+                                style="background:#f0fdf4; border:1px solid #bbf7d0; color:#15803d; border-radius:10px; padding:12px 16px; margin-bottom:10px; font-size:13px; font-weight:700; display:flex; align-items:center; gap:8px;">
                                 <i class="fas fa-circle-check" style="font-size:16px;"></i> Order Delivered Successfully
                                 on <asp:Literal ID="litDetailDeliveredTime" runat="server"></asp:Literal>
                             </div>
                         </asp:Panel>
 
-                        <!-- COMMON CANCEL AND PRINT BUTTONS -->
-                        <div class="action-button-row" style="margin-top:6px;">
+                        <!-- SINGLE RESPONSIVE SIDE-BY-SIDE FLEX BUTTON BAR -->
+                        <div class="workflow-actions-bar">
+                            <asp:Button ID="btnDetailAccept" runat="server" Text="Accept & Start Cooking"
+                                CssClass="btn-action-main btn-accept-main" OnClick="btnDetailAccept_Click" Visible="false" />
+                            <asp:Button ID="btnDetailDispatch" runat="server" Text="Dispatch Order"
+                                CssClass="btn-action-main btn-dispatch-main" OnClick="btnDetailDispatch_Click" Visible="false" />
+                            <asp:Button ID="btnDetailComplete" runat="server" Text="Mark Delivered"
+                                CssClass="btn-action-main btn-complete-main" OnClick="btnDetailComplete_Click" Visible="false" />
                             <asp:Button ID="btnDetailCancel" runat="server" Text="Cancel Order"
-                                CssClass="btn-action-main btn-cancel-main" OnClick="btnDetailCancel_Click" />
+                                CssClass="btn-action-main btn-cancel-main" OnClick="btnDetailCancel_Click" Visible="false" />
                             <button type="button" class="btn-action-main btn-print-main"
                                 onclick="printThermalInvoice();">
                                 <i class="fas fa-print"></i> Print Receipt

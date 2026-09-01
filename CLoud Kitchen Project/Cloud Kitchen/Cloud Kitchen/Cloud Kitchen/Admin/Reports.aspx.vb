@@ -449,12 +449,12 @@ Partial Class Reports
                     query &= "GROUP BY d.driver_name, d.phone, d.vehicle_no ORDER BY total_deliveries DESC"
 
                 Case "category_sales"
-                    query = "SELECT mc.category_name, COUNT(DISTINCT o.order_id) AS total_orders, " & _
-                            "ISNULL(SUM(od.quantity), 0) AS total_items_sold, ISNULL(SUM(od.quantity * od.price), 0) AS category_revenue " & _
-                            "FROM Menu_Category mc " & _
-                            "INNER JOIN Menu_Item m ON mc.category_id = m.m_category_id " & _
-                            "INNER JOIN Order_Details od ON m.m_id = od.m_id " & _
-                            "INNER JOIN Orders o ON od.order_id = o.order_id " & _
+                    query = "SELECT mc.category_name, COUNT(DISTINCT o.order_id) AS total_orders, " &
+                            "ISNULL(SUM(od.quantity), 0) AS total_items_sold, ISNULL(SUM(od.quantity * od.price), 0) AS category_revenue " &
+                            "FROM Menu_Category mc " &
+                            "INNER JOIN Menu_Item m ON mc.category_id = m.m_category_id " &
+                            "INNER JOIN Order_Details od ON m.m_id = od.m_id " &
+                            "INNER JOIN Orders o ON od.order_id = o.order_id " &
                             "WHERE o.order_status = 'Completed' "
                     If Not String.IsNullOrEmpty(startDate) AndAlso Not String.IsNullOrEmpty(endDate) Then
                         query &= " AND o.order_date BETWEEN @StartDate AND @EndDate "

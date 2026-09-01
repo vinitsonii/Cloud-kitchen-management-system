@@ -233,10 +233,11 @@ Partial Class MyOrders
                                   "FROM Orders o " &
                                   "INNER JOIN Order_Details od ON o.order_id = od.order_id " &
                                   "INNER JOIN Menu_Item mi ON od.m_id = mi.m_id " &
-                                  "WHERE o.order_id = @OrderId"
+                                  "WHERE o.order_id = @OrderId AND o.c_id = @CustomerId"
 
             Dim cmd As New SqlCommand(query, conn)
             cmd.Parameters.AddWithValue("@OrderId", orderId)
+            cmd.Parameters.AddWithValue("@CustomerId", If(Session("c_id") IsNot Nothing, Session("c_id"), 0))
 
             Dim dt As New DataTable()
             Dim adapter As New SqlDataAdapter(cmd)
@@ -620,10 +621,11 @@ Partial Class MyOrders
         Using conn As New SqlConnection(connString)
             Dim query As String = "SELECT c.C_Name, c.Phone, o.address, o.pincode " &
                                   "FROM Orders o INNER JOIN Customers c ON o.c_id = c.C_Id " &
-                                  "WHERE o.order_id = @OrderId"
+                                  "WHERE o.order_id = @OrderId AND o.c_id = @CustomerId"
 
             Dim cmd As New SqlCommand(query, conn)
             cmd.Parameters.AddWithValue("@OrderId", orderId)
+            cmd.Parameters.AddWithValue("@CustomerId", If(Session("c_id") IsNot Nothing, Session("c_id"), 0))
 
             Dim adapter As New SqlDataAdapter(cmd)
             adapter.Fill(dt)

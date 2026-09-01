@@ -1,4 +1,4 @@
-﻿Imports System.Data.SqlClient
+Imports System.Data.SqlClient
 Imports System.Security.Cryptography
 Imports System.Text
 Imports System
@@ -16,13 +16,11 @@ Public Class WebForm3
             ' Retrieve saved email from cookies (if exists)
             If Request.Cookies("UserEmail") IsNot Nothing Then
                 txtLoginEmail.Text = Request.Cookies("UserEmail").Value
-            End If
-
-            ' Retrieve saved password from cookies (if exists)
-            If Request.Cookies("UserPass") IsNot Nothing Then
-                txtLoginPass.Attributes("value") = Request.Cookies("UserPass").Value
                 chkRememberMe.Checked = True
             End If
+
+            ' Purge legacy plaintext password cookie if present for security
+            RemoveCookie("UserPass")
         End If
     End Sub
 
@@ -31,15 +29,19 @@ Public Class WebForm3
         Dim password As String = txtLoginPass.Text.Trim()
 
         Try
-            If email = "Admin@gmail.com" And password = "1234" Then
+            Dim cfgAdminEmail As String = ConfigurationManager.AppSettings("AdminEmail")
+            Dim cfgAdminPassword As String = ConfigurationManager.AppSettings("AdminPassword")
+            If String.IsNullOrEmpty(cfgAdminEmail) Then cfgAdminEmail = "Admin@gmail.com"
+            If String.IsNullOrEmpty(cfgAdminPassword) Then cfgAdminPassword = "1234"
+
+            If email.Equals(cfgAdminEmail, StringComparison.OrdinalIgnoreCase) AndAlso password = cfgAdminPassword Then
                 Session("UserEmail") = email
                 If chkRememberMe.Checked Then
                     SetPersistentCookie("UserEmail", email, 30)
-                    SetPersistentCookie("UserPass", password, 30)
                 Else
                     RemoveCookie("UserEmail")
-                    RemoveCookie("UserPass")
                 End If
+                RemoveCookie("UserPass")
                 Response.Redirect("../Admin/Dashboard.aspx")
             Else
                 If AuthenticateUser(email, password) Then
@@ -76,11 +78,10 @@ Public Class WebForm3
                             Session("c_name") = reader("c_name").ToString()
                             If chkRememberMe.Checked Then
                                 SetPersistentCookie("UserEmail", email, 30)
-                                SetPersistentCookie("UserPass", password, 30)
                             Else
                                 RemoveCookie("UserEmail")
-                                RemoveCookie("UserPass")
                             End If
+                            RemoveCookie("UserPass")
                             Return True
                         End If
                     End If

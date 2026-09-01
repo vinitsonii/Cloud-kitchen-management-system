@@ -518,12 +518,12 @@ html, body{
                     </a>
                 </div>
  <a href="ManageInventory.aspx" class="nav-item">
-                    <img src="../icons/manageitem.png" alt="inventory" />
+                    <img src="../icons/inventory1.png" alt="inventory" />
                     <span>Manage Inventory</span>
                 </a>
                 
                 <a href="ManageDrivers.aspx" class="nav-item">
-                    <img src="../icons/track.png" alt="drivers" />
+                    <img src="../icons/delivery.png" alt="drivers" />
                     <span>Delivery Partners</span>
                 </a>
 

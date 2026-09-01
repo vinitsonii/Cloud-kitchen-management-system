@@ -154,6 +154,22 @@ Public Class Cart
                     Dim transaction As SqlTransaction = con.BeginTransaction()
 
                     Try
+                        Dim selectedPincode As String = ddlpincode.SelectedValue.Trim()
+                        If String.IsNullOrEmpty(selectedPincode) Then
+                            transaction.Rollback()
+                            Response.Write("<script>alert('Please select a valid delivery pincode!');</script>")
+                            Exit Sub
+                        End If
+
+                        Dim cmdPincodeCheck As New SqlCommand("SELECT COUNT(*) FROM Area_Pincode WHERE Pincode = @pincode", con, transaction)
+                        cmdPincodeCheck.Parameters.AddWithValue("@pincode", selectedPincode)
+                        Dim pincodeCount As Integer = Convert.ToInt32(cmdPincodeCheck.ExecuteScalar())
+                        If pincodeCount = 0 Then
+                            transaction.Rollback()
+                            Response.Write("<script>alert('Delivery is not available in the selected pincode area (" & selectedPincode.Replace("'", "\'") & ")!');</script>")
+                            Exit Sub
+                        End If
+
                         Dim transactionNumber As String = If(Session("TransactionNumber") IsNot Nothing, Session("TransactionNumber").ToString(), GenerateTransactionNumber())
 
                         Dim cmdOrder As New SqlCommand("INSERT INTO orders (c_id, total_amount, order_status, order_date, address, pincode, payment_type, transaction_number) VALUES (@c_id, @total_amount, 'Pending', GETDATE(), @address, @pincode, @payment_type, @transaction_number); SELECT SCOPE_IDENTITY();", con, transaction)
@@ -162,7 +178,7 @@ Public Class Cart
                         cmdOrder.Parameters.AddWithValue("@c_id", Session("c_id"))
                         cmdOrder.Parameters.AddWithValue("@total_amount", cart.Sum(Function(x) Convert.ToDecimal(x("total_price"))))
                         cmdOrder.Parameters.AddWithValue("@address", txtAddress.Text)
-                        cmdOrder.Parameters.AddWithValue("@pincode", ddlpincode.SelectedValue)
+                        cmdOrder.Parameters.AddWithValue("@pincode", selectedPincode)
                         cmdOrder.Parameters.AddWithValue("@payment_type", ddlPaymentType.SelectedValue)
 
                         Dim orderId As Integer = Convert.ToInt32(cmdOrder.ExecuteScalar())
@@ -180,8 +196,24 @@ Public Class Cart
                         transaction.Commit()
                         Session.Remove("Cart")
 
-                        Dim userEmail As String = Session("UserEmail").ToString()
-                        Dim emailSent As Boolean = SendOrderEmail(userEmail, orderId, transactionNumber, cart)
+                        Dim userEmail As String = ""
+                        If Session("UserEmail") IsNot Nothing Then
+                            userEmail = Session("UserEmail").ToString()
+                        ElseIf Session("c_id") IsNot Nothing Then
+                            Using cmdEmail As New SqlCommand("SELECT email FROM Customers WHERE c_id = @cid", con, transaction)
+                                cmdEmail.Parameters.AddWithValue("@cid", Session("c_id"))
+                                Dim resultObj As Object = cmdEmail.ExecuteScalar()
+                                If resultObj IsNot Nothing AndAlso Not IsDBNull(resultObj) Then
+                                    userEmail = resultObj.ToString()
+                                    Session("UserEmail") = userEmail
+                                End If
+                            End Using
+                        End If
+
+                        Dim emailSent As Boolean = False
+                        If Not String.IsNullOrEmpty(userEmail) Then
+                            emailSent = SendOrderEmail(userEmail, orderId, transactionNumber, cart)
+                        End If
 
                         If emailSent Then
                             Response.Write("<script>alert('Order placed successfully! '); setTimeout(function(){ window.location.href='OrderConfirmation.aspx?OrderId=" & orderId & "'; }, 1000);</script>")
@@ -210,27 +242,16 @@ Public Class Cart
             mail.Subject = "🍽 Your Cloud Kitchen Order is Confirmed! # " & orderId
             mail.IsBodyHtml = True
 
-            Dim cartTable As String = "
-<table class='order-table'>
-<tr>
-<th>Item</th>
-<th>Price</th>
-<th>Qty</th>
-<th>Total</th>
-</tr>
-"
+            Dim cartTable As String = "<table class='order-table'>" & _
+"<tr><th>Item</th><th>Price</th><th>Qty</th><th>Total</th></tr>"
 
             For Each item In cart
-
-                cartTable &= "
-    <tr>
-        <td>" & item("m_name") & "</td>
-        <td>₹" & Convert.ToDecimal(item("m_final_price")).ToString("F2") & "</td>
-        <td>" & item("quantity") & "</td>
-        <td>₹" & Convert.ToDecimal(item("total_price")).ToString("F2") & "</td>
-    </tr>
-    "
-
+                cartTable &= "<tr>" & _
+                    "<td>" & item("m_name").ToString() & "</td>" & _
+                    "<td>₹" & Convert.ToDecimal(item("m_final_price")).ToString("F2") & "</td>" & _
+                    "<td>" & item("quantity").ToString() & "</td>" & _
+                    "<td>₹" & Convert.ToDecimal(item("total_price")).ToString("F2") & "</td>" & _
+                    "</tr>"
             Next
 
             cartTable &= "</table>"
@@ -244,225 +265,50 @@ Public Class Cart
             End If
             Dim myOrdersUrl As String = baseUrl & "/Customers/MyOrders.aspx"
 
-            Dim emailBody As String = "
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset='UTF-8'>
-<style>
-
-body{
-    margin:0;
-    padding:0;
-    background:#f4f6f9;
-    font-family:Arial,sans-serif;
-}
-
-.wrapper{
-    width:100%;
-    padding:30px 0;
-}
-
-.container{
-    max-width:650px;
-    background:#ffffff;
-    margin:auto;
-    border-radius:16px;
-    overflow:hidden;
-    box-shadow:0 8px 30px rgba(0,0,0,0.08);
-}
-
-.header{
-    background:linear-gradient(135deg,#4F7E76,#3a5f59);
-    padding:35px;
-    text-align:center;
-    color:#fff;
-}
-
-.header h1{
-    margin:0;
-    font-size:32px;
-}
-
-.header p{
-    margin-top:8px;
-    opacity:0.9;
-    font-size:15px;
-}
-
-.content{
-    padding:35px;
-}
-
-.success-box{
-    background:#f0fff4;
-    border-left:5px solid #28a745;
-    padding:18px;
-    border-radius:10px;
-    margin-bottom:25px;
-}
-
-.success-box h2{
-    margin:0;
-    color:#28a745;
-}
-
-.details{
-    background:#fafafa;
-    padding:20px;
-    border-radius:12px;
-    margin-top:20px;
-}
-
-.details p{
-    margin:10px 0;
-    color:#444;
-    font-size:15px;
-}
-
-.table-title{
-    margin-top:30px;
-    color:#333;
-    font-size:22px;
-}
-
-.order-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:15px;
-}
-
-.order-table th{
-    background:#4F7E76;
-    color:white;
-    padding:14px;
-    text-align:left;
-    font-size:14px;
-}
-
-.order-table td{
-    padding:14px;
-    border-bottom:1px solid #eee;
-    font-size:14px;
-}
-
-.total-box{
-    text-align:right;
-    margin-top:20px;
-    font-size:22px;
-    color:#4F7E76;
-    font-weight:bold;
-}
-
-.button{
-    display:inline-block;
-    background:#ff9f43;
-    color:#fff !important;
-    text-decoration:none;
-    padding:14px 28px;
-    border-radius:50px;
-    margin-top:30px;
-    font-weight:bold;
-    font-size:15px;
-}
-
-.footer{
-    background:#f8f8f8;
-    padding:25px;
-    text-align:center;
-    color:#777;
-    font-size:13px;
-}
-
-.footer a{
-    color:#4F7E76;
-    text-decoration:none;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class='wrapper'>
-
-<div class='container'>
-
-<div class='header'>
-    <h1>🍽 Cloud Kitchen</h1>
-    <p>Fresh Meals Delivered To Your Doorstep</p>
-</div>
-
-<div class='content'>
-
-<div class='success-box'>
-    <h2>✅ Order Confirmed Successfully</h2>
-    <p>Thank you for ordering with Cloud Kitchen.</p>
-</div>
-
-<p>Hello Customer,</p>
-
-<p>
-We are preparing your delicious food and your order will arrive shortly.
-Thank you for choosing Cloud Kitchen.
-</p>
-
-<div class='details'>
-
-<p><strong>🧾 Order ID:</strong> #" & orderId & "</p>
-
-<p><strong>💳 Transaction ID:</strong> " & transactionNumber & "</p>
-
-<p><strong>🚚 Delivery Address:</strong> " & txtAddress.Text & "</p>
-
-<p><strong>📍 Pincode:</strong> " & ddlpincode.SelectedValue & "</p>
-
-<p><strong>💰 Payment Method:</strong> " & ddlPaymentType.SelectedValue & "</p>
-
-<p><strong>⏰ Estimated Delivery:</strong> 30 - 40 Minutes</p>
-
-</div>
-
-<h3 class='table-title'>🛒 Order Summary</h3>
-
-" & cartTable & "
-
-<div class='total-box'>
-Total Amount: ₹" & lblTotalPrice.Text & "
-<br/><span style='font-size:12px; color:#64748b; font-weight:normal;'>(Incl. of all taxes & GST)</span>
-</div>
-
-<center>
-<a href='" & myOrdersUrl & "' class='button'>
-View My Orders
-</a>
-</center>
-
-</div>
-
-<div class='footer'>
-
-<p>
-Need help? Contact us anytime
-</p>
-
-<p>
-📧 info.cloudkitchenn@gmail.com
-</p>
-
-<p>
-© Cloud Kitchen - All Rights Reserved
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</body>
-</html>
-"
+            Dim emailBody As String = "<!DOCTYPE html>" & vbCrLf & _
+"<html>" & vbCrLf & _
+"<head>" & vbCrLf & _
+"<meta charset='UTF-8'>" & vbCrLf & _
+"<style>" & vbCrLf & _
+"body{ margin:0; padding:0; background:#f4f6f9; font-family:Arial,sans-serif; }" & vbCrLf & _
+".wrapper{ width:100%; padding:30px 0; }" & vbCrLf & _
+".container{ max-width:650px; background:#ffffff; margin:auto; border-radius:16px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.08); }" & vbCrLf & _
+".header{ background:linear-gradient(135deg,#4F7E76,#3a5f59); padding:35px; text-align:center; color:#fff; }" & vbCrLf & _
+".header h1{ margin:0; font-size:32px; }" & vbCrLf & _
+".header p{ margin-top:8px; opacity:0.9; font-size:15px; }" & vbCrLf & _
+".content{ padding:35px; }" & vbCrLf & _
+".success-box{ background:#f0fff4; border-left:5px solid #28a745; padding:18px; border-radius:10px; margin-bottom:25px; }" & vbCrLf & _
+".success-box h2{ margin:0; color:#28a745; }" & vbCrLf & _
+".details{ background:#fafafa; padding:20px; border-radius:12px; margin-top:20px; }" & vbCrLf & _
+".details p{ margin:10px 0; color:#444; font-size:15px; }" & vbCrLf & _
+".table-title{ margin-top:30px; color:#333; font-size:22px; }" & vbCrLf & _
+".order-table{ width:100%; border-collapse:collapse; margin-top:15px; }" & vbCrLf & _
+".order-table th{ background:#4F7E76; color:white; padding:14px; text-align:left; font-size:14px; }" & _
+".order-table td{ padding:14px; border-bottom:1px solid #eee; font-size:14px; }" & vbCrLf & _
+".total-box{ text-align:right; margin-top:20px; font-size:22px; color:#4F7E76; font-weight:bold; }" & vbCrLf & _
+".button{ display:inline-block; background:#ff9f43; color:#fff !important; text-decoration:none; padding:14px 28px; border-radius:50px; margin-top:30px; font-weight:bold; font-size:15px; }" & vbCrLf & _
+".footer{ background:#f8f8f8; padding:25px; text-align:center; color:#777; font-size:13px; }" & vbCrLf & _
+".footer a{ color:#4F7E76; text-decoration:none; }" & vbCrLf & _
+"</style></head><body>" & vbCrLf & _
+"<div class='wrapper'><div class='container'>" & vbCrLf & _
+"<div class='header'><h1>🍽 Cloud Kitchen</h1><p>Fresh Meals Delivered To Your Doorstep</p></div>" & vbCrLf & _
+"<div class='content'>" & vbCrLf & _
+"<div class='success-box'><h2>✅ Order Confirmed Successfully</h2><p>Thank you for ordering with Cloud Kitchen.</p></div>" & vbCrLf & _
+"<p>Hello Customer,</p><p>We are preparing your delicious food and your order will arrive shortly. Thank you for choosing Cloud Kitchen.</p>" & vbCrLf & _
+"<div class='details'>" & vbCrLf & _
+"<p><strong>🧾 Order ID:</strong> #" & orderId & "</p>" & vbCrLf & _
+"<p><strong>💳 Transaction ID:</strong> " & transactionNumber & "</p>" & vbCrLf & _
+"<p><strong>🚚 Delivery Address:</strong> " & txtAddress.Text & "</p>" & vbCrLf & _
+"<p><strong>📍 Pincode:</strong> " & ddlpincode.SelectedValue & "</p>" & vbCrLf & _
+"<p><strong>💰 Payment Method:</strong> " & ddlPaymentType.SelectedValue & "</p>" & vbCrLf & _
+"<p><strong>⏰ Estimated Delivery:</strong> 30 - 40 Minutes</p>" & vbCrLf & _
+"</div>" & vbCrLf & _
+"<h3 class='table-title'>🛒 Order Summary</h3>" & cartTable & vbCrLf & _
+"<div class='total-box'>Total Amount: ₹" & lblTotalPrice.Text & "<br/><span style='font-size:12px; color:#64748b; font-weight:normal;'>(Incl. of all taxes & GST)</span></div>" & vbCrLf & _
+"<center><a href='" & myOrdersUrl & "' class='button'>View My Orders</a></center>" & vbCrLf & _
+"</div>" & vbCrLf & _
+"<div class='footer'><p>Need help? Contact us anytime</p><p>📧 info.cloudkitchenn@gmail.com</p><p>© Cloud Kitchen - All Rights Reserved</p></div>" & vbCrLf & _
+"</div></div></body></html>"
 
             mail.Body = emailBody
 
@@ -625,154 +471,22 @@ Need help? Contact us anytime
 
             End Using
 
-            Dim script As String = "
-        var options = {
-            'key': 'rzp_test_Sq7x7OL1DUIl17',
-            'amount': '" & amountInPaise & "',
-            'currency': 'INR',
-            'name': 'Cloud Kitchen',
-            'description': 'Food Order Payment',
-            'image': '../icons/money.png',
-
-            'handler': function (response) {
-
-    document.body.insertAdjacentHTML('beforeend', `
-
-    <div id='paymentSuccessPopup' style='
-        position:fixed;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-        background:rgba(0,0,0,0.65);
-        z-index:99999;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        animation:fadeIn 0.3s ease;
-    '>
-
-        <div style='
-            background:#fff;
-            width:420px;
-            border-radius:20px;
-            padding:35px;
-            text-align:center;
-            box-shadow:0 15px 40px rgba(0,0,0,0.25);
-            font-family:Arial;
-            animation:popupScale 0.35s ease;
-        '>
-
-            <div style='
-                width:90px;
-                height:90px;
-                background:#e8fff1;
-                margin:auto;
-                border-radius:50%;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                font-size:45px;
-                color:#28a745;
-            '>
-                ✓
-            </div>
-
-            <h2 style='margin-top:20px;color:#28a745;'>
-                Payment Successful
-            </h2>
-
-            <p style='
-                color:#666;
-                font-size:15px;
-                margin-top:10px;
-                line-height:24px;
-            '>
-                Your payment has been processed successfully, please proceed to order ❤️.
-                <br/>
-                Thank you for ordering with Cloud Kitchen 🍽
-            </p>
-
-            <div style='
-                background:#f8f9fa;
-                padding:12px;
-                border-radius:10px;
-                margin-top:20px;
-                font-size:14px;
-                color:#444;
-            '>
-                Payment ID:
-                <br/>
-                <strong id='payid'></strong>
-            </div>
-
-            <button onclick='continueOrder()' style='
-                margin-top:25px;
-                background:#4F7E76;
-                border:none;
-                color:white;
-                padding:14px 28px;
-                border-radius:50px;
-                cursor:pointer;
-                font-size:15px;
-                font-weight:bold;
-            '>
-                Continue
-            </button>
-
-        </div>
-
-    </div>
-
-    <style>
-
-    @keyframes popupScale{
-        from{
-            transform:scale(0.7);
-            opacity:0;
-        }
-        to{
-            transform:scale(1);
-            opacity:1;
-        }
-    }
-
-    @keyframes fadeIn{
-        from{
-            opacity:0;
-        }
-        to{
-            opacity:1;
-        }
-    }
-
-    </style>
-
-    `);
-
-    document.getElementById('payid').innerText = response.razorpay_payment_id;
-
-    window.continueOrder = function(){
-
-        __doPostBack('PaymentSuccess', response.razorpay_payment_id);
-
-    };
-
-},
-            'theme': {
-                'color': '#4F7E76'
-            },
-
-            'modal': {
-                'ondismiss': function () {
-                    alert('Payment Cancelled');
-                }
-            }
-        };
-
-        var rzp1 = new Razorpay(options);
-        rzp1.open();
-        "
+            Dim script As String = "var options = {" & _
+                "'key': 'rzp_test_Sq7x7OL1DUIl17'," & _
+                "'amount': '" & amountInPaise.ToString() & "'," & _
+                "'currency': 'INR'," & _
+                "'name': 'Cloud Kitchen'," & _
+                "'description': 'Food Order Payment'," & _
+                "'image': '../icons/money.png'," & _
+                "'handler': function (response) {" & _
+                "document.body.insertAdjacentHTML('beforeend', '<div id=\'paymentSuccessPopup\' style=\'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:99999;display:flex;justify-content:center;align-items:center;animation:fadeIn 0.3s ease;\'><div style=\'background:#fff;width:420px;border-radius:20px;padding:35px;text-align:center;box-shadow:0 15px 40px rgba(0,0,0,0.25);font-family:Arial;animation:popupScale 0.35s ease;\'><div style=\'width:90px;height:90px;background:#e8fff1;margin:auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:45px;color:#28a745;\'>✓</div><h2 style=\'margin-top:20px;color:#28a745;\'>Payment Successful</h2><p style=\'color:#666;font-size:15px;margin-top:10px;line-height:24px;\'>Your payment has been processed successfully, please proceed to order ❤️.<br/>Thank you for ordering with Cloud Kitchen 🍽</p><div style=\'background:#f8f9fa;padding:12px;border-radius:10px;margin-top:20px;font-size:14px;color:#444;\'>Payment ID:<br/><strong id=\'payid\'></strong></div><button onclick=\'continueOrder()\' style=\'margin-top:25px;background:#4F7E76;border:none;color:white;padding:14px 28px;border-radius:50px;cursor:pointer;font-size:15px;font-weight:bold;\'>Continue</button></div></div><style>@keyframes popupScale{from{transform:scale(0.7);opacity:0;}to{transform:scale(1);opacity:1;}}@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}</style>');" & _
+                "document.getElementById('payid').innerText = response.razorpay_payment_id;" & _
+                "window.continueOrder = function(){ __doPostBack('PaymentSuccess', response.razorpay_payment_id); };" & _
+                "}," & _
+                "'theme': {'color': '#4F7E76'}," & _
+                "'modal': {'ondismiss': function () { alert('Payment Cancelled'); }}" & _
+                "};" & _
+                "var rzp1 = new Razorpay(options); rzp1.open();"
 
             ScriptManager.RegisterStartupScript(Me,
                                             Me.GetType(),

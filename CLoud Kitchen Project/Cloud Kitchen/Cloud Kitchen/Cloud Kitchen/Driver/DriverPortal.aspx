@@ -246,40 +246,131 @@
 
             /* ── COMPACT MOBILE STRIP HEADER ────────────────────────────────────── */
             .driver-mobile-welcome {
+                background: #ffffff;
+                border-radius: 16px;
+                padding: 16px;
+                margin-bottom: 16px;
+                border: 1px solid var(--border);
+                box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .welcome-top-row {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                background: #ffffff;
-                border-radius: 12px;
-                padding: 10px 14px;
-                margin-bottom: 14px;
-                border: 1px solid var(--border);
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
                 flex-wrap: wrap;
-                gap: 8px;
+                gap: 10px;
+            }
+
+            .welcome-text-container {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
             }
 
             .driver-mobile-welcome .welcome-text {
-                font-size: 0.9rem;
-                font-weight: 700;
+                font-size: 1.15rem;
+                font-weight: 800;
                 color: var(--text);
                 display: flex;
                 align-items: center;
                 gap: 6px;
             }
 
-            .btn-support-pill {
+            .vehicle-subtext {
+                font-size: 0.84rem;
+                font-weight: 600;
+                color: var(--muted);
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .duty-status-group {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .welcome-actions-row {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding-top: 10px;
+                border-top: 1px dashed var(--border);
+                flex-wrap: wrap;
+            }
+
+            .status-badge {
+                font-size: 0.72rem;
+                font-weight: 800;
+                height: 34px;
+                padding: 0 12px;
+                border-radius: 20px;
+                letter-spacing: 0.3px;
                 display: inline-flex;
                 align-items: center;
-                gap: 5px;
+                gap: 4px;
+                text-transform: uppercase;
+                white-space: nowrap;
+            }
+
+            .btn-duty-toggle {
+                height: 34px;
+                padding: 0 14px;
+                font-size: 0.78rem;
+                font-weight: 800;
+                border-radius: 20px;
+                border: none;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                white-space: nowrap;
+            }
+
+            .btn-change-pwd-pill {
+                height: 34px;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: #f0fdf4;
+                color: #166534;
+                border: 1px solid #bbf7d0;
+                font-size: 0.8rem;
+                font-weight: 700;
+                padding: 0 14px;
+                border-radius: 20px;
+                text-decoration: none;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                white-space: nowrap;
+            }
+
+            .btn-change-pwd-pill:hover {
+                background: #dcfce7;
+                color: #15803d;
+                border-color: #86efac;
+            }
+
+            .btn-support-pill {
+                height: 34px;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
                 background: #eff6ff;
                 color: #2563eb;
                 border: 1px solid #bfdbfe;
-                font-size: 0.76rem;
+                font-size: 0.8rem;
                 font-weight: 700;
-                padding: 5px 12px;
+                padding: 0 14px;
                 border-radius: 20px;
                 text-decoration: none;
+                white-space: nowrap;
             }
 
             /* ── LIGHTWEIGHT 2X2 COMPACT MICRO STAT PILLS ────────────────────── */
@@ -292,23 +383,23 @@
 
             .stat-card {
                 background: #ffffff;
-                border-radius: 12px;
-                padding: 10px 12px;
+                border-radius: 14px;
+                padding: 14px 16px;
                 border: 1px solid var(--border);
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.02);
                 display: flex;
                 align-items: center;
-                gap: 10px;
+                gap: 12px;
             }
 
             .stat-icon-box {
-                width: 36px;
-                height: 36px;
+                width: 42px;
+                height: 42px;
                 border-radius: 10px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 1.05rem;
+                font-size: 1.15rem;
                 flex-shrink: 0;
             }
 
@@ -338,7 +429,7 @@
             }
 
             .stat-label {
-                font-size: 0.65rem;
+                font-size: 0.72rem;
                 font-weight: 800;
                 color: var(--muted);
                 text-transform: uppercase;
@@ -347,11 +438,11 @@
             }
 
             .stat-value {
-                font-size: 1.15rem;
+                font-size: 1.35rem;
                 font-weight: 800;
                 line-height: 1.1;
                 color: var(--text);
-                margin-top: 2px;
+                margin-top: 3px;
             }
 
             /* ── SYSTEM MESSAGE ─────────────────────────────────────────────────── */
@@ -359,10 +450,14 @@
                 display: block;
                 margin-bottom: 14px;
                 font-weight: 700;
-                border-radius: 10px;
-                padding: 10px 14px;
-                font-size: 0.84rem;
+                border-radius: 12px;
+                padding: 12px 16px;
+                font-size: 0.88rem;
                 text-align: center;
+                word-break: break-word;
+                overflow-wrap: anywhere;
+                line-height: 1.45;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             }
 
             /* ── SECTION HEADERS & TABS ─────────────────────────────────────────── */
@@ -376,12 +471,12 @@
             }
 
             .section-title {
-                font-size: 1.02rem;
+                font-size: 1.12rem;
                 font-weight: 800;
                 color: var(--text);
                 display: flex;
                 align-items: center;
-                gap: 6px;
+                gap: 8px;
             }
 
             .btn-refresh {
@@ -663,6 +758,17 @@
                 margin-bottom: 8px;
             }
 
+            .otp-error-msg {
+                display: block;
+                width: 100%;
+                clear: both;
+                color: #ef4444;
+                font-size: 0.78rem;
+                font-weight: 500;
+                text-align: center;
+                margin: 4px auto 6px auto;
+            }
+
             .btn-verify {
                 width: 100%;
                 min-height: 36px;
@@ -745,8 +851,15 @@
             }
 
             @keyframes slideDown {
-                from { opacity: 0; transform: translateY(-15px); }
-                to { opacity: 1; transform: translateY(0); }
+                from {
+                    opacity: 0;
+                    transform: translateY(-15px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
 
             .express-header {
@@ -835,6 +948,111 @@
                     display: none;
                 }
             }
+
+            /* ── CHANGE PASSWORD MODAL STYLES ──────────────────────────────────── */
+            .pwd-modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(15, 23, 42, 0.7);
+                backdrop-filter: blur(4px);
+                z-index: 2000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 16px;
+            }
+
+            .pwd-modal-card {
+                background: #ffffff;
+                border-radius: 16px;
+                width: min(100%, 420px);
+                padding: 22px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+                border: 1px solid var(--border);
+                border-top: 4px solid var(--primary);
+            }
+
+            .pwd-modal-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 16px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .pwd-modal-title {
+                font-size: 1.05rem;
+                font-weight: 800;
+                color: var(--text);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .pwd-field-group {
+                margin-bottom: 12px;
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .pwd-field-group label {
+                font-size: 11px;
+                font-weight: 700;
+                color: #475569;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+            }
+
+            .pwd-input {
+                padding: 9px 12px;
+                font-size: 13px;
+                font-family: inherit;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                background: #f8fafc;
+                color: var(--text);
+                outline: none;
+                width: 100%;
+            }
+
+            .pwd-input:focus {
+                border-color: var(--primary);
+                background: #ffffff;
+            }
+
+            .pwd-actions {
+                display: flex;
+                gap: 10px;
+                margin-top: 18px;
+            }
+
+            .btn-pwd-save {
+                flex: 1;
+                padding: 10px;
+                font-size: 13px;
+                font-weight: 800;
+                color: #ffffff;
+                background: linear-gradient(135deg, var(--primary), var(--primary-dk));
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+            .btn-pwd-cancel {
+                padding: 10px 16px;
+                font-size: 13px;
+                font-weight: 700;
+                color: #64748b;
+                background: #f1f5f9;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                cursor: pointer;
+            }
         </style>
 
         <script type="text/javascript">
@@ -867,6 +1085,25 @@
                 btn.value = '⏳ Claiming Order...';
                 return true;
             }
+
+            function handleVerifyClick(btn) {
+                if (!btn) return true;
+                var container = btn.closest('.otp-section');
+                if (container) {
+                    var input = container.querySelector('.otp-input');
+                    if (input && input.value.trim() === '') {
+                        return true;
+                    }
+                }
+                if (btn.getAttribute('data-verifying') === 'true') {
+                    return false;
+                }
+                btn.setAttribute('data-verifying', 'true');
+                btn.style.opacity = '0.75';
+                btn.style.pointerEvents = 'none';
+                btn.value = '⏳ Verifying OTP & Completing...';
+                return true;
+            }
         </script>
     </head>
 
@@ -885,26 +1122,10 @@
                         </span>
                     </a>
                     <div class="nav-right">
-                        <div class="nav-driver-info">
-                            <div class="nav-driver-name">
-                                <asp:Label ID="lblDriverName" runat="server" Text="Driver"></asp:Label>
-                            </div>
-                            <div class="nav-vehicle">
-                                Vehicle: <asp:Label ID="lblVehicleNo" runat="server" Text="--"></asp:Label>
-                            </div>
-                        </div>
-
-                        <!-- DUTY STATUS BADGE -->
-                        <asp:Label ID="lblDutyStatus" runat="server" CssClass="status-badge status-available"
-                            Text="Available"></asp:Label>
-
-                        <!-- LIVE DUTY TOGGLE BUTTON -->
-                        <asp:Button ID="btnToggleDuty" runat="server" CssClass="btn-duty-toggle btn-duty-online"
-                            Text="Go Offline" OnClick="btnToggleDuty_Click" CausesValidation="false" />
-
-                        <!-- LOGOUT BUTTON -->
+                        <!-- LOGOUT BUTTON ONLY -->
                         <asp:LinkButton ID="btnLogout" runat="server" CssClass="btn-logout" OnClick="btnLogout_Click"
-                            CausesValidation="false">
+                            CausesValidation="false"
+                            OnClientClick="return confirm('Are you sure you want to exit? You will be logged out of the Driver App.');">
                             <i class="fas fa-sign-out-alt"></i> Exit
                         </asp:LinkButton>
                     </div>
@@ -918,16 +1139,93 @@
                         <asp:Timer ID="tmrAutoRefresh" runat="server" Interval="15000" OnTick="tmrAutoRefresh_Tick">
                         </asp:Timer>
 
-                        <!-- COMPACT SLIM GREETING STRIP -->
+                        <!-- DASHBOARD HEADER CARD WITH PERFECT ALIGNMENT -->
                         <div class="driver-mobile-welcome">
-                            <div class="welcome-text">
-                                <i class="fas fa-hand-wave" style="color:var(--accent);"></i> Welcome back, <asp:Label
-                                    ID="lblDriverWelcomeName" runat="server" Text="Driver"></asp:Label>!
+                            <div class="welcome-top-row">
+                                <div class="welcome-text-container">
+                                    <div class="welcome-text">
+                                        <i class="fas fa-hand-wave" style="color:var(--accent);"></i> Welcome back,
+                                        <asp:Label ID="lblDriverWelcomeName" runat="server" Text="Driver"></asp:Label>!
+                                        <span style="display:none;">
+                                            <asp:Label ID="lblDriverName" runat="server"></asp:Label>
+                                        </span>
+                                    </div>
+                                    <div class="vehicle-subtext">
+                                        <i class="fas fa-motorcycle" style="color:var(--primary);"></i> Vehicle:
+                                        <asp:Label ID="lblVehicleNo" runat="server" Text="--"></asp:Label>
+                                    </div>
+                                </div>
+
+                                <div class="duty-status-group">
+                                    <!-- DUTY STATUS BADGE -->
+                                    <asp:Label ID="lblDutyStatus" runat="server"
+                                        CssClass="status-badge status-available" Text="Available"></asp:Label>
+
+                                    <!-- LIVE DUTY TOGGLE BUTTON -->
+                                    <asp:Button ID="btnToggleDuty" runat="server"
+                                        CssClass="btn-duty-toggle btn-duty-online" Text="Go Offline"
+                                        OnClick="btnToggleDuty_Click" CausesValidation="false" />
+                                </div>
                             </div>
-                            <a href="tel:9876543210" class="btn-support-pill">
-                                <i class="fas fa-headset"></i> Kitchen Hotline
-                            </a>
+
+                            <div class="welcome-actions-row">
+                                <!-- CHANGE PASSWORD BUTTON -->
+                                <asp:LinkButton ID="btnOpenChangePwd" runat="server" CssClass="btn-change-pwd-pill"
+                                    OnClick="btnOpenChangePwd_Click" CausesValidation="false">
+                                    <i class="fas fa-key"></i> Change Password
+                                </asp:LinkButton>
+
+                                <!-- KITCHEN HOTLINE -->
+                                <a href="tel:9876543210" class="btn-support-pill">
+                                    <i class="fas fa-headset"></i> Kitchen Hotline
+                                </a>
+                            </div>
                         </div>
+
+                        <!-- CHANGE PASSWORD MODAL DIALOG -->
+                        <asp:Panel ID="pnlChangePasswordModal" runat="server" CssClass="pwd-modal-overlay"
+                            Visible="false">
+                            <div class="pwd-modal-card">
+                                <div class="pwd-modal-header">
+                                    <div class="pwd-modal-title"><i class="fas fa-key"
+                                            style="color:var(--primary);"></i> Change Password</div>
+                                    <asp:Button ID="btnClosePwdModal" runat="server" Text="✕" CssClass="btn-pwd-cancel"
+                                        Style="padding:2px 8px; font-size:14px;" OnClick="btnClosePwdModal_Click"
+                                        CausesValidation="false" />
+                                </div>
+                                <div class="pwd-modal-body">
+                                    <asp:Label ID="lblPwdMsg" runat="server" CssClass="sys-msg" Visible="false"
+                                        Style="margin-bottom:12px; font-size:12px;"></asp:Label>
+
+                                    <div class="pwd-field-group">
+                                        <label><i class="fas fa-lock"></i> Current Password</label>
+                                        <asp:TextBox ID="txtCurrentPwd" runat="server" TextMode="Password"
+                                            CssClass="pwd-input" Placeholder="Enter current password"></asp:TextBox>
+                                    </div>
+
+                                    <div class="pwd-field-group">
+                                        <label><i class="fas fa-key"></i> New Password</label>
+                                        <asp:TextBox ID="txtNewPwd" runat="server" TextMode="Password"
+                                            CssClass="pwd-input" Placeholder="Enter new password"></asp:TextBox>
+                                    </div>
+
+                                    <div class="pwd-field-group">
+                                        <label><i class="fas fa-check-double"></i> Confirm New Password</label>
+                                        <asp:TextBox ID="txtConfirmPwd" runat="server" TextMode="Password"
+                                            CssClass="pwd-input" Placeholder="Confirm new password"></asp:TextBox>
+                                    </div>
+
+                                    <div class="pwd-actions">
+                                        <asp:Button ID="btnUpdatePassword" runat="server" Text="Update Password"
+                                            CssClass="btn-pwd-save" OnClick="btnUpdatePassword_Click"
+                                            CausesValidation="false" />
+                                        <asp:Button ID="btnCancelPwd" runat="server" Text="Cancel"
+                                            CssClass="btn-pwd-cancel" OnClick="btnClosePwdModal_Click"
+                                            CausesValidation="false" />
+                                    </div>
+                                </div>
+                            </div>
+                        </asp:Panel>
 
                         <!-- SYSTEM MESSAGE -->
                         <asp:Label ID="lblMsg" runat="server" EnableViewState="false" CssClass="sys-msg"
@@ -937,19 +1235,28 @@
                         <asp:Panel ID="pnlExpressPopUp" runat="server" CssClass="express-popup-card" Visible="false">
                             <div class="express-header">
                                 <div class="express-badge"><i class="fas fa-fire"></i> EXPRESS DISPATCH READY</div>
-                                <div class="express-timer"><i class="fas fa-stopwatch"></i> Auto-Closing in <span id="expressCountdown">30</span>s</div>
+                                <div class="express-timer"><i class="fas fa-stopwatch"></i> Auto-Closing in <span
+                                        id="expressCountdown">30</span>s</div>
                             </div>
                             <div class="express-body">
                                 <div class="express-order-title">
-                                    Order #<asp:Literal ID="litExpressOrderId" runat="server"></asp:Literal> &nbsp;|&nbsp; 
+                                    Order #<asp:Literal ID="litExpressOrderId" runat="server"></asp:Literal>
+                                    &nbsp;|&nbsp;
                                     <asp:Literal ID="litExpressCustName" runat="server"></asp:Literal>
                                 </div>
                                 <div class="express-meta">
-                                    <span><i class="fas fa-location-dot"></i> <asp:Literal ID="litExpressAddress" runat="server"></asp:Literal></span>
-                                    <span><i class="fas fa-credit-card"></i> <asp:Literal ID="litExpressPayment" runat="server"></asp:Literal> &nbsp;|&nbsp; ₹<asp:Literal ID="litExpressTotal" runat="server"></asp:Literal></span>
+                                    <span><i class="fas fa-location-dot"></i>
+                                        <asp:Literal ID="litExpressAddress" runat="server"></asp:Literal>
+                                    </span>
+                                    <span><i class="fas fa-credit-card"></i>
+                                        <asp:Literal ID="litExpressPayment" runat="server"></asp:Literal> &nbsp;|&nbsp;
+                                        ₹<asp:Literal ID="litExpressTotal" runat="server"></asp:Literal>
+                                    </span>
                                 </div>
                                 <div class="express-actions">
-                                    <asp:Button ID="btnExpressClaim" runat="server" Text="⚡ CLAIM & START DELIVERY NOW" CssClass="btn-claim-express" OnClick="btnExpressClaim_Click" OnClientClick="return handleClaimClick(this);" CausesValidation="false" />
+                                    <asp:Button ID="btnExpressClaim" runat="server" Text="⚡ CLAIM & START DELIVERY NOW"
+                                        CssClass="btn-claim-express" OnClick="btnExpressClaim_Click"
+                                        OnClientClick="return handleClaimClick(this);" CausesValidation="false" />
                                 </div>
                             </div>
                         </asp:Panel>
@@ -1005,7 +1312,8 @@
                         <!-- ACTIVE DELIVERIES GRID -->
                         <div class="deliveries-grid">
                             <asp:Repeater ID="rptActiveDeliveries" runat="server"
-                                OnItemCommand="rptActiveDeliveries_ItemCommand">
+                                OnItemCommand="rptActiveDeliveries_ItemCommand"
+                                OnItemDataBound="rptActiveDeliveries_ItemDataBound">
                                 <ItemTemplate>
                                     <div class="delivery-card">
 
@@ -1027,10 +1335,12 @@
                                                     title="Call Customer">
                                                     <i class="fas fa-phone"></i> Call
                                                 </a>
-                                                <a href='https://wa.me/91<%# Eval("phone") %>?text=Hello%20<%# Server.UrlEncode(Eval("customer_name").ToString()) %>,%20I%20am%20your%20Cloud%20Kitchen%20delivery%20partner%20with%20Order%20%23<%# Eval("order_id") %>.'
-                                                    target="_blank" class="btn-whatsapp" title="WhatsApp Customer">
-                                                    <i class="fab fa-whatsapp"></i> Chat
-                                                </a>
+                                                 <%-- WHATSAPP CHAT BUTTON (DISABLED FOR NOW, KEPT FOR FUTURE USE)
+                                                 <a href='<%# GetCustomerWhatsAppUrl(Eval("phone"), Eval("customer_name"), Eval("order_id")) %>'
+                                                     target="_blank" class="btn-whatsapp" title="WhatsApp Customer">
+                                                     <i class="fab fa-whatsapp"></i> Chat
+                                                 </a>
+                                                 --%>
                                             </div>
                                         </div>
 
@@ -1074,13 +1384,27 @@
                                         <div class="otp-section">
                                             <span class="otp-section-label"><i class="fas fa-shield-alt"></i> Doorstep
                                                 OTP Verification</span>
-                                            <asp:TextBox ID="txtOtpInput" runat="server" CssClass="otp-input"
-                                                MaxLength="4" TextMode="Number" Placeholder="----"></asp:TextBox>
-                                            <br />
+                                            <div style="text-align: center; width: 100%;">
+                                                <asp:TextBox ID="txtOtpInput" runat="server" CssClass="otp-input"
+                                                    MaxLength="4" TextMode="SingleLine" Placeholder="----" autocomplete="off" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4);"></asp:TextBox>
+                                            </div>
+                                            
+                                            <div style="display: block; width: 100%; clear: both;">
+                                                <asp:CustomValidator ID="cvOtp" runat="server" ControlToValidate="txtOtpInput"
+                                                    Display="Dynamic" ErrorMessage="⚠️ Please enter valid 4-digit OTP!"
+                                                    ValidationGroup='<%# "OtpGroup_" & Eval("order_id") %>'
+                                                    ValidateEmptyText="true"
+                                                    ClientValidationFunction="validateOtpFormat"
+                                                    OnServerValidate="cvOtp_ServerValidate"
+                                                    CssClass="otp-error-msg"></asp:CustomValidator>
+                                            </div>
+
                                             <asp:Button ID="btnVerify" runat="server"
                                                 Text="Verify OTP & Complete Delivery" CssClass="btn-verify"
                                                 CommandName="VerifyOtp" CommandArgument='<%# Eval("order_id") %>'
-                                                CausesValidation="false" />
+                                                ValidationGroup='<%# "OtpGroup_" & Eval("order_id") %>'
+                                                CausesValidation="true"
+                                                OnClientClick="return handleVerifyClick(this);" />
                                         </div>
 
                                     </div>
@@ -1099,38 +1423,53 @@
                         <!-- SECTION HEADER: AVAILABLE DISPATCHES POOL (SELF-CLAIM) -->
                         <div class="section-header" style="margin-top: 28px;">
                             <div class="section-title">
-                                <i class="fas fa-hand-holding-hand" style="color: #4F7E76;"></i> Available Dispatches Pool
-                                <asp:Label ID="lblPoolBadge" runat="server" CssClass="order-badge" style="background:#e8f4f1; color:#2d504a; border-color:#d1e7e2; margin-left:6px;" Text="0 Ready"></asp:Label>
+                                <i class="fas fa-hand-holding-hand" style="color: #4F7E76;"></i> Available Dispatches
+                                Pool
+                                <asp:Label ID="lblPoolBadge" runat="server" CssClass="order-badge"
+                                    style="background:#e8f4f1; color:#2d504a; border-color:#d1e7e2; margin-left:6px;"
+                                    Text="0 Ready"></asp:Label>
                             </div>
                         </div>
 
                         <!-- AVAILABLE DISPATCHES POOL GRID -->
                         <div class="deliveries-grid">
-                            <asp:Repeater ID="rptAvailablePool" runat="server" OnItemCommand="rptAvailablePool_ItemCommand">
+                            <asp:Repeater ID="rptAvailablePool" runat="server"
+                                OnItemCommand="rptAvailablePool_ItemCommand">
                                 <ItemTemplate>
                                     <div class="delivery-card" style="border-top: 4px solid #4F7E76;">
-                                        <div class="order-badge" style="background:#e8f4f1; color:#2d504a; border-color:#d1e7e2;">
-                                            <i class="fas fa-bolt"></i> Order #<%# Eval("order_id") %> &nbsp;|&nbsp; Ready for Pickup
+                                        <div class="order-badge"
+                                            style="background:#e8f4f1; color:#2d504a; border-color:#d1e7e2;">
+                                            <i class="fas fa-bolt"></i> Order #<%# Eval("order_id") %> &nbsp;|&nbsp;
+                                                Ready for Pickup
                                         </div>
 
                                         <div class="customer-row">
                                             <div>
-                                                <span style="font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase;">Customer</span>
-                                                <div class="cust-name"><%# Eval("customer_name") %></div>
+                                                <span
+                                                    style="font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase;">Customer</span>
+                                                <div class="cust-name">
+                                                    <%# Eval("customer_name") %>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="address-box">
-                                            <div class="box-label"><i class="fas fa-location-dot" style="color:#4F7E76;"></i> Delivery Location</div>
-                                            <div class="address-text"><%# Eval("address") %>, <%# Eval("pincode") %></div>
+                                            <div class="box-label"><i class="fas fa-location-dot"
+                                                    style="color:#4F7E76;"></i> Delivery Location</div>
+                                            <div class="address-text">
+                                                <%# Eval("address") %>, <%# Eval("pincode") %>
+                                            </div>
                                         </div>
 
                                         <div class="items-box">
                                             <div class="box-label"><i class="fas fa-utensils"></i> Items Ordered</div>
-                                            <asp:Repeater ID="rptPoolItems" runat="server" DataSource='<%# Eval("OrderItems") %>'>
+                                            <asp:Repeater ID="rptPoolItems" runat="server"
+                                                DataSource='<%# Eval("OrderItems") %>'>
                                                 <ItemTemplate>
                                                     <div class="item-row">
-                                                        <span><%# Eval("item_name") %></span>
+                                                        <span>
+                                                            <%# Eval("item_name") %>
+                                                        </span>
                                                         <span class="item-qty">x<%# Eval("quantity") %></span>
                                                     </div>
                                                 </ItemTemplate>
@@ -1139,19 +1478,26 @@
 
                                         <div class="payment-box" style="margin-bottom:14px;">
                                             <i class="fas fa-credit-card"></i>
-                                            <span>Payment: <%# Eval("payment_type") %> &nbsp;|&nbsp; Total: ₹<%# Eval("total_amount", "{0:N2}") %></span>
+                                            <span>Payment: <%# Eval("payment_type") %> &nbsp;|&nbsp; Total: ₹<%#
+                                                        Eval("total_amount", "{0:N2}" ) %></span>
                                         </div>
 
-                                        <asp:Button ID="btnClaimPool" runat="server" Text="⚡ Claim & Accept Order" CssClass="btn-claim-express" CommandName="ClaimOrder" CommandArgument='<%# Eval("order_id") %>' OnClientClick="return handleClaimClick(this);" CausesValidation="false" />
+                                        <asp:Button ID="btnClaimPool" runat="server" Text="⚡ Claim & Accept Order"
+                                            CssClass="btn-claim-express" CommandName="ClaimOrder"
+                                            CommandArgument='<%# Eval("order_id") %>'
+                                            OnClientClick="return handleClaimClick(this);" CausesValidation="false" />
                                     </div>
                                 </ItemTemplate>
                             </asp:Repeater>
                         </div>
 
                         <!-- EMPTY STATE FOR AVAILABLE POOL -->
-                        <asp:Panel ID="pnlNoPool" runat="server" CssClass="empty-state" Visible="false" style="padding: 18px 14px; margin-bottom: 20px;">
+                        <asp:Panel ID="pnlNoPool" runat="server" CssClass="empty-state" Visible="false"
+                            style="padding: 18px 14px; margin-bottom: 20px;">
                             <p style="margin: 0; color: #64748b; font-size: 0.84rem;">
-                                <asp:Literal ID="litNoPoolMsg" runat="server">No unassigned dispatches in the pool right now. New dispatches will automatically appear here when kitchen starts preparing meals.</asp:Literal>
+                                <asp:Literal ID="litNoPoolMsg" runat="server">No unassigned dispatches in the pool right
+                                    now. New dispatches will automatically appear here when kitchen starts preparing
+                                    meals.</asp:Literal>
                             </p>
                         </asp:Panel>
 
@@ -1260,6 +1606,38 @@
                 </asp:UpdatePanel>
             </div>
         </form>
+
+        <script type="text/javascript">
+            function validateOtpFormat(source, args) {
+                var val = args.Value ? args.Value.trim() : "";
+                args.IsValid = /^\d{4}$/.test(val);
+            }
+
+            function handleVerifyClick(btn) {
+                var valGroup = btn.getAttribute('ValidationGroup');
+                if (typeof (Page_ClientValidate) === 'function' && valGroup) {
+                    if (!Page_ClientValidate(valGroup)) {
+                        return false;
+                    }
+                }
+                
+                btn.value = "⏳ Verifying OTP...";
+                btn.style.opacity = "0.75";
+                btn.style.pointerEvents = "none";
+                return true;
+            }
+
+            if (typeof (Sys) !== 'undefined' && Sys.WebForms && Sys.WebForms.PageRequestManager) {
+                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+                    var btns = document.querySelectorAll('.btn-verify');
+                    btns.forEach(function (b) {
+                        b.value = "Verify OTP & Complete Delivery";
+                        b.style.opacity = "1";
+                        b.style.pointerEvents = "";
+                    });
+                });
+            }
+        </script>
     </body>
 
     </html>

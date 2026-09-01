@@ -166,7 +166,7 @@ Public Class WebForm11
 
     Private Sub RenderOrderDetail(ByVal orderId As Integer)
         Using conn As New SqlConnection(connString)
-            Dim query As String = "SELECT O.order_id, O.order_date, O.total_amount, O.payment_type, O.order_status, O.delivery_otp, O.delivered_time, O.address, O.pincode, O.transaction_number, " &
+            Dim query As String = "SELECT O.order_id, O.driver_id, O.order_date, O.total_amount, O.payment_type, O.order_status, O.delivery_otp, O.delivered_time, O.address, O.pincode, O.transaction_number, " &
                                   "C.C_Name AS customer_name, C.Phone AS phone, " &
                                   "D.driver_name, D.phone AS driver_phone, D.vehicle_no " &
                                   "FROM Orders O " &
@@ -224,22 +224,37 @@ Public Class WebForm11
 
                         litDetailGrandTotal.Text = "₹" & grandTotal.ToString("N2")
 
-                        If pnlAcceptAction IsNot Nothing Then pnlAcceptAction.Visible = False
                         If pnlDispatchAction IsNot Nothing Then pnlDispatchAction.Visible = False
                         If pnlDispatchedDriverBadge IsNot Nothing Then pnlDispatchedDriverBadge.Visible = False
                         If pnlCompletedAction IsNot Nothing Then pnlCompletedAction.Visible = False
+
+                        If btnDetailAccept IsNot Nothing Then btnDetailAccept.Visible = False
+                        If btnDetailDispatch IsNot Nothing Then btnDetailDispatch.Visible = False
+                        If btnDetailComplete IsNot Nothing Then btnDetailComplete.Visible = False
                         If btnDetailCancel IsNot Nothing Then btnDetailCancel.Visible = False
 
+                        Dim driverIdObj = reader("driver_id")
+                        Dim hasDriverAssigned As Boolean = Not IsDBNull(driverIdObj) AndAlso Convert.ToInt32(driverIdObj) > 0
+
                         If status.Equals("Pending", StringComparison.OrdinalIgnoreCase) Then
-                            If pnlAcceptAction IsNot Nothing Then pnlAcceptAction.Visible = True
-                            If btnDetailCancel IsNot Nothing Then btnDetailCancel.Visible = True
-                            If btnDetailAccept IsNot Nothing Then btnDetailAccept.CommandArgument = orderId.ToString()
-                            If btnDetailCancel IsNot Nothing Then btnDetailCancel.CommandArgument = orderId.ToString()
+                            If btnDetailAccept IsNot Nothing Then
+                                btnDetailAccept.Visible = True
+                                btnDetailAccept.CommandArgument = orderId.ToString()
+                            End If
+                            If btnDetailCancel IsNot Nothing Then
+                                btnDetailCancel.Visible = True
+                                btnDetailCancel.CommandArgument = orderId.ToString()
+                            End If
                         ElseIf status.Equals("Preparing", StringComparison.OrdinalIgnoreCase) Then
                             If pnlDispatchAction IsNot Nothing Then pnlDispatchAction.Visible = True
-                            If btnDetailCancel IsNot Nothing Then btnDetailCancel.Visible = True
-                            If btnDetailDispatch IsNot Nothing Then btnDetailDispatch.CommandArgument = orderId.ToString()
-                            If btnDetailCancel IsNot Nothing Then btnDetailCancel.CommandArgument = orderId.ToString()
+                            If btnDetailDispatch IsNot Nothing Then
+                                btnDetailDispatch.Visible = True
+                                btnDetailDispatch.CommandArgument = orderId.ToString()
+                            End If
+                            If btnDetailCancel IsNot Nothing Then
+                                btnDetailCancel.Visible = True
+                                btnDetailCancel.CommandArgument = orderId.ToString()
+                            End If
                             If ddlDetailDriver IsNot Nothing Then PopulateDriverDropdown(ddlDetailDriver)
                         ElseIf status.Equals("Out for Delivery", StringComparison.OrdinalIgnoreCase) Then
                             If pnlDispatchedDriverBadge IsNot Nothing Then pnlDispatchedDriverBadge.Visible = True
@@ -258,7 +273,10 @@ Public Class WebForm11
                                 lnkCallDriver.Text = "<i class='fas fa-phone-alt'></i> Call Driver"
                             End If
 
-                            If btnDetailComplete IsNot Nothing Then btnDetailComplete.CommandArgument = orderId.ToString()
+                            If btnDetailComplete IsNot Nothing Then
+                                btnDetailComplete.Visible = True
+                                btnDetailComplete.CommandArgument = orderId.ToString()
+                            End If
                         ElseIf status.Equals("Completed", StringComparison.OrdinalIgnoreCase) Then
                             If pnlCompletedAction IsNot Nothing Then pnlCompletedAction.Visible = True
                             If litDetailDeliveredTime IsNot Nothing Then
@@ -664,11 +682,11 @@ Public Class WebForm11
             conn.Close()
         End Using
 
-        DeductInventoryForOrder(orderId)
         SendOrderNotificationEmail(orderId, "Completed")
     End Sub
 
     Private Sub CancelOrderInternal(ByVal orderId As Integer)
+        RestoreInventoryForOrder(orderId)
         Using conn As New SqlConnection(connString)
             conn.Open()
             Dim queryDriver As String = "UPDATE Drivers SET status = 'Available' WHERE driver_id = (SELECT driver_id FROM Orders WHERE order_id = @OrderId AND driver_id IS NOT NULL)"
@@ -1020,6 +1038,82 @@ Public Class WebForm11
             End Using
         Catch ex As Exception
             System.Diagnostics.Debug.WriteLine("Inventory deduction failed: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub RestoreInventoryForOrder(ByVal orderId As Integer)
+        Try
+            Using conn As New SqlConnection(connString)
+                conn.Open()
+
+                Dim previousStatus As String = ""
+                Dim queryStatus As String = "SELECT order_status FROM Orders WHERE order_id = @OrderId"
+                Using cmdStatus As New SqlCommand(queryStatus, conn)
+                    cmdStatus.Parameters.AddWithValue("@OrderId", orderId)
+                    Dim res As Object = cmdStatus.ExecuteScalar()
+                    If res IsNot Nothing AndAlso Not IsDBNull(res) Then
+                        previousStatus = res.ToString()
+                    End If
+                End Using
+
+                If Not (previousStatus.Equals("Preparing", StringComparison.OrdinalIgnoreCase) OrElse previousStatus.Equals("Out for Delivery", StringComparison.OrdinalIgnoreCase)) Then
+                    Exit Sub
+                End If
+
+                Dim dtItems As New DataTable()
+                Dim queryItems As String = "SELECT m_id, quantity FROM Order_Details WHERE order_id = @OrderId"
+                Using cmdItems As New SqlCommand(queryItems, conn)
+                    cmdItems.Parameters.AddWithValue("@OrderId", orderId)
+                    Dim adapter As New SqlDataAdapter(cmdItems)
+                    adapter.Fill(dtItems)
+                End Using
+
+                Dim affectedDishIds As New System.Collections.Generic.List(Of Integer)()
+
+                For Each row As DataRow In dtItems.Rows
+                    Dim mId As Integer = Convert.ToInt32(row("m_id"))
+                    Dim itemQty As Integer = Convert.ToInt32(row("quantity"))
+                    If Not affectedDishIds.Contains(mId) Then
+                        affectedDishIds.Add(mId)
+                    End If
+
+                    Dim queryUnit As String = "UPDATE menu_item SET m_unit_stock = m_unit_stock + @Qty WHERE m_id = @MId AND m_unit_stock IS NOT NULL"
+                    Using cmdUnit As New SqlCommand(queryUnit, conn)
+                        cmdUnit.Parameters.AddWithValue("@Qty", itemQty)
+                        cmdUnit.Parameters.AddWithValue("@MId", mId)
+                        cmdUnit.ExecuteNonQuery()
+                    End Using
+
+                    Dim queryRestore As String = "UPDATE Ingredients " &
+                                                 "SET stock_quantity = stock_quantity + (DI.qty_required * @ItemQty), " &
+                                                 "    last_updated = GETDATE() " &
+                                                 "FROM Ingredients I " &
+                                                 "INNER JOIN Dish_Ingredients DI ON I.ingredient_id = DI.ingredient_id " &
+                                                 "WHERE DI.m_id = @MId"
+                    Using cmdRestore As New SqlCommand(queryRestore, conn)
+                        cmdRestore.Parameters.AddWithValue("@ItemQty", itemQty)
+                        cmdRestore.Parameters.AddWithValue("@MId", mId)
+                        cmdRestore.ExecuteNonQuery()
+                    End Using
+                Next
+
+                For Each mId As Integer In affectedDishIds
+                    Dim queryCheckOut As String = "SELECT COUNT(*) FROM Dish_Ingredients DI INNER JOIN Ingredients I ON DI.ingredient_id = I.ingredient_id WHERE DI.m_id = @MId AND I.stock_quantity <= 0"
+                    Using cmdCheckOut As New SqlCommand(queryCheckOut, conn)
+                        cmdCheckOut.Parameters.AddWithValue("@MId", mId)
+                        Dim outOfStockCount As Integer = Convert.ToInt32(cmdCheckOut.ExecuteScalar())
+                        If outOfStockCount = 0 Then
+                            Dim querySetAvailable As String = "UPDATE menu_item SET m_availability = 'Yes' WHERE m_id = @MId"
+                            Using cmdAvail As New SqlCommand(querySetAvailable, conn)
+                                cmdAvail.Parameters.AddWithValue("@MId", mId)
+                                cmdAvail.ExecuteNonQuery()
+                            End Using
+                        End If
+                    End Using
+                Next
+            End Using
+        Catch ex As Exception
+            System.Diagnostics.Debug.WriteLine("Inventory restoration failed: " & ex.Message)
         End Try
     End Sub
 

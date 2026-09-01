@@ -134,11 +134,13 @@
             }
 
             .stat-card h3 {
-                font-size: clamp(22px, 4vw, 28px);
+                font-size: clamp(18px, 2vw, 24px);
                 margin: 4px 0;
-                font-weight: 700;
+                font-weight: 800;
                 max-width: 100%;
-                overflow-wrap: anywhere;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .stat-card p {
@@ -425,8 +427,8 @@
 
             <hr class="section-divider" />
 
-            <div class="row g-4">
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+            <div class="row g-3">
+                <div class="col-12 col-sm-6 col-md-4 col-xl-2">
                     <div class="stat-card">
                         <img alt="Orders" src="../icons/cart1.png" />
                         <h3>
@@ -436,7 +438,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                     <div class="stat-card">
                         <img alt="Revenue" src="../icons/moneyy.png" />
                         <h3>₹<asp:Label ID="lblTotalRevenue" runat="server" Text="0.00"></asp:Label>
@@ -445,7 +447,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                <div class="col-12 col-sm-6 col-md-4 col-xl-2">
                     <div class="stat-card">
                         <img alt="Customers" src="../icons/users1.png" />
                         <h3>
@@ -455,7 +457,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="col-12 col-sm-6 col-md-6 col-xl-2">
                     <div class="stat-card">
                         <img alt="Top dish" src="../icons/chef1.png" />
                         <h3>
@@ -465,7 +467,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="col-12 col-sm-6 col-md-6 col-xl-3">
                     <a href="ManageInventory.aspx" style="text-decoration: none; color: inherit;">
                         <div class="stat-card" style="border: 2px solid #ffc107;">
                             <img alt="Low Stock Alerts" src="../icons/manageitem.png" />
