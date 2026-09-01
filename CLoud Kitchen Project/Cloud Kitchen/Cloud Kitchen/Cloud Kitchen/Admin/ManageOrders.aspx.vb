@@ -233,9 +233,6 @@ Public Class WebForm11
                         If btnDetailComplete IsNot Nothing Then btnDetailComplete.Visible = False
                         If btnDetailCancel IsNot Nothing Then btnDetailCancel.Visible = False
 
-                        Dim driverIdObj = reader("driver_id")
-                        Dim hasDriverAssigned As Boolean = Not IsDBNull(driverIdObj) AndAlso Convert.ToInt32(driverIdObj) > 0
-
                         If status.Equals("Pending", StringComparison.OrdinalIgnoreCase) Then
                             If btnDetailAccept IsNot Nothing Then
                                 btnDetailAccept.Visible = True
