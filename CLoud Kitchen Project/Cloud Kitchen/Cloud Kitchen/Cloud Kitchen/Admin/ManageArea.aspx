@@ -776,7 +776,7 @@
                             <td>
                                 <div class="action-btn-group">
                                     <asp:Button ID="btnEdit" runat="server" CssClass="btn-table-edit" CommandName="EditArea" CommandArgument='<%# Eval("Area_Id") %>' Text="✏️ Edit" CausesValidation="false" />
-                                    <button type="button" class="btn-table-delete" onclick="openDeleteModal('<%# Eval("Area_Id") %>', '<%# Eval("Area_Name").ToString().Replace("'", "\'") %>');">
+                                    <button type="button" class="btn-table-delete" data-area-id='<%# Eval("Area_Id") %>' data-area-name='<%# Server.HtmlEncode(Eval("Area_Name").ToString()) %>' onclick="openDeleteModalFromBtn(this);">
                                         <i class="fas fa-trash-can"></i> Delete
                                     </button>
                                 </div>
@@ -883,6 +883,13 @@
             var overlay = document.getElementById('<%= overlay.ClientID %>');
             if (panel) panel.style.display = "block";
             if (overlay) overlay.style.display = "block";
+        }
+
+        function openDeleteModalFromBtn(btn) {
+            var areaId = btn.getAttribute('data-area-id');
+            var areaName = btn.getAttribute('data-area-name');
+            openDeleteModal(areaId, areaName);
+            return false;
         }
 
         function openDeleteModal(areaId, areaName) {
