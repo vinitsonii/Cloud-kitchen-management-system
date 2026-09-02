@@ -263,6 +263,7 @@
             font-weight: 400;
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
             min-height: 42px;
