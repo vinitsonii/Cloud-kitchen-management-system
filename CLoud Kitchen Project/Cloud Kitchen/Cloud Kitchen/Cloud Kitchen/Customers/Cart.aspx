@@ -27,36 +27,33 @@
             color: var(--text-main);
         }
 
-        /* ELEGANT HERO BANNER WITH BACKGROUND IMAGE */
+        /* ORIGINAL HERO BANNER STYLING */
         .ck-cart-hero {
             position: relative;
             width: 100%;
-            min-height: 190px;
-            background: linear-gradient(135deg, rgba(20, 35, 32, 0.88), rgba(79, 126, 118, 0.90)), url('../Images/cp8.jpeg') center/cover no-repeat;
+            min-height: 220px;
+            background: linear-gradient(135deg, rgba(45, 78, 72, 0.94), rgba(79, 126, 118, 0.92)), url('../Images/cp8.jpeg') center/cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: #ffffff;
-            padding: 38px 20px;
-            margin-bottom: 32px;
-            border-bottom-left-radius: 28px;
-            border-bottom-right-radius: 28px;
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+            color: #fff;
+            padding: 36px 20px;
+            margin-bottom: 30px;
         }
 
         .ck-cart-hero .hero-inner span {
-            font-size: clamp(1.15rem, 3.2vw, 1.55rem);
+            font-size: clamp(1.2rem, 3.5vw, 1.7rem);
             font-weight: 800;
-            letter-spacing: 0.3px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            padding: 14px 32px;
+            letter-spacing: .3px;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 12px 28px;
             border-radius: 50px;
-            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             display: inline-block;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
 
         .cart-container-main {
