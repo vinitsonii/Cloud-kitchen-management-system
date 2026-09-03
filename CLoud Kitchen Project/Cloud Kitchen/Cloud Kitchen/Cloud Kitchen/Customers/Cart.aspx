@@ -268,33 +268,43 @@
         }
 
         /* SUMMARY & FORM STYLING */
+        .summary-box-wrap {
+            background: #f8fafc;
+            border-radius: 18px;
+            padding: 18px 20px;
+            border: 1.5px solid #e2e8f0;
+            margin-bottom: 22px;
+        }
+
         .summary-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.95rem;
+            font-size: 0.94rem;
             color: #64748b;
-            margin-bottom: 12px;
+            padding: 6px 0;
         }
 
         .summary-row.total-row {
-            font-size: 1.35rem;
+            font-size: 1.25rem;
             font-weight: 900;
             color: #0f172a;
             padding-top: 14px;
-            margin-top: 14px;
+            margin-top: 8px;
             border-top: 1.5px dashed #cbd5e1;
         }
 
         .badge-free-del {
-            background: #f0fdf4;
-            color: #166534;
-            border: 1px solid #bbf7d0;
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #86efac;
             font-size: 11px;
             font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
             letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
         }
 
         .form-group-cart {
@@ -542,22 +552,24 @@
                                 <span><i class="fas fa-receipt" style="color:var(--primary);"></i> Order Summary</span>
                             </div>
 
-                            <div class="summary-row">
-                                <span>Items Subtotal</span>
-                                <span style="font-weight:700; color:#0f172a;">₹<asp:Label ID="lblTotalPrice" runat="server" Text="0"></asp:Label></span>
-                            </div>
-                            <div class="summary-row">
-                                <span>Delivery Fee</span>
-                                <span class="badge-free-del">FREE DELIVERY</span>
-                            </div>
-                            <div class="summary-row">
-                                <span>Taxes & GST</span>
-                                <span style="color:#16a34a; font-weight:700;">Included</span>
-                            </div>
+                            <div class="summary-box-wrap">
+                                <div class="summary-row">
+                                    <span>Items Subtotal</span>
+                                    <span style="font-weight:800; color:#0f172a; font-size:1.05rem;">₹<asp:Label ID="lblTotalPrice" runat="server" Text="0"></asp:Label></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Delivery Fee</span>
+                                    <span class="badge-free-del">FREE DELIVERY</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Taxes & GST</span>
+                                    <span style="color:#16a34a; font-weight:800;">Included</span>
+                                </div>
 
-                            <div class="summary-row total-row">
-                                <span>Grand Total</span>
-                                <span style="color:var(--primary);">₹<asp:Label ID="lblGrandTotal" runat="server" Text="0"></asp:Label></span>
+                                <div class="summary-row total-row">
+                                    <span>Grand Total</span>
+                                    <span style="color:var(--primary); font-size: 1.35rem;">₹<asp:Label ID="lblGrandTotal" runat="server" Text="0"></asp:Label></span>
+                                </div>
                             </div>
 
                             <div style="margin-top: 22px; padding-top: 18px; border-top: 1.5px solid #e2e8f0;">
