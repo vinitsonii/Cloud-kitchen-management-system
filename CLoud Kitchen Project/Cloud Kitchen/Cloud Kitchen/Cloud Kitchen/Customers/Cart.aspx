@@ -902,7 +902,7 @@
                                         EnableClientScript="true" ForeColor="#dc2626" />
                                 </div>
 
-                                <asp:Button ID="btnCheckout" runat="server" Text="🛍️ Place Order Now"
+                                <asp:Button ID="btnCheckout" runat="server" Text="✅ Confirm Order Now"
                                     CssClass="btn-checkout-cta" ValidationGroup="DeliveryDetails"
                                     OnClick="Checkout_Click" OnClientClick="return onCheckoutClick(this);" />
                             </div>
