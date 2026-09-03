@@ -649,6 +649,35 @@
                 .qty-val-display {
                     font-size: 0.95rem !important;
                 }
+
+                .form-group-cart {
+                    margin-bottom: 14px !important;
+                }
+
+                .ck-cart-field {
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    box-sizing: border-box !important;
+                    padding: 12px 14px !important;
+                    font-size: 13.5px !important;
+                    border-radius: 12px !important;
+                    text-overflow: ellipsis !important;
+                }
+
+                .summary-box-wrap {
+                    padding: 14px 16px !important;
+                    margin-bottom: 16px !important;
+                    border-radius: 14px !important;
+                }
+
+                .summary-row {
+                    font-size: 0.9rem !important;
+                }
+
+                .summary-row.total-row {
+                    font-size: 1.15rem !important;
+                    padding-top: 10px !important;
+                }
             }
         </style>
     </asp:Content>
