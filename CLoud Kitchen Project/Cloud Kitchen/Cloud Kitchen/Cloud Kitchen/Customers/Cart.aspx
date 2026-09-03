@@ -2,6 +2,7 @@
     CodeBehind="Cart.aspx.vb" Inherits="Cloud_Kitchen.Cart" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <style>
@@ -514,7 +515,7 @@
 
                                 <div class="form-group-cart">
                                     <label for="ddlPaymentType">Payment Method</label>
-                                    <asp:DropDownList ID="ddlPaymentType" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" AutoPostBack="true">
+                                    <asp:DropDownList ID="ddlPaymentType" runat="server" ClientIDMode="Static" CssClass="ck-cart-field">
                                         <asp:ListItem Value="">💵 Select Payment Method</asp:ListItem>
                                         <asp:ListItem Value="Cash on Delivery">Cash on Delivery</asp:ListItem>
                                         <asp:ListItem Value="Razorpay">Razorpay</asp:ListItem>

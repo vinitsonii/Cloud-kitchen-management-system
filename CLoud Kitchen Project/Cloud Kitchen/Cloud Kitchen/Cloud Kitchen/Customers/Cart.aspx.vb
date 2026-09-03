@@ -153,92 +153,108 @@ Public Class Cart
         End If
     End Sub
     Protected Sub Checkout_Click(ByVal sender As Object, ByVal e As EventArgs)
-
-        If Session("Cart") IsNot Nothing AndAlso Session("c_id") IsNot Nothing Then
-            Dim cart As List(Of Dictionary(Of String, Object)) = CType(Session("Cart"), List(Of Dictionary(Of String, Object)))
-
-            If cart.Count > 0 Then
-                Using con As New SqlConnection(connString)
-                    con.Open()
-                    Dim transaction As SqlTransaction = con.BeginTransaction()
-
-                    Try
-                        Dim selectedPincode As String = ddlpincode.SelectedValue.Trim()
-                        If String.IsNullOrEmpty(selectedPincode) Then
-                            transaction.Rollback()
-                            Response.Write("<script>alert('Please select a valid delivery pincode!');</script>")
-                            Exit Sub
-                        End If
-
-                        Dim cmdPincodeCheck As New SqlCommand("SELECT COUNT(*) FROM Area_Pincode WHERE Pincode = @pincode", con, transaction)
-                        cmdPincodeCheck.Parameters.AddWithValue("@pincode", selectedPincode)
-                        Dim pincodeCount As Integer = Convert.ToInt32(cmdPincodeCheck.ExecuteScalar())
-                        If pincodeCount = 0 Then
-                            transaction.Rollback()
-                            Response.Write("<script>alert('Delivery is not available in the selected pincode area (" & selectedPincode.Replace("'", "\'") & ")!');</script>")
-                            Exit Sub
-                        End If
-
-                        Dim transactionNumber As String = If(Session("TransactionNumber") IsNot Nothing, Session("TransactionNumber").ToString(), GenerateTransactionNumber())
-
-                        Dim cmdOrder As New SqlCommand("INSERT INTO orders (c_id, total_amount, order_status, order_date, address, pincode, payment_type, transaction_number) VALUES (@c_id, @total_amount, 'Pending', GETDATE(), @address, @pincode, @payment_type, @transaction_number); SELECT SCOPE_IDENTITY();", con, transaction)
-
-                        cmdOrder.Parameters.AddWithValue("@transaction_number", transactionNumber)
-                        cmdOrder.Parameters.AddWithValue("@c_id", Session("c_id"))
-                        cmdOrder.Parameters.AddWithValue("@total_amount", cart.Sum(Function(x) Convert.ToDecimal(x("total_price"))))
-                        cmdOrder.Parameters.AddWithValue("@address", txtAddress.Text)
-                        cmdOrder.Parameters.AddWithValue("@pincode", selectedPincode)
-                        cmdOrder.Parameters.AddWithValue("@payment_type", ddlPaymentType.SelectedValue)
-
-                        Dim orderId As Integer = Convert.ToInt32(cmdOrder.ExecuteScalar())
-
-                        For Each item In cart
-                            Dim cmdDetails As New SqlCommand("INSERT INTO order_details (order_id, m_id, quantity, price, total_price) VALUES (@order_id, @m_id, @quantity, @price, @total_price)", con, transaction)
-                            cmdDetails.Parameters.AddWithValue("@order_id", orderId)
-                            cmdDetails.Parameters.AddWithValue("@m_id", item("m_id"))
-                            cmdDetails.Parameters.AddWithValue("@quantity", item("quantity"))
-                            cmdDetails.Parameters.AddWithValue("@price", item("m_final_price"))
-                            cmdDetails.Parameters.AddWithValue("@total_price", item("total_price"))
-                            cmdDetails.ExecuteNonQuery()
-                        Next
-
-                        transaction.Commit()
-                        Session.Remove("Cart")
-
-                        Dim userEmail As String = ""
-                        If Session("UserEmail") IsNot Nothing Then
-                            userEmail = Session("UserEmail").ToString()
-                        ElseIf Session("c_id") IsNot Nothing Then
-                            Using cmdEmail As New SqlCommand("SELECT email FROM Customers WHERE c_id = @cid", con, transaction)
-                                cmdEmail.Parameters.AddWithValue("@cid", Session("c_id"))
-                                Dim resultObj As Object = cmdEmail.ExecuteScalar()
-                                If resultObj IsNot Nothing AndAlso Not IsDBNull(resultObj) Then
-                                    userEmail = resultObj.ToString()
-                                    Session("UserEmail") = userEmail
-                                End If
-                            End Using
-                        End If
-
-                        Dim emailSent As Boolean = False
-                        If Not String.IsNullOrEmpty(userEmail) Then
-                            emailSent = SendOrderEmail(userEmail, orderId, transactionNumber, cart)
-                        End If
-
-                        If emailSent Then
-                            Response.Write("<script>alert('Order placed successfully! '); setTimeout(function(){ window.location.href='OrderConfirmation.aspx?OrderId=" & orderId & "'; }, 1000);</script>")
-                        Else
-                            Response.Write("<script>alert('Order placed successfully.'); setTimeout(function(){ window.location.href='OrderConfirmation.aspx?OrderId=" & orderId & "'; }, 2000);</script>")
-                        End If
-
-                    Catch ex As Exception
-                        Response.Write("<script>alert('something went wrong while placing your order: " & ex.Message.Replace("'", "\'") & "');</script>")
-                        transaction.Rollback()
-                    End Try
-                End Using
-            End If
-        Else
-            Response.Write("<script>alert('Please add something your cart is empty!');</script>")
+        If Session("Cart") Is Nothing OrElse Session("c_id") Is Nothing Then
+            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "emptyCart", "alert('Please add items to your cart!');", True)
+            Exit Sub
         End If
+
+        Dim cart As List(Of Dictionary(Of String, Object)) = CType(Session("Cart"), List(Of Dictionary(Of String, Object)))
+        If cart.Count = 0 Then
+            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "emptyCart", "alert('Your cart is empty!');", True)
+            Exit Sub
+        End If
+
+        Dim selectedPincode As String = ddlpincode.SelectedValue.Trim()
+        If String.IsNullOrEmpty(selectedPincode) Then
+            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "pinErr", "alert('Please select a valid delivery pincode!');", True)
+            Exit Sub
+        End If
+
+        If String.IsNullOrEmpty(txtAddress.Text.Trim()) Then
+            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "addrErr", "alert('Please enter a complete delivery address!');", True)
+            Exit Sub
+        End If
+
+        Dim paymentType As String = ddlPaymentType.SelectedValue.Trim()
+        If String.IsNullOrEmpty(paymentType) Then
+            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "payErr", "alert('Please select a payment method!');", True)
+            Exit Sub
+        End If
+
+        ' IF RAZORPAY SELECTED AND PAYMENT NOT DONE YET -> LAUNCH RAZORPAY POPUP
+        If paymentType = "Razorpay" AndAlso String.IsNullOrEmpty(hdnPaymentId.Value) Then
+            Dim totalAmount As Decimal = cart.Sum(Function(x) Convert.ToDecimal(x("total_price")))
+            TriggerRazorpayPayment(totalAmount)
+            Exit Sub
+        End If
+
+        ' SAVE ORDER TO DATABASE (COD OR RAZORPAY PAID)
+        Using con As New SqlConnection(connString)
+            con.Open()
+            Dim transaction As SqlTransaction = con.BeginTransaction()
+
+            Try
+                Dim cmdPincodeCheck As New SqlCommand("SELECT COUNT(*) FROM Area_Pincode WHERE Pincode = @pincode", con, transaction)
+                cmdPincodeCheck.Parameters.AddWithValue("@pincode", selectedPincode)
+                Dim pincodeCount As Integer = Convert.ToInt32(cmdPincodeCheck.ExecuteScalar())
+                If pincodeCount = 0 Then
+                    transaction.Rollback()
+                    ScriptManager.RegisterStartupScript(Me, Me.GetType(), "areaErr", "alert('Delivery is not available in pincode area (" & selectedPincode.Replace("'", "\'") & ")!');", True)
+                    Exit Sub
+                End If
+
+                Dim transactionNumber As String = If(Not String.IsNullOrEmpty(hdnPaymentId.Value), hdnPaymentId.Value, GenerateTransactionNumber())
+
+                Dim cmdOrder As New SqlCommand("INSERT INTO orders (c_id, total_amount, order_status, order_date, address, pincode, payment_type, transaction_number) VALUES (@c_id, @total_amount, 'Pending', GETDATE(), @address, @pincode, @payment_type, @transaction_number); SELECT SCOPE_IDENTITY();", con, transaction)
+
+                cmdOrder.Parameters.AddWithValue("@transaction_number", transactionNumber)
+                cmdOrder.Parameters.AddWithValue("@c_id", Session("c_id"))
+                cmdOrder.Parameters.AddWithValue("@total_amount", cart.Sum(Function(x) Convert.ToDecimal(x("total_price"))))
+                cmdOrder.Parameters.AddWithValue("@address", txtAddress.Text.Trim())
+                cmdOrder.Parameters.AddWithValue("@pincode", selectedPincode)
+                cmdOrder.Parameters.AddWithValue("@payment_type", paymentType)
+
+                Dim orderId As Integer = Convert.ToInt32(cmdOrder.ExecuteScalar())
+
+                For Each item In cart
+                    Dim cmdDetails As New SqlCommand("INSERT INTO order_details (order_id, m_id, quantity, price, total_price) VALUES (@order_id, @m_id, @quantity, @price, @total_price)", con, transaction)
+                    cmdDetails.Parameters.AddWithValue("@order_id", orderId)
+                    cmdDetails.Parameters.AddWithValue("@m_id", item("m_id"))
+                    cmdDetails.Parameters.AddWithValue("@quantity", item("quantity"))
+                    cmdDetails.Parameters.AddWithValue("@price", item("m_final_price"))
+                    cmdDetails.Parameters.AddWithValue("@total_price", item("total_price"))
+                    cmdDetails.ExecuteNonQuery()
+                Next
+
+                transaction.Commit()
+                Session.Remove("Cart")
+
+                Dim userEmail As String = ""
+                If Session("UserEmail") IsNot Nothing Then
+                    userEmail = Session("UserEmail").ToString()
+                ElseIf Session("c_id") IsNot Nothing Then
+                    Using cmdEmail As New SqlCommand("SELECT email FROM Customers WHERE c_id = @cid", con, transaction)
+                        cmdEmail.Parameters.AddWithValue("@cid", Session("c_id"))
+                        Dim resultObj As Object = cmdEmail.ExecuteScalar()
+                        If resultObj IsNot Nothing AndAlso Not IsDBNull(resultObj) Then
+                            userEmail = resultObj.ToString()
+                            Session("UserEmail") = userEmail
+                        End If
+                    End Using
+                End If
+
+                If Not String.IsNullOrEmpty(userEmail) Then
+                    SendOrderEmail(userEmail, orderId, transactionNumber, cart)
+                End If
+
+                Dim redirectScript As String = "window.location.href='OrderConfirmation.aspx?OrderId=" & orderId & "';"
+                ScriptManager.RegisterStartupScript(Me, Me.GetType(), "orderDone", redirectScript, True)
+
+            Catch ex As Exception
+                transaction.Rollback()
+                ScriptManager.RegisterStartupScript(Me, Me.GetType(), "orderFail", "alert('Order Error: " & ex.Message.Replace("'", "\'").Replace(vbCrLf, " ") & "');", True)
+            End Try
+        End Using
     End Sub
 
     Function SendOrderEmail(ByVal userEmail As String, ByVal orderId As Integer, ByVal transactionNumber As String, ByVal cart As List(Of Dictionary(Of String, Object))) As Boolean
@@ -446,70 +462,35 @@ Public Class Cart
     'End Sub
 
 
+    Private Sub TriggerRazorpayPayment(ByVal totalAmount As Decimal)
+        Dim amountInPaise As Integer = Convert.ToInt32(totalAmount * 100)
+        Dim customerName As String = "Customer"
+        Dim customerEmail As String = ""
+
+        If Session("c_name") IsNot Nothing Then customerName = Session("c_name").ToString()
+        If Session("UserEmail") IsNot Nothing Then customerEmail = Session("UserEmail").ToString()
+
+        Dim script As String = "var options = {" & _
+            "'key': 'rzp_test_Sq7x7OL1DUIl17'," & _
+            "'amount': '" & amountInPaise.ToString() & "'," & _
+            "'currency': 'INR'," & _
+            "'name': 'Cloud Kitchen'," & _
+            "'description': 'Food Order Payment'," & _
+            "'image': '../icons/money.png'," & _
+            "'handler': function (response) {" & _
+            "__doPostBack('PaymentSuccess', response.razorpay_payment_id);" & _
+            "}," & _
+            "'prefill': {'name': '" & customerName.Replace("'", "\'") & "', 'email': '" & customerEmail.Replace("'", "\'") & "'}," & _
+            "'theme': {'color': '#4F7E76'}," & _
+            "'modal': {'ondismiss': function () { alert('Payment Cancelled'); }}" & _
+            "};" & _
+            "var rzp1 = new Razorpay(options); rzp1.open();"
+
+        ScriptManager.RegisterStartupScript(Me, Me.GetType(), "razorpay", script, True)
+    End Sub
+
     Protected Sub ddlPaymentType_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles ddlPaymentType.SelectedIndexChanged
-
-        If ddlPaymentType.SelectedIndex = 2 Then
-
-            Dim amount As Decimal = Convert.ToDecimal(lblTotalPrice.Text)
-
-            ' Razorpay amount in paise
-            Dim amountInPaise As Integer = amount * 100
-
-            Dim customerName As String = ""
-            Dim customerEmail As String = ""
-            Dim customerPhone As String = ""
-
-            Using con As New SqlConnection(connString)
-
-                Dim query As String = "SELECT c_name, email, phone FROM Customers WHERE c_id=@cid"
-
-                Using cmd As New SqlCommand(query, con)
-
-                    cmd.Parameters.AddWithValue("@cid", Session("c_id"))
-
-                    con.Open()
-
-                    Dim dr As SqlDataReader = cmd.ExecuteReader()
-
-                    If dr.Read() Then
-
-                        customerName = dr("c_name").ToString()
-                        customerEmail = dr("email").ToString()
-                        customerPhone = dr("phone").ToString()
-
-                    End If
-
-                End Using
-
-            End Using
-
-            Dim script As String = "var options = {" & _
-                "'key': 'rzp_test_Sq7x7OL1DUIl17'," & _
-                "'amount': '" & amountInPaise.ToString() & "'," & _
-                "'currency': 'INR'," & _
-                "'name': 'Cloud Kitchen'," & _
-                "'description': 'Food Order Payment'," & _
-                "'image': '../icons/money.png'," & _
-                "'handler': function (response) {" & _
-                "document.body.insertAdjacentHTML('beforeend', '<div id=\'paymentSuccessPopup\' style=\'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);z-index:99999;display:flex;justify-content:center;align-items:center;animation:fadeIn 0.3s ease;\'><div style=\'background:#fff;width:420px;border-radius:20px;padding:35px;text-align:center;box-shadow:0 15px 40px rgba(0,0,0,0.25);font-family:Arial;animation:popupScale 0.35s ease;\'><div style=\'width:90px;height:90px;background:#e8fff1;margin:auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:45px;color:#28a745;\'>✓</div><h2 style=\'margin-top:20px;color:#28a745;\'>Payment Successful</h2><p style=\'color:#666;font-size:15px;margin-top:10px;line-height:24px;\'>Your payment has been processed successfully, please proceed to order ❤️.<br/>Thank you for ordering with Cloud Kitchen 🍽</p><div style=\'background:#f8f9fa;padding:12px;border-radius:10px;margin-top:20px;font-size:14px;color:#444;\'>Payment ID:<br/><strong id=\'payid\'></strong></div><button onclick=\'continueOrder()\' style=\'margin-top:25px;background:#4F7E76;border:none;color:white;padding:14px 28px;border-radius:50px;cursor:pointer;font-size:15px;font-weight:bold;\'>Continue</button></div></div><style>@keyframes popupScale{from{transform:scale(0.7);opacity:0;}to{transform:scale(1);opacity:1;}}@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}</style>');" & _
-                "document.getElementById('payid').innerText = response.razorpay_payment_id;" & _
-                "window.continueOrder = function(){ __doPostBack('PaymentSuccess', response.razorpay_payment_id); };" & _
-                "}," & _
-                "'theme': {'color': '#4F7E76'}," & _
-                "'modal': {'ondismiss': function () { alert('Payment Cancelled'); }}" & _
-                "};" & _
-                "var rzp1 = new Razorpay(options); rzp1.open();"
-
-            ScriptManager.RegisterStartupScript(Me,
-                                            Me.GetType(),
-                                            "razorpay",
-                                            script,
-                                            True)
-
-        Else
-            Panel1.Visible = False
-        End If
-
+        ' Left clean to avoid premature popups before user fills delivery address
     End Sub
 
     Private Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
