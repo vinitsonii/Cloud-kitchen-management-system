@@ -70,6 +70,8 @@ Public Class Cart
                 Dim total As Decimal = cart.Sum(Function(x) Convert.ToDecimal(x("total_price")))
                 lblTotalPrice.Text = total.ToString("F2")
                 lblGrandTotal.Text = total.ToString("F2")
+
+                BindAreaPincodes()
             Else
                 pnlfill.Visible = False
                 pnlempty.Visible = True
@@ -524,6 +526,7 @@ Public Class Cart
     End Sub
 
     Private Sub BindAreaPincodes()
+        If ddlAreaPincode Is Nothing Then Exit Sub
         Using conn As New SqlConnection(connString)
             Dim cmd As New SqlCommand("SELECT Area_Id, Area_Name, Pincode, (Area_Name + ' - ' + Pincode) AS DisplayText, (Area_Name + '|' + Pincode) AS AreaVal FROM Area_Pincode WHERE Area_Name IS NOT NULL AND Area_Name <> '' ORDER BY Area_Name ASC", conn)
             conn.Open()
