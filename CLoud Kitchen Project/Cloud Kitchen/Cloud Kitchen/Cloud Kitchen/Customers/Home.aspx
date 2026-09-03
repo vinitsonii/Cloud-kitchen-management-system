@@ -316,44 +316,56 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
         }
         .dish-card .card-body p { font-size: .9rem; color: #666; margin: 0; }
 
-        /* MOBILE & TABLET HORIZONTAL SWIPE CAROUSEL (OPTION 1) */
+        /* MOBILE COMPACT LIST ROW CARDS (OPTION 3) */
         @media (max-width: 767px) {
             .featured-section {
                 padding: 40px 0 !important;
             }
             .featured-section .row {
+                row-gap: 14px !important;
+            }
+            .dish-card {
                 display: flex !important;
-                flex-wrap: nowrap !important;
-                overflow-x: auto !important;
-                scroll-snap-type: x mandatory !important;
-                -webkit-overflow-scrolling: touch !important;
-                padding-bottom: 15px !important;
-                padding-left: 15px !important;
-                padding-right: 15px !important;
-                gap: 15px !important;
-                margin-left: 0 !important;
-                margin-right: 0 !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                padding: 10px !important;
+                border-radius: 16px !important;
+                height: auto !important;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
             }
-            .featured-section .row::-webkit-scrollbar {
-                height: 5px;
-            }
-            .featured-section .row::-webkit-scrollbar-track {
-                background: #e2e8f0;
-                border-radius: 10px;
-            }
-            .featured-section .row::-webkit-scrollbar-thumb {
-                background: var(--primary);
-                border-radius: 10px;
-            }
-            .featured-section .col-12 {
-                flex: 0 0 82% !important;
-                max-width: 82% !important;
-                scroll-snap-align: center !important;
-                padding-left: 0 !important;
-                padding-right: 0 !important;
+            .dish-card a {
+                flex: 0 0 100px !important;
+                width: 100px !important;
+                height: 100px !important;
+                border-radius: 12px !important;
+                overflow: hidden !important;
             }
             .dish-card img {
-                height: 175px !important;
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                border-bottom: none !important;
+                border-radius: 12px !important;
+            }
+            .dish-card .card-body {
+                padding: 0 0 0 14px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+            }
+            .dish-card .card-body h5 {
+                font-size: 1.05rem !important;
+                font-weight: 700 !important;
+                margin-bottom: 4px !important;
+            }
+            .dish-card .card-body p {
+                font-size: 0.82rem !important;
+                line-height: 1.35 !important;
+                color: #64748b !important;
+                display: -webkit-box !important;
+                -webkit-line-clamp: 2 !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
             }
         }
 
