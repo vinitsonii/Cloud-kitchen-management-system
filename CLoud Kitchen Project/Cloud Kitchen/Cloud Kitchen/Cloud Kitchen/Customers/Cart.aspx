@@ -576,9 +576,28 @@
                                 </h4>
 
                                 <div class="form-group-cart">
-                                    <label for="txtAddress">Delivery Address</label>
-                                    <asp:TextBox ID="txtAddress" runat="server" ClientIDMode="Static" TextMode="MultiLine" Rows="3" CssClass="ck-cart-field" placeholder="Enter complete delivery address with street and landmark..."></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvAddress" runat="server" ControlToValidate="txtAddress" ErrorMessage="⚠ Delivery address is required." CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
+                                    <label for="txtHouseNo">House / Flat / Building No.</label>
+                                    <asp:TextBox ID="txtHouseNo" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" placeholder="e.g. Flat 402, Sunshine Apartments"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server" ControlToValidate="txtHouseNo" ErrorMessage="⚠ Flat / House number is required." CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
+                                </div>
+
+                                <div class="form-group-cart">
+                                    <label for="txtStreet">Street / Area / Locality</label>
+                                    <asp:TextBox ID="txtStreet" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" placeholder="e.g. Near City Mall, MG Road"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvStreet" runat="server" ControlToValidate="txtStreet" ErrorMessage="⚠ Street / Area is required." CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
+                                </div>
+
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+                                    <div class="form-group-cart">
+                                        <label for="txtLandmark">Landmark (Optional)</label>
+                                        <asp:TextBox ID="txtLandmark" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" placeholder="e.g. Opp. HDFC Bank"></asp:TextBox>
+                                    </div>
+
+                                    <div class="form-group-cart">
+                                        <label for="txtCity">City / Town</label>
+                                        <asp:TextBox ID="txtCity" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" placeholder="e.g. Anand"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="txtCity" ErrorMessage="⚠ City / Town is required." CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
+                                    </div>
                                 </div>
 
                                 <div class="form-group-cart">

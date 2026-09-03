@@ -86,6 +86,41 @@ Partial Public Class Cart
     Protected WithEvents rfvAddress As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
+    '''txtHouseNo control.
+    '''</summary>
+    Protected WithEvents txtHouseNo As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''rfvHouseNo control.
+    '''</summary>
+    Protected WithEvents rfvHouseNo As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+    '''<summary>
+    '''txtStreet control.
+    '''</summary>
+    Protected WithEvents txtStreet As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''rfvStreet control.
+    '''</summary>
+    Protected WithEvents rfvStreet As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+    '''<summary>
+    '''txtLandmark control.
+    '''</summary>
+    Protected WithEvents txtLandmark As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtCity control.
+    '''</summary>
+    Protected WithEvents txtCity As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''rfvCity control.
+    '''</summary>
+    Protected WithEvents rfvCity As Global.System.Web.UI.WebControls.RequiredFieldValidator
+
+    '''<summary>
     '''ddlpincode control.
     '''</summary>
     '''<remarks>

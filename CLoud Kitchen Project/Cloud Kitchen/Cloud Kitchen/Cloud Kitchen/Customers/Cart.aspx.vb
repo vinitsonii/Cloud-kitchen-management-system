@@ -170,10 +170,33 @@ Public Class Cart
             Exit Sub
         End If
 
-        If String.IsNullOrEmpty(txtAddress.Text.Trim()) Then
-            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "addrErr", "alert('Please enter a complete delivery address!');", True)
+        Dim houseNo As String = txtHouseNo.Text.Trim()
+        Dim street As String = txtStreet.Text.Trim()
+        Dim landmark As String = txtLandmark.Text.Trim()
+        Dim city As String = txtCity.Text.Trim()
+
+        If String.IsNullOrEmpty(houseNo) Then
+            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "hNoErr", "alert('Please enter your House / Flat / Building No.!');", True)
             Exit Sub
         End If
+
+        If String.IsNullOrEmpty(street) Then
+            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "strErr", "alert('Please enter your Street / Area / Locality!');", True)
+            Exit Sub
+        End If
+
+        If String.IsNullOrEmpty(city) Then
+            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "cityErr", "alert('Please enter your City / Town!');", True)
+            Exit Sub
+        End If
+
+        Dim addressParts As New List(Of String)()
+        If Not String.IsNullOrEmpty(houseNo) Then addressParts.Add(houseNo)
+        If Not String.IsNullOrEmpty(street) Then addressParts.Add(street)
+        If Not String.IsNullOrEmpty(landmark) Then addressParts.Add("Landmark: " & landmark)
+        If Not String.IsNullOrEmpty(city) Then addressParts.Add(city)
+
+        Dim formattedFullAddress As String = String.Join(", ", addressParts)
 
         Dim paymentType As String = ddlPaymentType.SelectedValue.Trim()
         If String.IsNullOrEmpty(paymentType) Then
@@ -210,7 +233,7 @@ Public Class Cart
                 cmdOrder.Parameters.AddWithValue("@transaction_number", transactionNumber)
                 cmdOrder.Parameters.AddWithValue("@c_id", Session("c_id"))
                 cmdOrder.Parameters.AddWithValue("@total_amount", cart.Sum(Function(x) Convert.ToDecimal(x("total_price"))))
-                cmdOrder.Parameters.AddWithValue("@address", txtAddress.Text.Trim())
+                cmdOrder.Parameters.AddWithValue("@address", formattedFullAddress)
                 cmdOrder.Parameters.AddWithValue("@pincode", selectedPincode)
                 cmdOrder.Parameters.AddWithValue("@payment_type", paymentType)
 
