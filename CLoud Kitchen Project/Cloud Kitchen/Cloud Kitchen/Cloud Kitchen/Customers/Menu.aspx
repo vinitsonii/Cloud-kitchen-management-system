@@ -424,60 +424,130 @@
             color: #ffffff;
         }
 
-        /* RESPONSIVE MEDIA QUERIES */
+        /* 📱 RESPONSIVE MOBILE HORIZONTAL FOOD CARDS (DESKTOP UNCHANGED) */
         @media (max-width: 991px) {
             .filter-row-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
+            .ck-filter-wrap {
+                margin: -25px auto 20px;
+                padding: 0 12px;
+            }
+
+            .ck-filter-card {
+                padding: 14px 16px;
+                border-radius: 14px;
+            }
+
             .filter-row-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
             }
 
             .ck-menu-hero {
-                min-height: 240px;
-                padding: 40px 16px 60px;
+                min-height: 200px !important;
+                padding: 30px 16px 50px !important;
             }
 
             .ck-menu-grid {
-                grid-template-columns: 1fr;
-                gap: 18px;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 14px !important;
+                padding: 0 12px 3rem !important;
             }
 
+            .menu-card {
+                flex-direction: row !important;
+                align-items: center !important;
+                padding: 12px !important;
+                border-radius: 16px !important;
+                box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05) !important;
+                gap: 12px !important;
+                position: relative !important;
+            }
+
+            .menu-card:hover {
+                transform: none !important;
+            }
+
+            /* SQUARE IMAGE ON RIGHT SIDE (SWIGGY / ZOMATO STYLE) */
             .card-img-wrap {
-                height: 190px;
+                width: 105px !important;
+                height: 105px !important;
+                border-radius: 14px !important;
+                order: 2 !important;
+                flex-shrink: 0 !important;
             }
-        }
 
-        @media (max-width: 480px) {
+            .card-badge {
+                display: none !important;
+            }
+
+            .card-body {
+                padding: 0 !important;
+                order: 1 !important;
+                flex: 1 !important;
+                gap: 4px !important;
+            }
+
+            .menu-card h3 {
+                font-size: 1.05rem !important;
+                line-height: 1.25 !important;
+            }
+
+            .card-desc {
+                font-size: 12px !important;
+                min-height: auto !important;
+                margin-bottom: 4px !important;
+                -webkit-line-clamp: 2 !important;
+                line-clamp: 2 !important;
+            }
+
+            .menu-tags {
+                margin-top: 2px !important;
+                gap: 4px !important;
+            }
+
+            .tag {
+                font-size: 10px !important;
+                padding: 2px 8px !important;
+            }
+
             .card-footer-action {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 10px;
-                background: #f8fafc;
-                padding: 12px;
-                border-radius: 14px;
-                border: 1px dashed #cbd5e1;
+                margin-top: 8px !important;
+                padding-top: 8px !important;
+                border-top: 1px dashed #e2e8f0 !important;
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                gap: 8px !important;
+                background: transparent !important;
+                padding: 0 !important;
+                border: none !important;
             }
 
             .price-container {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
+                flex-direction: column !important;
+            }
+
+            .price-label {
+                display: none !important;
             }
 
             .menu-price {
-                font-size: 1.35rem;
+                font-size: 1.15rem !important;
             }
 
             .order-btn {
-                max-width: 100%;
-                width: 100%;
-                height: 46px;
-                font-size: 15px;
+                padding: 8px 14px !important;
+                height: 38px !important;
+                font-size: 12.5px !important;
+                border-radius: 30px !important;
+                max-width: 125px !important;
             }
         }
     </style>
