@@ -73,7 +73,7 @@
 
             .cart-container-main {
                 max-width: 1140px;
-                margin: 0 auto 60px;
+                margin: 35px auto 60px;
                 padding: 0 20px;
                 position: relative;
                 z-index: 10;
@@ -558,7 +558,8 @@
             /* 📱 PERFECT RESPONSIVE MOBILE FOOD CARD LAYOUT (DESKTOP UNCHANGED) */
             @media (max-width: 768px) {
                 .cart-container-main {
-                    padding: 16px 10px 40px !important;
+                    margin: 20px auto 40px !important;
+                    padding: 0 10px 40px !important;
                 }
 
                 .cart-card-box {
