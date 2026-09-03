@@ -1,3 +1,4 @@
+Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Configuration
 
@@ -30,7 +31,7 @@ Public Class OrderConfirmation
         Dim customerId As Integer = Convert.ToInt32(Session("c_id"))
 
         Using con As New SqlConnection(connString)
-            Dim cmd As New SqlCommand("SELECT order_status, transaction_number, total_amount FROM orders WHERE order_id = @order_id AND c_id = @c_id", con)
+            Dim cmd As New SqlCommand("SELECT order_id, order_status, transaction_number, total_amount, order_date, address, pincode, payment_type FROM orders WHERE order_id = @order_id AND c_id = @c_id", con)
             cmd.Parameters.AddWithValue("@order_id", orderId)
             cmd.Parameters.AddWithValue("@c_id", customerId)
 
@@ -38,12 +39,20 @@ Public Class OrderConfirmation
             Dim reader As SqlDataReader = cmd.ExecuteReader()
             If reader.Read() Then
                 lblOrderId.Text = orderId.ToString()
-                lblTransactionNumber.Text = reader("transaction_number").ToString()
-                lblTotalAmount.Text = Convert.ToDecimal(reader("total_amount")).ToString("F2")
+                lblTransactionNumber.Text = If(IsDBNull(reader("transaction_number")), "N/A", reader("transaction_number").ToString())
+                lblTotalAmount.Text = Convert.ToDecimal(reader("total_amount")).ToString("N2")
+
+                If Not IsDBNull(reader("order_date")) Then
+                    lblOrderDate.Text = Convert.ToDateTime(reader("order_date")).ToString("dd-MMM-yyyy hh:mm tt")
+                Else
+                    lblOrderDate.Text = "N/A"
+                End If
+
+                lblAddress.Text = reader("address").ToString() & ", " & reader("pincode").ToString()
+                lblPaymentType.Text = reader("payment_type").ToString()
 
                 Dim orderStatus As String = reader("order_status").ToString().Trim()
 
-                ' Show message and button only if status is Pending
                 If orderStatus.Equals("Pending", StringComparison.OrdinalIgnoreCase) Then
                     lblOrderStatus.Text = "⏳ Pending"
                     lblOrderStatus.CssClass = "status-badge status-pending"
@@ -59,8 +68,22 @@ Public Class OrderConfirmation
                 End If
             Else
                 Response.Redirect("MyOrders.aspx")
+                Exit Sub
             End If
             reader.Close()
+
+            ' Fetch line items for receipt table
+            Dim queryItems As String = "SELECT M.M_Name AS item_name, OI.quantity, OI.price, OI.total_price FROM Order_Details OI INNER JOIN Menu_Item M ON OI.m_id = M.M_Id WHERE OI.order_id = @order_id"
+            Using cmdItems As New SqlCommand(queryItems, con)
+                cmdItems.Parameters.AddWithValue("@order_id", orderId)
+                Dim dtItems As New DataTable()
+                Dim adapter As New SqlDataAdapter(cmdItems)
+                adapter.Fill(dtItems)
+
+                rptReceiptItems.DataSource = dtItems
+                rptReceiptItems.DataBind()
+            End Using
+
         End Using
     End Sub
 End Class
