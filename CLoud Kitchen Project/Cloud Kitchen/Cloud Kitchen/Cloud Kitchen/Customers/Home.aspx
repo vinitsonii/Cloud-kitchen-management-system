@@ -316,6 +316,47 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
         }
         .dish-card .card-body p { font-size: .9rem; color: #666; margin: 0; }
 
+        /* MOBILE & TABLET HORIZONTAL SWIPE CAROUSEL (OPTION 1) */
+        @media (max-width: 767px) {
+            .featured-section {
+                padding: 40px 0 !important;
+            }
+            .featured-section .row {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                -webkit-overflow-scrolling: touch !important;
+                padding-bottom: 15px !important;
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+                gap: 15px !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+            .featured-section .row::-webkit-scrollbar {
+                height: 5px;
+            }
+            .featured-section .row::-webkit-scrollbar-track {
+                background: #e2e8f0;
+                border-radius: 10px;
+            }
+            .featured-section .row::-webkit-scrollbar-thumb {
+                background: var(--primary);
+                border-radius: 10px;
+            }
+            .featured-section .col-12 {
+                flex: 0 0 82% !important;
+                max-width: 82% !important;
+                scroll-snap-align: center !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+            .dish-card img {
+                height: 175px !important;
+            }
+        }
+
 .about-section {
     padding: 110px 0;
     position: relative;
