@@ -94,27 +94,38 @@
             border-bottom: 1.5px solid #e2e8f0;
         }
 
-        /* CART ITEM STYLING */
+        /* CART ITEM STYLING - INDIVIDUAL CARD BOXES */
         .cart-item-card {
             display: flex;
             align-items: center;
             gap: 16px;
-            padding: 18px 0;
-            border-bottom: 1px solid #f1f5f9;
+            padding: 16px 18px;
+            background: #f8fafc;
+            border-radius: 18px;
+            border: 1.5px solid #e2e8f0;
+            margin-bottom: 14px;
+            transition: all 0.25s ease;
+        }
+
+        .cart-item-card:hover {
+            background: #ffffff;
+            border-color: #cbd5e1;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+            transform: translateY(-2px);
         }
 
         .cart-item-card:last-child {
-            border-bottom: none;
+            margin-bottom: 0;
         }
 
         .cart-dish-img {
-            width: 92px;
-            height: 92px;
-            border-radius: 16px;
+            width: 88px;
+            height: 88px;
+            border-radius: 14px;
             object-fit: cover;
             flex-shrink: 0;
-            border: 2px solid #e2e8f0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border: 1.5px solid #cbd5e1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
         .cart-dish-info {
@@ -126,33 +137,34 @@
             font-size: 1.1rem;
             font-weight: 800;
             color: #0f172a;
-            margin: 0 0 4px;
+            margin: 0 0 3px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .cart-unit-price {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 600;
             color: #64748b;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
-        /* QUANTITY STEPPER BUTTONS - HIGH VISIBILITY & CONTRAST */
+        /* QUANTITY STEPPER BUTTONS - SLEEK PILL */
         .cart-stepper-wrap {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: #f1f5f9;
+            gap: 8px;
+            background: #ffffff;
             border: 1.5px solid #cbd5e1;
             border-radius: 50px;
-            padding: 4px 10px;
+            padding: 3px 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
         }
 
         .qty-step-btn {
-            width: 32px !important;
-            height: 32px !important;
+            width: 30px !important;
+            height: 30px !important;
             border-radius: 50% !important;
             background: #4F7E76 !important;
             color: #ffffff !important;
@@ -160,27 +172,27 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            font-size: 16px !important;
+            font-size: 15px !important;
             font-weight: 900 !important;
             line-height: 1 !important;
             cursor: pointer !important;
             text-decoration: none !important;
             transition: all 0.2s ease !important;
-            box-shadow: 0 3px 8px rgba(79, 126, 118, 0.35) !important;
+            box-shadow: 0 2px 6px rgba(79, 126, 118, 0.3) !important;
         }
 
         .qty-step-btn:hover {
             background: #355b54 !important;
             color: #ffffff !important;
-            transform: scale(1.12) !important;
-            box-shadow: 0 5px 12px rgba(53, 91, 84, 0.45) !important;
+            transform: scale(1.1) !important;
+            box-shadow: 0 4px 10px rgba(53, 91, 84, 0.4) !important;
         }
 
         .qty-val-display {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 800;
             color: #0f172a;
-            min-width: 24px;
+            min-width: 22px;
             text-align: center;
         }
 
@@ -188,21 +200,24 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 10px;
+            justify-content: space-between;
+            gap: 12px;
+            min-height: 72px;
         }
 
         .cart-item-total-price {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 900;
             color: #16a34a;
+            line-height: 1;
         }
 
-        /* DELETE BUTTON - HIGH VISIBILITY SVG TRASH ICON */
+        /* DELETE BUTTON - VISIBLE SVG TRASH BUTTON */
         .btn-remove-item {
             background: #fee2e2 !important;
             border: 1.5px solid #fca5a5 !important;
-            width: 38px !important;
-            height: 38px !important;
+            width: 36px !important;
+            height: 36px !important;
             border-radius: 50% !important;
             display: inline-flex !important;
             align-items: center !important;
@@ -210,7 +225,7 @@
             cursor: pointer !important;
             text-decoration: none !important;
             transition: all 0.2s ease !important;
-            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.15) !important;
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.15) !important;
         }
 
         .btn-remove-item svg {
@@ -230,28 +245,34 @@
         }
 
         .add-more-bar {
-            margin-top: 18px;
-            padding-top: 14px;
+            margin-top: 20px;
+            padding-top: 16px;
             border-top: 1.5px solid #e2e8f0;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: flex-start;
         }
 
         .back-link-btn {
+            background: #f1f5f9;
             color: var(--primary);
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.2s;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1.5px solid #cbd5e1;
+            transition: all 0.2s ease;
         }
 
         .back-link-btn:hover {
-            color: var(--primary-dk);
-            transform: translateX(-4px);
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(79, 126, 118, 0.3);
         }
 
         /* SUMMARY & FORM STYLING */
@@ -444,7 +465,7 @@
                             </asp:Repeater>
 
                             <div class="add-more-bar">
-                                <a href="Menu.aspx" class="back-link-btn"><i class="fas fa-arrow-left"></i> Add More Items</a>
+                                <a href="Menu.aspx" class="back-link-btn"><i class="fas fa-plus"></i> Add More Items</a>
                             </div>
                         </div>
 
