@@ -478,13 +478,11 @@ Public Class Cart
             "'description': 'Food Order Payment'," & _
             "'image': '../icons/money.png'," & _
             "'handler': function (response) {" & _
-            "    var ov = document.getElementById('orderProcessingOverlay');" & _
-            "    if (ov) { ov.style.display = 'flex'; }" & _
             "    __doPostBack('PaymentSuccess', response.razorpay_payment_id);" & _
             "}," & _
             "'prefill': {'name': '" & customerName.Replace("'", "\'") & "', 'email': '" & customerEmail.Replace("'", "\'") & "'}," & _
             "'theme': {'color': '#4F7E76'}," & _
-            "'modal': {'ondismiss': function () { alert('Payment Cancelled'); }}" & _
+            "'modal': {'ondismiss': function () { var btn = document.getElementById('" & btnCheckout.ClientID & "'); if(btn){ btn.disabled = false; btn.value = '🚀 Place Order Now'; } }}" & _
             "};" & _
             "var rzp1 = new Razorpay(options); rzp1.open();"
 
