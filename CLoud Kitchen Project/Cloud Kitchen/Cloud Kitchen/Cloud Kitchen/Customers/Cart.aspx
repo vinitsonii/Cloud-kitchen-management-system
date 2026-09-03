@@ -566,7 +566,7 @@
             <asp:Panel ID="pnlfill" runat="server">
 
                 <!-- UPDATE PANEL WRAPS ENTIRE CART LAYOUT WITH AJAX PARTIAL RENDERING -->
-                <asp:UpdatePanel ID="upCart" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
+                <asp:UpdatePanel ID="upCart" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
                     <ContentTemplate>
 
                         <!-- TOP SECTION: FULL-WIDTH CART ITEMS TABLE -->

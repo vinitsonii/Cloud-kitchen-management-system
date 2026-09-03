@@ -91,7 +91,7 @@ Public Class Cart
             pnlempty.Visible = True
         End If
 
-        If upCart IsNot Nothing Then
+        If upCart IsNot Nothing AndAlso upCart.UpdateMode = UpdatePanelUpdateMode.Conditional Then
             upCart.Update()
         End If
     End Sub
