@@ -345,9 +345,13 @@ Public Class DriverPortal
                 End Using
 
                 If actualOtp = enteredOtp Then
-                    ' Mark order Completed & set delivered_time
-                    Dim updateOrderQuery As String = "UPDATE Orders SET order_status = 'Completed', delivered_time = GETDATE() WHERE order_id = @OrderId"
+                    ' Mark order Completed & set delivered_time in IST
+                    Dim istTimeZone As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time")
+                    Dim istNow As DateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, istTimeZone)
+
+                    Dim updateOrderQuery As String = "UPDATE Orders SET order_status = 'Completed', delivered_time = @DeliveredTime WHERE order_id = @OrderId"
                     Using cmdUpdate As New SqlCommand(updateOrderQuery, conn)
+                        cmdUpdate.Parameters.AddWithValue("@DeliveredTime", istNow)
                         cmdUpdate.Parameters.AddWithValue("@OrderId", orderId)
                         cmdUpdate.ExecuteNonQuery()
                     End Using

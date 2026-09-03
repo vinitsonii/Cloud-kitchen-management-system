@@ -283,11 +283,15 @@ Public Class Cart
 
                 Dim transactionNumber As String = If(Not String.IsNullOrEmpty(hdnPaymentId.Value), hdnPaymentId.Value, GenerateTransactionNumber())
 
-                Dim cmdOrder As New SqlCommand("INSERT INTO orders (c_id, total_amount, order_status, order_date, address, pincode, payment_type, transaction_number) VALUES (@c_id, @total_amount, 'Pending', GETDATE(), @address, @pincode, @payment_type, @transaction_number); SELECT SCOPE_IDENTITY();", con, transaction)
+                Dim istTimeZone As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time")
+                Dim istNow As DateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, istTimeZone)
+
+                Dim cmdOrder As New SqlCommand("INSERT INTO orders (c_id, total_amount, order_status, order_date, address, pincode, payment_type, transaction_number) VALUES (@c_id, @total_amount, 'Pending', @order_date, @address, @pincode, @payment_type, @transaction_number); SELECT SCOPE_IDENTITY();", con, transaction)
 
                 cmdOrder.Parameters.AddWithValue("@transaction_number", transactionNumber)
                 cmdOrder.Parameters.AddWithValue("@c_id", Session("c_id"))
                 cmdOrder.Parameters.AddWithValue("@total_amount", cart.Sum(Function(x) Convert.ToDecimal(x("total_price"))))
+                cmdOrder.Parameters.AddWithValue("@order_date", istNow)
                 cmdOrder.Parameters.AddWithValue("@address", formattedFullAddress)
                 cmdOrder.Parameters.AddWithValue("@pincode", selectedPincode)
                 cmdOrder.Parameters.AddWithValue("@payment_type", paymentType)

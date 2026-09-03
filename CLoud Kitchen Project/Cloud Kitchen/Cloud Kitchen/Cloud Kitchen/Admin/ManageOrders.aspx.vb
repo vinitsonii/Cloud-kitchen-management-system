@@ -671,8 +671,12 @@ Public Class WebForm11
                 cmdDriver.ExecuteNonQuery()
             End Using
 
-            Dim queryOrder As String = "UPDATE Orders SET order_status = 'Completed', delivered_time = GETDATE() WHERE order_id = @OrderId"
+            Dim istTimeZone As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time")
+            Dim istNow As DateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, istTimeZone)
+
+            Dim queryOrder As String = "UPDATE Orders SET order_status = 'Completed', delivered_time = @DeliveredTime WHERE order_id = @OrderId"
             Using cmdOrder As New SqlCommand(queryOrder, conn)
+                cmdOrder.Parameters.AddWithValue("@DeliveredTime", istNow)
                 cmdOrder.Parameters.AddWithValue("@OrderId", orderId)
                 cmdOrder.ExecuteNonQuery()
             End Using
