@@ -353,16 +353,9 @@
             }
 
             .badge-free-del {
-                background: #dcfce7;
-                color: #15803d;
-                border: 1px solid #86efac;
-                font-size: 11px;
+                color: #16a34a;
                 font-weight: 800;
-                padding: 4px 12px;
-                border-radius: 20px;
-                letter-spacing: 0.5px;
-                display: inline-flex;
-                align-items: center;
+                font-size: 0.95rem;
             }
 
             .form-group-cart {
@@ -733,7 +726,7 @@
                                     </div>
                                     <div class="summary-row">
                                         <span>Delivery Fee</span>
-                                        <span class="badge-free-del">FREE DELIVERY</span>
+                                        <span class="badge-free-del">Free</span>
                                     </div>
                                     <div class="summary-row">
                                         <span>Taxes & GST</span>
