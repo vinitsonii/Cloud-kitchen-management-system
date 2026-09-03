@@ -62,33 +62,65 @@
             z-index: 10;
         }
 
-        .cart-grid-2col {
+        /* PLAN 2 LAYOUT GRID & TABLE STYLING */
+        .plan2-top-section {
+            margin-bottom: 24px;
+        }
+
+        .plan2-bottom-grid {
             display: grid;
-            grid-template-columns: 1.35fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 24px;
             align-items: start;
         }
 
-        @media (max-width: 991px) {
-            .cart-grid-2col {
+        @media (max-width: 900px) {
+            .plan2-bottom-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        .cart-card-box {
-            background: #ffffff;
-            border-radius: 24px;
-            border: 1.5px solid #e2e8f0;
-            box-shadow: 0 12px 36px rgba(15, 23, 42, 0.06);
-            padding: 26px;
+        .cart-items-table-wrap {
+            overflow-x: auto;
         }
 
-        .sticky-sidebar-col {
-            position: sticky;
-            top: 90px;
+        .cart-items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        .cart-items-table th {
+            background: #f8fafc;
+            color: #475569;
+            font-size: 0.82rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 12px 16px;
+            border-bottom: 2px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .cart-items-table td {
+            padding: 16px;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+
+        .cart-table-dish-cell {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .cart-table-img {
+            width: 58px;
+            height: 58px;
+            border-radius: 14px;
+            object-fit: cover;
+            border: 1.5px solid #e2e8f0;
+            flex-shrink: 0;
         }
 
         .cart-box-title {
@@ -504,131 +536,146 @@
     <div class="cart-container-main">
         <asp:Panel ID="pnlfill" runat="server">
             
-            <!-- UPDATE PANEL WRAPS ENTIRE CART GRID TO PREVENT FULL PAGE REFRESH -->
+            <!-- UPDATE PANEL WRAPS ENTIRE CART LAYOUT (PLAN 2: TOP-TO-BOTTOM) -->
             <asp:UpdatePanel ID="upCart" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <div class="cart-grid-2col">
+                    
+                    <!-- TOP SECTION: FULL-WIDTH CART ITEMS TABLE -->
+                    <div class="cart-card-box plan2-top-section">
+                        <div class="cart-box-title">
+                            <span><i class="fas fa-utensils" style="color:var(--primary);"></i> 1. Review Your Dishes</span>
+                        </div>
+
+                        <div class="cart-items-table-wrap">
+                            <table class="cart-items-table">
+                                <thead>
+                                    <tr>
+                                        <th>Dish Item</th>
+                                        <th>Unit Price</th>
+                                        <th style="text-align:center;">Quantity</th>
+                                        <th>Subtotal</th>
+                                        <th style="text-align:center;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <asp:Repeater ID="rptCartItems" runat="server">
+                                        <ItemTemplate>
+                                            <tr>
+                                                <td>
+                                                    <div class="cart-table-dish-cell">
+                                                        <img src='<%# GetValue(Container.DataItem, "m_image_url") %>' alt="Dish" class="cart-table-img" />
+                                                        <span style="font-weight:800; color:#0f172a; font-size:1rem;"><%# GetValue(Container.DataItem, "m_name") %></span>
+                                                    </div>
+                                                </td>
+                                                <td style="color:#64748b; font-weight:700;">₹<%# GetValue(Container.DataItem, "m_final_price") %></td>
+                                                <td style="text-align:center;">
+                                                    <div class="cart-stepper-wrap" style="display:inline-flex;">
+                                                        <asp:LinkButton ID="btnMinus" runat="server" CssClass="qty-step-btn" CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>' OnCommand="DecreaseQuantity" CausesValidation="false" title="Decrease Quantity">
+                                                            <b>−</b>
+                                                        </asp:LinkButton>
+                                                        <span class="qty-val-display"><%# GetValue(Container.DataItem, "quantity") %></span>
+                                                        <asp:LinkButton ID="btnPlus" runat="server" CssClass="qty-step-btn" CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>' OnCommand="IncreaseQuantity" CausesValidation="false" title="Increase Quantity">
+                                                            <b>+</b>
+                                                        </asp:LinkButton>
+                                                    </div>
+                                                </td>
+                                                <td style="color:var(--primary); font-weight:900; font-size:1.1rem;">₹<%# GetValue(Container.DataItem, "total_price") %></td>
+                                                <td style="text-align:center;">
+                                                    <asp:LinkButton ID="btnRemove" runat="server" CssClass="btn-remove-item" CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>' OnCommand="RemoveCartItem" CausesValidation="false" title="Remove item from cart">
+                                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                        </svg>
+                                                    </asp:LinkButton>
+                                                </td>
+                                            </tr>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="add-more-bar">
+                            <a href="Menu.aspx" class="back-link-btn"><i class="fas fa-plus"></i> Add More Dishes</a>
+                        </div>
+                    </div>
+
+                    <!-- BOTTOM SECTION: 50/50 SPLIT GRID FOR DELIVERY & SUMMARY -->
+                    <div class="plan2-bottom-grid">
                         
-                        <!-- LEFT COLUMN: CART ITEMS -->
+                        <!-- LEFT BOX: DELIVERY ADDRESS -->
                         <div class="cart-card-box">
                             <div class="cart-box-title">
-                                <span><i class="fas fa-cart-shopping" style="color:var(--primary);"></i> Your Cart Items</span>
+                                <span><i class="fas fa-location-dot" style="color:var(--primary);"></i> 2. Delivery Address</span>
                             </div>
 
-                            <asp:Repeater ID="rptCartItems" runat="server">
-                                <ItemTemplate>
-                                    <div class="cart-item-card">
-                                        <img src='<%# GetValue(Container.DataItem, "m_image_url") %>' alt="Dish" class="cart-dish-img" />
-                                        <div class="cart-dish-info">
-                                            <div class="cart-dish-name"><%# GetValue(Container.DataItem, "m_name") %></div>
-                                            <div class="cart-unit-price">Price: ₹<%# GetValue(Container.DataItem, "m_final_price") %></div>
-                                            
-                                            <div class="cart-stepper-wrap">
-                                                <asp:LinkButton ID="btnMinus" runat="server" CssClass="qty-step-btn" CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>' OnCommand="DecreaseQuantity" CausesValidation="false" title="Decrease Quantity">
-                                                    <b>−</b>
-                                                </asp:LinkButton>
-                                                <span class="qty-val-display"><%# GetValue(Container.DataItem, "quantity") %></span>
-                                                <asp:LinkButton ID="btnPlus" runat="server" CssClass="qty-step-btn" CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>' OnCommand="IncreaseQuantity" CausesValidation="false" title="Increase Quantity">
-                                                    <b>+</b>
-                                                </asp:LinkButton>
-                                            </div>
-                                        </div>
+                            <div class="form-group-cart">
+                                <label for="txtHouseNo">House / Flat / Building No.</label>
+                                <asp:TextBox ID="txtHouseNo" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" placeholder="e.g. Flat 402, Sunshine Apartments"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server" ControlToValidate="txtHouseNo" ErrorMessage="⚠ Flat / House number is required." CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
+                            </div>
 
-                                        <div class="cart-item-right">
-                                            <span class="cart-item-total-price">₹<%# GetValue(Container.DataItem, "total_price") %></span>
-                                            <asp:LinkButton ID="btnRemove" runat="server" CssClass="btn-remove-item" CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>' OnCommand="RemoveCartItem" CausesValidation="false" title="Remove item from cart">
-                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                    <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                    <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                </svg>
-                                            </asp:LinkButton>
-                                        </div>
-                                    </div>
-                                </ItemTemplate>
-                            </asp:Repeater>
+                            <div class="form-group-cart">
+                                <label for="txtStreet">Street / Area / Locality</label>
+                                <asp:TextBox ID="txtStreet" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" placeholder="e.g. Near City Mall, MG Road"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvStreet" runat="server" ControlToValidate="txtStreet" ErrorMessage="⚠ Street / Area is required." CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
+                            </div>
 
-                            <div class="add-more-bar">
-                                <a href="Menu.aspx" class="back-link-btn"><i class="fas fa-plus"></i> Add More Items</a>
+                            <div class="form-group-cart">
+                                <label for="txtLandmark">Landmark (Optional)</label>
+                                <asp:TextBox ID="txtLandmark" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" placeholder="e.g. Opp. HDFC Bank"></asp:TextBox>
+                            </div>
+
+                            <div class="form-group-cart" style="margin-bottom:0;">
+                                <label for="ddlAreaPincode">Delivery Area & Pincode</label>
+                                <asp:DropDownList ID="ddlAreaPincode" runat="server" ClientIDMode="Static" CssClass="ck-cart-field">
+                                    <asp:ListItem Text="🚚 Select Delivery Area & Pincode" Value=""></asp:ListItem>
+                                </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="rfvAreaPincode" runat="server" ControlToValidate="ddlAreaPincode" ErrorMessage="⚠ Please select your delivery area & pincode." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
                             </div>
                         </div>
 
-                        <!-- RIGHT COLUMN: STICKY SIDEBAR WITH 2 DISTINCT CARDS (PLAN 1) -->
-                        <div class="sticky-sidebar-col">
-                            
-                            <!-- SUB-CARD 1: DELIVERY LOCATION -->
-                            <div class="cart-card-box">
-                                <div class="cart-box-title">
-                                    <span><i class="fas fa-location-dot" style="color:var(--primary);"></i> Delivery Location</span>
+                        <!-- RIGHT BOX: ORDER SUMMARY & PAYMENT -->
+                        <div class="cart-card-box">
+                            <div class="cart-box-title">
+                                <span><i class="fas fa-receipt" style="color:var(--primary);"></i> 3. Order Summary & Payment</span>
+                            </div>
+
+                            <div class="summary-box-wrap">
+                                <div class="summary-row">
+                                    <span>Items Subtotal</span>
+                                    <span style="font-weight:800; color:#0f172a; font-size:1.05rem;">₹<asp:Label ID="lblTotalPrice" runat="server" Text="0"></asp:Label></span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Delivery Fee</span>
+                                    <span class="badge-free-del">FREE DELIVERY</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span>Taxes & GST</span>
+                                    <span style="color:#16a34a; font-weight:800;">Included</span>
                                 </div>
 
-                                <div class="form-group-cart">
-                                    <label for="txtHouseNo">House / Flat / Building No.</label>
-                                    <asp:TextBox ID="txtHouseNo" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" placeholder="e.g. Flat 402, Sunshine Apartments"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server" ControlToValidate="txtHouseNo" ErrorMessage="⚠ Flat / House number is required." CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
-                                </div>
-
-                                <div class="form-group-cart">
-                                    <label for="txtStreet">Street / Area / Locality</label>
-                                    <asp:TextBox ID="txtStreet" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" placeholder="e.g. Near City Mall, MG Road"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvStreet" runat="server" ControlToValidate="txtStreet" ErrorMessage="⚠ Street / Area is required." CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
-                                </div>
-
-                                <div class="form-group-cart">
-                                    <label for="txtLandmark">Landmark (Optional)</label>
-                                    <asp:TextBox ID="txtLandmark" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" placeholder="e.g. Opp. HDFC Bank"></asp:TextBox>
-                                </div>
-
-                                <div class="form-group-cart" style="margin-bottom:0;">
-                                    <label for="ddlAreaPincode">Delivery Area & Pincode</label>
-                                    <asp:DropDownList ID="ddlAreaPincode" runat="server" ClientIDMode="Static" CssClass="ck-cart-field">
-                                        <asp:ListItem Text="🚚 Select Delivery Area & Pincode" Value=""></asp:ListItem>
-                                    </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="rfvAreaPincode" runat="server" ControlToValidate="ddlAreaPincode" ErrorMessage="⚠ Please select your delivery area & pincode." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
+                                <div class="summary-row total-row">
+                                    <span>Grand Total</span>
+                                    <span style="color:var(--primary); font-size: 1.35rem;">₹<asp:Label ID="lblGrandTotal" runat="server" Text="0"></asp:Label></span>
                                 </div>
                             </div>
 
-                            <!-- SUB-CARD 2: ORDER & PAYMENT SUMMARY -->
-                            <div class="cart-card-box">
-                                <div class="cart-box-title">
-                                    <span><i class="fas fa-receipt" style="color:var(--primary);"></i> Payment & Bill Summary</span>
-                                </div>
-
-                                <div class="summary-box-wrap">
-                                    <div class="summary-row">
-                                        <span>Items Subtotal</span>
-                                        <span style="font-weight:800; color:#0f172a; font-size:1.05rem;">₹<asp:Label ID="lblTotalPrice" runat="server" Text="0"></asp:Label></span>
-                                    </div>
-                                    <div class="summary-row">
-                                        <span>Delivery Fee</span>
-                                        <span class="badge-free-del">FREE DELIVERY</span>
-                                    </div>
-                                    <div class="summary-row">
-                                        <span>Taxes & GST</span>
-                                        <span style="color:#16a34a; font-weight:800;">Included</span>
-                                    </div>
-
-                                    <div class="summary-row total-row">
-                                        <span>Grand Total</span>
-                                        <span style="color:var(--primary); font-size: 1.35rem;">₹<asp:Label ID="lblGrandTotal" runat="server" Text="0"></asp:Label></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group-cart">
-                                    <label for="ddlPaymentType">Payment Method</label>
-                                    <asp:DropDownList ID="ddlPaymentType" runat="server" ClientIDMode="Static" CssClass="ck-cart-field">
-                                        <asp:ListItem Value="">💳 Select Payment Method</asp:ListItem>
-                                        <asp:ListItem Value="Cash on Delivery">💵 Cash on Delivery (COD)</asp:ListItem>
-                                        <asp:ListItem Value="Razorpay">💳 Online Payment (UPI, Cards, NetBanking)</asp:ListItem>
-                                    </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="rfvPaymentType" runat="server" ControlToValidate="ddlPaymentType" ErrorMessage="⚠ Please select a payment method." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
-                                </div>
-
-                                <asp:Button ID="btnCheckout" runat="server" Text="🛍️ Place Order Now" CssClass="btn-checkout-cta" ValidationGroup="DeliveryDetails" OnClick="Checkout_Click" OnClientClick="return onCheckoutClick(this);" />
+                            <div class="form-group-cart">
+                                <label for="ddlPaymentType">Payment Method</label>
+                                <asp:DropDownList ID="ddlPaymentType" runat="server" ClientIDMode="Static" CssClass="ck-cart-field">
+                                    <asp:ListItem Value="">💳 Select Payment Method</asp:ListItem>
+                                    <asp:ListItem Value="Cash on Delivery">💵 Cash on Delivery (COD)</asp:ListItem>
+                                    <asp:ListItem Value="Razorpay">💳 Online Payment (UPI, Cards, NetBanking)</asp:ListItem>
+                                </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="rfvPaymentType" runat="server" ControlToValidate="ddlPaymentType" ErrorMessage="⚠ Please select a payment method." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
                             </div>
 
+                            <asp:Button ID="btnCheckout" runat="server" Text="🛍️ Place Order Now" CssClass="btn-checkout-cta" ValidationGroup="DeliveryDetails" OnClick="Checkout_Click" OnClientClick="return onCheckoutClick(this);" />
                         </div>
+
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
