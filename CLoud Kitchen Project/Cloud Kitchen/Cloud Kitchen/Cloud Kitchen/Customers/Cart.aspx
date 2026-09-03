@@ -479,13 +479,13 @@
 
                                 <div class="form-group-cart">
                                     <label for="txtAddress">Delivery Address</label>
-                                    <asp:TextBox ID="txtAddress" runat="server" TextMode="MultiLine" Rows="3" CssClass="ck-cart-field" placeholder="Enter complete delivery address with street and landmark..."></asp:TextBox>
+                                    <asp:TextBox ID="txtAddress" runat="server" ClientIDMode="Static" TextMode="MultiLine" Rows="3" CssClass="ck-cart-field" placeholder="Enter complete delivery address with street and landmark..."></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvAddress" runat="server" ControlToValidate="txtAddress" ErrorMessage="⚠ Delivery address is required." CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
                                 </div>
 
                                 <div class="form-group-cart">
                                     <label for="ddlpincode">Delivery Pincode</label>
-                                    <asp:DropDownList ID="ddlpincode" runat="server" CssClass="ck-cart-field">
+                                    <asp:DropDownList ID="ddlpincode" runat="server" ClientIDMode="Static" CssClass="ck-cart-field">
                                         <asp:ListItem Text="📍 Select Pincode" Value=""></asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvPincode" runat="server" ControlToValidate="ddlpincode" ErrorMessage="⚠ Please select a valid pincode." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
@@ -493,7 +493,7 @@
 
                                 <div class="form-group-cart">
                                     <label for="ddlPaymentType">Payment Method</label>
-                                    <asp:DropDownList ID="ddlPaymentType" runat="server" CssClass="ck-cart-field" AutoPostBack="true">
+                                    <asp:DropDownList ID="ddlPaymentType" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" AutoPostBack="true">
                                         <asp:ListItem Value="">💵 Select Payment Method</asp:ListItem>
                                         <asp:ListItem Value="Cash on Delivery">Cash on Delivery</asp:ListItem>
                                         <asp:ListItem Value="Razorpay">Razorpay</asp:ListItem>
