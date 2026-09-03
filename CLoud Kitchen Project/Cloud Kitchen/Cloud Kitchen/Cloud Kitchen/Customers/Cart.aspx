@@ -3,9 +3,8 @@
 
     <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
-            rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
         <style>
             :root {
@@ -698,7 +697,7 @@
     <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         <div class="ck-cart-hero">
             <div class="hero-inner">
-                <h1><i class="fas fa-basket-shopping" style="color:var(--accent);"></i> Your Food Cart</h1>
+                <h1><i class="fas fa-basket-shopping" style="color:#ff9f43;"></i> Your Food Cart</h1>
                 <p>Review your selected dishes, enter delivery address, and proceed to checkout!</p>
             </div>
         </div>
