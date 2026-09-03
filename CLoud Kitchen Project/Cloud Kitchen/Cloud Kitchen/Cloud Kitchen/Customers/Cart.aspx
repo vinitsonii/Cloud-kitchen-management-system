@@ -31,30 +31,32 @@
         .ck-cart-hero {
             position: relative;
             width: 100%;
-            min-height: 180px;
-            background: linear-gradient(135deg, rgba(30, 50, 46, 0.85), rgba(79, 126, 118, 0.88)), url('../Images/cp8.jpeg') center/cover no-repeat;
+            min-height: 190px;
+            background: linear-gradient(135deg, rgba(20, 35, 32, 0.88), rgba(79, 126, 118, 0.90)), url('../Images/cp8.jpeg') center/cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: #ffffff;
-            padding: 36px 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            padding: 38px 20px;
+            margin-bottom: 32px;
+            border-bottom-left-radius: 28px;
+            border-bottom-right-radius: 28px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
         }
 
         .ck-cart-hero .hero-inner span {
-            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            font-size: clamp(1.15rem, 3.2vw, 1.55rem);
             font-weight: 800;
             letter-spacing: 0.3px;
-            background: rgba(255, 255, 255, 0.18);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 12px 28px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            padding: 14px 32px;
             border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
             display: inline-block;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.18);
         }
 
         .cart-container-main {
@@ -85,21 +87,28 @@
 
         .cart-card-box {
             background: #ffffff;
-            border-radius: 20px;
+            border-radius: 22px;
             border: 1.5px solid #e2e8f0;
-            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
-            padding: 26px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+            padding: 28px;
             box-sizing: border-box;
+            transition: all 0.25s ease;
+        }
+
+        .cart-card-box:hover {
+            box-shadow: 0 14px 36px rgba(15, 23, 42, 0.07);
+            border-color: #cbd5e1;
         }
 
         .cart-items-table-wrap {
             overflow-x: auto;
+            border-radius: 16px;
+            border: 1.5px solid #f1f5f9;
         }
 
         .cart-items-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 10px;
         }
 
         .cart-items-table th {
@@ -108,16 +117,25 @@
             font-size: 0.82rem;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 14px 16px;
+            letter-spacing: 0.6px;
+            padding: 14px 18px;
             border-bottom: 2px solid #e2e8f0;
             text-align: left;
         }
 
         .cart-items-table td {
-            padding: 16px;
+            padding: 16px 18px;
             border-bottom: 1px solid #f1f5f9;
             vertical-align: middle;
+            transition: background 0.2s ease;
+        }
+
+        .cart-items-table tr:hover td {
+            background: #fdfdfd;
+        }
+
+        .cart-items-table tr:last-child td {
+            border-bottom: none;
         }
 
         .cart-table-dish-cell {
@@ -127,11 +145,12 @@
         }
 
         .cart-table-img {
-            width: 58px;
-            height: 58px;
+            width: 62px;
+            height: 62px;
             border-radius: 14px;
             object-fit: cover;
             border: 1.5px solid #e2e8f0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
             flex-shrink: 0;
         }
 
@@ -142,7 +161,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             padding-bottom: 14px;
             border-bottom: 1.5px solid #f1f5f9;
         }
