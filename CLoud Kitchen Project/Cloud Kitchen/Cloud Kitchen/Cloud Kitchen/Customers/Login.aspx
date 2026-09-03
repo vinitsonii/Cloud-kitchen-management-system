@@ -513,8 +513,6 @@
         </section>
 
         <section class="ck-form-panel">
-            <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-
             <asp:UpdatePanel ID="upnlLogin" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <div class="ck-card">

@@ -477,8 +477,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>
-
     <div id="overlay" runat="server" style="display:none;"></div>
 
     <asp:Panel ID="pnlmsg" runat="server" Visible="false" style="display:none;">

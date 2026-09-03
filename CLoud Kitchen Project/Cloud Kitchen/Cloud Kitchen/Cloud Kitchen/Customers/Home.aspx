@@ -1227,8 +1227,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
             </div>
         </div>
     </section>
-<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-
 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
     <ContentTemplate>
 
