@@ -13,8 +13,7 @@ Public Class Cart
 
         If Not IsPostBack Then
             LoadCartItems()
-            Bindpincode()
-            BindCities()
+            BindAreaPincodes()
         End If
 
         If Request("__EVENTTARGET") = "PaymentSuccess" Then
@@ -165,16 +164,10 @@ Public Class Cart
             Exit Sub
         End If
 
-        Dim selectedPincode As String = ddlpincode.SelectedValue.Trim()
-        If String.IsNullOrEmpty(selectedPincode) Then
-            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "pinErr", "alert('Please select a valid delivery pincode!');", True)
-            Exit Sub
-        End If
-
         Dim houseNo As String = txtHouseNo.Text.Trim()
         Dim street As String = txtStreet.Text.Trim()
         Dim landmark As String = txtLandmark.Text.Trim()
-        Dim city As String = ddlCity.SelectedValue.Trim()
+        Dim selectedAreaVal As String = ddlAreaPincode.SelectedValue.Trim()
 
         If String.IsNullOrEmpty(houseNo) Then
             ScriptManager.RegisterStartupScript(Me, Me.GetType(), "hNoErr", "alert('Please enter your House / Flat / Building No.!');", True)
@@ -186,10 +179,14 @@ Public Class Cart
             Exit Sub
         End If
 
-        If String.IsNullOrEmpty(city) Then
-            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "cityErr", "alert('Please select your City / Area!');", True)
+        If String.IsNullOrEmpty(selectedAreaVal) Then
+            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "areaErr", "alert('Please select your delivery area & pincode!');", True)
             Exit Sub
         End If
+
+        Dim areaParts() As String = selectedAreaVal.Split("|"c)
+        Dim city As String = areaParts(0)
+        Dim selectedPincode As String = areaParts(1)
 
         Dim addressParts As New List(Of String)()
         If Not String.IsNullOrEmpty(houseNo) Then addressParts.Add(houseNo)
@@ -268,7 +265,7 @@ Public Class Cart
                 End If
 
                 If Not String.IsNullOrEmpty(userEmail) Then
-                    SendOrderEmail(userEmail, orderId, transactionNumber, cart)
+                    SendOrderEmail(userEmail, orderId, transactionNumber, cart, formattedFullAddress, selectedPincode)
                 End If
 
                 Dim redirectScript As String = "window.location.href='OrderConfirmation.aspx?OrderId=" & orderId & "';"
@@ -281,7 +278,7 @@ Public Class Cart
         End Using
     End Sub
 
-    Function SendOrderEmail(ByVal userEmail As String, ByVal orderId As Integer, ByVal transactionNumber As String, ByVal cart As List(Of Dictionary(Of String, Object))) As Boolean
+    Function SendOrderEmail(ByVal userEmail As String, ByVal orderId As Integer, ByVal transactionNumber As String, ByVal cart As List(Of Dictionary(Of String, Object)), ByVal deliveryAddress As String, ByVal deliveryPincode As String) As Boolean
         Try
             Dim senderEmail As String = ConfigurationManager.AppSettings("EmailUsername")
 
@@ -313,51 +310,49 @@ Public Class Cart
                 If String.IsNullOrEmpty(baseUrl) Then baseUrl = "http://localhost"
             End If
             Dim myOrdersUrl As String = baseUrl & "/Customers/MyOrders.aspx"
+            Dim totalAmountSum As Decimal = cart.Sum(Function(x) Convert.ToDecimal(x("total_price")))
 
-            Dim emailBody As String = "<!DOCTYPE html>" & vbCrLf & _
-"<html>" & vbCrLf & _
-"<head>" & vbCrLf & _
-"<meta charset='UTF-8'>" & vbCrLf & _
-"<style>" & vbCrLf & _
-"body{ margin:0; padding:0; background:#f4f6f9; font-family:Arial,sans-serif; }" & vbCrLf & _
-".wrapper{ width:100%; padding:30px 0; }" & vbCrLf & _
-".container{ max-width:650px; background:#ffffff; margin:auto; border-radius:16px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,0.08); }" & vbCrLf & _
-".header{ background:linear-gradient(135deg,#4F7E76,#3a5f59); padding:35px; text-align:center; color:#fff; }" & vbCrLf & _
-".header h1{ margin:0; font-size:32px; }" & vbCrLf & _
-".header p{ margin-top:8px; opacity:0.9; font-size:15px; }" & vbCrLf & _
-".content{ padding:35px; }" & vbCrLf & _
-".success-box{ background:#f0fff4; border-left:5px solid #28a745; padding:18px; border-radius:10px; margin-bottom:25px; }" & vbCrLf & _
-".success-box h2{ margin:0; color:#28a745; }" & vbCrLf & _
-".details{ background:#fafafa; padding:20px; border-radius:12px; margin-top:20px; }" & vbCrLf & _
-".details p{ margin:10px 0; color:#444; font-size:15px; }" & vbCrLf & _
-".table-title{ margin-top:30px; color:#333; font-size:22px; }" & vbCrLf & _
-".order-table{ width:100%; border-collapse:collapse; margin-top:15px; }" & vbCrLf & _
-".order-table th{ background:#4F7E76; color:white; padding:14px; text-align:left; font-size:14px; }" & _
-".order-table td{ padding:14px; border-bottom:1px solid #eee; font-size:14px; }" & vbCrLf & _
-".total-box{ text-align:right; margin-top:20px; font-size:22px; color:#4F7E76; font-weight:bold; }" & vbCrLf & _
-".button{ display:inline-block; background:#ff9f43; color:#fff !important; text-decoration:none; padding:14px 28px; border-radius:50px; margin-top:30px; font-weight:bold; font-size:15px; }" & vbCrLf & _
-".footer{ background:#f8f8f8; padding:25px; text-align:center; color:#777; font-size:13px; }" & vbCrLf & _
-".footer a{ color:#4F7E76; text-decoration:none; }" & vbCrLf & _
-"</style></head><body>" & vbCrLf & _
-"<div class='wrapper'><div class='container'>" & vbCrLf & _
-"<div class='header'><h1>🍽 Cloud Kitchen</h1><p>Fresh Meals Delivered To Your Doorstep</p></div>" & vbCrLf & _
-"<div class='content'>" & vbCrLf & _
-"<div class='success-box'><h2>✅ Order Confirmed Successfully</h2><p>Thank you for ordering with Cloud Kitchen.</p></div>" & vbCrLf & _
-"<p>Hello Customer,</p><p>We are preparing your delicious food and your order will arrive shortly. Thank you for choosing Cloud Kitchen.</p>" & vbCrLf & _
-"<div class='details'>" & vbCrLf & _
-"<p><strong>🧾 Order ID:</strong> #" & orderId & "</p>" & vbCrLf & _
-"<p><strong>💳 Transaction ID:</strong> " & transactionNumber & "</p>" & vbCrLf & _
-"<p><strong>🚚 Delivery Address:</strong> " & txtAddress.Text & "</p>" & vbCrLf & _
-"<p><strong>📍 Pincode:</strong> " & ddlpincode.SelectedValue & "</p>" & vbCrLf & _
-"<p><strong>💰 Payment Method:</strong> " & ddlPaymentType.SelectedValue & "</p>" & vbCrLf & _
-"<p><strong>⏰ Estimated Delivery:</strong> 30 - 40 Minutes</p>" & vbCrLf & _
-"</div>" & vbCrLf & _
-"<h3 class='table-title'>🛒 Order Summary</h3>" & cartTable & vbCrLf & _
-"<div class='total-box'>Total Amount: ₹" & lblTotalPrice.Text & "<br/><span style='font-size:12px; color:#64748b; font-weight:normal;'>(Incl. of all taxes & GST)</span></div>" & vbCrLf & _
-"<center><a href='" & myOrdersUrl & "' class='button'>View My Orders</a></center>" & vbCrLf & _
-"</div>" & vbCrLf & _
-"<div class='footer'><p>Need help? Contact us anytime</p><p>📧 info.cloudkitchenn@gmail.com</p><p>© Cloud Kitchen - All Rights Reserved</p></div>" & vbCrLf & _
-"</div></div></body></html>"
+            Dim emailBody As String = "<!DOCTYPE html><html><head><style>" & _
+"body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 20px; color: #334155; }" & _
+".container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }" & _
+".header { background: linear-gradient(135deg, #4F7E76, #3f6861); padding: 30px 20px; text-align: center; color: #ffffff; }" & _
+".header h1 { margin: 0; font-size: 26px; font-weight: 700; }" & _
+".header p { margin: 5px 0 0 0; font-size: 14px; opacity: 0.9; }" & _
+".content { padding: 30px 25px; }" & _
+".success-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 15px; text-align: center; margin-bottom: 25px; }" & _
+".success-box h2 { color: #166534; margin: 0 0 5px 0; font-size: 18px; }" & _
+".success-box p { color: #15803d; margin: 0; font-size: 14px; }" & _
+".details { background: #f1f5f9; border-radius: 8px; padding: 18px; margin-bottom: 25px; }" & _
+".details p { margin: 6px 0; font-size: 14px; color: #475569; }" & _
+".details p strong { color: #0f172a; }" & _
+".order-table { width: 100%; border-collapse: collapse; margin-top: 10px; }" & _
+".order-table th { background: #e2e8f0; color: #1e293b; text-align: left; padding: 10px; font-size: 13px; text-transform: uppercase; }" & _
+".order-table td { padding: 10px; border-bottom: 1px solid #e2e8f0; font-size: 14px; }" & _
+".table-title { font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 20px; margin-bottom: 10px; border-bottom: 2px solid #4F7E76; padding-bottom: 5px; display: inline-block; }" & _
+".total-box { text-align: right; margin-top: 15px; font-size: 18px; font-weight: 700; color: #166534; }" & _
+".button { display: inline-block; background: #4F7E76; color: #ffffff !important; text-decoration: none; padding: 12px 28px; border-radius: 6px; font-weight: 600; margin-top: 25px; text-align: center; }" & _
+".footer { background: #f8fafc; padding: 20px; text-align: center; font-size: 12px; color: #94a3b8; border-top: 1px solid #e2e8f0; }" & _
+".footer p { margin: 4px 0; }" & _
+"</style></head><body>" & _
+"<div class='container'>" & _
+"<div class='header'><h1>🍽 Cloud Kitchen</h1><p>Fresh Meals Delivered To Your Doorstep</p></div>" & _
+"<div class='content'>" & _
+"<div class='success-box'><h2>✅ Order Confirmed Successfully</h2><p>Thank you for ordering with Cloud Kitchen.</p></div>" & _
+"<p>Hello Customer,</p><p>We are preparing your delicious food and your order will arrive shortly. Thank you for choosing Cloud Kitchen.</p>" & _
+"<div class='details'>" & _
+"<p><strong>🧾 Order ID:</strong> #" & orderId & "</p>" & _
+"<p><strong>💳 Transaction ID:</strong> " & transactionNumber & "</p>" & _
+"<p><strong>🚚 Delivery Address:</strong> " & deliveryAddress & "</p>" & _
+"<p><strong>📍 Pincode:</strong> " & deliveryPincode & "</p>" & _
+"<p><strong>💰 Payment Method:</strong> " & ddlPaymentType.SelectedValue & "</p>" & _
+"<p><strong>⏰ Estimated Delivery:</strong> 30 - 40 Minutes</p>" & _
+"</div>" & _
+"<h3 class='table-title'>🛒 Order Summary</h3>" & cartTable & _
+"<div class='total-box'>Total Amount: ₹" & totalAmountSum.ToString("F2") & "<br/><span style='font-size:12px; color:#64748b; font-weight:normal;'>(Incl. of all taxes & GST)</span></div>" & _
+"<center><a href='" & myOrdersUrl & "' class='button'>View My Orders</a></center>" & _
+"</div>" & _
+"<div class='footer'><p>Need help? Contact us anytime</p><p>📧 info.cloudkitchenn@gmail.com</p><p>© Cloud Kitchen - All Rights Reserved</p></div>" & _
+"</div></body></html>"
 
             mail.Body = emailBody
 
@@ -522,36 +517,23 @@ Public Class Cart
     Private Sub Button1_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles Button1.Click
         Panel2.Visible = False
         Panel3.Visible = False
-        ddlpincode.SelectedIndex = 0
+        If ddlAreaPincode.Items.Count > 0 Then ddlAreaPincode.SelectedIndex = 0
         Response.Redirect("cart.aspx")
         Label2.Text = ""
         lblTransaction.Text = ""
     End Sub
 
-    Private Sub Bindpincode()
+    Private Sub BindAreaPincodes()
         Using conn As New SqlConnection(connString)
-            Dim cmd As New SqlCommand("SELECT * FROM Area_Pincode", conn)
+            Dim cmd As New SqlCommand("SELECT Area_Id, Area_Name, Pincode, (Area_Name + ' - ' + Pincode) AS DisplayText, (Area_Name + '|' + Pincode) AS AreaVal FROM Area_Pincode WHERE Area_Name IS NOT NULL AND Area_Name <> '' ORDER BY Area_Name ASC", conn)
             conn.Open()
             Dim rdr As SqlDataReader = cmd.ExecuteReader()
-            ddlpincode.DataSource = rdr
-            ddlpincode.DataTextField = "Pincode"
-            ddlpincode.DataValueField = "Pincode"
-            ddlpincode.DataBind()
+            ddlAreaPincode.DataSource = rdr
+            ddlAreaPincode.DataTextField = "DisplayText"
+            ddlAreaPincode.DataValueField = "AreaVal"
+            ddlAreaPincode.DataBind()
         End Using
-        ddlpincode.Items.Insert(0, New ListItem("📍 --Select Pincode --", ""))
-    End Sub
-
-    Private Sub BindCities()
-        Using conn As New SqlConnection(connString)
-            Dim cmd As New SqlCommand("SELECT DISTINCT Area_Name FROM Area_Pincode WHERE Area_Name IS NOT NULL AND Area_Name <> '' ORDER BY Area_Name ASC", conn)
-            conn.Open()
-            Dim rdr As SqlDataReader = cmd.ExecuteReader()
-            ddlCity.DataSource = rdr
-            ddlCity.DataTextField = "Area_Name"
-            ddlCity.DataValueField = "Area_Name"
-            ddlCity.DataBind()
-        End Using
-        ddlCity.Items.Insert(0, New ListItem("📍 Select City / Area", ""))
+        ddlAreaPincode.Items.Insert(0, New ListItem("📍 Select Delivery Area & Pincode", ""))
     End Sub
     'Protected Sub Button3_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button3.Click
 

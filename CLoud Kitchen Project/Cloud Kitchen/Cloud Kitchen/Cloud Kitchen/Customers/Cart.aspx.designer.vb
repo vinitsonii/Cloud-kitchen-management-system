@@ -111,32 +111,14 @@ Partial Public Class Cart
     Protected WithEvents txtLandmark As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''ddlCity control.
+    '''ddlAreaPincode control.
     '''</summary>
-    Protected WithEvents ddlCity As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlAreaPincode As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''rfvCity control.
+    '''rfvAreaPincode control.
     '''</summary>
-    Protected WithEvents rfvCity As Global.System.Web.UI.WebControls.RequiredFieldValidator
-
-    '''<summary>
-    '''ddlpincode control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlpincode As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''rfvPincode control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents rfvPincode As Global.System.Web.UI.WebControls.RequiredFieldValidator
+    Protected WithEvents rfvAreaPincode As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
     '''<summary>
     '''ddlPaymentType control.

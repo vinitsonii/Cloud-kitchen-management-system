@@ -587,27 +587,17 @@
                                     <asp:RequiredFieldValidator ID="rfvStreet" runat="server" ControlToValidate="txtStreet" ErrorMessage="⚠ Street / Area is required." CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
                                 </div>
 
-                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
-                                    <div class="form-group-cart">
-                                        <label for="txtLandmark">Landmark (Optional)</label>
-                                        <asp:TextBox ID="txtLandmark" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" placeholder="e.g. Opp. HDFC Bank"></asp:TextBox>
-                                    </div>
-
-                                    <div class="form-group-cart">
-                                        <label for="ddlCity">City / Area</label>
-                                        <asp:DropDownList ID="ddlCity" runat="server" ClientIDMode="Static" CssClass="ck-cart-field">
-                                            <asp:ListItem Text="📍 Select City / Area" Value=""></asp:ListItem>
-                                        </asp:DropDownList>
-                                        <asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="ddlCity" ErrorMessage="⚠ Please select your City / Area." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
-                                    </div>
+                                <div class="form-group-cart">
+                                    <label for="txtLandmark">Landmark (Optional)</label>
+                                    <asp:TextBox ID="txtLandmark" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" placeholder="e.g. Opp. HDFC Bank"></asp:TextBox>
                                 </div>
 
                                 <div class="form-group-cart">
-                                    <label for="ddlpincode">Delivery Pincode</label>
-                                    <asp:DropDownList ID="ddlpincode" runat="server" ClientIDMode="Static" CssClass="ck-cart-field">
-                                        <asp:ListItem Text="📍 Select Pincode" Value=""></asp:ListItem>
+                                    <label for="ddlAreaPincode">Delivery Area & Pincode</label>
+                                    <asp:DropDownList ID="ddlAreaPincode" runat="server" ClientIDMode="Static" CssClass="ck-cart-field">
+                                        <asp:ListItem Text="📍 Select Delivery Area & Pincode" Value=""></asp:ListItem>
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="rfvPincode" runat="server" ControlToValidate="ddlpincode" ErrorMessage="⚠ Please select a valid pincode." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
+                                    <asp:RequiredFieldValidator ID="rfvAreaPincode" runat="server" ControlToValidate="ddlAreaPincode" ErrorMessage="⚠ Please select your delivery area & pincode." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
                                 </div>
 
                                 <div class="form-group-cart">
