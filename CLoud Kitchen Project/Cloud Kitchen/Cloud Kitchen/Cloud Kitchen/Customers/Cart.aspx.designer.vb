@@ -23,6 +23,15 @@ Partial Public Class Cart
     Protected WithEvents pnlfill As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
+    '''upCart control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents upCart As Global.System.Web.UI.UpdatePanel
+
+    '''<summary>
     '''rptCartItems control.
     '''</summary>
     '''<remarks>

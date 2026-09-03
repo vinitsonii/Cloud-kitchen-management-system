@@ -10,7 +10,7 @@
             --primary-dk: #355b54;
             --accent: #ff9f43;
             --danger: #dc2626;
-            --danger-bg: #fef2f2;
+            --danger-bg: #fee2e2;
             --success: #16a34a;
             --success-bg: #f0fdf4;
             --bg: #f8fafc;
@@ -29,26 +29,28 @@
         .ck-cart-hero {
             position: relative;
             width: 100%;
-            min-height: 200px;
-            background: linear-gradient(135deg, rgba(79, 126, 118, 0.92), rgba(53, 91, 84, 0.95)), url('../Images/cp8.jpeg') center/cover no-repeat;
+            min-height: 220px;
+            background: linear-gradient(135deg, rgba(45, 78, 72, 0.94), rgba(79, 126, 118, 0.92)), url('../Images/cp8.jpeg') center/cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: #fff;
-            padding: 30px 20px;
+            padding: 36px 20px;
         }
 
         .ck-cart-hero .hero-inner span {
             font-size: clamp(1.2rem, 3.5vw, 1.7rem);
             font-weight: 800;
             letter-spacing: .3px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 10px 24px;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 12px 28px;
             border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             display: inline-block;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
 
         .cart-container-main {
@@ -74,10 +76,10 @@
 
         .cart-card-box {
             background: #ffffff;
-            border-radius: 20px;
+            border-radius: 24px;
             border: 1.5px solid #e2e8f0;
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
-            padding: 24px;
+            box-shadow: 0 12px 36px rgba(15, 23, 42, 0.06);
+            padding: 26px;
         }
 
         .cart-box-title {
@@ -97,7 +99,7 @@
             display: flex;
             align-items: center;
             gap: 16px;
-            padding: 16px 0;
+            padding: 18px 0;
             border-bottom: 1px solid #f1f5f9;
         }
 
@@ -106,12 +108,13 @@
         }
 
         .cart-dish-img {
-            width: 90px;
-            height: 90px;
-            border-radius: 14px;
+            width: 92px;
+            height: 92px;
+            border-radius: 16px;
             object-fit: cover;
             flex-shrink: 0;
-            border: 1.5px solid #e2e8f0;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
         }
 
         .cart-dish-info {
@@ -120,8 +123,8 @@
         }
 
         .cart-dish-name {
-            font-size: 1.05rem;
-            font-weight: 700;
+            font-size: 1.1rem;
+            font-weight: 800;
             color: #0f172a;
             margin: 0 0 4px;
             white-space: nowrap;
@@ -130,48 +133,54 @@
         }
 
         .cart-unit-price {
-            font-size: 0.88rem;
+            font-size: 0.9rem;
+            font-weight: 600;
             color: #64748b;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
+        /* QUANTITY STEPPER BUTTONS - HIGH VISIBILITY & CONTRAST */
         .cart-stepper-wrap {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: #f8fafc;
+            gap: 10px;
+            background: #f1f5f9;
             border: 1.5px solid #cbd5e1;
             border-radius: 50px;
-            padding: 3px 8px;
+            padding: 4px 10px;
         }
 
         .qty-step-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            color: #334155;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s;
+            width: 32px !important;
+            height: 32px !important;
+            border-radius: 50% !important;
+            background: #4F7E76 !important;
+            color: #ffffff !important;
+            border: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 16px !important;
+            font-weight: 900 !important;
+            line-height: 1 !important;
+            cursor: pointer !important;
+            text-decoration: none !important;
+            transition: all 0.2s ease !important;
+            box-shadow: 0 3px 8px rgba(79, 126, 118, 0.35) !important;
         }
 
         .qty-step-btn:hover {
-            background: var(--primary);
-            color: #ffffff;
-            border-color: var(--primary);
+            background: #355b54 !important;
+            color: #ffffff !important;
+            transform: scale(1.12) !important;
+            box-shadow: 0 5px 12px rgba(53, 91, 84, 0.45) !important;
         }
 
         .qty-val-display {
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             font-weight: 800;
             color: #0f172a;
-            min-width: 20px;
+            min-width: 24px;
             text-align: center;
         }
 
@@ -179,35 +188,40 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 8px;
+            gap: 10px;
         }
 
         .cart-item-total-price {
-            font-size: 1.1rem;
-            font-weight: 800;
+            font-size: 1.2rem;
+            font-weight: 900;
             color: #16a34a;
         }
 
+        /* DELETE BUTTON - HIGH VISIBILITY RED BADGE */
         .btn-remove-item {
-            background: #fef2f2;
-            color: #dc2626;
-            border: 1px solid #fecaca;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s;
+            background: #fee2e2 !important;
+            color: #dc2626 !important;
+            border: 1.5px solid #fca5a5 !important;
+            width: 38px !important;
+            height: 38px !important;
+            border-radius: 50% !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            cursor: pointer !important;
+            text-decoration: none !important;
+            transition: all 0.2s ease !important;
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.15) !important;
         }
 
         .btn-remove-item:hover {
-            background: #dc2626;
-            color: #ffffff;
-            border-color: #dc2626;
+            background: #dc2626 !important;
+            color: #ffffff !important;
+            border-color: #dc2626 !important;
+            transform: scale(1.1) !important;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35) !important;
         }
 
         .add-more-bar {
@@ -222,17 +236,17 @@
         .back-link-btn {
             color: var(--primary);
             font-weight: 700;
-            font-size: 0.92rem;
+            font-size: 0.95rem;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             transition: all 0.2s;
         }
 
         .back-link-btn:hover {
             color: var(--primary-dk);
-            transform: translateX(-3px);
+            transform: translateX(-4px);
         }
 
         /* SUMMARY & FORM STYLING */
@@ -240,17 +254,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.92rem;
+            font-size: 0.95rem;
             color: #64748b;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .summary-row.total-row {
-            font-size: 1.25rem;
-            font-weight: 800;
+            font-size: 1.35rem;
+            font-weight: 900;
             color: #0f172a;
-            padding-top: 12px;
-            margin-top: 12px;
+            padding-top: 14px;
+            margin-top: 14px;
             border-top: 1.5px dashed #cbd5e1;
         }
 
@@ -260,12 +274,13 @@
             border: 1px solid #bbf7d0;
             font-size: 11px;
             font-weight: 800;
-            padding: 3px 8px;
+            padding: 4px 10px;
             border-radius: 12px;
+            letter-spacing: 0.5px;
         }
 
         .form-group-cart {
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .form-group-cart label {
@@ -280,19 +295,20 @@
 
         .ck-cart-field {
             width: 100%;
-            padding: 11px 14px;
+            padding: 12px 16px;
             border: 1.5px solid #cbd5e1;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 14px;
             outline: none;
             transition: all 0.2s;
             box-sizing: border-box;
             background: #ffffff;
+            color: #0f172a;
         }
 
         .ck-cart-field:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 126, 118, 0.18);
+            box-shadow: 0 0 0 3px rgba(79, 126, 118, 0.2);
         }
 
         .btn-checkout-cta {
@@ -300,23 +316,24 @@
             background: linear-gradient(135deg, var(--primary), var(--primary-dk));
             color: #ffffff;
             font-weight: 800;
-            font-size: 1rem;
-            padding: 14px;
+            font-size: 1.05rem;
+            padding: 15px;
             border-radius: 50px;
             border: none;
             cursor: pointer;
-            transition: all 0.25s;
-            box-shadow: 0 6px 20px rgba(79, 126, 118, 0.35);
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 24px rgba(79, 126, 118, 0.38);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            margin-top: 10px;
+            margin-top: 12px;
         }
 
         .btn-checkout-cta:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 26px rgba(79, 126, 118, 0.45);
+            box-shadow: 0 12px 30px rgba(79, 126, 118, 0.5);
+            background: linear-gradient(135deg, #3f6861, #2d4e48);
         }
 
         /* MODAL OVERLAY & POPUP */
@@ -352,11 +369,11 @@
 
         .ck-empty-cart {
             text-align: center;
-            padding: 50px 20px;
+            padding: 55px 20px;
         }
 
         .ck-empty-cart h2 {
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             font-weight: 800;
             color: var(--primary);
             margin: 14px 0 8px;
@@ -375,59 +392,61 @@
 
     <div class="cart-container-main">
         <asp:Panel ID="pnlfill" runat="server">
-            <div class="cart-grid-2col">
-                
-                <!-- LEFT COLUMN: CART ITEMS -->
-                <div class="cart-card-box">
-                    <div class="cart-box-title">
-                        <span><i class="fas fa-cart-shopping" style="color:var(--primary);"></i> Your Cart Items</span>
-                    </div>
-
-                    <asp:Repeater ID="rptCartItems" runat="server">
-                        <ItemTemplate>
-                            <div class="cart-item-card">
-                                <img src='<%# GetValue(Container.DataItem, "m_image_url") %>' alt="Dish" class="cart-dish-img" />
-                                <div class="cart-dish-info">
-                                    <div class="cart-dish-name"><%# GetValue(Container.DataItem, "m_name") %></div>
-                                    <div class="cart-unit-price">Price: ₹<%# GetValue(Container.DataItem, "m_final_price") %></div>
-                                    
-                                    <div class="cart-stepper-wrap">
-                                        <asp:LinkButton ID="btnMinus" runat="server" CssClass="qty-step-btn" CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>' OnCommand="DecreaseQuantity" CausesValidation="false">
-                                            <i class="fas fa-minus"></i>
-                                        </asp:LinkButton>
-                                        <span class="qty-val-display"><%# GetValue(Container.DataItem, "quantity") %></span>
-                                        <asp:LinkButton ID="btnPlus" runat="server" CssClass="qty-step-btn" CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>' OnCommand="IncreaseQuantity" CausesValidation="false">
-                                            <i class="fas fa-plus"></i>
-                                        </asp:LinkButton>
-                                    </div>
-                                </div>
-
-                                <div class="cart-item-right">
-                                    <span class="cart-item-total-price">₹<%# GetValue(Container.DataItem, "total_price") %></span>
-                                    <asp:LinkButton ID="btnRemove" runat="server" CssClass="btn-remove-item" CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>' OnCommand="RemoveCartItem" CausesValidation="false" title="Remove item">
-                                        <i class="fas fa-trash-can"></i>
-                                    </asp:LinkButton>
-                                </div>
+            
+            <!-- UPDATE PANEL WRAPS ENTIRE CART GRID TO PREVENT FULL PAGE REFRESH -->
+            <asp:UpdatePanel ID="upCart" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div class="cart-grid-2col">
+                        
+                        <!-- LEFT COLUMN: CART ITEMS -->
+                        <div class="cart-card-box">
+                            <div class="cart-box-title">
+                                <span><i class="fas fa-cart-shopping" style="color:var(--primary);"></i> Your Cart Items</span>
                             </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
 
-                    <div class="add-more-bar">
-                        <a href="Menu.aspx" class="back-link-btn"><i class="fas fa-arrow-left"></i> Add More Items</a>
-                    </div>
-                </div>
+                            <asp:Repeater ID="rptCartItems" runat="server">
+                                <ItemTemplate>
+                                    <div class="cart-item-card">
+                                        <img src='<%# GetValue(Container.DataItem, "m_image_url") %>' alt="Dish" class="cart-dish-img" />
+                                        <div class="cart-dish-info">
+                                            <div class="cart-dish-name"><%# GetValue(Container.DataItem, "m_name") %></div>
+                                            <div class="cart-unit-price">Price: ₹<%# GetValue(Container.DataItem, "m_final_price") %></div>
+                                            
+                                            <div class="cart-stepper-wrap">
+                                                <asp:LinkButton ID="btnMinus" runat="server" CssClass="qty-step-btn" CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>' OnCommand="DecreaseQuantity" CausesValidation="false" title="Decrease Quantity">
+                                                    <b>−</b>
+                                                </asp:LinkButton>
+                                                <span class="qty-val-display"><%# GetValue(Container.DataItem, "quantity") %></span>
+                                                <asp:LinkButton ID="btnPlus" runat="server" CssClass="qty-step-btn" CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>' OnCommand="IncreaseQuantity" CausesValidation="false" title="Increase Quantity">
+                                                    <b>+</b>
+                                                </asp:LinkButton>
+                                            </div>
+                                        </div>
 
-                <!-- RIGHT COLUMN: ORDER SUMMARY & DELIVERY DETAILS -->
-                <div class="cart-card-box">
-                    <div class="cart-box-title">
-                        <span><i class="fas fa-receipt" style="color:var(--primary);"></i> Order Summary</span>
-                    </div>
+                                        <div class="cart-item-right">
+                                            <span class="cart-item-total-price">₹<%# GetValue(Container.DataItem, "total_price") %></span>
+                                            <asp:LinkButton ID="btnRemove" runat="server" CssClass="btn-remove-item" CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>' OnCommand="RemoveCartItem" CausesValidation="false" title="Remove item from cart">
+                                                <i class="fas fa-trash-can" style="color:#dc2626;"></i>
+                                            </asp:LinkButton>
+                                        </div>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
 
-                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                        <ContentTemplate>
+                            <div class="add-more-bar">
+                                <a href="Menu.aspx" class="back-link-btn"><i class="fas fa-arrow-left"></i> Add More Items</a>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT COLUMN: ORDER SUMMARY & DELIVERY DETAILS -->
+                        <div class="cart-card-box">
+                            <div class="cart-box-title">
+                                <span><i class="fas fa-receipt" style="color:var(--primary);"></i> Order Summary</span>
+                            </div>
+
                             <div class="summary-row">
                                 <span>Items Subtotal</span>
-                                <span>₹<asp:Label ID="lblTotalPrice" runat="server" Text="0"></asp:Label></span>
+                                <span style="font-weight:700; color:#0f172a;">₹<asp:Label ID="lblTotalPrice" runat="server" Text="0"></asp:Label></span>
                             </div>
                             <div class="summary-row">
                                 <span>Delivery Fee</span>
@@ -443,7 +462,7 @@
                                 <span style="color:var(--primary);">₹<asp:Label ID="lblGrandTotal" runat="server" Text="0"></asp:Label></span>
                             </div>
 
-                            <div style="margin-top: 20px; padding-top: 16px; border-top: 1.5px solid #e2e8f0;">
+                            <div style="margin-top: 22px; padding-top: 18px; border-top: 1.5px solid #e2e8f0;">
                                 <h4 style="font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-bottom: 14px;">
                                     <i class="fas fa-truck-fast" style="color:var(--primary);"></i> Delivery & Payment Details
                                 </h4>
@@ -475,68 +494,69 @@
                                 <asp:Button ID="btnCheckout" runat="server" Text="🚀 Place Order Now" CssClass="btn-checkout-cta" ValidationGroup="DeliveryDetails" OnClick="Checkout_Click" />
                             </div>
 
-                            <div id="overlay" class="overlay"></div>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
 
-                            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                                <ContentTemplate>
-                                    <asp:Panel ID="Panel2" runat="server" CssClass="update-panel" Visible="False">
-                                        <center>
-                                            <div id="dvLoader" runat="server" style="text-align:center; padding: 20px 0;">
-                                                <i class="fas fa-spinner fa-spin" style="font-size: 40px; color: var(--primary); margin-bottom: 12px;"></i>
-                                                <h3 style="font-size: 1.1rem; font-weight: 700; color: #0f172a;">Processing Order...</h3>
-                                            </div>
-                                            <div id="dvSuccess" runat="server" visible="false" style="text-align:center;">
-                                                <i class="fas fa-circle-check" style="font-size: 55px; color: #16a34a; margin-bottom: 12px;"></i>
-                                                <h2 style="font-size: 1.4rem; font-weight: 800; color: #16a34a; margin: 0 0 8px;">Order Confirmed!</h2>
-                                                <p style="font-size: 14px; color: #64748b; margin-bottom: 16px;">
-                                                    Your payment was verified successfully.<br />
-                                                    Thank you for ordering with Cloud Kitchen!
-                                                </p>
-                                                <asp:Label ID="lblTransaction" runat="server" Font-Bold="true" ForeColor="#16a34a"></asp:Label>
-                                                <br /><br />
-                                                <asp:Button ID="Button1" runat="server" Text="Okay" CssClass="btn-checkout-cta" OnClientClick="closePanel(); return false;" />
-                                            </div>
-                                        </center>
-                                    </asp:Panel>
-                                    <asp:Timer ID="Timer1" runat="server" Interval="3000" Enabled="False" OnTick="Timer1_Tick"></asp:Timer>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
+            <div id="overlay" class="overlay"></div>
 
-                            <asp:Panel ID="up" runat="server" CssClass="update-panel" Visible="False">
-                                <asp:Label ID="label1" runat="server" Visible="False"></asp:Label>
-                                <asp:Panel ID="Panel1" runat="server" Visible="false">
-                                    <h3>Card Details</h3>
-                                    <div style="display:flex; gap:6px; margin-bottom:12px;">
-                                        <asp:TextBox ID="txtCard1" runat="server" MaxLength="4" CssClass="ck-cart-field" style="text-align:center;"></asp:TextBox>
-                                        <asp:TextBox ID="txtCard2" runat="server" MaxLength="4" CssClass="ck-cart-field" style="text-align:center;"></asp:TextBox>
-                                        <asp:TextBox ID="txtCard3" runat="server" MaxLength="4" CssClass="ck-cart-field" style="text-align:center;"></asp:TextBox>
-                                        <asp:TextBox ID="txtCard4" runat="server" MaxLength="4" CssClass="ck-cart-field" style="text-align:center;"></asp:TextBox>
-                                    </div>
-                                    <div style="display:flex; gap:10px; margin-bottom:12px;">
-                                        <asp:TextBox ID="txtExpiryMonth" runat="server" MaxLength="2" placeholder="MM" CssClass="ck-cart-field"></asp:TextBox>
-                                        <asp:TextBox ID="txtExpiryYear" runat="server" MaxLength="2" placeholder="YY" CssClass="ck-cart-field"></asp:TextBox>
-                                        <asp:TextBox ID="txtCCV" runat="server" MaxLength="3" placeholder="CVV" CssClass="ck-cart-field"></asp:TextBox>
-                                    </div>
-                                    <asp:TextBox ID="txtCardName" runat="server" placeholder="Name on Card" CssClass="ck-cart-field" style="margin-bottom:14px;"></asp:TextBox>
-                                    <asp:Button ID="btnPayNow" runat="server" Text="Verify Details" CssClass="btn-checkout-cta" OnClick="btnPayNow_Click" />
-                                </asp:Panel>
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                    <asp:Panel ID="Panel2" runat="server" CssClass="update-panel" Visible="False">
+                        <center>
+                            <div id="dvLoader" runat="server" style="text-align:center; padding: 20px 0;">
+                                <i class="fas fa-spinner fa-spin" style="font-size: 40px; color: var(--primary); margin-bottom: 12px;"></i>
+                                <h3 style="font-size: 1.1rem; font-weight: 700; color: #0f172a;">Processing Order...</h3>
+                            </div>
+                            <div id="dvSuccess" runat="server" visible="false" style="text-align:center;">
+                                <i class="fas fa-circle-check" style="font-size: 55px; color: #16a34a; margin-bottom: 12px;"></i>
+                                <h2 style="font-size: 1.4rem; font-weight: 800; color: #16a34a; margin: 0 0 8px;">Order Confirmed!</h2>
+                                <p style="font-size: 14px; color: #64748b; margin-bottom: 16px;">
+                                    Your payment was verified successfully.<br />
+                                    Thank you for ordering with Cloud Kitchen!
+                                </p>
+                                <asp:Label ID="lblTransaction" runat="server" Font-Bold="true" ForeColor="#16a34a"></asp:Label>
+                                <br /><br />
+                                <asp:Button ID="Button1" runat="server" Text="Okay" CssClass="btn-checkout-cta" OnClientClick="closePanel(); return false;" />
+                            </div>
+                        </center>
+                    </asp:Panel>
+                    <asp:Timer ID="Timer1" runat="server" Interval="3000" Enabled="False" OnTick="Timer1_Tick"></asp:Timer>
+                </ContentTemplate>
+            </asp:UpdatePanel>
 
-                                <asp:Panel ID="Panel3" runat="server" Visible="false">
-                                    <h3>Total Amount: ₹<asp:Label ID="lbltotamt" runat="server"></asp:Label></h3>
-                                    <div style="margin-bottom:14px;">
-                                        <label>Transaction PIN</label>
-                                        <asp:TextBox ID="txtpin" runat="server" MaxLength="6" TextMode="Password" CssClass="ck-cart-field"></asp:TextBox>
-                                    </div>
-                                    <div style="display:flex; gap:10px;">
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn-checkout-cta" style="background:#64748b;" OnClick="btnCancel_Click" CausesValidation="false" />
-                                        <asp:Button ID="Button3" runat="server" Text="Pay Now" CssClass="btn-checkout-cta" Enabled="False" />
-                                    </div>
-                                </asp:Panel>
-                            </asp:Panel>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                </div>
-            </div>
+            <asp:Panel ID="up" runat="server" CssClass="update-panel" Visible="False">
+                <asp:Label ID="label1" runat="server" Visible="False"></asp:Label>
+                <asp:Panel ID="Panel1" runat="server" Visible="false">
+                    <h3>Card Details</h3>
+                    <div style="display:flex; gap:6px; margin-bottom:12px;">
+                        <asp:TextBox ID="txtCard1" runat="server" MaxLength="4" CssClass="ck-cart-field" style="text-align:center;"></asp:TextBox>
+                        <asp:TextBox ID="txtCard2" runat="server" MaxLength="4" CssClass="ck-cart-field" style="text-align:center;"></asp:TextBox>
+                        <asp:TextBox ID="txtCard3" runat="server" MaxLength="4" CssClass="ck-cart-field" style="text-align:center;"></asp:TextBox>
+                        <asp:TextBox ID="txtCard4" runat="server" MaxLength="4" CssClass="ck-cart-field" style="text-align:center;"></asp:TextBox>
+                    </div>
+                    <div style="display:flex; gap:10px; margin-bottom:12px;">
+                        <asp:TextBox ID="txtExpiryMonth" runat="server" MaxLength="2" placeholder="MM" CssClass="ck-cart-field"></asp:TextBox>
+                        <asp:TextBox ID="txtExpiryYear" runat="server" MaxLength="2" placeholder="YY" CssClass="ck-cart-field"></asp:TextBox>
+                        <asp:TextBox ID="txtCCV" runat="server" MaxLength="3" placeholder="CVV" CssClass="ck-cart-field"></asp:TextBox>
+                    </div>
+                    <asp:TextBox ID="txtCardName" runat="server" placeholder="Name on Card" CssClass="ck-cart-field" style="margin-bottom:14px;"></asp:TextBox>
+                    <asp:Button ID="btnPayNow" runat="server" Text="Verify Details" CssClass="btn-checkout-cta" OnClick="btnPayNow_Click" />
+                </asp:Panel>
+
+                <asp:Panel ID="Panel3" runat="server" Visible="false">
+                    <h3>Total Amount: ₹<asp:Label ID="lbltotamt" runat="server"></asp:Label></h3>
+                    <div style="margin-bottom:14px;">
+                        <label>Transaction PIN</label>
+                        <asp:TextBox ID="txtpin" runat="server" MaxLength="6" TextMode="Password" CssClass="ck-cart-field"></asp:TextBox>
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn-checkout-cta" style="background:#64748b;" OnClick="btnCancel_Click" CausesValidation="false" />
+                        <asp:Button ID="Button3" runat="server" Text="Pay Now" CssClass="btn-checkout-cta" Enabled="False" />
+                    </div>
+                </asp:Panel>
+            </asp:Panel>
 
             <asp:HiddenField ID="hdnPaymentId" runat="server" />
             <asp:HiddenField ID="hdnOrderId" runat="server" />
