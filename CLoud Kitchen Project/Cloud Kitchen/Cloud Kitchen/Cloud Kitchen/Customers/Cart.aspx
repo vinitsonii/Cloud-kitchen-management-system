@@ -697,7 +697,7 @@
     <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         <div class="ck-cart-hero">
             <div class="hero-inner">
-                <h1><i class="fas fa-bowl-food" style="color:#ff9f43;"></i> Your Food Cart</h1>
+                <h1><i class="fas fa-fire-burner" style="color:#ff9f43;"></i> Your Food Cart</h1>
                 <p>Review your selected dishes, enter delivery address, and proceed to checkout!</p>
             </div>
         </div>
