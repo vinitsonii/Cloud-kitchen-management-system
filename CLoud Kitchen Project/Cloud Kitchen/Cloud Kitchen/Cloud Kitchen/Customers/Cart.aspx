@@ -698,10 +698,7 @@
     <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         <div class="ck-cart-hero">
             <div class="hero-inner">
-                <div style="font-size: 2.6rem; color: #ff9f43; margin-bottom: 10px;">
-                    <i class="fas fa-basket-shopping"></i>
-                </div>
-                <h1>Your Food Cart</h1>
+                <h1><i class="fas fa-basket-shopping" style="color:var(--accent);"></i> Your Food Cart</h1>
                 <p>Review your selected dishes, enter delivery address, and proceed to checkout!</p>
             </div>
         </div>
