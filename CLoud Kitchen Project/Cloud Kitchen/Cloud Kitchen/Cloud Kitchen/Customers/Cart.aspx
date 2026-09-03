@@ -543,11 +543,112 @@
                 padding: 55px 20px;
             }
 
-            .ck-empty-cart h2 {
-                font-size: 1.7rem;
-                font-weight: 800;
-                color: var(--primary);
-                margin: 14px 0 8px;
+            /* 📱 PERFECT RESPONSIVE MOBILE FOOD CARD LAYOUT (DESKTOP UNCHANGED) */
+            @media (max-width: 768px) {
+                .cart-container-main {
+                    padding: 16px 10px 40px !important;
+                }
+
+                .cart-card-box {
+                    padding: 16px 12px !important;
+                    border-radius: 18px !important;
+                }
+
+                .plan2-bottom-grid {
+                    grid-template-columns: 1fr !important;
+                    gap: 16px !important;
+                }
+
+                /* HIDE TABLE HEADER ON MOBILE FOR CLEAN NATIVE FOOD CARDS */
+                .cart-items-table thead {
+                    display: none !important;
+                }
+
+                .cart-items-table,
+                .cart-items-table tbody,
+                .cart-items-table tr {
+                    display: block !important;
+                    width: 100% !important;
+                }
+
+                .cart-items-table tr {
+                    background: #ffffff !important;
+                    border: 1.5px solid #e2e8f0 !important;
+                    border-radius: 16px !important;
+                    padding: 14px !important;
+                    margin-bottom: 12px !important;
+                    position: relative !important;
+                    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04) !important;
+                }
+
+                .cart-items-table td {
+                    display: block !important;
+                    padding: 0 !important;
+                    border: none !important;
+                    text-align: left !important;
+                }
+
+                /* Cell 1: Dish Info (Image + Name) */
+                .cart-items-table td:nth-child(1) {
+                    padding-right: 40px !important;
+                    margin-bottom: 10px !important;
+                    padding-bottom: 10px !important;
+                    border-bottom: 1px dashed #e2e8f0 !important;
+                }
+
+                .cart-table-img {
+                    width: 54px !important;
+                    height: 54px !important;
+                    border-radius: 12px !important;
+                }
+
+                /* Cell 2: Unit Price */
+                .cart-items-table td:nth-child(2) {
+                    font-size: 0.88rem !important;
+                    color: #64748b !important;
+                    margin-bottom: 6px !important;
+                }
+
+                /* Cell 3 & 4: Quantity Stepper & Subtotal in Bottom Row */
+                .cart-items-table td:nth-child(3) {
+                    float: right !important;
+                    margin-top: -34px !important;
+                }
+
+                .cart-items-table td:nth-child(4) {
+                    font-size: 1.15rem !important;
+                    font-weight: 900 !important;
+                    color: var(--primary) !important;
+                    margin-top: 4px !important;
+                }
+
+                /* Cell 5: Remove 'X' Badge in Top Right Corner */
+                .cart-items-table td:nth-child(5) {
+                    position: absolute !important;
+                    top: 12px !important;
+                    right: 12px !important;
+                    width: 32px !important;
+                    height: 32px !important;
+                }
+
+                .btn-remove-item {
+                    width: 32px !important;
+                    height: 32px !important;
+                }
+
+                .cart-stepper-wrap {
+                    padding: 2px 6px !important;
+                }
+
+                .qty-step-btn {
+                    width: 28px !important;
+                    height: 28px !important;
+                    font-size: 14px !important;
+                }
+
+                .qty-val-display {
+                    font-size: 0.95rem !important;
+                }
             }
         </style>
     </asp:Content>
