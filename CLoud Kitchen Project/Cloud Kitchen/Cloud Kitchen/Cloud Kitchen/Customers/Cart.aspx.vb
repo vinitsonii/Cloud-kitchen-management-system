@@ -2,9 +2,31 @@ Imports System.Data.SqlClient
 Imports System.Configuration
 Imports System.Net
 Imports System.Net.Mail
+Imports System.Web.Services
+
 Public Class Cart
     Inherits System.Web.UI.Page
     Dim connString As String = ConfigurationManager.ConnectionStrings("constr").ConnectionString
+
+    <WebMethod(EnableSession:=True)>
+    Public Shared Function SyncQuantity(ByVal menuId As String, ByVal newQty As Integer) As Boolean
+        Try
+            If HttpContext.Current.Session("Cart") IsNot Nothing Then
+                Dim cart As List(Of Dictionary(Of String, Object)) = CType(HttpContext.Current.Session("Cart"), List(Of Dictionary(Of String, Object)))
+                Dim item = cart.FirstOrDefault(Function(x) x("m_id").ToString() = menuId)
+                If item IsNot Nothing Then
+                    If newQty > 25 Then newQty = 25
+                    If newQty < 1 Then newQty = 1
+                    item("quantity") = newQty
+                    item("total_price") = newQty * Convert.ToDecimal(item("m_final_price"))
+                End If
+                HttpContext.Current.Session("Cart") = cart
+                Return True
+            End If
+        Catch ex As Exception
+        End Try
+        Return False
+    End Function
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
         If Session("c_id") Is Nothing Then

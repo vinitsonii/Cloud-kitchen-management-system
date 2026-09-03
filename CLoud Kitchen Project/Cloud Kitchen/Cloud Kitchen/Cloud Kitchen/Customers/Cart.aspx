@@ -608,6 +608,7 @@
                                                                 CssClass="qty-step-btn"
                                                                 CommandName="Decrease"
                                                                 CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>'
+                                                                data-id='<%# GetValue(Container.DataItem, "m_id") %>'
                                                                 OnClientClick="return animateQtyStep(this, -1);"
                                                                 CausesValidation="false"
                                                                 title="Decrease Quantity">
@@ -620,6 +621,7 @@
                                                                 CssClass="qty-step-btn"
                                                                 CommandName="Increase"
                                                                 CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>'
+                                                                data-id='<%# GetValue(Container.DataItem, "m_id") %>'
                                                                 OnClientClick="return animateQtyStep(this, 1);"
                                                                 CausesValidation="false"
                                                                 title="Increase Quantity">
@@ -875,13 +877,64 @@
         </div>
 
         <script type="text/javascript">
+            function updateCartTotals() {
+                var table = document.querySelector('.cart-items-table');
+                if (!table) return;
+                
+                var total = 0;
+                var rows = table.querySelectorAll('tbody tr');
+                rows.forEach(function(row) {
+                    var subtotalTd = row.cells[3];
+                    if (subtotalTd) {
+                        var val = parseFloat(subtotalTd.innerText.replace(/[^\d.]/g, '')) || 0;
+                        total += val;
+                    }
+                });
+                
+                var formattedTotal = total.toFixed(2);
+                var lblTotal = document.getElementById('<%= lblTotalPrice.ClientID %>') || document.querySelector('[id*="lblTotalPrice"]');
+                var lblGrand = document.getElementById('<%= lblGrandTotal.ClientID %>') || document.querySelector('[id*="lblGrandTotal"]');
+                
+                if (lblTotal) lblTotal.innerText = formattedTotal;
+                if (lblGrand) lblGrand.innerText = formattedTotal;
+            }
+
+            function updateStepperButtonsState(stepper, qty) {
+                if (!stepper) return;
+                var btnMinus = stepper.querySelector('[id*="btnMinus"]');
+                var btnPlus = stepper.querySelector('[id*="btnPlus"]');
+
+                if (btnPlus) {
+                    if (qty >= 25) {
+                        btnPlus.style.opacity = '0.35';
+                        btnPlus.style.cursor = 'not-allowed';
+                        btnPlus.style.pointerEvents = 'none';
+                    } else {
+                        btnPlus.style.opacity = '1';
+                        btnPlus.style.cursor = 'pointer';
+                        btnPlus.style.pointerEvents = 'auto';
+                    }
+                }
+                if (btnMinus) {
+                    if (qty <= 1) {
+                        btnMinus.style.opacity = '0.35';
+                        btnMinus.style.cursor = 'not-allowed';
+                        btnMinus.style.pointerEvents = 'none';
+                    } else {
+                        btnMinus.style.opacity = '1';
+                        btnMinus.style.cursor = 'pointer';
+                        btnMinus.style.pointerEvents = 'auto';
+                    }
+                }
+            }
+
             function animateQtyStep(btn, delta) {
                 try {
                     var stepper = btn.closest('.cart-stepper-wrap');
-                    if (!stepper) return true;
+                    if (!stepper) return false;
 
                     var displaySpan = stepper.querySelector('.qty-val-display');
-                    if (!displaySpan) return true;
+                    if (!displaySpan) return false;
 
                     var currentQty = parseInt(displaySpan.innerText.trim(), 10) || 1;
                     var newQty = currentQty + delta;
@@ -890,17 +943,17 @@
                         return false;
                     }
 
-                    // Instant UI update (0ms)
+                    // 1. Instant 0ms UI update
                     displaySpan.innerText = newQty;
 
-                    // Smooth spring bounce animation
+                    // 2. Smooth scale bounce animation
                     displaySpan.style.transition = 'transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)';
                     displaySpan.style.transform = 'scale(1.35)';
                     setTimeout(function () {
                         displaySpan.style.transform = 'scale(1)';
                     }, 150);
 
-                    // Instant subtotal calculation
+                    // 3. Subtotal update for this row
                     var tr = btn.closest('tr');
                     if (tr) {
                         var priceTd = tr.cells[1];
@@ -911,10 +964,26 @@
                             subtotalTd.innerText = '₹' + newSubtotal;
                         }
                     }
+
+                    // 4. Instant Grand Total calculation across all rows
+                    updateCartTotals();
+
+                    // 5. Update disabled state visually at max 25 / min 1
+                    updateStepperButtonsState(stepper, newQty);
+
+                    // 6. Silent background sync with server Session("Cart")
+                    var menuId = btn.getAttribute('data-id');
+                    if (menuId) {
+                        fetch('Cart.aspx/SyncQuantity', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                            body: JSON.stringify({ menuId: menuId, newQty: newQty })
+                        }).catch(function (err) { console.log(err); });
+                    }
                 } catch (e) {
                     console.log(e);
                 }
-                return true;
+                return false; // RETURN FALSE STOPS ALL PAGE REFRESHES & ALL WEBFORMS POSTBACKS!
             }
 
             function onCheckoutClick(btn) {
