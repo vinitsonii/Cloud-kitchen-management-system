@@ -79,7 +79,9 @@ Public Class Cart
                 lblTotalPrice.Text = total.ToString("F2")
                 lblGrandTotal.Text = total.ToString("F2")
 
-                BindAreaPincodes()
+                If Not IsPostBack Then
+                    BindAreaPincodes()
+                End If
             Else
                 pnlfill.Visible = False
                 pnlempty.Visible = True
@@ -87,6 +89,10 @@ Public Class Cart
         Else
             pnlfill.Visible = False
             pnlempty.Visible = True
+        End If
+
+        If upCart IsNot Nothing Then
+            upCart.Update()
         End If
     End Sub
     Public Function GetImageUrl(ByVal item As Object) As String
