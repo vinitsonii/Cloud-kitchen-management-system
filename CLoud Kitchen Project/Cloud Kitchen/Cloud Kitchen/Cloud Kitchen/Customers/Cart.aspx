@@ -27,12 +27,12 @@
             color: var(--text-main);
         }
 
-        /* ORIGINAL HERO BANNER STYLING */
+        /* HERO BANNER STYLING (NO GRADIENT) */
         .ck-cart-hero {
             position: relative;
             width: 100%;
             min-height: 220px;
-            background: linear-gradient(135deg, rgba(45, 78, 72, 0.94), rgba(79, 126, 118, 0.92)), url('../Images/cp8.jpeg') center/cover no-repeat;
+            background: url('../Images/cp8.jpeg') center/cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
