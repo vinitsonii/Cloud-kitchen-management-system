@@ -14,6 +14,7 @@ Public Class Cart
         If Not IsPostBack Then
             LoadCartItems()
             Bindpincode()
+            BindCities()
         End If
 
         If Request("__EVENTTARGET") = "PaymentSuccess" Then
@@ -173,7 +174,7 @@ Public Class Cart
         Dim houseNo As String = txtHouseNo.Text.Trim()
         Dim street As String = txtStreet.Text.Trim()
         Dim landmark As String = txtLandmark.Text.Trim()
-        Dim city As String = txtCity.Text.Trim()
+        Dim city As String = ddlCity.SelectedValue.Trim()
 
         If String.IsNullOrEmpty(houseNo) Then
             ScriptManager.RegisterStartupScript(Me, Me.GetType(), "hNoErr", "alert('Please enter your House / Flat / Building No.!');", True)
@@ -186,7 +187,7 @@ Public Class Cart
         End If
 
         If String.IsNullOrEmpty(city) Then
-            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "cityErr", "alert('Please enter your City / Town!');", True)
+            ScriptManager.RegisterStartupScript(Me, Me.GetType(), "cityErr", "alert('Please select your City / Area!');", True)
             Exit Sub
         End If
 
@@ -538,6 +539,19 @@ Public Class Cart
             ddlpincode.DataBind()
         End Using
         ddlpincode.Items.Insert(0, New ListItem("📍 --Select Pincode --", ""))
+    End Sub
+
+    Private Sub BindCities()
+        Using conn As New SqlConnection(connString)
+            Dim cmd As New SqlCommand("SELECT DISTINCT Area_Name FROM Area_Pincode WHERE Area_Name IS NOT NULL AND Area_Name <> '' ORDER BY Area_Name ASC", conn)
+            conn.Open()
+            Dim rdr As SqlDataReader = cmd.ExecuteReader()
+            ddlCity.DataSource = rdr
+            ddlCity.DataTextField = "Area_Name"
+            ddlCity.DataValueField = "Area_Name"
+            ddlCity.DataBind()
+        End Using
+        ddlCity.Items.Insert(0, New ListItem("📍 Select City / Area", ""))
     End Sub
     'Protected Sub Button3_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button3.Click
 

@@ -594,9 +594,11 @@
                                     </div>
 
                                     <div class="form-group-cart">
-                                        <label for="txtCity">City / Town</label>
-                                        <asp:TextBox ID="txtCity" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" placeholder="e.g. Anand"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="txtCity" ErrorMessage="⚠ City / Town is required." CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
+                                        <label for="ddlCity">City / Area</label>
+                                        <asp:DropDownList ID="ddlCity" runat="server" ClientIDMode="Static" CssClass="ck-cart-field">
+                                            <asp:ListItem Text="📍 Select City / Area" Value=""></asp:ListItem>
+                                        </asp:DropDownList>
+                                        <asp:RequiredFieldValidator ID="rfvCity" runat="server" ControlToValidate="ddlCity" ErrorMessage="⚠ Please select your City / Area." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
                                     </div>
                                 </div>
 

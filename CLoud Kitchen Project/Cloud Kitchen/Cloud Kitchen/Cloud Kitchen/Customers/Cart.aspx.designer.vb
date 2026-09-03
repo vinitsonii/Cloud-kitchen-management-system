@@ -111,9 +111,9 @@ Partial Public Class Cart
     Protected WithEvents txtLandmark As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtCity control.
+    '''ddlCity control.
     '''</summary>
-    Protected WithEvents txtCity As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlCity As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''rfvCity control.
