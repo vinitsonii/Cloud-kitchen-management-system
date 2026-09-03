@@ -197,10 +197,9 @@
             color: #16a34a;
         }
 
-        /* DELETE BUTTON - HIGH VISIBILITY RED BADGE */
+        /* DELETE BUTTON - HIGH VISIBILITY SVG TRASH ICON */
         .btn-remove-item {
             background: #fee2e2 !important;
-            color: #dc2626 !important;
             border: 1.5px solid #fca5a5 !important;
             width: 38px !important;
             height: 38px !important;
@@ -208,20 +207,26 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            font-size: 15px !important;
-            font-weight: 700 !important;
             cursor: pointer !important;
             text-decoration: none !important;
             transition: all 0.2s ease !important;
             box-shadow: 0 2px 8px rgba(220, 38, 38, 0.15) !important;
         }
 
+        .btn-remove-item svg {
+            stroke: #dc2626 !important;
+            transition: stroke 0.2s ease !important;
+        }
+
         .btn-remove-item:hover {
             background: #dc2626 !important;
-            color: #ffffff !important;
             border-color: #dc2626 !important;
             transform: scale(1.1) !important;
             box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35) !important;
+        }
+
+        .btn-remove-item:hover svg {
+            stroke: #ffffff !important;
         }
 
         .add-more-bar {
@@ -426,7 +431,12 @@
                                         <div class="cart-item-right">
                                             <span class="cart-item-total-price">₹<%# GetValue(Container.DataItem, "total_price") %></span>
                                             <asp:LinkButton ID="btnRemove" runat="server" CssClass="btn-remove-item" CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>' OnCommand="RemoveCartItem" CausesValidation="false" title="Remove item from cart">
-                                                <i class="fas fa-trash-can" style="color:#dc2626;"></i>
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                </svg>
                                             </asp:LinkButton>
                                         </div>
                                     </div>
