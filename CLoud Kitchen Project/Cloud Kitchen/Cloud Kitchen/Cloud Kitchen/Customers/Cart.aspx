@@ -363,6 +363,113 @@
             background: linear-gradient(135deg, #3f6861, #2d4e48);
         }
 
+        /* FULL-SCREEN ORDER PROCESSING OVERLAY */
+        .ck-processing-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.78);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .ck-processing-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 40px 36px;
+            width: min(440px, calc(100vw - 32px));
+            text-align: center;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+            border: 1.5px solid rgba(255,255,255,0.4);
+            animation: popUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .spinner-ring-wrap {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner-pulse-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 4px solid #f1f5f9;
+            border-top: 4px solid var(--primary);
+            border-right: 4px solid var(--accent);
+            animation: spinRing 1s linear infinite;
+        }
+
+        .spinner-icon {
+            font-size: 42px;
+            animation: floatIcon 2s ease-in-out infinite;
+        }
+
+        @keyframes spinRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes popUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .proc-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 8px;
+        }
+
+        .proc-subtitle {
+            font-size: 0.95rem;
+            color: #64748b;
+            margin: 0 0 20px;
+            line-height: 1.5;
+        }
+
+        .proc-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .proc-progress-fill {
+            height: 100%;
+            width: 10%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            transition: width 0.4s ease;
+            animation: fillProgress 3s ease-in-out forwards;
+        }
+
+        @keyframes fillProgress {
+            0% { width: 10%; }
+            50% { width: 65%; }
+            100% { width: 90%; }
+        }
+
         /* MODAL OVERLAY & POPUP */
         .overlay {
             position: fixed;
@@ -523,7 +630,7 @@
                                     <asp:RequiredFieldValidator ID="rfvPaymentType" runat="server" ControlToValidate="ddlPaymentType" ErrorMessage="⚠ Please select a payment method." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
                                 </div>
 
-                                <asp:Button ID="btnCheckout" runat="server" Text="🚀 Place Order Now" CssClass="btn-checkout-cta" ValidationGroup="DeliveryDetails" OnClick="Checkout_Click" />
+                                <asp:Button ID="btnCheckout" runat="server" Text="🚀 Place Order Now" CssClass="btn-checkout-cta" ValidationGroup="DeliveryDetails" OnClick="Checkout_Click" OnClientClick="return showOrderProcessingOverlay();" />
                             </div>
 
                         </div>
@@ -607,13 +714,42 @@
         </asp:Panel>
     </div>
 
+    <!-- PREMIUM ORDER PROCESSING OVERLAY -->
+    <div id="orderProcessingOverlay" class="ck-processing-overlay">
+        <div class="ck-processing-card">
+            <div class="spinner-ring-wrap">
+                <div class="spinner-pulse-ring"></div>
+                <div class="spinner-icon">🍳</div>
+            </div>
+            <h3 id="procTitle" class="proc-title">Securing Your Order...</h3>
+            <p id="procSub" class="proc-subtitle">Sending your items to our kitchen master chef 👨‍🍳</p>
+            <div class="proc-progress-bar">
+                <div class="proc-progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript">
+        function showOrderProcessingOverlay() {
+            if (typeof (Page_ClientValidate) === 'function') {
+                if (!Page_ClientValidate('DeliveryDetails')) {
+                    return false;
+                }
+            }
+            var ov = document.getElementById("orderProcessingOverlay");
+            if (ov) {
+                ov.style.display = "flex";
+            }
+            return true;
+        }
+
         function showPanel() {
             var ov = document.getElementById("overlay");
             if (ov) ov.style.display = "block";
             var p2 = document.getElementById('<%= Panel2.ClientID %>');
             if (p2) p2.style.display = "block";
         }
+
         function closePanel() {
             var ov = document.getElementById("overlay");
             if (ov) ov.style.display = "none";
