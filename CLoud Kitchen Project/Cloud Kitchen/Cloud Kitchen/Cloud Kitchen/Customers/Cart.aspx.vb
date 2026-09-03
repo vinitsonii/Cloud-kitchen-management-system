@@ -126,10 +126,16 @@ Public Class Cart
 
         End If
     End Sub
+
+
     Protected Sub IncreaseQuantity(ByVal sender As Object, ByVal e As CommandEventArgs)
+        IncreaseQuantityById(e.CommandArgument.ToString())
+    End Sub
+
+    Private Sub IncreaseQuantityById(ByVal menuId As String)
         If Session("Cart") IsNot Nothing Then
             Dim cart As List(Of Dictionary(Of String, Object)) = CType(Session("Cart"), List(Of Dictionary(Of String, Object)))
-            Dim item = cart.FirstOrDefault(Function(x) x("m_id").ToString() = e.CommandArgument.ToString())
+            Dim item = cart.FirstOrDefault(Function(x) x("m_id").ToString() = menuId)
             If item IsNot Nothing Then
                 Dim currentQty As Integer = Convert.ToInt32(item("quantity"))
                 If currentQty < 25 Then
@@ -144,9 +150,13 @@ Public Class Cart
     End Sub
 
     Protected Sub DecreaseQuantity(ByVal sender As Object, ByVal e As CommandEventArgs)
+        DecreaseQuantityById(e.CommandArgument.ToString())
+    End Sub
+
+    Private Sub DecreaseQuantityById(ByVal menuId As String)
         If Session("Cart") IsNot Nothing Then
             Dim cart As List(Of Dictionary(Of String, Object)) = CType(Session("Cart"), List(Of Dictionary(Of String, Object)))
-            Dim item = cart.FirstOrDefault(Function(x) x("m_id").ToString() = e.CommandArgument.ToString())
+            Dim item = cart.FirstOrDefault(Function(x) x("m_id").ToString() = menuId)
             If item IsNot Nothing Then
                 Dim currentQty As Integer = Convert.ToInt32(item("quantity"))
                 If currentQty <= 1 Then
@@ -163,9 +173,13 @@ Public Class Cart
     End Sub
 
     Protected Sub RemoveCartItem(ByVal sender As Object, ByVal e As CommandEventArgs)
+        RemoveCartItemById(e.CommandArgument.ToString())
+    End Sub
+
+    Private Sub RemoveCartItemById(ByVal menuId As String)
         If Session("Cart") IsNot Nothing Then
             Dim cart As List(Of Dictionary(Of String, Object)) = CType(Session("Cart"), List(Of Dictionary(Of String, Object)))
-            cart.RemoveAll(Function(x) x("m_id").ToString() = e.CommandArgument.ToString())
+            cart.RemoveAll(Function(x) x("m_id").ToString() = menuId)
             Session("Cart") = cart
             LoadCartItems()
         End If
@@ -400,7 +414,14 @@ Public Class Cart
     End Sub
 
     Protected Sub rptCartItems_ItemCommand(ByVal source As Object, ByVal e As System.Web.UI.WebControls.RepeaterCommandEventArgs) Handles rptCartItems.ItemCommand
-
+        Dim menuId As String = e.CommandArgument.ToString()
+        If e.CommandName = "Increase" Then
+            IncreaseQuantityById(menuId)
+        ElseIf e.CommandName = "Decrease" Then
+            DecreaseQuantityById(menuId)
+        ElseIf e.CommandName = "Remove" Then
+            RemoveCartItemById(menuId)
+        End If
     End Sub
 
     Protected Sub btnPayNow_Click(ByVal sender As Object, ByVal e As EventArgs)

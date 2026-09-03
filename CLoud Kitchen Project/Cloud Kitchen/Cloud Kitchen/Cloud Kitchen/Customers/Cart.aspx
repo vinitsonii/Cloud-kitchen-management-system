@@ -588,7 +588,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <asp:Repeater ID="rptCartItems" runat="server">
+                                        <asp:Repeater ID="rptCartItems" runat="server" OnItemCommand="rptCartItems_ItemCommand">
                                             <ItemTemplate>
                                                 <tr>
                                                     <td>
@@ -608,8 +608,9 @@
                                                         <div class="cart-stepper-wrap" style="display:inline-flex;">
                                                             <asp:LinkButton ID="btnMinus" runat="server"
                                                                 CssClass="qty-step-btn"
+                                                                CommandName="Decrease"
                                                                 CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>'
-                                                                OnCommand="DecreaseQuantity" CausesValidation="false"
+                                                                CausesValidation="false"
                                                                 title="Decrease Quantity">
                                                                 <b>−</b>
                                                             </asp:LinkButton>
@@ -618,8 +619,9 @@
                                                             </span>
                                                             <asp:LinkButton ID="btnPlus" runat="server"
                                                                 CssClass="qty-step-btn"
+                                                                CommandName="Increase"
                                                                 CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>'
-                                                                OnCommand="IncreaseQuantity" CausesValidation="false"
+                                                                CausesValidation="false"
                                                                 title="Increase Quantity">
                                                                 <b>+</b>
                                                             </asp:LinkButton>
@@ -632,8 +634,9 @@
                                                     <td style="text-align:center;">
                                                         <asp:LinkButton ID="btnRemove" runat="server"
                                                             CssClass="btn-remove-item"
+                                                            CommandName="Remove"
                                                             CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>'
-                                                            OnCommand="RemoveCartItem" CausesValidation="false"
+                                                            CausesValidation="false"
                                                             title="Remove item from cart">
                                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                                                                 stroke="#dc2626" stroke-width="2.5"
