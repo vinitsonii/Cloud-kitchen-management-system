@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Order Confirmation" Language="vb" AutoEventWireup="false" MasterPageFile="~/Customers/Customer.Master" CodeBehind="OrderConfirmation.aspx.vb" Inherits="Cloud_Kitchen.OrderConfirmation" %>
+<%@ Page Title="Order Confirmation" Language="vb" AutoEventWireup="false" MasterPageFile="~/Customers/Customer.Master" CodeBehind="OrderConfirmation.aspx.vb" Inherits="Cloud_Kitchen.OrderConfirmation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
@@ -161,35 +161,38 @@
         .detail-value.price { color: var(--primary); font-size: 1.05rem; }
 
         .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: .82rem;
-            font-weight: 700;
-            letter-spacing: .3px;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            padding: 6px 16px !important;
+            border-radius: 50px !important;
+            font-size: 0.85rem !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.5px !important;
+            text-transform: uppercase !important;
+            box-shadow: 0 3px 10px rgba(217, 119, 6, 0.12) !important;
         }
 
         .status-pending {
-            background: rgba(255,152,0,.12);
-            color: var(--warning);
-            border: 1.5px solid rgba(255,152,0,.3);
+            background: #fef3c7 !important;
+            color: #b45309 !important;
+            border: 1.5px solid #fcd34d !important;
         }
 
         .status-success {
-            background: rgba(76,175,80,.12);
-            color: var(--success);
-            border: 1.5px solid rgba(76,175,80,.3);
+            background: #dcfce7 !important;
+            color: #15803d !important;
+            border: 1.5px solid #86efac !important;
         }
 
         .ck-pending-panel {
             margin: 0 2rem 1.6rem;
-            background: rgba(255,152,0,.07);
-            border: 1.5px solid rgba(255,152,0,.28);
-            border-radius: 14px;
-            padding: 1.3rem 1.5rem;
+            background: #fffbeb;
+            border: 1.5px solid #fde68a;
+            border-radius: 18px;
+            padding: 1.4rem 1.6rem;
             text-align: center;
+            box-shadow: 0 4px 16px rgba(217, 119, 6, 0.06);
         }
 
         .ck-pending-panel p {

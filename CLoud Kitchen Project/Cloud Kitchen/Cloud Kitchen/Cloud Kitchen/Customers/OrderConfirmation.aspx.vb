@@ -41,15 +41,21 @@ Public Class OrderConfirmation
                 lblTransactionNumber.Text = reader("transaction_number").ToString()
                 lblTotalAmount.Text = Convert.ToDecimal(reader("total_amount")).ToString("F2")
 
-                Dim orderStatus As String = reader("order_status").ToString()
-                lblOrderStatus.Text = orderStatus
+                Dim orderStatus As String = reader("order_status").ToString().Trim()
 
                 ' Show message and button only if status is Pending
-                If orderStatus = "Pending" Then
-                    lblOrderStatus.CssClass = "status-pending"
+                If orderStatus.Equals("Pending", StringComparison.OrdinalIgnoreCase) Then
+                    lblOrderStatus.Text = "⏳ Pending"
+                    lblOrderStatus.CssClass = "status-badge status-pending"
                     pnlPendingMessage.Visible = True
+                ElseIf orderStatus.Equals("Completed", StringComparison.OrdinalIgnoreCase) OrElse orderStatus.Equals("Delivered", StringComparison.OrdinalIgnoreCase) Then
+                    lblOrderStatus.Text = "✅ " & orderStatus
+                    lblOrderStatus.CssClass = "status-badge status-success"
+                    pnlPendingMessage.Visible = False
                 Else
-                    lblOrderStatus.CssClass = "status-success"
+                    lblOrderStatus.Text = "👨‍🍳 " & orderStatus
+                    lblOrderStatus.CssClass = "status-badge status-pending"
+                    pnlPendingMessage.Visible = False
                 End If
             Else
                 Response.Redirect("MyOrders.aspx")
