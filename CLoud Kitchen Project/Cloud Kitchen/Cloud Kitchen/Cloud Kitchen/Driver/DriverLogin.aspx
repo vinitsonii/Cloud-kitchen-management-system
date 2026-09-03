@@ -266,7 +266,7 @@
                 align-items: center;
             }
 
-            .input-wrapper i {
+            .input-wrapper i.left-icon {
                 position: absolute;
                 left: 14px;
                 color: var(--ck-muted);
@@ -275,10 +275,25 @@
                 transition: color 0.2s;
             }
 
+            .toggle-pw-btn {
+                position: absolute;
+                right: 14px;
+                color: #94a3b8;
+                font-size: 1.1rem;
+                cursor: pointer;
+                transition: color 0.2s ease, transform 0.15s ease;
+                z-index: 10;
+            }
+
+            .toggle-pw-btn:hover {
+                color: var(--ck-primary);
+                transform: scale(1.1);
+            }
+
             .custom-input {
                 width: 100% !important;
                 height: 48px;
-                padding: 0 14px 0 42px;
+                padding: 0 42px 0 42px;
                 border-radius: 12px;
                 border: 1.5px solid rgba(15, 25, 35, 0.14);
                 font-size: 0.92rem;
@@ -396,6 +411,23 @@
                 }
             }
         </style>
+        <script type="text/javascript">
+            function toggleDriverPassword() {
+                var input = document.getElementById('<%= txtPassword.ClientID %>');
+                var icon = document.getElementById('toggleDriverPwIcon');
+                if (input && icon) {
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.classList.remove('bi-eye');
+                        icon.classList.add('bi-eye-slash');
+                    } else {
+                        input.type = 'password';
+                        icon.classList.remove('bi-eye-slash');
+                        icon.classList.add('bi-eye');
+                    }
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -446,7 +478,7 @@
                                 <asp:TextBox ID="txtPhone" runat="server" CssClass="custom-input"
                                     Placeholder="Enter 10-digit phone number" TextMode="Phone" MaxLength="10">
                                 </asp:TextBox>
-                                <i class="bi bi-telephone"></i>
+                                <i class="bi bi-telephone left-icon"></i>
                             </div>
                         </div>
 
@@ -455,7 +487,8 @@
                             <div class="input-wrapper">
                                 <asp:TextBox ID="txtPassword" runat="server" CssClass="custom-input" TextMode="Password"
                                     Placeholder="Enter password"></asp:TextBox>
-                                <i class="bi bi-lock"></i>
+                                <i class="bi bi-lock left-icon"></i>
+                                <i class="bi bi-eye toggle-pw-btn" onclick="toggleDriverPassword()" id="toggleDriverPwIcon" title="Toggle Password Visibility"></i>
                             </div>
                         </div>
 
