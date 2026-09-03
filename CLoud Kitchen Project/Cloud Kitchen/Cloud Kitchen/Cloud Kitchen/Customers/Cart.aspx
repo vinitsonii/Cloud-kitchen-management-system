@@ -623,9 +623,9 @@
                                 <div class="form-group-cart">
                                     <label for="ddlPaymentType">Payment Method</label>
                                     <asp:DropDownList ID="ddlPaymentType" runat="server" ClientIDMode="Static" CssClass="ck-cart-field">
-                                        <asp:ListItem Value="">💵 Select Payment Method</asp:ListItem>
-                                        <asp:ListItem Value="Cash on Delivery">Cash on Delivery</asp:ListItem>
-                                        <asp:ListItem Value="Razorpay">Razorpay</asp:ListItem>
+                                        <asp:ListItem Value="">💳 Select Payment Method</asp:ListItem>
+                                        <asp:ListItem Value="Cash on Delivery">💵 Cash on Delivery (COD)</asp:ListItem>
+                                        <asp:ListItem Value="Razorpay">💳 Online Payment (UPI, Cards, NetBanking)</asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvPaymentType" runat="server" ControlToValidate="ddlPaymentType" ErrorMessage="⚠ Please select a payment method." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
                                 </div>
@@ -736,6 +736,16 @@
                     return false;
                 }
             }
+            var payElem = document.getElementById("ddlPaymentType");
+            var hdnPayId = document.getElementById('<%= hdnPaymentId.ClientID %>');
+            var isRazorpay = payElem && payElem.value === "Razorpay";
+            var hasPaymentId = hdnPayId && hdnPayId.value && hdnPayId.value.trim() !== "";
+
+            // If Razorpay is chosen and payment is not completed yet, open Razorpay popup without showing overlay
+            if (isRazorpay && !hasPaymentId) {
+                return true;
+            }
+
             var ov = document.getElementById("orderProcessingOverlay");
             if (ov) {
                 ov.style.display = "flex";
