@@ -64,6 +64,14 @@ Public Class Cart
                 pnlfill.Visible = True
                 pnlempty.Visible = False
 
+                ' Cap max quantity of any item at 25
+                For Each item In cart
+                    If Convert.ToInt32(item("quantity")) > 25 Then
+                        item("quantity") = 25
+                        item("total_price") = 25 * Convert.ToDecimal(item("m_final_price"))
+                    End If
+                Next
+
                 rptCartItems.DataSource = cart
                 rptCartItems.DataBind()
 
@@ -118,9 +126,11 @@ Public Class Cart
             Dim item = cart.FirstOrDefault(Function(x) x("m_id").ToString() = e.CommandArgument.ToString())
             If item IsNot Nothing Then
                 Dim currentQty As Integer = Convert.ToInt32(item("quantity"))
-                Dim newQty As Integer = currentQty + 1
-                item("quantity") = newQty
-                item("total_price") = newQty * Convert.ToDecimal(item("m_final_price"))
+                If currentQty < 25 Then
+                    Dim newQty As Integer = currentQty + 1
+                    item("quantity") = newQty
+                    item("total_price") = newQty * Convert.ToDecimal(item("m_final_price"))
+                End If
             End If
             Session("Cart") = cart
             LoadCartItems()

@@ -171,8 +171,10 @@ Public Class Menu
                 Dim existingItem = cart.FirstOrDefault(Function(x) x("m_id") = menuId)
 
                 If existingItem IsNot Nothing Then
-                    existingItem("quantity") = CInt(existingItem("quantity")) + 1
-                    existingItem("total_price") = CDec(existingItem("quantity")) * CDec(existingItem("m_final_price"))
+                    Dim newQty As Integer = CInt(existingItem("quantity")) + 1
+                    If newQty > 25 Then newQty = 25
+                    existingItem("quantity") = newQty
+                    existingItem("total_price") = CDec(newQty) * CDec(existingItem("m_final_price"))
                 Else
                     menuItem("quantity") = 1
                     menuItem("total_price") = CDec(menuItem("m_final_price"))
