@@ -608,6 +608,7 @@
                                                                 CssClass="qty-step-btn"
                                                                 CommandName="Decrease"
                                                                 CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>'
+                                                                OnClientClick="return animateQtyStep(this, -1);"
                                                                 CausesValidation="false"
                                                                 title="Decrease Quantity">
                                                                 <b>−</b>
@@ -619,6 +620,7 @@
                                                                 CssClass="qty-step-btn"
                                                                 CommandName="Increase"
                                                                 CommandArgument='<%# GetValue(Container.DataItem, "m_id") %>'
+                                                                OnClientClick="return animateQtyStep(this, 1);"
                                                                 CausesValidation="false"
                                                                 title="Increase Quantity">
                                                                 <b>+</b>
@@ -873,6 +875,48 @@
         </div>
 
         <script type="text/javascript">
+            function animateQtyStep(btn, delta) {
+                try {
+                    var stepper = btn.closest('.cart-stepper-wrap');
+                    if (!stepper) return true;
+
+                    var displaySpan = stepper.querySelector('.qty-val-display');
+                    if (!displaySpan) return true;
+
+                    var currentQty = parseInt(displaySpan.innerText.trim(), 10) || 1;
+                    var newQty = currentQty + delta;
+
+                    if (newQty < 1 || newQty > 25) {
+                        return false;
+                    }
+
+                    // Instant UI update (0ms)
+                    displaySpan.innerText = newQty;
+
+                    // Smooth spring bounce animation
+                    displaySpan.style.transition = 'transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    displaySpan.style.transform = 'scale(1.35)';
+                    setTimeout(function () {
+                        displaySpan.style.transform = 'scale(1)';
+                    }, 150);
+
+                    // Instant subtotal calculation
+                    var tr = btn.closest('tr');
+                    if (tr) {
+                        var priceTd = tr.cells[1];
+                        var subtotalTd = tr.cells[3];
+                        if (priceTd && subtotalTd) {
+                            var unitPrice = parseFloat(priceTd.innerText.replace(/[^\d.]/g, '')) || 0;
+                            var newSubtotal = (unitPrice * newQty).toFixed(2);
+                            subtotalTd.innerText = '₹' + newSubtotal;
+                        }
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
+                return true;
+            }
+
             function onCheckoutClick(btn) {
                 if (typeof (Page_ClientValidate) === 'function') {
                     if (!Page_ClientValidate('DeliveryDetails')) {
