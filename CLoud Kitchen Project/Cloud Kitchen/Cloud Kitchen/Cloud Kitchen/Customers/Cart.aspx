@@ -29,34 +29,47 @@
                 color: var(--text-main);
             }
 
-            /* ELEGANT HERO BANNER WITH BACKGROUND IMAGE */
+            /* ELEGANT HERO BANNER MATCHING MENU & MYORDERS PAGES */
             .ck-cart-hero {
                 position: relative;
                 width: 100%;
-                min-height: 180px;
-                background: linear-gradient(135deg, rgba(30, 50, 46, 0.85), rgba(79, 126, 118, 0.88)), url('../Images/cp8.jpeg') center/cover no-repeat;
+                min-height: 280px;
+                background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(53, 91, 84, 0.85)),
+                            url('../Images/menubg.jpg') center/cover no-repeat;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 text-align: center;
                 color: #ffffff;
-                padding: 36px 20px;
-                margin-bottom: 30px;
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+                padding: 50px 20px 70px;
             }
 
-            .ck-cart-hero .hero-inner span {
-                font-size: clamp(1.1rem, 3vw, 1.5rem);
+            .hero-inner {
+                position: relative;
+                z-index: 2;
+                max-width: 850px;
+            }
+
+            .hero-inner h1 {
+                font-size: clamp(1.8rem, 4.5vw, 3rem);
                 font-weight: 800;
-                letter-spacing: 0.3px;
-                background: rgba(255, 255, 255, 0.18);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                padding: 12px 28px;
-                border-radius: 50px;
-                border: 1px solid rgba(255, 255, 255, 0.3);
-                display: inline-block;
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+                line-height: 1.2;
+                margin-bottom: 12px;
+                text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+                flex-wrap: wrap;
+                color: #ffffff;
+            }
+
+            .hero-inner p {
+                font-size: clamp(0.92rem, 2vw, 1.1rem);
+                color: rgba(255, 255, 255, 0.9);
+                margin: 0;
+                line-height: 1.6;
+                font-weight: 500;
             }
 
             .cart-container-main {
@@ -685,7 +698,8 @@
     <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         <div class="ck-cart-hero">
             <div class="hero-inner">
-                <span>🍽️ Your favorite meals, prepared with love!</span>
+                <h1><i class="fas fa-cart-shopping" style="color:var(--accent);"></i> Your Food Cart</h1>
+                <p>Review your selected dishes, enter delivery address, and proceed to checkout!</p>
             </div>
         </div>
 
