@@ -97,37 +97,34 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
     position: relative;
     display: flex;
     align-items: center;
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-
-    border: 1px solid rgba(255,255,255,0.18);
-
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 70px;
-
-    padding: 8px;
-
+    padding: 10px 12px;
     box-shadow:
-        0 10px 40px rgba(0,0,0,.25),
-        inset 0 1px 0 rgba(255,255,255,.12);
-
+        0 12px 42px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
     overflow: hidden;
-
-    transition: all .35s ease;
+    transition: all .35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .search-glass:hover {
     transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.38);
     box-shadow:
-        0 16px 45px rgba(0,0,0,.35),
-        inset 0 1px 0 rgba(255,255,255,.15);
+        0 18px 50px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .search-glass:focus-within {
-    border-color: rgba(255,255,255,.35);
+    border-color: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.25);
     box-shadow:
-        0 0 0 4px rgba(255,159,67,.18),
-        0 15px 50px rgba(0,0,0,.35);
+        0 0 0 5px rgba(255, 159, 67, 0.28),
+        0 20px 55px rgba(0, 0, 0, 0.42);
 }
 
 .search-icon {
@@ -135,8 +132,8 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(255,255,255,.88);
-    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 1.25rem;
     flex-shrink: 0;
 }
 
@@ -145,55 +142,37 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
     background: transparent;
     border: none;
     outline: none;
-
     color: white;
-
     font-size: 1rem;
     font-weight: 500;
-
-    padding: 14px 8px;
-
+    padding: 12px 8px;
     min-width: 0;
 }
 
 .search-input::placeholder {
-    color: rgba(255,255,255,.72);
+    color: rgba(255, 255, 255, 0.78);
     font-weight: 400;
 }
 
 .search-btn {
     border: none;
-
     background: linear-gradient(135deg, #ff9f43, #ff7b00);
-
     color: white;
-
-    font-weight: 600;
+    font-weight: 700;
     font-size: .95rem;
-
-    padding: 14px 24px;
-
+    padding: 13px 28px;
     border-radius: 50px;
-
     cursor: pointer;
-
-    transition: all .3s ease;
-
+    transition: all .35s cubic-bezier(0.16, 1, 0.3, 1);
     white-space: nowrap;
-
-    box-shadow:
-        0 6px 20px rgba(255,123,0,.35);
-
+    box-shadow: 0 6px 20px rgba(255, 123, 0, 0.38);
     flex-shrink: 0;
 }
 
 .search-btn:hover {
-    transform: translateY(-2px) scale(1.03);
-
+    transform: translateY(-3px) scale(1.04);
     background: linear-gradient(135deg, #ffb25c, #ff8a14);
-
-    box-shadow:
-        0 10px 28px rgba(255,123,0,.45);
+    box-shadow: 0 12px 30px rgba(255, 123, 0, 0.55);
 }
 
 .search-btn:active {
@@ -206,44 +185,31 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
     top: calc(100% + 12px);
     left: 0;
     right: 0;
-
-    background: rgba(20,20,20,.82);
-
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-
+    background: rgba(20, 20, 20, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: 18px;
-
     overflow: hidden;
-
     z-index: 9999;
-
-    box-shadow: 0 20px 40px rgba(0,0,0,.35);
-
-    border: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .suggestions p {
     margin: 0;
     padding: 14px 20px;
-
     color: white;
-
     cursor: pointer;
-
     transition: all .25s ease;
-
     font-size: .95rem;
 }
 
 .suggestions p:hover {
-    background: rgba(255,255,255,.1);
+    background: rgba(255, 255, 255, 0.15);
     padding-left: 26px;
 }
 
-
 @media (max-width: 576px) {
-
     .hero-search {
         max-width: 100%;
     }
@@ -267,18 +233,40 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
         font-size: 1rem;
     }
 }
+
         .scroll-cue {
             position: absolute;
             bottom: 28px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255,255,255,.55);
+            color: rgba(255, 255, 255, 0.85);
             font-size: 1.6rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            transition: all 0.3s ease;
             animation: bounce 2s infinite;
+            z-index: 5;
         }
+
+        .scroll-cue:hover {
+            color: #ffffff;
+            background: rgba(255, 159, 67, 0.35);
+            border-color: rgba(255, 159, 67, 0.6);
+            transform: translateX(-50%) translateY(-2px);
+        }
+
         @keyframes bounce {
-            0%,100% { transform: translateX(-50%) translateY(0); }
-            50%      { transform: translateX(-50%) translateY(8px); }
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50%      { transform: translateX(-50%) translateY(10px); }
         }
 
         .featured-section {
@@ -1025,12 +1013,12 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
 
 </div>
 
-        <span class="scroll-cue">⌄</span>
+        <a href="#featured" class="scroll-cue" aria-label="Scroll to Featured Dishes"><i class="bi bi-chevron-down"></i></a>
     </section>
 
     <asp:Repeater ID="rptFeatured" runat="server">
         <HeaderTemplate>
-            <section class="featured-section">
+            <section class="featured-section" id="featured">
                 <div class="container">
                     <div class="text-center">
                         <h2 class="section-title">Featured Dishes</h2>
