@@ -364,6 +364,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
                 color: #64748b !important;
                 display: -webkit-box !important;
                 -webkit-line-clamp: 2 !important;
+                line-clamp: 2 !important;
                 -webkit-box-orient: vertical !important;
                 overflow: hidden !important;
             }
