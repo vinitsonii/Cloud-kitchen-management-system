@@ -83,6 +83,14 @@
             padding: 26px;
         }
 
+        .sticky-sidebar-col {
+            position: sticky;
+            top: 90px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
         .cart-box-title {
             font-size: 1.25rem;
             font-weight: 800;
@@ -546,36 +554,14 @@
                             </div>
                         </div>
 
-                        <!-- RIGHT COLUMN: ORDER SUMMARY & DELIVERY DETAILS (STICKY SIDEBAR) -->
-                        <div class="cart-card-box sticky-summary-box">
-                            <div class="cart-box-title">
-                                <span><i class="fas fa-receipt" style="color:var(--primary);"></i> Order Summary</span>
-                            </div>
-
-                            <div class="summary-box-wrap">
-                                <div class="summary-row">
-                                    <span>Items Subtotal</span>
-                                    <span style="font-weight:800; color:#0f172a; font-size:1.05rem;">₹<asp:Label ID="lblTotalPrice" runat="server" Text="0"></asp:Label></span>
+                        <!-- RIGHT COLUMN: STICKY SIDEBAR WITH 2 DISTINCT CARDS (PLAN 1) -->
+                        <div class="sticky-sidebar-col">
+                            
+                            <!-- SUB-CARD 1: DELIVERY LOCATION -->
+                            <div class="cart-card-box">
+                                <div class="cart-box-title">
+                                    <span><i class="fas fa-location-dot" style="color:var(--primary);"></i> Delivery Location</span>
                                 </div>
-                                <div class="summary-row">
-                                    <span>Delivery Fee</span>
-                                    <span class="badge-free-del">FREE DELIVERY</span>
-                                </div>
-                                <div class="summary-row">
-                                    <span>Taxes & GST</span>
-                                    <span style="color:#16a34a; font-weight:800;">Included</span>
-                                </div>
-
-                                <div class="summary-row total-row">
-                                    <span>Grand Total</span>
-                                    <span style="color:var(--primary); font-size: 1.35rem;">₹<asp:Label ID="lblGrandTotal" runat="server" Text="0"></asp:Label></span>
-                                </div>
-                            </div>
-
-                            <div style="margin-top: 22px; padding-top: 18px; border-top: 1.5px solid #e2e8f0;">
-                                <h4 style="font-size: 0.95rem; font-weight: 800; color: #0f172a; margin-bottom: 14px;">
-                                    <i class="fas fa-truck-fast" style="color:var(--primary);"></i> Delivery & Payment Details
-                                </h4>
 
                                 <div class="form-group-cart">
                                     <label for="txtHouseNo">House / Flat / Building No.</label>
@@ -594,12 +580,39 @@
                                     <asp:TextBox ID="txtLandmark" runat="server" ClientIDMode="Static" CssClass="ck-cart-field" placeholder="e.g. Opp. HDFC Bank"></asp:TextBox>
                                 </div>
 
-                                <div class="form-group-cart">
+                                <div class="form-group-cart" style="margin-bottom:0;">
                                     <label for="ddlAreaPincode">Delivery Area & Pincode</label>
                                     <asp:DropDownList ID="ddlAreaPincode" runat="server" ClientIDMode="Static" CssClass="ck-cart-field">
                                         <asp:ListItem Text="🚚 Select Delivery Area & Pincode" Value=""></asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvAreaPincode" runat="server" ControlToValidate="ddlAreaPincode" ErrorMessage="⚠ Please select your delivery area & pincode." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
+                                </div>
+                            </div>
+
+                            <!-- SUB-CARD 2: ORDER & PAYMENT SUMMARY -->
+                            <div class="cart-card-box">
+                                <div class="cart-box-title">
+                                    <span><i class="fas fa-receipt" style="color:var(--primary);"></i> Payment & Bill Summary</span>
+                                </div>
+
+                                <div class="summary-box-wrap">
+                                    <div class="summary-row">
+                                        <span>Items Subtotal</span>
+                                        <span style="font-weight:800; color:#0f172a; font-size:1.05rem;">₹<asp:Label ID="lblTotalPrice" runat="server" Text="0"></asp:Label></span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Delivery Fee</span>
+                                        <span class="badge-free-del">FREE DELIVERY</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Taxes & GST</span>
+                                        <span style="color:#16a34a; font-weight:800;">Included</span>
+                                    </div>
+
+                                    <div class="summary-row total-row">
+                                        <span>Grand Total</span>
+                                        <span style="color:var(--primary); font-size: 1.35rem;">₹<asp:Label ID="lblGrandTotal" runat="server" Text="0"></asp:Label></span>
+                                    </div>
                                 </div>
 
                                 <div class="form-group-cart">
