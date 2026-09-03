@@ -27,38 +27,39 @@
             color: var(--text-main);
         }
 
-        /* CLEAN MODERN PAGE LAYOUT (NO GREEN HERO OVERLAY) */
-        .cart-page-banner {
-            background: linear-gradient(135deg, #4F7E76 0%, #355b54 100%);
-            border-radius: 20px;
-            padding: 24px 28px;
-            color: #ffffff;
-            margin-bottom: 28px;
+        /* ELEGANT HERO BANNER WITH BACKGROUND IMAGE */
+        .ck-cart-hero {
+            position: relative;
+            width: 100%;
+            min-height: 180px;
+            background: linear-gradient(135deg, rgba(30, 50, 46, 0.85), rgba(79, 126, 118, 0.88)), url('../Images/cp8.jpeg') center/cover no-repeat;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 8px 25px rgba(79, 126, 118, 0.25);
+            justify-content: center;
+            text-align: center;
+            color: #ffffff;
+            padding: 36px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
         }
 
-        .cart-page-banner h2 {
-            font-size: 1.45rem;
+        .ck-cart-hero .hero-inner span {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
             font-weight: 800;
-            margin: 0 0 4px 0;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .cart-page-banner p {
-            font-size: 0.92rem;
-            margin: 0;
-            opacity: 0.9;
+            letter-spacing: 0.3px;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 12px 28px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
         .cart-container-main {
             max-width: 1140px;
-            margin: 30px auto 60px;
+            margin: 0 auto 60px;
             padding: 0 20px;
             position: relative;
             z-index: 10;
@@ -538,16 +539,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
-    <div class="cart-container-main">
-        
-        <div class="cart-page-banner">
-            <div>
-                <h2>🛒 Your Order & Checkout</h2>
-                <p>Review your dishes, select your delivery location, and choose a payment method.</p>
-            </div>
-            <div style="font-size:1.8rem; opacity:0.85;">🍽️</div>
+    <div class="ck-cart-hero">
+        <div class="hero-inner">
+            <span>🍽️ Your favorite meals, prepared with love!</span>
         </div>
+    </div>
 
+    <div class="cart-container-main">
         <asp:Panel ID="pnlfill" runat="server">
             
             <!-- UPDATE PANEL WRAPS ENTIRE CART LAYOUT (PLAN 2: TOP-TO-BOTTOM) -->
