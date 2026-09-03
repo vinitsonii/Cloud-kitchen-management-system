@@ -111,44 +111,35 @@
         .cart-item-card:hover {
             background: #ffffff;
             border-color: #cbd5e1;
-            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
             transform: translateY(-2px);
-        }
-
-        .cart-item-card:last-child {
-            margin-bottom: 0;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
         }
 
         .cart-dish-img {
-            width: 88px;
-            height: 88px;
-            border-radius: 14px;
+            width: 82px;
+            height: 82px;
+            border-radius: 16px;
             object-fit: cover;
+            border: 1.5px solid #e2e8f0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
             flex-shrink: 0;
-            border: 1.5px solid #cbd5e1;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
         .cart-dish-info {
             flex: 1;
-            min-width: 0;
         }
 
         .cart-dish-name {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 800;
-            color: #0f172a;
-            margin: 0 0 3px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            color: var(--text-dark);
+            margin-bottom: 4px;
         }
 
         .cart-unit-price {
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: #64748b;
-            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
         }
 
         /* QUANTITY STEPPER BUTTONS - SLEEK PILL */
@@ -209,7 +200,7 @@
         .cart-item-total-price {
             font-size: 1.25rem;
             font-weight: 900;
-            color: #16a34a;
+            color: var(--primary);
             line-height: 1;
         }
 
@@ -248,7 +239,7 @@
         .add-more-bar {
             margin-top: 20px;
             padding-top: 16px;
-            border-top: 1.5px solid #e2e8f0;
+            border-top: 1.5px solid #f1f5f9;
             display: flex;
             justify-content: flex-start;
         }
@@ -256,13 +247,13 @@
         .back-link-btn {
             background: #f1f5f9;
             color: var(--primary);
-            font-weight: 700;
+            font-weight: 800;
             font-size: 0.92rem;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 20px;
+            padding: 10px 22px;
             border-radius: 50px;
             border: 1.5px solid #cbd5e1;
             transition: all 0.2s ease;
@@ -324,7 +315,7 @@
             width: 100%;
             padding: 12px 16px;
             border: 1.5px solid #cbd5e1;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 14px;
             outline: none;
             transition: all 0.2s;
@@ -335,32 +326,31 @@
 
         .ck-cart-field:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 126, 118, 0.2);
+            box-shadow: 0 0 0 3.5px rgba(79, 126, 118, 0.18);
         }
 
         .btn-checkout-cta {
             width: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dk));
+            background: linear-gradient(135deg, var(--primary) 0%, #355b54 100%);
             color: #ffffff;
             font-weight: 800;
             font-size: 1.05rem;
             padding: 15px;
-            border-radius: 50px;
+            border-radius: 16px;
             border: none;
             cursor: pointer;
             transition: all 0.25s ease;
-            box-shadow: 0 8px 24px rgba(79, 126, 118, 0.38);
+            box-shadow: 0 10px 25px rgba(79, 126, 118, 0.35);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            margin-top: 12px;
+            margin-top: 14px;
         }
 
         .btn-checkout-cta:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(79, 126, 118, 0.5);
-            background: linear-gradient(135deg, #3f6861, #2d4e48);
+            box-shadow: 0 14px 30px rgba(79, 126, 118, 0.45);
         }
 
         /* CLEAN SIMPLE ORDER PROCESSING OVERLAY */
@@ -546,8 +536,8 @@
                             </div>
                         </div>
 
-                        <!-- RIGHT COLUMN: ORDER SUMMARY & DELIVERY DETAILS -->
-                        <div class="cart-card-box">
+                        <!-- RIGHT COLUMN: ORDER SUMMARY & DELIVERY DETAILS (STICKY SIDEBAR) -->
+                        <div class="cart-card-box sticky-summary-box">
                             <div class="cart-box-title">
                                 <span><i class="fas fa-receipt" style="color:var(--primary);"></i> Order Summary</span>
                             </div>
