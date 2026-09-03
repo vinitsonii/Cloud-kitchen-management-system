@@ -599,7 +599,7 @@
                                     <asp:RequiredFieldValidator ID="rfvPaymentType" runat="server" ControlToValidate="ddlPaymentType" ErrorMessage="⚠ Please select a payment method." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
                                 </div>
 
-                                <asp:Button ID="btnCheckout" runat="server" Text="🚀 Place Order Now" CssClass="btn-checkout-cta" ValidationGroup="DeliveryDetails" OnClick="Checkout_Click" OnClientClick="return showOrderProcessingOverlay();" />
+                                <asp:Button ID="btnCheckout" runat="server" Text="🚀 Place Order Now" CssClass="btn-checkout-cta" ValidationGroup="DeliveryDetails" OnClick="Checkout_Click" OnClientClick="return onCheckoutClick(this);" />
                             </div>
 
                         </div>
@@ -683,39 +683,17 @@
         </asp:Panel>
     </div>
 
-    <!-- SIMPLE CLEAN ORDER PROCESSING OVERLAY -->
-    <div id="orderProcessingOverlay" class="ck-processing-overlay">
-        <div class="ck-processing-card">
-            <div class="spinner-ring-wrap">
-                <div class="spinner-pulse-ring"></div>
-                <div class="spinner-icon">⏳</div>
-            </div>
-            <h3 id="procTitle" class="proc-title">Processing Order...</h3>
-            <p id="procSub" class="proc-subtitle">Please wait a moment while we confirm your order...</p>
-        </div>
-    </div>
-
     <script type="text/javascript">
-        function showOrderProcessingOverlay() {
+        function onCheckoutClick(btn) {
             if (typeof (Page_ClientValidate) === 'function') {
                 if (!Page_ClientValidate('DeliveryDetails')) {
                     return false;
                 }
             }
-            var payElem = document.getElementById("ddlPaymentType");
-            var hdnPayId = document.getElementById('<%= hdnPaymentId.ClientID %>');
-            var isRazorpay = payElem && payElem.value === "Razorpay";
-            var hasPaymentId = hdnPayId && hdnPayId.value && hdnPayId.value.trim() !== "";
-
-            // If Razorpay is chosen and payment is not completed yet, open Razorpay popup without showing overlay
-            if (isRazorpay && !hasPaymentId) {
-                return true;
-            }
-
-            var ov = document.getElementById("orderProcessingOverlay");
-            if (ov) {
-                ov.style.display = "flex";
-            }
+            setTimeout(function () {
+                btn.disabled = true;
+                btn.value = "⏳ Processing Order...";
+            }, 20);
             return true;
         }
 

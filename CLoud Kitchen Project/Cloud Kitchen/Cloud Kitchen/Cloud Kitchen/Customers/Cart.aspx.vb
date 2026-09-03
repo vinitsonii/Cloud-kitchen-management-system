@@ -247,7 +247,7 @@ Public Class Cart
                     SendOrderEmail(userEmail, orderId, transactionNumber, cart)
                 End If
 
-                Dim redirectScript As String = "var pt = document.getElementById('procTitle'); if(pt) pt.innerText = 'Order Confirmed! 🎉'; setTimeout(function(){ window.location.href='OrderConfirmation.aspx?OrderId=" & orderId & "'; }, 400);"
+                Dim redirectScript As String = "window.location.href='OrderConfirmation.aspx?OrderId=" & orderId & "';"
                 ScriptManager.RegisterStartupScript(Me, Me.GetType(), "orderDone", redirectScript, True)
 
             Catch ex As Exception
