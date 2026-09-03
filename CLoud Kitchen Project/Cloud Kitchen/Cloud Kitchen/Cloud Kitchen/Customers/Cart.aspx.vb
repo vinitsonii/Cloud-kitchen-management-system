@@ -7,70 +7,48 @@ Public Class Cart
     Dim connString As String = ConfigurationManager.ConnectionStrings("constr").ConnectionString
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+        If Session("c_id") Is Nothing Then
+            Response.Redirect("Login.aspx")
+        End If
+
         If Not IsPostBack Then
             LoadCartItems()
             Bindpincode()
-            If Session("c_id") Is Nothing Then
-                Response.Redirect("Login.aspx")
+        End If
+
+        If Request("__EVENTTARGET") = "PaymentSuccess" Then
+            Dim paymentId As String = Request("__EVENTARGUMENT").ToString()
+            If String.IsNullOrEmpty(paymentId) AndAlso Request("payment_id") IsNot Nothing Then
+                paymentId = Request("payment_id").ToString()
             End If
-            If Request("__EVENTTARGET") = "PaymentSuccess" Then
-
-                Dim paymentId As String = Request("__EVENTARGUMENT").ToString()
-
-                Session("TransactionNumber") = paymentId
-
-                lblTransaction.Text = "Payment ID : " & paymentId
-                lblTransaction.ForeColor = Drawing.Color.Green
-                lblTransaction.Visible = True
-
-                Panel2.Visible = True
-
-                dvLoader.Visible = False
-                dvSuccess.Visible = True
-
-                ScriptManager.RegisterStartupScript(Me, Me.GetType(), "showPanel", "showPanel();", True)
-
+            If Not String.IsNullOrEmpty(paymentId) Then
+                hdnPaymentId.Value = paymentId
             End If
+            SaveOrderAfterPayment()
         End If
     End Sub
+
     Private Sub SaveOrderAfterPayment()
-
         Dim paymentId As String = hdnPaymentId.Value
-
-        If paymentId = "" Then
-
-            Exit Sub
-
-        End If
+        If String.IsNullOrEmpty(paymentId) Then Exit Sub
 
         Dim transactionNumber As String = paymentId
-
         Session("TransactionNumber") = transactionNumber
 
         lblTransaction.Text = "Payment ID: " & paymentId
-
         lblTransaction.ForeColor = Drawing.Color.Green
-
         lblTransaction.Visible = True
 
         up.Visible = False
-
         Panel2.Visible = True
 
-        ScriptManager.RegisterStartupScript(Me,
-                                        Me.GetType(),
-                                        "showPanel",
-                                        "showPanel();",
-                                        True)
+        ScriptManager.RegisterStartupScript(Me, Me.GetType(), "showPanel", "showPanel();", True)
 
         dvLoader.Visible = True
-
         dvSuccess.Visible = False
-
         Timer1.Enabled = True
 
         Checkout_Click(Nothing, Nothing)
-
     End Sub
     Public Function GetValue(ByVal item As Object, ByVal key As String) As String
         Dim dict As Dictionary(Of String, Object) = CType(item, Dictionary(Of String, Object))
@@ -81,21 +59,23 @@ Public Class Cart
     End Function
     Private Sub LoadCartItems()
         If Session("Cart") IsNot Nothing Then
-            pnlfill.Visible = True
-
-            pnlempty.Visible = False
             Dim cart As List(Of Dictionary(Of String, Object)) = CType(Session("Cart"), List(Of Dictionary(Of String, Object)))
+            If cart.Count > 0 Then
+                pnlfill.Visible = True
+                pnlempty.Visible = False
 
-            rptCartItems.DataSource = cart
-            rptCartItems.DataBind()
+                rptCartItems.DataSource = cart
+                rptCartItems.DataBind()
 
-            Dim total As Decimal = cart.Sum(Function(x) Convert.ToDecimal(x("total_price")))
-            lblTotalPrice.Text = total.ToString("F2")
+                Dim total As Decimal = cart.Sum(Function(x) Convert.ToDecimal(x("total_price")))
+                lblTotalPrice.Text = total.ToString("F2")
+                lblGrandTotal.Text = total.ToString("F2")
+            Else
+                pnlfill.Visible = False
+                pnlempty.Visible = True
+            End If
         Else
-            'Response.Write("<script>alert('Your Cart Is Empty. Please Order Something..!!');  window.location.href='Menu.aspx'; ;</script>")
-            'Response.Redirect("Menu.aspx")
             pnlfill.Visible = False
-
             pnlempty.Visible = True
         End If
     End Sub
@@ -130,18 +110,47 @@ Public Class Cart
 
         End If
     End Sub
-    Protected Sub RemoveCartItem(ByVal sender As Object, ByVal e As CommandEventArgs)
-
+    Protected Sub IncreaseQuantity(ByVal sender As Object, ByVal e As CommandEventArgs)
         If Session("Cart") IsNot Nothing Then
             Dim cart As List(Of Dictionary(Of String, Object)) = CType(Session("Cart"), List(Of Dictionary(Of String, Object)))
-
-            cart.RemoveAll(Function(x) x("m_id").ToString() = e.CommandArgument.ToString())
-
+            Dim item = cart.FirstOrDefault(Function(x) x("m_id").ToString() = e.CommandArgument.ToString())
+            If item IsNot Nothing Then
+                Dim currentQty As Integer = Convert.ToInt32(item("quantity"))
+                Dim newQty As Integer = currentQty + 1
+                item("quantity") = newQty
+                item("total_price") = newQty * Convert.ToDecimal(item("m_final_price"))
+            End If
             Session("Cart") = cart
             LoadCartItems()
-
         End If
+    End Sub
 
+    Protected Sub DecreaseQuantity(ByVal sender As Object, ByVal e As CommandEventArgs)
+        If Session("Cart") IsNot Nothing Then
+            Dim cart As List(Of Dictionary(Of String, Object)) = CType(Session("Cart"), List(Of Dictionary(Of String, Object)))
+            Dim item = cart.FirstOrDefault(Function(x) x("m_id").ToString() = e.CommandArgument.ToString())
+            If item IsNot Nothing Then
+                Dim currentQty As Integer = Convert.ToInt32(item("quantity"))
+                If currentQty <= 1 Then
+                    cart.Remove(item)
+                Else
+                    Dim newQty As Integer = currentQty - 1
+                    item("quantity") = newQty
+                    item("total_price") = newQty * Convert.ToDecimal(item("m_final_price"))
+                End If
+            End If
+            Session("Cart") = cart
+            LoadCartItems()
+        End If
+    End Sub
+
+    Protected Sub RemoveCartItem(ByVal sender As Object, ByVal e As CommandEventArgs)
+        If Session("Cart") IsNot Nothing Then
+            Dim cart As List(Of Dictionary(Of String, Object)) = CType(Session("Cart"), List(Of Dictionary(Of String, Object)))
+            cart.RemoveAll(Function(x) x("m_id").ToString() = e.CommandArgument.ToString())
+            Session("Cart") = cart
+            LoadCartItems()
+        End If
     End Sub
     Protected Sub Checkout_Click(ByVal sender As Object, ByVal e As EventArgs)
 
@@ -342,10 +351,15 @@ Public Class Cart
     End Sub
 
     Protected Sub btnPayNow_Click(ByVal sender As Object, ByVal e As EventArgs)
-        If txtCard1.Text.Length = 4 And txtCard2.Text.Length = 4 And txtCard3.Text.Length = 4 And txtCard4.Text.Length = 4 And
-           txtExpiryMonth.Text.Length = 2 And txtExpiryYear.Text.Length = 2 And txtCCV.Text.Length = 3 And txtExpiryYear.Text > 25 And
-           Not String.IsNullOrEmpty(txtCardName.Text) Then
+        Dim expMonth As Integer = 0
+        Dim expYear As Integer = 0
+        Integer.TryParse(txtExpiryMonth.Text, expMonth)
+        Integer.TryParse(txtExpiryYear.Text, expYear)
+        Dim currentYearYY As Integer = Convert.ToInt32(DateTime.Now.ToString("yy"))
 
+        If txtCard1.Text.Length = 4 AndAlso txtCard2.Text.Length = 4 AndAlso txtCard3.Text.Length = 4 AndAlso txtCard4.Text.Length = 4 AndAlso
+           expMonth >= 1 AndAlso expMonth <= 12 AndAlso expYear >= currentYearYY AndAlso txtCCV.Text.Length = 3 AndAlso
+           Not String.IsNullOrEmpty(txtCardName.Text.Trim()) Then
 
             label1.Text = "Card details verified successfully. Proceed To Payment."
             label1.ForeColor = System.Drawing.Color.Green
@@ -356,12 +370,10 @@ Public Class Cart
             Panel3.Visible = True
             ScriptManager.RegisterStartupScript(Me, Me.GetType(), "showPanel", "showPanel();", True)
             ddlPaymentType.Enabled = False
-
         Else
-            label1.Text = "Invalid card details. Please check again."
+            label1.Text = "Invalid card details. Please check card number, expiry date (MM/YY), and CVV."
             label1.ForeColor = System.Drawing.Color.Red
             label1.Visible = True
-
         End If
     End Sub
 
