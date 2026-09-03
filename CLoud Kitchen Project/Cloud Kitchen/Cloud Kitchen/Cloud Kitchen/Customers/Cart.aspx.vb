@@ -94,6 +94,9 @@ Public Class Cart
         If upCart IsNot Nothing AndAlso upCart.UpdateMode = UpdatePanelUpdateMode.Conditional Then
             upCart.Update()
         End If
+        If UpdatePanel2 IsNot Nothing AndAlso UpdatePanel2.UpdateMode = UpdatePanelUpdateMode.Conditional Then
+            UpdatePanel2.Update()
+        End If
     End Sub
     Public Function GetImageUrl(ByVal item As Object) As String
         Dim dict As Dictionary(Of String, Object) = CType(item, Dictionary(Of String, Object))

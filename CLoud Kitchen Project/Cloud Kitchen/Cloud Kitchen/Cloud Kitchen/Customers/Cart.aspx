@@ -1,5 +1,5 @@
 <%@ Page Title="Your Cart" Language="vb" AutoEventWireup="false" MasterPageFile="~/Customers/Customer.Master"
-    CodeBehind="Cart.aspx.vb" Inherits="Cloud_Kitchen.Cart" %>
+    CodeBehind="Cart.aspx.vb" Inherits="Cloud_Kitchen.Cart" MaintainScrollPositionOnPostback="true" %>
 
     <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -565,11 +565,9 @@
         <div class="cart-container-main">
             <asp:Panel ID="pnlfill" runat="server">
 
-                <!-- UPDATE PANEL WRAPS ENTIRE CART LAYOUT WITH AJAX PARTIAL RENDERING -->
+                <!-- TOP SECTION: FULL-WIDTH CART ITEMS TABLE (AJAX UPDATED) -->
                 <asp:UpdatePanel ID="upCart" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true">
                     <ContentTemplate>
-
-                        <!-- TOP SECTION: FULL-WIDTH CART ITEMS TABLE -->
                         <div class="cart-card-box plan2-top-section">
                             <div class="cart-box-title">
                                 <span><i class="fas fa-utensils" style="color:var(--primary);"></i> 1. Review Your
@@ -662,67 +660,72 @@
                                     Dishes</a>
                             </div>
                         </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
 
-                        <!-- BOTTOM SECTION: 50/50 SPLIT GRID FOR DELIVERY & SUMMARY -->
-                        <div class="plan2-bottom-grid">
+                <!-- BOTTOM SECTION: 50/50 SPLIT GRID FOR DELIVERY & SUMMARY -->
+                <div class="plan2-bottom-grid">
 
-                            <!-- LEFT BOX: DELIVERY ADDRESS -->
-                            <div class="cart-card-box">
-                                <div class="cart-box-title">
-                                    <span><i class="fas fa-location-dot" style="color:var(--primary);"></i> 2. Delivery
-                                        Address</span>
-                                </div>
+                    <!-- LEFT BOX: DELIVERY ADDRESS (STATIC FORM - NO AJAX RE-RENDER ON QTY CLICK) -->
+                    <div class="cart-card-box">
+                        <div class="cart-box-title">
+                            <span><i class="fas fa-location-dot" style="color:var(--primary);"></i> 2. Delivery
+                                Address</span>
+                        </div>
 
-                                <div class="form-group-cart">
-                                    <label for="txtHouseNo">House / Flat / Building No.</label>
-                                    <asp:TextBox ID="txtHouseNo" runat="server" ClientIDMode="Static"
-                                        CssClass="ck-cart-field" placeholder="e.g. Flat 402, Sunshine Apartments">
-                                    </asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server"
-                                        ControlToValidate="txtHouseNo" ErrorMessage="⚠ Flat / House number is required."
-                                        CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails"
-                                        EnableClientScript="true" ForeColor="#dc2626" />
-                                </div>
+                        <div class="form-group-cart">
+                            <label for="txtHouseNo">House / Flat / Building No.</label>
+                            <asp:TextBox ID="txtHouseNo" runat="server" ClientIDMode="Static"
+                                CssClass="ck-cart-field" placeholder="e.g. Flat 402, Sunshine Apartments">
+                            </asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfvHouseNo" runat="server"
+                                ControlToValidate="txtHouseNo" ErrorMessage="⚠ Flat / House number is required."
+                                CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails"
+                                EnableClientScript="true" ForeColor="#dc2626" />
+                        </div>
 
-                                <div class="form-group-cart">
-                                    <label for="txtStreet">Street / Area / Locality</label>
-                                    <asp:TextBox ID="txtStreet" runat="server" ClientIDMode="Static"
-                                        CssClass="ck-cart-field" placeholder="e.g. Near City Mall, MG Road">
-                                    </asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="rfvStreet" runat="server"
-                                        ControlToValidate="txtStreet" ErrorMessage="⚠ Street / Area is required."
-                                        CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails"
-                                        EnableClientScript="true" ForeColor="#dc2626" />
-                                </div>
+                        <div class="form-group-cart">
+                            <label for="txtStreet">Street / Area / Locality</label>
+                            <asp:TextBox ID="txtStreet" runat="server" ClientIDMode="Static"
+                                CssClass="ck-cart-field" placeholder="e.g. Near City Mall, MG Road">
+                            </asp:TextBox>
+                            <asp:RequiredFieldValidator ID="rfvStreet" runat="server"
+                                ControlToValidate="txtStreet" ErrorMessage="⚠ Street / Area is required."
+                                CssClass="ck-validator" Display="Dynamic" ValidationGroup="DeliveryDetails"
+                                EnableClientScript="true" ForeColor="#dc2626" />
+                        </div>
 
-                                <div class="form-group-cart">
-                                    <label for="txtLandmark">Landmark (Optional)</label>
-                                    <asp:TextBox ID="txtLandmark" runat="server" ClientIDMode="Static"
-                                        CssClass="ck-cart-field" placeholder="e.g. Opp. HDFC Bank"></asp:TextBox>
-                                </div>
+                        <div class="form-group-cart">
+                            <label for="txtLandmark">Landmark (Optional)</label>
+                            <asp:TextBox ID="txtLandmark" runat="server" ClientIDMode="Static"
+                                CssClass="ck-cart-field" placeholder="e.g. Opp. HDFC Bank"></asp:TextBox>
+                        </div>
 
-                                <div class="form-group-cart" style="margin-bottom:0;">
-                                    <label for="ddlAreaPincode">Delivery Area & Pincode</label>
-                                    <asp:DropDownList ID="ddlAreaPincode" runat="server" ClientIDMode="Static"
-                                        CssClass="ck-cart-field">
-                                        <asp:ListItem Text="🚚 Select Delivery Area & Pincode" Value=""></asp:ListItem>
-                                    </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="rfvAreaPincode" runat="server"
-                                        ControlToValidate="ddlAreaPincode"
-                                        ErrorMessage="⚠ Please select your delivery area & pincode."
-                                        CssClass="ck-validator" InitialValue="" Display="Dynamic"
-                                        ValidationGroup="DeliveryDetails" EnableClientScript="true"
-                                        ForeColor="#dc2626" />
-                                </div>
-                            </div>
+                        <div class="form-group-cart" style="margin-bottom:0;">
+                            <label for="ddlAreaPincode">Delivery Area & Pincode</label>
+                            <asp:DropDownList ID="ddlAreaPincode" runat="server" ClientIDMode="Static"
+                                CssClass="ck-cart-field">
+                                <asp:ListItem Text="🚚 Select Delivery Area & Pincode" Value=""></asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="rfvAreaPincode" runat="server"
+                                ControlToValidate="ddlAreaPincode"
+                                ErrorMessage="⚠ Please select your delivery area & pincode."
+                                CssClass="ck-validator" InitialValue="" Display="Dynamic"
+                                ValidationGroup="DeliveryDetails" EnableClientScript="true"
+                                ForeColor="#dc2626" />
+                        </div>
+                    </div>
 
-                            <!-- RIGHT BOX: ORDER SUMMARY & PAYMENT -->
-                            <div class="cart-card-box">
-                                <div class="cart-box-title">
-                                    <span><i class="fas fa-receipt" style="color:var(--primary);"></i> 3. Order Summary
-                                        & Payment</span>
-                                </div>
+                    <!-- RIGHT BOX: ORDER SUMMARY & PAYMENT -->
+                    <div class="cart-card-box">
+                        <div class="cart-box-title">
+                            <span><i class="fas fa-receipt" style="color:var(--primary);"></i> 3. Order Summary
+                                & Payment</span>
+                        </div>
 
+                        <!-- TOTAL PRICE SUMMARY (AJAX UPDATED) -->
+                        <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
                                 <div class="summary-box-wrap">
                                     <div class="summary-row">
                                         <span>Items Subtotal</span>
@@ -744,6 +747,8 @@
                                                 ID="lblGrandTotal" runat="server" Text="0"></asp:Label></span>
                                     </div>
                                 </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
 
                                 <div class="form-group-cart">
                                     <label for="ddlPaymentType">Payment Method</label>
