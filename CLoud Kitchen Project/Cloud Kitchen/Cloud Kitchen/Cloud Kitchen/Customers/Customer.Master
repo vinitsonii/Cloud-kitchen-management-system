@@ -845,6 +845,7 @@ html, body{
 </head>
 <body>
 <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true"></asp:ScriptManager>
     <a class="skip-link" href="#mainContent">Skip to content</a>
 
     <nav class="ck-navbar" id="ckNav" aria-label="Primary navigation">
