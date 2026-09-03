@@ -157,6 +157,9 @@
     <Content Include="icons\fb1.png" />
     <Content Include="icons\historyy.png" />
     <Content Include="icons\HISTORYYYYYY.png" />
+    <Content Include="icons\delivery.png" />
+    <Content Include="icons\inventory1.png" />
+    <Content Include="icons\inventory.png" />
     <Content Include="icons\icons8-one-94.png" />
     <Content Include="icons\loc1.png" />
     <Content Include="icons\loc2.png" />
@@ -469,7 +472,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != '' and Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>
     <VisualStudio>

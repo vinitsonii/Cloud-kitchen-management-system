@@ -16,50 +16,54 @@ Partial Public Class OrderConfirmation
     '''<summary>
     '''lblOrderId control.
     '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
     Protected WithEvents lblOrderId As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblTransactionNumber control.
     '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
     Protected WithEvents lblTransactionNumber As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''lblOrderDate control.
-    '''</summary>
-    Protected WithEvents lblOrderDate As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''lblPaymentType control.
-    '''</summary>
-    Protected WithEvents lblPaymentType As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''lblAddress control.
-    '''</summary>
-    Protected WithEvents lblAddress As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblTotalAmount control.
     '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
     Protected WithEvents lblTotalAmount As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblOrderStatus control.
     '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
     Protected WithEvents lblOrderStatus As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''rptReceiptItems control.
-    '''</summary>
-    Protected WithEvents rptReceiptItems As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
     '''pnlPendingMessage control.
     '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
     Protected WithEvents pnlPendingMessage As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
     '''btnTrackOrder control.
     '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
     Protected WithEvents btnTrackOrder As Global.System.Web.UI.WebControls.Button
 End Class
