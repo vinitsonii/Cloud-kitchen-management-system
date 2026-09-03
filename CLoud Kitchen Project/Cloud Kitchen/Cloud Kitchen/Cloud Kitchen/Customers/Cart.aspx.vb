@@ -478,6 +478,8 @@ Public Class Cart
             "'description': 'Food Order Payment'," & _
             "'image': '../icons/money.png'," & _
             "'handler': function (response) {" & _
+            "    var btn = document.getElementById('" & btnCheckout.ClientID & "');" & _
+            "    if (btn) { btn.disabled = true; btn.value = '⏳ Confirming Order...'; }" & _
             "    __doPostBack('PaymentSuccess', response.razorpay_payment_id);" & _
             "}," & _
             "'prefill': {'name': '" & customerName.Replace("'", "\'") & "', 'email': '" & customerEmail.Replace("'", "\'") & "'}," & _
