@@ -363,36 +363,35 @@
             background: linear-gradient(135deg, #3f6861, #2d4e48);
         }
 
-        /* FULL-SCREEN ORDER PROCESSING OVERLAY */
+        /* CLEAN SIMPLE ORDER PROCESSING OVERLAY */
         .ck-processing-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(15, 23, 42, 0.78);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             z-index: 99999;
             display: none;
             align-items: center;
             justify-content: center;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.25s ease;
         }
 
         .ck-processing-card {
             background: #ffffff;
-            border-radius: 28px;
-            padding: 40px 36px;
-            width: min(440px, calc(100vw - 32px));
+            border-radius: 20px;
+            padding: 32px 28px;
+            width: min(380px, calc(100vw - 32px));
             text-align: center;
-            box-shadow: 0 25px 70px rgba(0,0,0,0.35);
-            border: 1.5px solid rgba(255,255,255,0.4);
-            animation: popUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            animation: popUp 0.25s ease;
         }
 
         .spinner-ring-wrap {
             position: relative;
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 20px;
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -402,25 +401,18 @@
             position: absolute;
             inset: 0;
             border-radius: 50%;
-            border: 4px solid #f1f5f9;
-            border-top: 4px solid var(--primary);
-            border-right: 4px solid var(--accent);
-            animation: spinRing 1s linear infinite;
+            border: 3.5px solid #e2e8f0;
+            border-top: 3.5px solid var(--primary);
+            animation: spinRing 0.8s linear infinite;
         }
 
         .spinner-icon {
-            font-size: 42px;
-            animation: floatIcon 2s ease-in-out infinite;
+            font-size: 26px;
         }
 
         @keyframes spinRing {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        }
-
-        @keyframes floatIcon {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
         }
 
         @keyframes fadeIn {
@@ -429,45 +421,22 @@
         }
 
         @keyframes popUp {
-            from { transform: scale(0.8); opacity: 0; }
+            from { transform: scale(0.9); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
 
         .proc-title {
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             font-weight: 800;
             color: #0f172a;
-            margin: 0 0 8px;
+            margin: 0 0 6px;
         }
 
         .proc-subtitle {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #64748b;
-            margin: 0 0 20px;
-            line-height: 1.5;
-        }
-
-        .proc-progress-bar {
-            width: 100%;
-            height: 6px;
-            background: #e2e8f0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .proc-progress-fill {
-            height: 100%;
-            width: 10%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 10px;
-            transition: width 0.4s ease;
-            animation: fillProgress 3s ease-in-out forwards;
-        }
-
-        @keyframes fillProgress {
-            0% { width: 10%; }
-            50% { width: 65%; }
-            100% { width: 90%; }
+            margin: 0;
+            line-height: 1.4;
         }
 
         /* MODAL OVERLAY & POPUP */
@@ -714,18 +683,15 @@
         </asp:Panel>
     </div>
 
-    <!-- PREMIUM ORDER PROCESSING OVERLAY -->
+    <!-- SIMPLE CLEAN ORDER PROCESSING OVERLAY -->
     <div id="orderProcessingOverlay" class="ck-processing-overlay">
         <div class="ck-processing-card">
             <div class="spinner-ring-wrap">
                 <div class="spinner-pulse-ring"></div>
-                <div class="spinner-icon">🍳</div>
+                <div class="spinner-icon">⏳</div>
             </div>
-            <h3 id="procTitle" class="proc-title">Securing Your Order...</h3>
-            <p id="procSub" class="proc-subtitle">Sending your items to our kitchen master chef 👨‍🍳</p>
-            <div class="proc-progress-bar">
-                <div class="proc-progress-fill"></div>
-            </div>
+            <h3 id="procTitle" class="proc-title">Processing Order...</h3>
+            <p id="procSub" class="proc-subtitle">Please wait a moment while we confirm your order...</p>
         </div>
     </div>
 

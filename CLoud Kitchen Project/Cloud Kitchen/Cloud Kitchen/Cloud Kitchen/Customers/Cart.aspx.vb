@@ -247,7 +247,7 @@ Public Class Cart
                     SendOrderEmail(userEmail, orderId, transactionNumber, cart)
                 End If
 
-                Dim redirectScript As String = "var fill = document.querySelector('.proc-progress-fill'); if(fill) fill.style.width='100%'; var pt = document.getElementById('procTitle'); if(pt) pt.innerText = '🎉 Order Confirmed!'; var ps = document.getElementById('procSub'); if(ps) ps.innerText = 'Preparing your confirmation summary...'; setTimeout(function(){ window.location.href='OrderConfirmation.aspx?OrderId=" & orderId & "'; }, 700);"
+                Dim redirectScript As String = "var pt = document.getElementById('procTitle'); if(pt) pt.innerText = 'Order Confirmed! 🎉'; setTimeout(function(){ window.location.href='OrderConfirmation.aspx?OrderId=" & orderId & "'; }, 400);"
                 ScriptManager.RegisterStartupScript(Me, Me.GetType(), "orderDone", redirectScript, True)
 
             Catch ex As Exception
