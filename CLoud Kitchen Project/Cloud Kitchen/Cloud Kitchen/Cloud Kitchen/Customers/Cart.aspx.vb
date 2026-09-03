@@ -290,15 +290,15 @@ Public Class Cart
             mail.Subject = "🍽 Your Cloud Kitchen Order is Confirmed! # " & orderId
             mail.IsBodyHtml = True
 
-            Dim cartTable As String = "<table class='order-table'>" & _
+            Dim cartTable As String = "<table class='order-table'>" &
 "<tr><th>Item</th><th>Price</th><th>Qty</th><th>Total</th></tr>"
 
             For Each item In cart
-                cartTable &= "<tr>" & _
-                    "<td>" & item("m_name").ToString() & "</td>" & _
-                    "<td>₹" & Convert.ToDecimal(item("m_final_price")).ToString("F2") & "</td>" & _
-                    "<td>" & item("quantity").ToString() & "</td>" & _
-                    "<td>₹" & Convert.ToDecimal(item("total_price")).ToString("F2") & "</td>" & _
+                cartTable &= "<tr>" &
+                    "<td>" & item("m_name").ToString() & "</td>" &
+                    "<td>₹" & Convert.ToDecimal(item("m_final_price")).ToString("F2") & "</td>" &
+                    "<td>" & item("quantity").ToString() & "</td>" &
+                    "<td>₹" & Convert.ToDecimal(item("total_price")).ToString("F2") & "</td>" &
                     "</tr>"
             Next
 
@@ -314,46 +314,46 @@ Public Class Cart
             Dim myOrdersUrl As String = baseUrl & "/Customers/MyOrders.aspx"
             Dim totalAmountSum As Decimal = cart.Sum(Function(x) Convert.ToDecimal(x("total_price")))
 
-            Dim emailBody As String = "<!DOCTYPE html><html><head><style>" & _
-"body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 20px; color: #334155; }" & _
-".container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }" & _
-".header { background: linear-gradient(135deg, #4F7E76, #3f6861); padding: 30px 20px; text-align: center; color: #ffffff; }" & _
-".header h1 { margin: 0; font-size: 26px; font-weight: 700; }" & _
-".header p { margin: 5px 0 0 0; font-size: 14px; opacity: 0.9; }" & _
-".content { padding: 30px 25px; }" & _
-".success-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 15px; text-align: center; margin-bottom: 25px; }" & _
-".success-box h2 { color: #166534; margin: 0 0 5px 0; font-size: 18px; }" & _
-".success-box p { color: #15803d; margin: 0; font-size: 14px; }" & _
-".details { background: #f1f5f9; border-radius: 8px; padding: 18px; margin-bottom: 25px; }" & _
-".details p { margin: 6px 0; font-size: 14px; color: #475569; }" & _
-".details p strong { color: #0f172a; }" & _
-".order-table { width: 100%; border-collapse: collapse; margin-top: 10px; }" & _
-".order-table th { background: #e2e8f0; color: #1e293b; text-align: left; padding: 10px; font-size: 13px; text-transform: uppercase; }" & _
-".order-table td { padding: 10px; border-bottom: 1px solid #e2e8f0; font-size: 14px; }" & _
-".table-title { font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 20px; margin-bottom: 10px; border-bottom: 2px solid #4F7E76; padding-bottom: 5px; display: inline-block; }" & _
-".total-box { text-align: right; margin-top: 15px; font-size: 18px; font-weight: 700; color: #166534; }" & _
-".button { display: inline-block; background: #4F7E76; color: #ffffff !important; text-decoration: none; padding: 12px 28px; border-radius: 6px; font-weight: 600; margin-top: 25px; text-align: center; }" & _
-".footer { background: #f8fafc; padding: 20px; text-align: center; font-size: 12px; color: #94a3b8; border-top: 1px solid #e2e8f0; }" & _
-".footer p { margin: 4px 0; }" & _
-"</style></head><body>" & _
-"<div class='container'>" & _
-"<div class='header'><h1>🍽 Cloud Kitchen</h1><p>Fresh Meals Delivered To Your Doorstep</p></div>" & _
-"<div class='content'>" & _
-"<div class='success-box'><h2>✅ Order Confirmed Successfully</h2><p>Thank you for ordering with Cloud Kitchen.</p></div>" & _
-"<p>Hello Customer,</p><p>We are preparing your delicious food and your order will arrive shortly. Thank you for choosing Cloud Kitchen.</p>" & _
-"<div class='details'>" & _
-"<p><strong>🧾 Order ID:</strong> #" & orderId & "</p>" & _
-"<p><strong>💳 Transaction ID:</strong> " & transactionNumber & "</p>" & _
-"<p><strong>🚚 Delivery Address:</strong> " & deliveryAddress & "</p>" & _
-"<p><strong>📍 Pincode:</strong> " & deliveryPincode & "</p>" & _
-"<p><strong>💰 Payment Method:</strong> " & ddlPaymentType.SelectedValue & "</p>" & _
-"<p><strong>⏰ Estimated Delivery:</strong> 30 - 40 Minutes</p>" & _
-"</div>" & _
-"<h3 class='table-title'>🛒 Order Summary</h3>" & cartTable & _
-"<div class='total-box'>Total Amount: ₹" & totalAmountSum.ToString("F2") & "<br/><span style='font-size:12px; color:#64748b; font-weight:normal;'>(Incl. of all taxes & GST)</span></div>" & _
-"<center><a href='" & myOrdersUrl & "' class='button'>View My Orders</a></center>" & _
-"</div>" & _
-"<div class='footer'><p>Need help? Contact us anytime</p><p>📧 info.cloudkitchenn@gmail.com</p><p>© Cloud Kitchen - All Rights Reserved</p></div>" & _
+            Dim emailBody As String = "<!DOCTYPE html><html><head><style>" &
+"body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 20px; color: #334155; }" &
+".container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }" &
+".header { background: linear-gradient(135deg, #4F7E76, #3f6861); padding: 30px 20px; text-align: center; color: #ffffff; }" &
+".header h1 { margin: 0; font-size: 26px; font-weight: 700; }" &
+".header p { margin: 5px 0 0 0; font-size: 14px; opacity: 0.9; }" &
+".content { padding: 30px 25px; }" &
+".success-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 15px; text-align: center; margin-bottom: 25px; }" &
+".success-box h2 { color: #166534; margin: 0 0 5px 0; font-size: 18px; }" &
+".success-box p { color: #15803d; margin: 0; font-size: 14px; }" &
+".details { background: #f1f5f9; border-radius: 8px; padding: 18px; margin-bottom: 25px; }" &
+".details p { margin: 6px 0; font-size: 14px; color: #475569; }" &
+".details p strong { color: #0f172a; }" &
+".order-table { width: 100%; border-collapse: collapse; margin-top: 10px; }" &
+".order-table th { background: #e2e8f0; color: #1e293b; text-align: left; padding: 10px; font-size: 13px; text-transform: uppercase; }" &
+".order-table td { padding: 10px; border-bottom: 1px solid #e2e8f0; font-size: 14px; }" &
+".table-title { font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 20px; margin-bottom: 10px; border-bottom: 2px solid #4F7E76; padding-bottom: 5px; display: inline-block; }" &
+".total-box { text-align: right; margin-top: 15px; font-size: 18px; font-weight: 700; color: #166534; }" &
+".button { display: inline-block; background: #4F7E76; color: #ffffff !important; text-decoration: none; padding: 12px 28px; border-radius: 6px; font-weight: 600; margin-top: 25px; text-align: center; }" &
+".footer { background: #f8fafc; padding: 20px; text-align: center; font-size: 12px; color: #94a3b8; border-top: 1px solid #e2e8f0; }" &
+".footer p { margin: 4px 0; }" &
+"</style></head><body>" &
+"<div class='container'>" &
+"<div class='header'><h1>🍽 Cloud Kitchen</h1><p>Fresh Meals Delivered To Your Doorstep</p></div>" &
+"<div class='content'>" &
+"<div class='success-box'><h2>✅ Order Confirmed Successfully</h2><p>Thank you for ordering with Cloud Kitchen.</p></div>" &
+"<p>Hello Customer,</p><p>We are preparing your delicious food and your order will arrive shortly. Thank you for choosing Cloud Kitchen.</p>" &
+"<div class='details'>" &
+"<p><strong>🧾 Order ID:</strong> #" & orderId & "</p>" &
+"<p><strong>💳 Transaction ID:</strong> " & transactionNumber & "</p>" &
+"<p><strong>🚚 Delivery Address:</strong> " & deliveryAddress & "</p>" &
+"<p><strong>📍 Pincode:</strong> " & deliveryPincode & "</p>" &
+"<p><strong>💰 Payment Method:</strong> " & ddlPaymentType.SelectedValue & "</p>" &
+"<p><strong>⏰ Estimated Delivery:</strong> 30 - 40 Minutes</p>" &
+"</div>" &
+"<h3 class='table-title'>🛒 Order Summary</h3>" & cartTable &
+"<div class='total-box'>Total Amount: ₹" & totalAmountSum.ToString("F2") & "<br/><span style='font-size:12px; color:#64748b; font-weight:normal;'>(Incl. of all taxes & GST)</span></div>" &
+"<center><a href='" & myOrdersUrl & "' class='button'>View My Orders</a></center>" &
+"</div>" &
+"<div class='footer'><p>Need help? Contact us anytime</p><p>📧 info.cloudkitchenn@gmail.com</p><p>© Cloud Kitchen - All Rights Reserved</p></div>" &
 "</div></body></html>"
 
             mail.Body = emailBody
@@ -491,22 +491,22 @@ Public Class Cart
         If Session("c_name") IsNot Nothing Then customerName = Session("c_name").ToString()
         If Session("UserEmail") IsNot Nothing Then customerEmail = Session("UserEmail").ToString()
 
-        Dim script As String = "var options = {" & _
-            "'key': 'rzp_test_Sq7x7OL1DUIl17'," & _
-            "'amount': '" & amountInPaise.ToString() & "'," & _
-            "'currency': 'INR'," & _
-            "'name': 'Cloud Kitchen'," & _
-            "'description': 'Food Order Payment'," & _
-            "'image': '../icons/money.png'," & _
-            "'handler': function (response) {" & _
-            "    var btn = document.getElementById('" & btnCheckout.ClientID & "');" & _
-            "    if (btn) { btn.disabled = true; btn.value = '⏳ Confirming Order...'; }" & _
-            "    __doPostBack('PaymentSuccess', response.razorpay_payment_id);" & _
-            "}," & _
-            "'prefill': {'name': '" & customerName.Replace("'", "\'") & "', 'email': '" & customerEmail.Replace("'", "\'") & "'}," & _
-            "'theme': {'color': '#4F7E76'}," & _
-            "'modal': {'ondismiss': function () { var btn = document.getElementById('" & btnCheckout.ClientID & "'); if(btn){ btn.disabled = false; btn.value = '🚀 Place Order Now'; } }}" & _
-            "};" & _
+        Dim script As String = "var options = {" &
+            "'key': 'rzp_test_Sq7x7OL1DUIl17'," &
+            "'amount': '" & amountInPaise.ToString() & "'," &
+            "'currency': 'INR'," &
+            "'name': 'Cloud Kitchen'," &
+            "'description': 'Food Order Payment'," &
+            "'image': '../icons/money.png'," &
+            "'handler': function (response) {" &
+            "    var btn = document.getElementById('" & btnCheckout.ClientID & "');" &
+            "    if (btn) { btn.disabled = true; btn.value = '⏳ Confirming Order...'; }" &
+            "    __doPostBack('PaymentSuccess', response.razorpay_payment_id);" &
+            "}," &
+            "'prefill': {'name': '" & customerName.Replace("'", "\'") & "', 'email': '" & customerEmail.Replace("'", "\'") & "'}," &
+            "'theme': {'color': '#4F7E76'}," &
+            "'modal': {'ondismiss': function () { var btn = document.getElementById('" & btnCheckout.ClientID & "'); if(btn){ btn.disabled = false; btn.value = '🛍️ Place Order Now'; } }}" &
+            "};" &
             "var rzp1 = new Razorpay(options); rzp1.open();"
 
         ScriptManager.RegisterStartupScript(Me, Me.GetType(), "razorpay", script, True)
@@ -536,7 +536,7 @@ Public Class Cart
             ddlAreaPincode.DataValueField = "AreaVal"
             ddlAreaPincode.DataBind()
         End Using
-        ddlAreaPincode.Items.Insert(0, New ListItem("📍 Select Delivery Area & Pincode", ""))
+        ddlAreaPincode.Items.Insert(0, New ListItem("🚚 Select Delivery Area & Pincode", ""))
     End Sub
     'Protected Sub Button3_Click(ByVal sender As Object, ByVal e As EventArgs) Handles Button3.Click
 

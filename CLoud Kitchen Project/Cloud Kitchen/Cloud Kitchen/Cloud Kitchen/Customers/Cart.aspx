@@ -597,7 +597,7 @@
                                 <div class="form-group-cart">
                                     <label for="ddlAreaPincode">Delivery Area & Pincode</label>
                                     <asp:DropDownList ID="ddlAreaPincode" runat="server" ClientIDMode="Static" CssClass="ck-cart-field">
-                                        <asp:ListItem Text="📍 Select Delivery Area & Pincode" Value=""></asp:ListItem>
+                                        <asp:ListItem Text="🚚 Select Delivery Area & Pincode" Value=""></asp:ListItem>
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="rfvAreaPincode" runat="server" ControlToValidate="ddlAreaPincode" ErrorMessage="⚠ Please select your delivery area & pincode." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
                                 </div>
@@ -612,7 +612,7 @@
                                     <asp:RequiredFieldValidator ID="rfvPaymentType" runat="server" ControlToValidate="ddlPaymentType" ErrorMessage="⚠ Please select a payment method." CssClass="ck-validator" InitialValue="" Display="Dynamic" ValidationGroup="DeliveryDetails" EnableClientScript="true" ForeColor="#dc2626" />
                                 </div>
 
-                                <asp:Button ID="btnCheckout" runat="server" Text="🚀 Place Order Now" CssClass="btn-checkout-cta" ValidationGroup="DeliveryDetails" OnClick="Checkout_Click" OnClientClick="return onCheckoutClick(this);" />
+                                <asp:Button ID="btnCheckout" runat="server" Text="🛍️ Place Order Now" CssClass="btn-checkout-cta" ValidationGroup="DeliveryDetails" OnClick="Checkout_Click" OnClientClick="return onCheckoutClick(this);" />
                             </div>
 
                         </div>
