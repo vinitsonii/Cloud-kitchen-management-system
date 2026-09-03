@@ -27,57 +27,68 @@
             color: var(--text-main);
         }
 
-        .ck-cart-hero {
-            position: relative;
-            width: 100%;
-            min-height: 220px;
-            background: linear-gradient(135deg, rgba(45, 78, 72, 0.94), rgba(79, 126, 118, 0.92)), url('../Images/cp8.jpeg') center/cover no-repeat;
+        /* CLEAN MODERN PAGE LAYOUT (NO GREEN HERO OVERLAY) */
+        .cart-page-banner {
+            background: linear-gradient(135deg, #4F7E76 0%, #355b54 100%);
+            border-radius: 20px;
+            padding: 24px 28px;
+            color: #ffffff;
+            margin-bottom: 28px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #fff;
-            padding: 36px 20px;
+            justify-content: space-between;
+            box-shadow: 0 8px 25px rgba(79, 126, 118, 0.25);
         }
 
-        .ck-cart-hero .hero-inner span {
-            font-size: clamp(1.2rem, 3.5vw, 1.7rem);
+        .cart-page-banner h2 {
+            font-size: 1.45rem;
             font-weight: 800;
-            letter-spacing: .3px;
-            background: rgba(255, 255, 255, 0.18);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 12px 28px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            display: inline-block;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin: 0 0 4px 0;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-page-banner p {
+            font-size: 0.92rem;
+            margin: 0;
+            opacity: 0.9;
         }
 
         .cart-container-main {
             max-width: 1140px;
-            margin: -35px auto 60px;
-            padding: 0 16px;
+            margin: 30px auto 60px;
+            padding: 0 20px;
             position: relative;
             z-index: 10;
         }
 
         /* PLAN 2 LAYOUT GRID & TABLE STYLING */
         .plan2-top-section {
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .plan2-bottom-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            align-items: start;
+            gap: 28px;
+            align-items: stretch;
         }
 
         @media (max-width: 900px) {
             .plan2-bottom-grid {
                 grid-template-columns: 1fr;
             }
+        }
+
+        .cart-card-box {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1.5px solid #e2e8f0;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+            padding: 26px;
+            box-sizing: border-box;
         }
 
         .cart-items-table-wrap {
@@ -97,7 +108,7 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 12px 16px;
+            padding: 14px 16px;
             border-bottom: 2px solid #e2e8f0;
             text-align: left;
         }
@@ -124,7 +135,7 @@
         }
 
         .cart-box-title {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: #0f172a;
             display: flex;
@@ -132,7 +143,7 @@
             justify-content: space-between;
             margin-bottom: 20px;
             padding-bottom: 14px;
-            border-bottom: 1.5px solid #e2e8f0;
+            border-bottom: 1.5px solid #f1f5f9;
         }
 
         /* CART ITEM STYLING - INDIVIDUAL CARD BOXES */
@@ -527,13 +538,16 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
-    <div class="ck-cart-hero">
-        <div class="hero-inner">
-            <span>🍽️ Your favorite meals, prepared with love!</span>
-        </div>
-    </div>
-
     <div class="cart-container-main">
+        
+        <div class="cart-page-banner">
+            <div>
+                <h2>🛒 Your Order & Checkout</h2>
+                <p>Review your dishes, select your delivery location, and choose a payment method.</p>
+            </div>
+            <div style="font-size:1.8rem; opacity:0.85;">🍽️</div>
+        </div>
+
         <asp:Panel ID="pnlfill" runat="server">
             
             <!-- UPDATE PANEL WRAPS ENTIRE CART LAYOUT (PLAN 2: TOP-TO-BOTTOM) -->
