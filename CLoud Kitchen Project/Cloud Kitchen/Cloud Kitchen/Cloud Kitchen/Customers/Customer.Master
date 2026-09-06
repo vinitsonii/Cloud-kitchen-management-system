@@ -476,12 +476,66 @@ html, body{
             transform: scale(1.35);
         }
 
+        .footer-links-grid {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links-grid li {
+            margin-bottom: 9px;
+        }
+
+        .footer-links-grid li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.74);
+            text-decoration: none;
+            transition: color 0.25s ease, transform 0.25s ease;
+        }
+
+        .footer-links-grid li a::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--ck-accent);
+            opacity: 0.8;
+            transition: transform 0.25s ease;
+        }
+
+        .footer-links-grid li a:hover {
+            color: var(--ck-accent);
+        }
+
+        .footer-links-grid li a:hover::before {
+            transform: scale(1.35);
+        }
+
         .ck-footer .contact-item {
-            display: grid;
-            grid-template-columns: 38px minmax(0, 1fr);
+            display: flex;
+            align-items: center;
             gap: 12px;
-            align-items: start;
-            margin-bottom: 14px;
+            padding: 10px 14px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 10px;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+        }
+
+        .ck-footer .contact-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 159, 67, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .ck-footer .contact-item div {
+            min-width: 0;
+            overflow-wrap: anywhere;
+            word-break: break-word;
         }
 
         .ck-footer .contact-item i {
@@ -501,7 +555,7 @@ html, body{
         .contact-label {
             display: block;
             color: rgba(255, 255, 255, 0.42);
-            font-size: 0.74rem;
+            font-size: 0.72rem;
             font-weight: 800;
             letter-spacing: 0.8px;
             text-transform: uppercase;
@@ -538,17 +592,28 @@ html, body{
         }
 
         .footer-hours {
-            margin-top: 18px;
-            padding: 14px;
+            margin-top: 16px;
+            padding: 12px 14px;
             border-radius: 16px;
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            color: rgba(255, 255, 255, 0.68);
-            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 0.86rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-hours-icon {
+            font-size: 1.35rem;
+            color: var(--ck-accent);
+            flex-shrink: 0;
         }
 
         .footer-hours strong {
             color: #ffffff;
+            display: block;
+            font-size: 0.88rem;
         }
 
         .ck-footer-bottom {
@@ -573,28 +638,34 @@ html, body{
         .footer-bottom-links {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .footer-bottom-links a {
             color: rgba(255, 255, 255, 0.52);
             text-decoration: none;
+            padding: 4px 10px;
+            border-radius: 8px;
+            transition: color 0.25s ease, background 0.25s ease;
         }
 
         .footer-bottom-links a:hover {
             color: var(--ck-accent);
+            background: rgba(255, 255, 255, 0.06);
         }
 
-        @keyframes ck-reveal {
-            from { opacity: 0; transform: translateY(24px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @supports (animation-timeline: view()) {
+            @keyframes ck-reveal {
+                from { opacity: 0; transform: translateY(24px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
 
-        .reveal {
-            animation: ck-reveal linear;
-            animation-timeline: view();
-            animation-range: entry 0% cover 34%;
+            .reveal {
+                animation: ck-reveal linear;
+                animation-timeline: view();
+                animation-range: entry 0% cover 34%;
+            }
         }
 
 
@@ -665,7 +736,7 @@ html, body{
         flex-direction: column;
         align-items: flex-start;
         text-align: left;
-        padding: 22px;
+        padding: 24px;
         border-radius: 22px;
     }
 
@@ -675,7 +746,13 @@ html, body{
     }
 }
 
-
+@media (max-width: 767.98px) {
+    .footer-links-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px 16px;
+    }
+}
 
 @media (max-width: 575.98px) {
 
@@ -720,26 +797,22 @@ html, body{
 
 
     .ck-footer {
-        padding-top: 50px;
+        padding-top: 40px;
     }
 
     .footer-cta {
-        padding: 20px 18px;
-        gap: 18px;
+        padding: 20px 16px;
+        gap: 16px;
     }
 
     .footer-cta-title {
-        font-size: 1.7rem;
+        font-size: 1.5rem;
         line-height: 1.2;
     }
 
     .footer-cta-text {
-        font-size: 0.92rem;
-        line-height: 1.7;
-    }
-
-    .footer-main .row > div {
-        margin-bottom: 12px;
+        font-size: 0.9rem;
+        line-height: 1.6;
     }
 
     .footer-brand {
@@ -747,8 +820,8 @@ html, body{
     }
 
     .footer-note {
-        font-size: 0.9rem;
-        line-height: 1.7;
+        font-size: 0.88rem;
+        line-height: 1.65;
     }
 
     .footer-badges {
@@ -756,12 +829,12 @@ html, body{
     }
 
     .footer-badge {
-        font-size: 0.72rem;
-        padding: 7px 10px;
+        font-size: 0.74rem;
+        padding: 6px 10px;
     }
 
     .contact-item {
-        grid-template-columns: 34px 1fr !important;
+        padding: 8px 12px !important;
         gap: 10px !important;
     }
 
@@ -783,23 +856,24 @@ html, body{
     }
 
     .footer-hours {
-        padding: 12px;
+        padding: 10px 12px;
         font-size: 0.82rem;
     }
 
     .ck-footer-bottom {
-        margin-top: 40px;
+        margin-top: 36px;
         padding: 16px 0;
     }
 
     .footer-bottom-inner {
         flex-direction: column;
         text-align: center;
-        gap: 10px;
+        gap: 12px;
     }
 
     .footer-bottom-links {
         justify-content: center;
+        gap: 6px 10px;
     }
 }
 
@@ -812,7 +886,7 @@ html, body{
     }
 
     .footer-cta-title {
-        font-size: 1.45rem;
+        font-size: 1.4rem;
     }
 
     .footer-cta-link {
@@ -897,8 +971,8 @@ html, body{
             </div>
 
             <div class="footer-main">
-                <div class="row g-5">
-                    <div class="col-12 col-lg-4 reveal">
+                <div class="row g-4 g-lg-5">
+                    <div class="col-12 col-md-6 col-lg-4 reveal">
                         <div class="footer-brand">
                             <span class="ck-brand-mark"><i class="bi bi-egg-fried"></i></span>
                             <span>Cloud Kitchen</span>
@@ -911,9 +985,9 @@ html, body{
                         </div>
                     </div>
 
-                    <div class="col-6 col-md-4 col-lg-2 reveal">
+                    <div class="col-12 col-md-6 col-lg-2 reveal">
                         <h5>Quick Links</h5>
-                        <ul>
+                        <ul class="footer-links-grid">
                             <li><a href="Home.aspx">Home</a></li>
                             <li><a href="Menu.aspx">Menu</a></li>
                             <li><a href="Cart.aspx">Cart</a></li>
@@ -922,34 +996,34 @@ html, body{
                         </ul>
                     </div>
 
-                    <div class="col-12 col-md-4 col-lg-3 reveal">
+                    <div class="col-12 col-md-6 col-lg-3 reveal">
                         <h5>Contact Us</h5>
                         <div class="contact-item">
                             <i class="bi bi-geo-alt-fill"></i>
-                            <span>
+                            <div>
                                 <span class="contact-label">Location</span>
-                               Anand
-                            </span>
+                                <span>Anand, Gujarat</span>
+                            </div>
                         </div>
                         <div class="contact-item">
                             <i class="bi bi-telephone-fill"></i>
-                            <span>
+                            <div>
                                 <span class="contact-label">Phone</span>
-                                <a href="tel:9876543210">9876543210</a>
-                            </span>
+                                <a href="tel:9876543210">+91 98765 43210</a>
+                            </div>
                         </div>
                         <div class="contact-item">
                             <i class="bi bi-envelope-fill"></i>
-                            <span>
+                            <div>
                                 <span class="contact-label">Email</span>
-                                <a href="mailto:info.cloudkitchenn@gmail.com">info.cloudkitchen@gmail.com</a>
-                            </span>
+                                <a href="mailto:info.cloudkitchen@gmail.com">info.cloudkitchen@gmail.com</a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4 col-lg-3 reveal">
+                    <div class="col-12 col-md-6 col-lg-3 reveal">
                         <h5>Follow Us</h5>
-                        <p class="footer-note">Stay connected for daily specials, new dishes, and offers.</p>
+                        <p class="footer-note" style="margin-bottom: 10px;">Stay connected for daily specials, new dishes, and offers.</p>
                         <div class="social-row">
                             <a href="#" class="social-link" title="Facebook" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
                             <a href="#" class="social-link" title="Twitter" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
@@ -957,8 +1031,11 @@ html, body{
                             <a href="#" class="social-link" title="YouTube" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
                         </div>
                         <div class="footer-hours">
-                            <strong>Serving hours:</strong><br />
-                            Monday to Sunday, 10:00 AM - 11:00 PM
+                            <i class="bi bi-clock-history footer-hours-icon"></i>
+                            <div>
+                                <strong>Serving hours</strong>
+                                <span>Monday - Sunday: 10:00 AM - 11:00 PM</span>
+                            </div>
                         </div>
                     </div>
                 </div>
