@@ -610,8 +610,8 @@
                         <p class="card-desc"><%# Eval("m_description") %></p>
 
                         <div class="menu-tags">
-                            <span class="tag category-tag"><i class="fas fa-utensils"></i> <%# Eval("category_name") %></span>
-                            <span class="tag cuisine-tag"><i class="fas fa-earth-asia"></i> <%# Eval("cuisine_name") %></span>
+                            <span class="tag category-tag"><i class='<%# GetCategoryIcon(Eval("category_name")) %>'></i> <%# Eval("category_name") %></span>
+                            <span class="tag cuisine-tag"><i class='<%# GetCuisineIcon(Eval("cuisine_name")) %>'></i> <%# Eval("cuisine_name") %></span>
                         </div>
 
                         <div class="card-footer-action">

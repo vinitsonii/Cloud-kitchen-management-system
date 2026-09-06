@@ -212,5 +212,41 @@ Public Class Menu
         Return item
     End Function
 
+    Public Function GetCategoryIcon(ByVal categoryName As Object) As String
+        If categoryName Is Nothing OrElse IsDBNull(categoryName) Then Return "fas fa-utensils"
+        Dim name As String = categoryName.ToString().Trim().ToLower()
+
+        If name.Contains("dessert") OrElse name.Contains("sweet") OrElse name.Contains("ice cream") OrElse name.Contains("cake") Then
+            Return "fas fa-cake-candles"
+        ElseIf name.Contains("beverage") OrElse name.Contains("drink") OrElse name.Contains("shake") OrElse name.Contains("juice") OrElse name.Contains("tea") OrElse name.Contains("coffee") Then
+            Return "fas fa-glass-water"
+        ElseIf name.Contains("starter") OrElse name.Contains("snack") OrElse name.Contains("appetizer") OrElse name.Contains("finger") Then
+            Return "fas fa-cookie-bite"
+        ElseIf name.Contains("pizza") OrElse name.Contains("burger") OrElse name.Contains("fast food") OrElse name.Contains("sandwich") Then
+            Return "fas fa-pizza-slice"
+        ElseIf name.Contains("main") OrElse name.Contains("thali") OrElse name.Contains("meal") OrElse name.Contains("rice") OrElse name.Contains("roti") Then
+            Return "fas fa-bowl-rice"
+        Else
+            Return "fas fa-utensils"
+        End If
+    End Function
+
+    Public Function GetCuisineIcon(ByVal cuisineName As Object) As String
+        If cuisineName Is Nothing OrElse IsDBNull(cuisineName) Then Return "fas fa-utensils"
+        Dim name As String = cuisineName.ToString().Trim().ToLower()
+
+        If name.Contains("indian") OrElse name.Contains("deshi") OrElse name.Contains("gujarati") OrElse name.Contains("punjabi") Then
+            Return "fas fa-pepper-hot"
+        ElseIf name.Contains("chinese") OrElse name.Contains("asian") OrElse name.Contains("noodle") Then
+            Return "fas fa-bowl-food"
+        ElseIf name.Contains("italian") OrElse name.Contains("pasta") OrElse name.Contains("pizza") Then
+            Return "fas fa-pizza-slice"
+        ElseIf name.Contains("dessert") OrElse name.Contains("sweet") OrElse name.Contains("bakery") Then
+            Return "fas fa-ice-cream"
+        Else
+            Return "fas fa-fire-flame-curved"
+        End If
+    End Function
+
 
 End Class
