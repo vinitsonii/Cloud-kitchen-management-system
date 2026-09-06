@@ -362,15 +362,33 @@ html, body{
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 18px;
+            margin-top: 0;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.72rem;
+            position: relative;
             color: #ffffff;
             font-weight: 900;
             font-size: 1.2rem;
+            line-height: 1;
+            height: 2.2rem;
+        }
+
+        .footer-brand::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 42px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--ck-accent), rgba(255, 159, 67, 0.25));
+            border-radius: 999px;
         }
 
         .footer-brand .ck-brand-mark {
-            width: 46px;
-            height: 46px;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            font-size: 1.1rem;
         }
 
         .footer-note {
@@ -409,12 +427,17 @@ html, body{
             font-family: 'Poppins', system-ui, sans-serif;
             font-size: 0.95rem;
             color: #ffffff;
+            margin-top: 0;
             margin-bottom: 1.2rem;
             position: relative;
             padding-bottom: 0.72rem;
             font-weight: 800;
             letter-spacing: 1.1px;
             text-transform: uppercase;
+            line-height: 1;
+            height: 2.2rem;
+            display: flex;
+            align-items: center;
         }
 
         .ck-footer h5::after,
@@ -534,8 +557,16 @@ html, body{
 
         .ck-footer .contact-item div {
             min-width: 0;
-            overflow-wrap: anywhere;
-            word-break: break-word;
+            flex: 1;
+        }
+
+        .ck-footer .contact-item a,
+        .ck-footer .contact-item span:not(.contact-label) {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.88rem;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
         }
 
         .ck-footer .contact-item i {
@@ -972,7 +1003,7 @@ html, body{
 
             <div class="footer-main">
                 <div class="row g-4 g-lg-5">
-                    <div class="col-12 col-md-6 col-lg-4 reveal">
+                    <div class="col-12 col-md-6 col-lg-3 reveal">
                         <div class="footer-brand">
                             <span class="ck-brand-mark"><i class="bi bi-egg-fried"></i></span>
                             <span>Cloud Kitchen</span>
@@ -996,7 +1027,7 @@ html, body{
                         </ul>
                     </div>
 
-                    <div class="col-12 col-md-6 col-lg-3 reveal">
+                    <div class="col-12 col-md-6 col-lg-4 reveal">
                         <h5>Contact Us</h5>
                         <div class="contact-item">
                             <i class="bi bi-geo-alt-fill"></i>
