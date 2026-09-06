@@ -216,15 +216,17 @@ Public Class Menu
         If categoryName Is Nothing OrElse IsDBNull(categoryName) Then Return "fas fa-utensils"
         Dim name As String = categoryName.ToString().Trim().ToLower()
 
-        If name.Contains("dessert") OrElse name.Contains("sweet") OrElse name.Contains("ice cream") OrElse name.Contains("cake") Then
+        If name.Contains("veg") AndAlso Not name.Contains("non") Then
+            Return "fas fa-seedling"
+        ElseIf name.Contains("non veg") OrElse name.Contains("non-veg") OrElse name.Contains("meat") OrElse name.Contains("chicken") Then
+            Return "fas fa-drumstick-bite"
+        ElseIf name.Contains("sweet") OrElse name.Contains("dessert") OrElse name.Contains("cake") OrElse name.Contains("ice cream") Then
             Return "fas fa-cake-candles"
-        ElseIf name.Contains("beverage") OrElse name.Contains("drink") OrElse name.Contains("shake") OrElse name.Contains("juice") OrElse name.Contains("tea") OrElse name.Contains("coffee") Then
-            Return "fas fa-glass-water"
-        ElseIf name.Contains("starter") OrElse name.Contains("snack") OrElse name.Contains("appetizer") OrElse name.Contains("finger") Then
+        ElseIf name.Contains("snack") OrElse name.Contains("starter") OrElse name.Contains("appetizer") OrElse name.Contains("fast food") Then
             Return "fas fa-cookie-bite"
-        ElseIf name.Contains("pizza") OrElse name.Contains("burger") OrElse name.Contains("fast food") OrElse name.Contains("sandwich") Then
-            Return "fas fa-pizza-slice"
-        ElseIf name.Contains("main") OrElse name.Contains("thali") OrElse name.Contains("meal") OrElse name.Contains("rice") OrElse name.Contains("roti") Then
+        ElseIf name.Contains("beverage") OrElse name.Contains("drink") OrElse name.Contains("juice") OrElse name.Contains("shake") Then
+            Return "fas fa-glass-water"
+        ElseIf name.Contains("main") OrElse name.Contains("thali") OrElse name.Contains("meal") Then
             Return "fas fa-bowl-rice"
         Else
             Return "fas fa-utensils"
@@ -235,14 +237,20 @@ Public Class Menu
         If cuisineName Is Nothing OrElse IsDBNull(cuisineName) Then Return "fas fa-utensils"
         Dim name As String = cuisineName.ToString().Trim().ToLower()
 
-        If name.Contains("indian") OrElse name.Contains("deshi") OrElse name.Contains("gujarati") OrElse name.Contains("punjabi") Then
+        If name.Contains("dessert") OrElse name.Contains("sweet") OrElse name.Contains("ice cream") Then
+            Return "fas fa-ice-cream"
+        ElseIf name.Contains("mughlai") OrElse name.Contains("royal") OrElse name.Contains("kebab") OrElse name.Contains("biryani") Then
+            Return "fas fa-crown"
+        ElseIf name.Contains("street") OrElse name.Contains("chaat") OrElse name.Contains("fast food") Then
             Return "fas fa-pepper-hot"
+        ElseIf name.Contains("north indian") OrElse name.Contains("punjabi") OrElse name.Contains("thali") Then
+            Return "fas fa-bowl-rice"
+        ElseIf name.Contains("south indian") OrElse name.Contains("dosa") OrElse name.Contains("idli") Then
+            Return "fas fa-fire-flame-curved"
         ElseIf name.Contains("chinese") OrElse name.Contains("asian") OrElse name.Contains("noodle") Then
             Return "fas fa-bowl-food"
-        ElseIf name.Contains("italian") OrElse name.Contains("pasta") OrElse name.Contains("pizza") Then
+        ElseIf name.Contains("italian") OrElse name.Contains("pizza") OrElse name.Contains("pasta") Then
             Return "fas fa-pizza-slice"
-        ElseIf name.Contains("dessert") OrElse name.Contains("sweet") OrElse name.Contains("bakery") Then
-            Return "fas fa-ice-cream"
         Else
             Return "fas fa-fire-flame-curved"
         End If
